@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
+    <wb-module deploy-name="GDJ41_jiping_semi">
+                
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+                
+        <property name="java-output-path" value="/GDJ41_jiping_semi/src/main/webapp/WEB-INF/classes"/>
+        <property name="context-root" value="GDJ41_jiping_semi"/>
+            
+    </wb-module>
+    
+</project-modules>
