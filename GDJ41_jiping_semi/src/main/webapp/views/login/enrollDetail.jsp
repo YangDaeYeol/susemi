@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,10 +205,8 @@ input[type='radio' ]:checked + label[for="female"] {
 				<option value="productD" class="sc4">제품 디자인</option>
 				<option value="videoD" class="sc4">영상 편집/제작</option>	
 			</select>
-			<button class="w-100 btn btn-lg btn_mint mt-2" id="categoryinsert">추가</button>
+			<button class="w-100 btn btn-lg btn_mint mt-2 mb-3" id="categoryinsert">추가</button>
 		</div>
-		<!-- 지역 -->
-		<!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
 		<div class="location-container">
 			<span class="loginContent fs_14">관심지역 선택</span>
 			<form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();">
@@ -220,7 +220,6 @@ input[type='radio' ]:checked + label[for="female"] {
 			</form>
 			<button class="w-100 btn btn-lg btn_mint mt-2 mb-3" id="locationinsert">추가</button>
 		</div>
-		<!-- 지역끝 -->
 	
 	    <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">다음</button>
 		
@@ -258,7 +257,7 @@ input[type='radio' ]:checked + label[for="female"] {
 						let 행정구역코드 = f.properties.ctprvn_cd;
 						let 행정구역명 = f.properties.ctp_kor_nm;
 						
-						html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+						html +=`<option value="${행정구역코드}">${f.properties.ctp_kor_nm}</option>`
 						
 					})
 					
@@ -286,7 +285,7 @@ input[type='radio' ]:checked + label[for="female"] {
 							let 행정구역코드 = f.properties.sig_cd;
 							let 행정구역명 = f.properties.sig_kor_nm;
 							
-							html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+							html +=`<option value="$(행정구역코드)">$(행정구역명)</option>`
 							
 						})
 			            $('#sigoon_code').html(html);
@@ -313,7 +312,7 @@ input[type='radio' ]:checked + label[for="female"] {
 							console.log(f.properties)
 							let 행정구역코드 = f.properties.emd_cd;
 							let 행정구역명 = f.properties.emd_kor_nm;
-							html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+							html +=`<option value="$(행정구역코드)">$(행정구역명)</option>`
 							
 						})
 			            $('#dong_code').html(html);
@@ -323,7 +322,7 @@ input[type='radio' ]:checked + label[for="female"] {
 				});
 
 			});
-		})
+		})	
 		
 	
 	</script>
