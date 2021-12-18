@@ -105,7 +105,7 @@ input::placeholder{
 
 </style>
 <meta charset="UTF-8">
-<title>로그인 페이지</title>
+<title>이메일 인증 페이지</title>
 </head>
  <body class="text-center">
     
