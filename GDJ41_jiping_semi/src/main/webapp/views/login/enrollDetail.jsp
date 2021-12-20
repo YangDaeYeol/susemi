@@ -210,7 +210,7 @@ input[type='radio' ]:checked + label[for="female"] {
 						let 행정구역코드 = f.properties.ctprvn_cd;
 						let 행정구역명 = f.properties.ctp_kor_nm;
 						
-						html +=`<option value="${행정구역코드}">${f.properties.ctp_kor_nm}</option>`
+						html +="<option value='"+f.properties.ctprvn_cd+"'>"+f.properties.ctp_kor_nm+"</option>"
 						
 					})
 					
@@ -238,7 +238,7 @@ input[type='radio' ]:checked + label[for="female"] {
 							let 행정구역코드 = f.properties.sig_cd;
 							let 행정구역명 = f.properties.sig_kor_nm;
 							
-							html +=`<option value="$(행정구역코드)">$(행정구역명)</option>`
+							html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
 							
 						})
 			            $('#sigoon_code').html(html);
@@ -265,7 +265,7 @@ input[type='radio' ]:checked + label[for="female"] {
 							console.log(f.properties)
 							let 행정구역코드 = f.properties.emd_cd;
 							let 행정구역명 = f.properties.emd_kor_nm;
-							html +=`<option value="$(행정구역코드)">$(행정구역명)</option>`
+							html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
 							
 						})
 			            $('#dong_code').html(html);
