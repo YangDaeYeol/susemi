@@ -42,7 +42,13 @@ body {
 	background-color: #94d5de;
 	color: white;
 }
-
+.warningMsg{
+	display:block; 
+	text-align: left; 
+	margin: 3px 0px 0px 5px; 
+	color: red; 
+	font-size: 10px;
+}
 
 </style>
 <meta charset="UTF-8">
@@ -59,17 +65,18 @@ body {
 	    </h4>
 	
 	    <div class="userName-container">
-	      <input type="text" class="form-control" id="userName" placeholder="이름(실명)을 입력해주세요">
+	    	<input type="text" class="form-control" id="userName" placeholder="이름(실명)을 입력해주세요">
 	    </div>
 	    <div class="userNickName-container">
-	      <input type="text" class="form-control" id="userNickName" placeholder="닉네임을 입력해주세요">
+	      	<input type="text" class="form-control" id="userNickName" placeholder="닉네임을 입력해주세요">
+		  	<span class="warningMsg">이미 사용하고 있는 닉네임입니다.</span>
 	    </div>
 	    <div class="pw-container">
-	      <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
-	      
+	      	<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
+			<span class="warningMsg">비밀번호는 대/소문자,숫자,특수기호를 포함한 8자리 이상을 입력해주세요</span>
 	    </div>
 	    <div class="pwck-container">
-	      <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 재입력해주세요">
+	      	<input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 재입력해주세요">
 	      
 	    </div>
 	
