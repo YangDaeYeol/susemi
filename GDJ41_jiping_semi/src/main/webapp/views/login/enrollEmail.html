@@ -82,6 +82,14 @@ input::placeholder{
 	color: #c4c4c4c4;
 }
 
+.warningMsg{
+	display:block; 
+	text-align: left; 
+	margin: 3px 0px 0px 5px; 
+	color: red; 
+	font-size: 10px;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>이메일 인증 페이지</title>
@@ -99,13 +107,14 @@ input::placeholder{
 	    <div class="email-container">
 		<span class="loginContent fs_14">이메일 주소</span>
 	    <input type="email" class="form" id="email" placeholder="인증 받을 이메일 주소를 입력해주세요"><button class="w-25 btn btn_mint mb-1">번호 전송</button>
-	    
+	    <span class="warningMsg">이미 존재하는 이메일 주소입니다.</span>
+		
 	    </div>
 	    
 	    <div class="CN-container">
 		<span class="loginContent fs_14">인증 번호</span>
 	    <input type="text" class="form" id="Certification_Number" placeholder="인증 번호를 입력해주세요"><button class="w-25 btn btn_mint mb-1">인증</button>
-	      
+	    <span class="warningMsg">인증번호가 옳지 않습니다.</span>
 	    </div>
 	
 	    <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">확인</button>
