@@ -46,6 +46,9 @@ body {
 	width: 95%;
 	margin: 20px auto 20px auto;
 }
+.categorydiv1, .categorydiv2 {
+	padding-top: 5px;
+}
 
 .fs_14{
 	font-size: 14px;
@@ -95,6 +98,53 @@ input[type='radio' ]:checked + label[for="female"] {
 .form-select option{
 	color: #c4c4c4;
 }
+/* 토글 버튼 */
+.toggle {
+        position: relative;
+        display: inline-block;
+    }
+    .toggle input {
+        display: none;
+    }
+    .toggle label {
+        display: block;
+        width: 48px;
+        height: 24px;
+        text-indent: -250%; /* 라벨 텍스트 왼쪽으로 이동*/
+        user-select: none; /* 라벨 텍스트 선택 차단 */
+    }
+    .toggle label::before,
+    .toggle label::after {
+        content: "";
+        display: block;
+        position: absolute;
+        cursor: pointer;
+    }
+    .toggle label::before { /* 배경 */
+        width: 100%;
+        height: 100%;
+        background-color: #dedede;
+        border-radius: 1em;
+        -webkit-transition: background-color 0.25s ease;
+        transition: background-color 0.25s ease;/* 배경색 애니메이션*/
+    }
+    .toggle label::after { /* 스위치 */
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.45);
+        -webkit-transition: left 0.25s ease;
+        transition: left 0.25s ease; /* 스위치 이동 애니메이션 */
+    }
+    .toggle input:checked + label::before {
+        background-color: skyblue; /* 켠 상태 배경색 */
+    }
+    .toggle input:checked + label::after { /* 켠 상태 스위치 위치 */
+        left: 24px;
+    }
 
 </style>
 <meta charset="UTF-8">
@@ -125,6 +175,7 @@ input[type='radio' ]:checked + label[for="female"] {
 		</div>
 		<div class="category-container">
 			<span class="loginContent fs_14">관심분야 선택</span>
+			<div class="categorydiv">
 			<select name="largeCategory" class="form-select" id="largeCategory">
 				<option value="0" selected="selected">대분류</option>
 				<option value="1">취미/공예</option>
@@ -156,12 +207,15 @@ input[type='radio' ]:checked + label[for="female"] {
 				<option value="productD" class="sc4">제품 디자인</option>
 				<option value="videoD" class="sc4">영상 편집/제작</option>	
 			</select>
-			<button class="w-100 btn btn-lg btn_mint mt-2" id="categoryinsert">추가</button>
+			</div>
+			<div class="categoryAddDiv"></div>
+			<button class="w-100 btn btn-lg btn_mint mt-2" id="categoryinsert" type="button">추가</button>
 		</div>
 		<!-- 지역 -->
 		<!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
 		<div class="location-container">
 			<span class="loginContent fs_14">관심지역 선택</span>
+			<div class="locationdiv">
 			<form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();">
 				
 				<select id="sido_code" class="form-select">
@@ -171,15 +225,84 @@ input[type='radio' ]:checked + label[for="female"] {
 					<option>선택</option>
 				</select>
 			</form>
-			<button class="w-100 btn btn-lg btn_mint mt-2 mb-3" id="locationinsert">추가</button>
+			<form id="nsdiSearchForm2" action="#" class="form_data d-none" onsubmit="return false;search();">
+				
+				<select id="sido_code2" class="form-select">
+					<option>선택</option>
+				</select>
+				<select id="sigoon_code2" class="form-select">
+					<option>선택</option>
+				</select>
+			</form>
+			<form id="nsdiSearchForm3" action="#" class="form_data d-none" onsubmit="return false;search();">
+				
+				<select id="sido_code3" class="form-select">
+					<option>선택</option>
+				</select>
+				<select id="sigoon_code3" class="form-select">
+					<option>선택</option>
+				</select>
+			</form>
+			</div>
+			<button class="w-100 btn btn-lg btn_mint mt-2 mb-3" id="locationinsert" type="button">추가</button>
 		</div>
 		<!-- 지역끝 -->
-	
+		<!-- 마케팅 시작 -->
+		<div class="marketing-container mb-5" style="text-align: center;">
+			<h4 class="loginContent d-inline" style="margin-right: 30px;">마케팅 정보수신</h4>
+			
+			<div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+				<input type="checkbox" name="toggle1" id="toggle1">
+				<label for="toggle1"></label>
+			</div>
+			
+		</div>  
+		<!-- 마케팅 끝 -->
 	    <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">다음</button>
 		
 	  </form>
 	</main>
 	<script>
+
+		//버튼 on/off 스크립트
+		const check=document.getElementById("toggle1");
+		
+		$("#toggle1").click(e=>{
+			if(check.checked){
+				console.log("on");
+			}else{
+				console.log("off");
+			}
+		});
+
+		//관심 분야 선택 스크립트
+		let categoryNum = 0;
+		$("#categoryinsert").click(e=>{
+			const div=$(".categorydiv").clone();
+			categoryNum++;
+			if(categoryNum<2){
+				div.removeClass("categorydiv").addClass("categorydiv"+categoryNum);	
+				$(".categoryAddDiv").append(div);
+			}else{
+				div.removeClass("categorydiv").addClass("categorydiv"+categoryNum);	
+				$(".categoryAddDiv").append(div);
+				$("#categoryinsert").addClass("d-none");
+			}
+		})
+
+		//관심 지역 선택 스크립트
+		let locationNum = 1;
+		$("#locationinsert").click(e=>{
+			locationNum++;
+			if(locationNum<3){
+				$("#nsdiSearchForm"+locationNum).removeClass("d-none").addClass("d-block");
+			}else{
+				$("#nsdiSearchForm"+locationNum).removeClass("d-none").addClass("d-block");
+				$("#locationinsert").addClass("d-none");
+			}
+		})
+
+		//카테고리 대분류 소분류 가동 스크립트
 		var categories = false;
 
 		function update_selected() {
@@ -197,6 +320,7 @@ input[type='radio' ]:checked + label[for="female"] {
 		$("#largeCategory").trigger("change");
 		});
 
+		//주소 api 변경
 		$(function(){
 			$.ajax({
 				type: "get",
@@ -216,6 +340,8 @@ input[type='radio' ]:checked + label[for="female"] {
 					})
 					
 		            $('#sido_code').html(html);
+		            $('#sido_code2').html(html);
+		            $('#sido_code3').html(html);
 					
 				},
 				error: function(xhr, stat, err) {}
@@ -276,9 +402,119 @@ input[type='radio' ]:checked + label[for="female"] {
 				});
 
 			});
+
+			$(document).on("change","#sido_code2",function(){
+				let thisVal = $(this).val();		
+
+				$.ajax({
+					type: "get",
+					url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+					data : {attrfilter : 'sig_cd:like:'+thisVal},
+					async: false,
+					dataType: 'jsonp',
+					success: function(data) {
+						let html = "<option>선택</option>";
+
+						data.response.result.featureCollection.features.forEach(function(f){
+							console.log(f.properties)
+							let 행정구역코드 = f.properties.sig_cd;
+							let 행정구역명 = f.properties.sig_kor_nm;
+							
+							html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+							
+						})
+			            $('#sigoon_code2').html(html);
+						
+					},
+					error: function(xhr, stat, err) {}
+				});
+			});
+			
+			$(document).on("change","#sigoon_code2",function(){ 
+				
+				let thisVal = $(this).val();		
+
+				$.ajax({
+					type: "get",
+					url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+					data : {attrfilter : 'emd_cd:like:'+thisVal},
+					async: false,
+					dataType: 'jsonp',
+					success: function(data) {
+						let html = "<option>선택</option>";
+
+						data.response.result.featureCollection.features.forEach(function(f){
+							console.log(f.properties)
+							let 행정구역코드 = f.properties.emd_cd;
+							let 행정구역명 = f.properties.emd_kor_nm;
+							html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+							
+						})
+			            $('#dong_code2').html(html);
+						
+					},
+					error: function(xhr, stat, err) {}
+				});
+
+			});
+
+			$(document).on("change","#sido_code3",function(){
+				let thisVal = $(this).val();		
+
+				$.ajax({
+					type: "get",
+					url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+					data : {attrfilter : 'sig_cd:like:'+thisVal},
+					async: false,
+					dataType: 'jsonp',
+					success: function(data) {
+						let html = "<option>선택</option>";
+
+						data.response.result.featureCollection.features.forEach(function(f){
+							console.log(f.properties)
+							let 행정구역코드 = f.properties.sig_cd;
+							let 행정구역명 = f.properties.sig_kor_nm;
+							
+							html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+							
+						})
+			            $('#sigoon_code3').html(html);
+						
+					},
+					error: function(xhr, stat, err) {}
+				});
+			});
+			
+			$(document).on("change","#sigoon_code3",function(){ 
+				
+				let thisVal = $(this).val();		
+
+				$.ajax({
+					type: "get",
+					url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+					data : {attrfilter : 'emd_cd:like:'+thisVal},
+					async: false,
+					dataType: 'jsonp',
+					success: function(data) {
+						let html = "<option>선택</option>";
+
+						data.response.result.featureCollection.features.forEach(function(f){
+							console.log(f.properties)
+							let 행정구역코드 = f.properties.emd_cd;
+							let 행정구역명 = f.properties.emd_kor_nm;
+							html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+							
+						})
+			            $('#dong_code3').html(html);
+						
+					},
+					error: function(xhr, stat, err) {}
+				});
+
+			});
 		})
 		
-	
+		
 	</script>
 </body>
 </html>
