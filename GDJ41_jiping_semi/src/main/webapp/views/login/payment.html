@@ -46,10 +46,8 @@
   }
   
   .payment-container{
-  
     margin-top: 40px;
     margin-bottom: 40px;
-    
   }
   
   .border-right{
@@ -62,21 +60,6 @@
     background-color: #94d5de;
     color: white;
   }
-  .pd_5{
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  a {
-    text-decoration: none;
-    color: black;
-  }
-  .warningMsg{
-    display:block; 
-    text-align: left; 
-    margin: 3px 0px 0px 5px; 
-    color: red; 
-    font-size: 10px;
-  }
   #paymentDetail{
     text-align: left;
     
@@ -84,13 +67,33 @@
   #paymentDetail span{
     display: block;
   }
-  
+  .line{
+    height: 5px;
+    width: 100%;
+    max-width: 900px;
+    block-size: 3px;
+    background-color: #94D5DE;
+    margin: auto;
+    margin-bottom: 50px;        
+  }
+  #firstMenu{
+    margin: auto; 
+    max-width: 900px; 
+    padding-top: 100px;
+  }
   </style>    
   
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>결제 페이지</title>
 </head>
+
 <body class="text-center">
+
+<div id="firstMenu">
+  <h4 style="text-align: left;">결제하기</h4> 
+  <div class="line"></div>
+</div>
+
 
   <main class="form-signin">
     
@@ -132,7 +135,7 @@
         pay_method : 'card', //생략 가능
         merchant_uid: "order_no_0005", // 상점에서 관리하는 주문 번호
         name : 'YBS의 신나는 생활코딩',
-        amount : 30000,
+        amount : 100,
         buyer_email : 'user00@naver.com',
         buyer_name : '유저공공',
         buyer_tel : '010-0000-0000',
@@ -165,7 +168,7 @@
         pay_method : 'card', //생략 가능
         merchant_uid: "order_no_0005", // 상점에서 관리하는 주문 번호
         name : 'YBS의 신나는 생활코딩',
-        amount : 30000,
+        amount : 100,
         buyer_email : 'user00@naver.com',
         buyer_name : '유저공공',
         buyer_tel : '010-0000-0000',
@@ -175,10 +178,10 @@
 			  console.log(rsp);
 		    if ( rsp.success ) {
 		    	var msg = '결제가 완료되었습니다.';
-		        msg += '고유ID : ' + rsp.imp_uid;
-		        msg += '상점 거래ID : ' + rsp.merchant_uid;
-		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		        // msg += '고유ID : ' + rsp.imp_uid;
+		        // msg += '상점 거래ID : ' + rsp.merchant_uid;
+		        // msg += '결제 금액 : ' + rsp.paid_amount;
+		        // msg += '카드 승인번호 : ' + rsp.apply_num;
 		    } else {
 		    	 var msg = '결제에 실패하였습니다.';
 		         msg += '에러내용 : ' + rsp.error_msg;
