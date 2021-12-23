@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/viewStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- 윤미꺼 js/css들 시작 -->
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bs-stepper.min.css">
+    <script src="<%=request.getContextPath() %>/js/bs-stepper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- 윤미꺼 js/css들 끝 -->
     
     <title>지핑</title>
 </head>
