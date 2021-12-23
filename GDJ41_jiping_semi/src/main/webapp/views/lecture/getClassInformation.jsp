@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp" %>
+
 
 <style>
-    * {
-        font-family: "서울남산체";
-    }
 
+#header-search>input {
+    width: 320px;
+    height: 100%;
+    border: 0;
+    text-align: left;
+    font-size: 15px;
+}
     input {
         font-size: 14px;
     }
 
-    #classDetailHead {
+    .classDetailHead {
         font-size: 20px;
         margin-top: 40px;
         margin-bottom: 10px;
@@ -593,7 +597,7 @@
 </style>
 <body>
 <div id="container">
-        <!-- 헤더부분 -->
+       <%@ include file="/views/common/header.jsp" %>
         <section>
 
 
@@ -646,7 +650,7 @@
                                 </div>
                             </div>
                             <div class="bs-stepper-content">
-                                <form onSubmit="return false">
+                                <form onsubmit="return false">
 
                                     <div class="mainContent">
                                         <div class="first"></div>
@@ -714,28 +718,28 @@
                                                                 <input type="text"
                                                                     placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
                                                                     class="careerInputBox">
-                                                                <label for="file-career">
+                                                                <label for="file-career1">
 
                                                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
                                                                         alt="2021-12-17-18-59-18" width="18px"
                                                                         height="18px" class="carrerimage" />
                                                                 </label>
 
-                                                                <input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+                                                                <input id="file-career1" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
                                                             </div>
 
                                                             <div class="image-career" id="image-career2">
                                                                 <input type="text"
                                                                     placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
                                                                     class="careerInputBox">
-                                                                <label for="file-career">
+                                                                <label for="file-career2">
 
                                                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
                                                                         alt="2021-12-17-18-59-18" width="18px"
                                                                         height="18px" class="carrerimage" accept="image/png, image/gif, image/jpeg, image/jpg"/>
                                                                 </label>
 
-                                                                <input id="file-career" type="file" />
+                                                                <input id="file-career2" type="file" />
                                                             </div>
 
                                                         </div>
@@ -783,9 +787,9 @@
                                                     <div id="categoryDiv">카테고리 선택</div>
                                                     <div
                                                         style="display: flex; justify-content: space-between; margin-bottom: 40px;">
-                                                        <select name="bigCategory" id="sido1"
+                                                        <select name="bigCategory" id="bigCategory"
                                                             style="flex-grow: 1;"></select>
-                                                        <select name="gugun1" id="gugun1"
+                                                        <select name="smallCategory" id="smallCategory"
                                                             style="flex-grow: 1; margin-right: 0;"></select>
                                                     </div>
 
@@ -860,7 +864,7 @@
                                                 aria-labelledby="stepper1trigger4">
                                                 <div class="form-group">
                                                     <!-- 4. 클래스 상새 소게 페이지 -->
-                                                    <div id="classDetailHead">클래스 상세 소개</div>
+                                                    <div class="classDetailHead">클래스 상세 소개</div>
                                                     <div id="classComment1">
                                                         <textarea cols="58" rows="5" id="classIntroduction1"
                                                             placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
@@ -873,7 +877,7 @@
                                                     </div>
 
 
-                                                    <div id="classDetailHead">강의추천 / 비추천 대상</div>
+                                                    <div class="classDetailHead">강의추천 / 비추천 대상</div>
                                                     <div id="classComment2">
                                                         <textarea cols="58" rows="5" id="classIntroduction2"
                                                             placeholder="ex) 이런 사람들에게 추천합니다"
@@ -886,7 +890,7 @@
                                                     </div>
 
 
-                                                    <div id="classDetailHead">클래스 진행 방식 <span id="classProcedure"
+                                                    <div class="classDetailHead">클래스 진행 방식 <span id="classProcedure"
                                                             style="font-size: 14px; display: none;">진행 날짜, 진행 시간을
                                                             회차별
                                                             커리큘럼과 함께
@@ -903,7 +907,7 @@
                                                     </div>
 
 
-                                                    <div id="classDetailHead">유의사항</div>
+                                                    <div class="classDetailHead">유의사항</div>
                                                     <div id="classComment4">
                                                         <textarea cols="58" rows="5" id="classIntroduction4"
                                                             placeholder="ex) 유의사항 / 준비물"
@@ -932,7 +936,7 @@
                                                     <div id="selectedOnedayClass" style="display: none;">
 
                                                         <h5 class="classCetegory">원데이 클래스</h5>
-                                                        <div id="multipleClassPrice" style="padding-bottom: 20px;">
+                                                        <div class="multipleClassPrice" style="padding-bottom: 20px;">
                                                             <div>
                                                                 <div class="pricePerClass1">총 클래스 횟수</div>
                                                                 <div>
@@ -973,7 +977,7 @@
                                                                 <div style="border: 1px solid black; border-radius: 10px;height: 34px;padding-top:5px; width:38%;"
                                                                     class="classIntBox" id="inputBoxOfOneDayTimes">
                                                                     <input type="text" class="classIntInputBox"
-                                                                        id="classTxtBox2"><span class="won">원</span>
+                                                                        id="classTxtBox1"><span class="won">원</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -988,7 +992,7 @@
                                                         </div>
                                                         <div id="detailPlace2">
                                                             <input type="text" placeholder="세부 장소를 입력해주세요"
-                                                                id="setClassTitle4" id="detailTxtBox">
+                                                                id="setClassTitle4">
                                                             <span id="showMeTheLimitOfTitleLength3">
                                                                 (0/50)
                                                             </span>
@@ -1006,7 +1010,7 @@
                                                     <div id="selectedMultipleClass" style="display: none;">
                                                         <!-- 다회차 시작 -->
                                                         <h5 class="classCetegory">다회차 클래스</h5>
-                                                        <div id="multipleClassPrice"
+                                                        <div class="multipleClassPrice"
                                                             style=" display: table-cell;vertical-align: middle; padding-bottom: 20px;">
                                                             <div style="display: inline-block;">
                                                                 <div class="pricePerClass1">총 클래스 횟수</div>
@@ -1031,8 +1035,7 @@
                                                                 <div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
                                                                 <div style="display: inline-block; border: 1px solid black; border-radius: 10px;height: 34px;padding-top:5px;"
                                                                     class="classIntBox" id="inputBoxOfTimes"><input
-                                                                        type="text" class="classIntInputBox"
-                                                                        id="classTxtBox2"><span class="won">원</span>
+                                                                        type="text" class="classIntInputBox" id="classTxtBox2"><span class="won">원</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1042,12 +1045,12 @@
                                                             style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                                             <select name="sido2" id="sido2"
                                                                 style="flex-grow: 1"></select>
-                                                            <select name="gugun1" id="gugun1"
+                                                            <select name="gugun2" id="gugun2"
                                                                 style="flex-grow: 1"></select>
                                                         </div>
                                                         <div id="detailPlace1">
                                                             <input type="text" placeholder="세부 장소를 입력해주세요"
-                                                                id="setClassTitle3" id="detailTxtBox">
+                                                                id="setClassTitle3">
                                                             <span id="showMeTheLimitOfTitleLength2">
                                                                 (0/50)
                                                             </span>
@@ -1055,7 +1058,7 @@
                                                         <div class="classLocationTitle">최대 참여 인원</div>
                                                         <div
                                                             style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="peopleNum1" id="sido1"
+                                                            <select name="peopleNum1" id="peopleNum1"
                                                                 style="flex-grow: 1; margin-bottom: 40px;"></select>
                                                         </div>
                                                         <div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.
@@ -1127,8 +1130,7 @@
                                                                 <div class="pricePerClass1"
                                                                     style="border-bottom: 10px;">클래스 가격</div>
                                                                 <div id="pricePerClass2" class="classIntBox">
-                                                                    <input type="text" class="classIntInputBox"
-                                                                        id="classTxtBox1"><span class="won">원</span>
+                                                                    <input type="text" class="classIntInputBox" id="classPri"><span class="won">원</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1156,7 +1158,7 @@
                                             <div class="last"></div>
 
                                         </div>
-
+                                    </div>
                                 </form>
                             </div>
                         </div>
