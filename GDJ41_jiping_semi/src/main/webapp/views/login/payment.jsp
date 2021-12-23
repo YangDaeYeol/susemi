@@ -6,12 +6,11 @@
     *{
       font-family: "서울남산체";
     }
-    
-        html,
+    html,
     body {
       height: 100%;
     }
-    
+    	
     body {
       
       padding-top: 40px;

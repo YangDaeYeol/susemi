@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,7 @@
         <header>
             <div>
                 <div id="header-top">
-                    <h1><a href=""><img src="<%= request.getContextPath() %>/img/logo.png" width="80px" height="80px"></a></h1>
+                    <h1><a href="javascript:mainPage();"><img src="<%= request.getContextPath() %>/img/logo.png" width="80px" height="80px"></a></h1>
                     <div id="header-search">
                         <img src="<%= request.getContextPath() %>/img/searchicon.png" width="28px" height="28px">
                         <input type="search" id="searchBar" placeholder="검색어를 입력해주세요.">
@@ -114,5 +115,23 @@
         });
         $("#searchBar").focusout(e => {
             $(e.target).parent().css({"border":"1px #94D5DE solid"});
+        });
+        const mainPage=()=> {
+	        $.ajax({
+	        		url : "<%= request.getContextPath() %>/main",
+	        		dataType : "html",
+	        		success : data => {
+	        			$("body").html(data);
+	        		}
+	        });
+        }
+        $("#enrollMemberBtn").click(e=> {
+        	$.ajax({
+        		url : "<%= request.getContextPath() %>/enrollMember",
+        		dataType : "html",
+        		success : data => {
+        			$("section").html(data);
+        		}
+        	});
         });
     </script>

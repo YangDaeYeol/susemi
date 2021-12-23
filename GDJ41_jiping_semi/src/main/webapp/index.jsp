@@ -31,7 +31,6 @@
                                         <div id="content-right">
                                             <div id="frofile-img">
                                                 <img src="https://blog.kakaocdn.net/dn/sOFQo/btqFXIdG4BC/OSX6phlqjlj7p3EYH1jZjk/img.png">
-                                                <br><img src="https://cdn-icons.flaticon.com/png/512/3717/premium/3717486.png">
                                             </div>
                                             <div id="frofile-name">
                                                 <p>아이유</p>
