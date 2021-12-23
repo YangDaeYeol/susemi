@@ -10,6 +10,26 @@
     text-align: left;
     font-size: 15px;
 }
+#header-btn>button {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#enrollMemberBtn {
+    background-color: rgb(89, 30, 30);
+    color: rgb(255, 255, 255);
+    border-color: initial;
+    padding: 1px 6px;
+}
+#enrollMemberBtn {
+    background-color: #EBC3C3;
+    color: white;
+    border: 1px;
+    border-radius: 10px;
+    font-weight: bold;
+    width: 110px;
+    height: 30px;
+}
     input {
         font-size: 14px;
     }
@@ -225,7 +245,7 @@
     }
 
     .selectClass {
-        height: 70%;
+        height: 8%%;
         display: block;
         background: white;
         border: 1px solid black;
@@ -521,6 +541,7 @@
     .classIntInputBox {
         border-radius: 10px;
         border: 0px;
+        width: 90%;
     }
 
     .inputVODinfoTxtBox {
@@ -594,6 +615,9 @@
     .won {
         font-size: 12px;
     }
+    #bigCategory{
+   		height: 10%;
+   	}
 </style>
 <body>
 <div id="container">
@@ -650,7 +674,12 @@
                                 </div>
                             </div>
                             <div class="bs-stepper-content">
-                                <form onsubmit="return false">
+                            <form id='testForm'>
+                            	<input name='test1' id='test1' value='123' />
+                            	<input name='test2' id='test2' value='456' />
+                            	<input type='file' name='testFile' style="display:block;"/>
+                            </form>
+                                <form onsubmit="return false"  id="toSendForm">
 
                                     <div class="mainContent">
                                         <div class="first"></div>
@@ -680,7 +709,7 @@
                                                         <div id="resultTutorImg" style="margin-bottom: 30px;"></div>
                                                         <div>튜터의 한마디</div>
                                                         <div id="tutorComment">
-                                                            <textarea cols="58" rows="5"
+                                                            <textarea name="tutorComment" cols="58" rows="5"
                                                                 id="tutorIntroduction" onkeyup="limit500(event, 'introlimit')" 
                                                                 onfocus="changeBorderBox(event);"></textarea>
                                                             <div id="introlimit">
@@ -1150,7 +1179,7 @@
                                                     <div style="display: flex;">
                                                         <button class="pageBtn" style="margin-right: 5px;"
                                                             onclick="stepper1.previous()">이전</button>
-                                                        <button type="submit" class="pageBtn">제출</button>
+                                                        <button type="submit" class="pageBtn" id="submitAllInfo" onclick="toSubmit()">제출</button>
                                                     </div>
                                                 </div>
                                                 <!-- 폼 내용 END -->
@@ -1699,7 +1728,58 @@
             }
             $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
         }
+        
+       const toSubmit = () => {
+    	   //toSendForm
+    	   //testForm
+    	   console.debug('toSubmit');
+    	   var form = $('#toSendForm')[0];
+    	   console.debug('form', form);
+    	   
+    	   var data = new FormData(form);
+    	   console.debug('data', data);
+    	   
+    	   // FormData의 값 확인 
+    	   for (var pair of data.entries()) { 
+   		   	console.log(pair[0]+ ', ' + pair[1]); 
+   		   }
+    	    
+    	    $.ajax({             
+    	    	type: "POST",          
+    	        enctype: 'multipart/form-data',  
+    	        url: "<%=request.getContextPath()%>/lectureEnroll.do",        
+    	        data: data,          
+    	        processData: false,    
+    	        contentType: false,      
+    	        cache: false,           
+    	        timeout: 600000,       
+    	        success: function (data) { 
+    	        	alert("complete");           
+    	        	$("#btnSubmit").prop("disabled", false);      
+    	        },          
+    	        error: function (e) {  
+    	        	console.log("ERROR : ", e);     
+    	            $("#btnSubmit").prop("disabled", false);    
+    	            alert("fail");      
+    	         }     
+    		});  
+<%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 
+           function load(url, callback) {
+             var xhr = new XMLHttpRequest();
+
+             xhr.onreadystatechange = function() {
+               if (xhr.readyState === 4) {
+                 callback(xhr.response);
+               }
+             }
+
+             xhr.open('GET', url, true);
+             xhr.send('');  
+       		} --%>
+       }
+       
+       
 
     </script>  
 
