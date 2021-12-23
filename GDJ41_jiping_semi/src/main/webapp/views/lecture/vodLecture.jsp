@@ -87,7 +87,7 @@
         <div class="btn-group" style="float: right;">
             <a href="#" class="btn btn-primary btn-basic">이전강의</a>
             <a href="#" class="btn btn-primary btn-basic">다음강의</a>
-        </div>
+        </div> 
     </div>
 </div>
 

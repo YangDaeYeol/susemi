@@ -46,6 +46,17 @@
                 </div>
               </div>
             </div>
+<script>
+$(()=>{
+	$.ajax({
+		url:"<%=request.getContextPath()%>/lecture/lecture.do",
+		data: 
+		success: data=>{
+			
+		}
+	})
+})
+</script>            
             <div id="info_notice">
               <h5 class="card-title">클래스 상세소개</h5>
               <div class="card">
