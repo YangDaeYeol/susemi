@@ -57,7 +57,7 @@
     
     <section>
         <main class="form-signin">
-          <form>
+          <form action="<%=request.getContextPath()%>/views/login/loginMain.jsp">
             
             
             <h4 class="h4 fw-normal" style="margin: 50px 0 50px 0;">
