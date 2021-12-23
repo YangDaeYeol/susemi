@@ -180,14 +180,9 @@
         list-style-type: none;
         padding-left: 10px;
     }
-    section{
-        margin-left: 30px;
-        margin-right: 30px;
-    }
     #sub-menu li{
         margin-bottom: 10px;
-        font-size: 15px;
-        
+        font-size: 15px;  
     }
     #sub-menu li:last-child{
         margin-bottom: 20px;
@@ -316,7 +311,7 @@
     #largeCategory, #smallCategory{
         margin-right: 10px;
         margin-bottom: 10px;
-        width: 200px;
+        /* width: 200px; */
     }
     /* 지수언니버튼 css */
     .btn {
