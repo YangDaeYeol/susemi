@@ -60,18 +60,18 @@
             </p>
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
-                    <!-- <img src="<%=request.getContextPath() %>/img/js_unchecked.png" alt="" class="checkicon">  -->
-                    <img src="<%=request.getContextPath() %>/img/js_checked.png" alt="" class="checkicon"> 
+                    <!-- <img src="img/js_unchecked.png" alt="" class="checkicon">  -->
+                    <img src="img/js_checked.png" alt="" class="checkicon"> 
                     <span class="vod-name"> 1강. 자바첫걸음</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
-                    <img src="<%=request.getContextPath() %>/img/js_unchecked.png" alt="" class="checkicon">
-                    <%-- <img src="<%=request.getContextPath() %>/img/js_checked.png" alt="" class="checkicon">  --%>
+                    <img src="img/js_unchecked.png" alt="" class="checkicon"> 
+                    <!-- <img src="img/js_checked.png" alt="" class="checkicon"> -->
                     <span class="vod-name"> 2강. 오픈소스 라이선스 확인 방법과 라이선스 의무사항 준수</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
-                    <img src="<%=request.getContextPath() %>/img/js_unchecked.png" alt="" class="checkicon">
-                    <%-- <img src="<%=request.getContextPath() %>/img/js_checked.png" alt="" class="checkicon"> --%> 
+                    <img src="img/js_unchecked.png" alt="" class="checkicon"> 
+                    <!-- <img src="img/js_checked.png" alt="" class="checkicon">  -->
                     <span class="vod-name"> 2강. 오픈소스 라이선스 확인 방법과 라이선스 의무사항 준수</span>
                 </a> 
               </div>
