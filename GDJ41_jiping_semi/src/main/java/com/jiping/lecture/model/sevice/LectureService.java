@@ -8,6 +8,7 @@ import java.sql.Connection;
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureSchedule;
 
 public class LectureService {
 	
@@ -25,6 +26,13 @@ public class LectureService {
 		LectureContent content= dao.lectureContent(conn, lectureNo);
 		close(conn);
 		return content;
+	}
+	
+	public LectureSchedule lectureSchedule(int lectureNo) {
+		Connection conn=getConnection();
+		LectureSchedule schedule= dao.lectureSchedule(conn, lectureNo);
+		close(conn);
+		return schedule;
 	}
 
 }

@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureSchedule;
 
 public class LectureDao {
 	
@@ -70,8 +71,31 @@ public class LectureDao {
 			close(rs);
 			close(pstmt);
 		}
-		
 		return content;
+	}
+	
+	public LectureSchedule lectureSchedule(Connection conn, int num ) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		LectureSchedule schedule=null;
+		String sql=prop.getProperty("lectureSchedule");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				schedule= LectureSchedule.builder()
+						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
+						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
+						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return schedule;
 	}
 	
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureSchedule;
 
 /**
  * Servlet implementation class LectureServlet
@@ -35,8 +36,10 @@ public class LectureServlet extends HttpServlet {
 		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
 		Lecture le= new LectureService().lectureInfo(lectureNo);
 		LectureContent content= new LectureService().lectureContent(lectureNo);
+		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
 		request.setAttribute("le", le);
 		request.setAttribute("content", content);
+		request.setAttribute("schedule", schedule);
 		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);
 
 		

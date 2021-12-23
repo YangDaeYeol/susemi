@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-<%@ page import="com.jiping.lecture.model.vo.Lecture,com.jiping.lecture.model.vo.LectureContent" %>
+<%@ page import="com.jiping.lecture.model.vo.Lecture,
+				com.jiping.lecture.model.vo.LectureContent,
+				com.jiping.lecture.model.vo.LectureSchedule " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
 	LectureContent content= (LectureContent)request.getAttribute("content");
+	LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule");
 
 %>
 
@@ -143,17 +146,19 @@ $(()=>{
                 </div>
               </div>
             </div>
+            
+<!-- 금요일 여기 for문이랑 수강신청 구현 -->
             <div id="class_schedule">
               <h5 class="card-title">수업일정</h5>
               <div class="list-group">
                 <label class="list-group-item">
                   <input class="form-check-input me-1" type="checkbox" value="">
                   <div class="schedule-text">
-                    <span class="class-date">2021.12.14(토) </span> <span> 19:30-21:00</span>
+                    <span class="class-date"><%=sc.getLectureDate() %> </span> <span style="padding-left:30px"> 19:30-21:00</span>
                     <br>
-                    <span>대륭테크노타운 3차 509호</span>
+                    <span><%=sc.getLectureAddress() %></span>
                   </div>
-                  <span class="class-region">서울시 금천구</span>
+                  <span class="class-region"><%=sc.getLectureLocation() %></span>
                 </label>
                 <label class="list-group-item">
                   <input class="form-check-input me-1" type="checkbox" value="">
