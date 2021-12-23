@@ -27,7 +27,7 @@ public class AESCryptor {
 	public AESCryptor() {
 		this.path = AESCryptor.class.getResource("./").getPath();
 		this.path = path.substring(0,this.path.indexOf("classes"));
-		File keyFile = new File(path + "/bslove.bs");
+		File keyFile = new File(path + "/susemi.jp");
 		if(keyFile.exists()) {
 			try {
 				this.key = (SecretKey)new ObjectInputStream(new FileInputStream(keyFile)).readObject();
@@ -52,7 +52,7 @@ public class AESCryptor {
 			e.printStackTrace();
 		}
 		
-		File f = new File(path + "/bslove.bs");
+		File f = new File(path + "/susemi.jp");
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
 			oos.writeObject(this.key);
 		}catch(IOException e) {
