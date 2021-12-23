@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.jiping.member.model.vo.Member;
+
 import static com.jiping.common.JDBCTemplate.close;
 
 public class MemberDao {
@@ -43,5 +45,29 @@ public class MemberDao {
 			close(rs);
 		}
 		return list;
+	}
+
+	public Member findEmail(Connection conn, String userName, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		String sql=prop.getProperty("findEmail");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, phone);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=Member.builder()
+						.email(rs.getString("EMAIL"))
+						.build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return m;
 	}
 }
