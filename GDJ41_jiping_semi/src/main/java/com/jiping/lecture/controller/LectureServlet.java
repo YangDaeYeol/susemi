@@ -1,11 +1,16 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.jiping.lecture.model.sevice.LectureService;
+import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureContent;
 
 /**
  * Servlet implementation class LectureServlet
@@ -27,6 +32,12 @@ public class LectureServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
+		Lecture le= new LectureService().lectureInfo(lectureNo);
+		LectureContent content= new LectureService().lectureContent(lectureNo);
+		request.setAttribute("le", le);
+		request.setAttribute("content", content);
+		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);
 
 		
 	}

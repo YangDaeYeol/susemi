@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<%@ page import="com.jiping.lecture.model.vo.Lecture,com.jiping.lecture.model.vo.LectureContent" %>
+<%
+	Lecture le= (Lecture)request.getAttribute("le");
+	LectureContent content= (LectureContent)request.getAttribute("content");
 
+%>
 
 <section>
     <section>
@@ -10,8 +15,8 @@
           <!--보라 1-->
           <div id="left" class="col-7">
             <div id="info_class">
-              <p class="card-text"><small class="text-muted">이 클래스는 원데이</small></p>
-              <h5 class="card-title">클래스 이름 </h5>
+              <p class="card-text"><small class="text-muted">이 클래스는 <%=le.getLectureType() %>클래스 입니다. </small></p>
+              <h5 class="card-title"><%=le.getLectureTitle() %> </h5>
               <!--class="card-title"-->
               <div class="card">
                 <div class="card-body">
@@ -46,7 +51,7 @@
                 </div>
               </div>
             </div>
-<script>
+<%-- <script>
 $(()=>{
 	$.ajax({
 		url:"<%=request.getContextPath()%>/lecture/lecture.do",
@@ -56,14 +61,13 @@ $(()=>{
 		}
 	})
 })
-</script>            
+</script>   --%>          
             <div id="info_notice">
               <h5 class="card-title">클래스 상세소개</h5>
               <div class="card">
                 <div class="card-body">
                   <p class="card-text">
-                    ‘살을 빼려면 탄수화물을 제한해야 한다’는 인식이 커짐과 함께 ‘저탄고지(탄수화물은 적게, 지방은 많이)’에 해당하는 키토제닉(Ketogenic diet·케톤식) 식단까지 열풍을
-                    이어가면서 탄수화물은 다이어터들의 ‘공공의 적’이 돼버렸다.
+                    <%=content.getLectureIntroduce() %>
                   </p>
                 </div>
               </div>
@@ -73,14 +77,7 @@ $(()=>{
               <div class="card">
                 <div class="card-body">
                   <p class="card-text">
-                    ▶통곡물
-                    건강한 탄수화물을 대표하는 식품은 정제되지 않은 곡물인 통곡물이다.
-                    현미나 귀리, 보리, 퀴노아, 통밀 등이 있다. 통곡물은 정제 과정을 통해 섬유질과 비타민, 미네랄, 항산화제가 제거되지 않기 때문에 영양소가 풍부하다. 이러한 성분은 당뇨 및
-                    암을 비롯한 질환 예방에 도움을 줄 수 있다는 연구들이 다양하게 나와 있다. 특히 풍부한 식이섬유는 장 건강뿐 아니라 포만감까지 높여주는 역할을 한다.
-                    ▶과일과 채소
-                    탄수화물은 곡물에만 들어 있지 않다. 과일과 채소에도 들어 있는 성분이다. 과일은 설탕 대신 천연의 달콤함을 제공하기에 다이어트 시 대체 간식으로 이용하기 좋다. 다만, 너무
-                    단맛이 나는 과일은 칼로리가 높고 혈당의 상승을 유발하므로 체중 감량에는 효과적이지 않다. 혈당지수(Glycemic Index·GI)가 높을수록 혈당이 빨리 오르면서 인슐린 분비가
-                    촉진되는데, 이것이 반복될 경우 인슐린 분비 조절이 망가지면서 에너지로 사용할 혈당마저 체지방으로 축적되기 때문이다.
+                  <%=content.getCurriculum() %>
                   </p>
                 </div>
               </div>
@@ -91,8 +88,7 @@ $(()=>{
               <div class="card">
                 <div class="card-body">
                   <p class="card-text">
-                    대한영양사협회 자료에 따르면 ‘저당’ 과일에 속하는 것은 체리나 블루베리 등의 베리류,
-                    자몽·오렌지·석류·아보카도 등이 있다. 반면 곶감 등의 건과일이나 과일통조림은 당분이 많이 들어 있다.
+					<%=content.getRecommend() %>
                   </p>
                 </div>
               </div>
@@ -103,9 +99,7 @@ $(()=>{
               <div class="card">
                 <div class="card-body">
                   <p class="card-text">
-                    채소에도 탄수화물이 들어 있다. 감자나 옥수수 등의 녹말채소는 비교적 탄수화물 함량이 높으며,
-                    시금치나 케일 등의 잎채소는 탄수화물 함량이 낮다.
-                    채소의 경우 슈퍼푸드로 불릴만 큼 각종 항산화제가 풍부하므로 끼니마다 섭취를 늘리는 것이 좋다.
+                    <%=content.getLectureNotice() %>
                   </p>
                 </div>
               </div>
