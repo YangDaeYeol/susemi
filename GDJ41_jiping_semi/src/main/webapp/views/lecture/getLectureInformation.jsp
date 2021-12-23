@@ -1377,7 +1377,9 @@
             for (let i = 1; i < val; i++) {
                 let dateContainer = $("#selectMultipleDates0").clone();
                 dateContainer.attr({ "id": "selectMultipleDates" + i });
+                dateContainer.attr({ "name" : "selectMultipleDates" + i});
                 dateContainer.find("span").text((i + 1) + "회 날짜 : ");
+               
 
                 if (i == 1) {
                     $("#selectMultipleDates0").after(dateContainer);
@@ -1571,72 +1573,6 @@
     </script>
 
     <script>
-        // 푸터 jQuery
-        $("#header-nav>ul>li:first-child").hover(e => {
-            $("#header-nav-sub1").css({ "display": "flex" });
-            $("#header-nav-sub2").css({ "display": "none" });
-            $("#header-nav-sub3").css({ "display": "none" });
-            $("#header-nav-sub4").css({ "display": "none" });
-            $("#header-nav>ul>li:nth-child(2)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(3)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:last-child").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(2)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:nth-child(3)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:last-child>a").css({ "color": "#94D5DE" });
-            $(e.target).css({ "background-color": "#94D5DE" });
-            $(e.target.children).css({ "color": "white" });
-        });
-        $("#header-nav>ul>li:nth-child(2)").hover(e => {
-            $("#header-nav-sub1").css({ "display": "none" });
-            $("#header-nav-sub2").css({ "display": "flex" });
-            $("#header-nav-sub3").css({ "display": "none" });
-            $("#header-nav-sub4").css({ "display": "none" });
-            $("#header-nav>ul>li:nth-child(1)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(3)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:last-child").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(1)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:nth-child(3)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:last-child>a").css({ "color": "#94D5DE" });
-            $(e.target).css({ "background-color": "#94D5DE" });
-            $(e.target.children).css({ "color": "white" });
-        });
-        $("#header-nav>ul>li:nth-child(3)").hover(e => {
-            $("#header-nav-sub1").css({ "display": "none" });
-            $("#header-nav-sub2").css({ "display": "none" });
-            $("#header-nav-sub3").css({ "display": "flex" });
-            $("#header-nav-sub4").css({ "display": "none" });
-            $("#header-nav>ul>li:nth-child(1)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(2)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:last-child").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(1)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:nth-child(2)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:last-child>a").css({ "color": "#94D5DE" });
-            $(e.target).css({ "background-color": "#94D5DE" });
-            $(e.target.children).css({ "color": "white" });
-        });
-        $("#header-nav>ul>li:last-child").hover(e => {
-            $("#header-nav-sub1").css({ "display": "none" });
-            $("#header-nav-sub2").css({ "display": "none" });
-            $("#header-nav-sub3").css({ "display": "none" });
-            $("#header-nav-sub4").css({ "display": "flex" });
-            $("#header-nav>ul>li:nth-child(1)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(2)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(3)").css({ "background-color": "white" });
-            $("#header-nav>ul>li:nth-child(1)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:nth-child(2)>a").css({ "color": "#94D5DE" });
-            $("#header-nav>ul>li:nth-child(3)>a").css({ "color": "#94D5DE" });
-            $(e.target).css({ "background-color": "#94D5DE" });
-            $(e.target.children).css({ "color": "white" });
-        });
-
-        $("#searchBar").focusin(e => {
-            $(e.target).parent().css({ "border": "3px #94D5DE solid" });
-        });
-        $("#searchBar").focusout(e => {
-            $(e.target).parent().css({ "border": "1px #94D5DE solid" });
-        });
-    </script>
-    <script>
         var stepper1
         document.addEventListener('DOMContentLoaded', function () {
             stepper1 = new Stepper(document.querySelector('#stepper1'))
@@ -1764,7 +1700,6 @@
             }
             $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
         }
-
 
     </script>  
 
