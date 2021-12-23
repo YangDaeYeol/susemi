@@ -316,7 +316,7 @@
     #largeCategory, #smallCategory{
         margin-right: 10px;
         margin-bottom: 10px;
-        width: 200px;
+        /* width: 200px; */
     }
     /* 지수언니버튼 css */
     .btn {
