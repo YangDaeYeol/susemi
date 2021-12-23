@@ -1,0 +1,442 @@
+@charset "UTF-8";
+
+	#sectionMargin{
+		margin-bottom: 100px;
+	}
+    /* 체크박스 크기 */
+    input.checkbox1{
+        font-size: 1em;
+        width: 1.25em;
+        height: 1.25em;
+        vertical-align: middle;
+        margin-left: 5px;
+        
+    }
+    /* 정보수정 안내문구 흐릿하게 */
+    .guide {
+        color: rgb(184, 184, 184);
+        letter-spacing: -1px;
+        font-size: 15px;
+    }
+    /* *{
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    } */
+    /* 마케팅정보수정 */
+    .info-content button{
+        margin-left: 15px;
+    }
+    #tutor-marketing button{
+        margin-left: 70px;
+    }
+    #marketingBtn{
+        margin-left: 50px;
+    } 
+    /* 남자 여자 체크박스 위치  */
+    #tutor-gender label{
+        letter-spacing: 2px;
+        margin-left: 30px;
+    }
+    #onOff{
+        margin-left: 20px;
+    }
+    /* 마이페이지 container section 전제 */
+    .flex{
+        display: flex;
+    }
+    .overflow{
+        overflow: auto;
+    }
+    /*  */
+    .info-title{
+        text-align: left;
+        width: 180px;
+    }
+    .info-content{
+        text-align: left;
+        margin-left: 80px;
+    }
+    .placeholder-center{
+        text-align: center;
+        letter-spacing: 1px;
+        border-radius: 10px;
+    }
+    /* 기본이미지, 파일선택 밑으로! */
+    #uploadBtn-tutor, #uploadBtn-user{
+        position: relative;
+        top: 80px;
+    }
+    /* 정보 제목들 폰트 사이즈 업 */
+    span.menu-list-name{
+        font-size: 17px;
+    }
+    .margin-left{
+        margin-left: 20px;
+    }
+    .margint-rb-10px{
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    #tutor-img img{
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+    }
+    .margin-right{
+        margin-right: 30px;
+    }
+    
+    #mypage-content{
+        margin-left: 50px;
+        margin-top: 50px; 
+        width: 1000px;
+    }
+    #mypage-menu{
+        /* margin-left: 100px; */
+        margin-top: 50px;
+        
+        /* width: 200px;
+        height: 300px; */
+    }
+    #mypage-menu h3{
+        height: 50px;
+        text-align: center;
+    }
+    /* 라인  */
+    .line{
+        height: 5px;
+        width: 100%;
+        block-size: 3px;
+        background-color: #94D5DE;
+        margin-bottom: 50px;        
+    }
+    .inlineblock{
+        display: inline-block;
+    }
+    #my-menu{
+        border: 1px solid #94D5DE;
+        min-width: 150px;
+        min-height: 100px;
+        height: auto;
+        width: auto;
+    }
+    #menu-list li{
+        list-style-type: none;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    #menu-list{
+        padding: 30px 0 0 0;
+    }
+    #menu-list a{
+        text-decoration: none;
+        letter-spacing: 1px;
+        color: black;
+    }
+    #menu-list{
+        margin-left: 20px;
+    }
+    /* MY PAGE */
+    h3{
+        font-weight: bold;
+    }
+    .menu-margin{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    #menu-list a:hover{
+        background-color: lightgrey;
+    }
+    *{
+        font-family: '서울남산체';
+    }
+    #saveBtn{
+        width: 120px;
+        height: 40px;
+        background-color: #94D5DE;
+        color: white;
+        border:none;
+        border-radius: 5px;
+        font-size: 20px;       
+        line-height: 40px;
+    }
+    #save-info{
+        text-align: center;
+    }
+    /* dropMember */
+    /*  */
+    #drop-reason{
+        resize: none;
+    }
+    #wait p{
+        margin-bottom: 0px;
+    }
+    #dropLine1,#dropLine2,#dropLine3,#dropLine4,#dropLine5{
+        margin-bottom: 20px;
+    }
+    /* user submenu */
+    #sub-menu{
+        list-style-type: none;
+        padding-left: 10px;
+    }
+    section{
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    #sub-menu li{
+        margin-bottom: 10px;
+        font-size: 15px;
+        
+    }
+    #sub-menu li:last-child{
+        margin-bottom: 20px;
+    }
+    #sub-menu>li a{
+        letter-spacing: -1px;
+    }
+    #ing-class>p{
+        text-align: right;
+        
+    }
+    /* 마이클래스  */
+    #ing-class-list>div>img:first-child{
+        /* margin-right: 100px; */
+    }
+    #end-class-list>div>img:first-child{
+        margin-right: 100px;
+    }
+    .relative{
+        position: relative;
+        left: 570px;
+    }
+    /*  */
+    .classAll{
+        margin-left: 80px;
+    }
+    /* 클래스 상세 버튼 */
+    .class-infoBtn{
+        background-color: #94D5DE;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        width: 100px;
+        height: 30px;
+        margin-top: 5px;
+    }
+    .class-infoBtn:hover{
+        background-color: #5fc8d6;
+    }
+    /* 수강중인 vod 클래스 div 버튼효과 ->강의실로 이동 */
+    /* .vod-class{
+
+    } */
+    .class-margin{
+        margin-right: 90px;
+        margin-bottom: 30px;
+    }
+    .class-hover{
+        border: 1px solid rgb(255, 253, 253);
+        padding: 2px 2px 2px 2px;
+    }
+    .class-hover:hover{
+        border: 1px solid rgb(221, 220, 220);
+    }
+    .drop-class-margin{
+        margin-right: 10px;
+    }
+    /* 수강완료 클래스 흑백처리 */
+    #end-class-list img{
+        -webkit-filter: grayscale(80%);
+        filter: gray;
+    }
+    /* 중앙정렬효과~~ */
+    .text-align-center{
+        text-align: center;
+    }
+    /* margin auto 0 */
+    .margin-auto-0{
+        margin: 0 auto;
+    }
+    /* 마케팅 수신 버튼!!!!! */
+    .toggle {
+        position: relative;
+        display: inline-block;
+    }
+    .toggle input {
+        display: none;
+    }
+    .toggle label {
+        display: block;
+        width: 48px;
+        height: 24px;
+        text-indent: -250%; /* 라벨 텍스트 왼쪽으로 이동*/
+        user-select: none; /* 라벨 텍스트 선택 차단 */
+    }
+    .toggle label::before,
+    .toggle label::after {
+        content: "";
+        display: block;
+        position: absolute;
+        cursor: pointer;
+    }
+    .toggle label::before { /* 배경 */
+        width: 100%;
+        height: 100%;
+        background-color: #dedede;
+        border-radius: 1em;
+        -webkit-transition: background-color 0.25s ease;
+        transition: background-color 0.25s ease;/* 배경색 애니메이션*/
+    }
+    .toggle label::after { /* 스위치 */
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.45);
+        -webkit-transition: left 0.25s ease;
+        transition: left 0.25s ease; /* 스위치 이동 애니메이션 */
+    }
+    .toggle input:checked + label::before {
+        background-color: skyblue; /* 켠 상태 배경색 */
+    }
+    .toggle input:checked + label::after { /* 켠 상태 스위치 위치 */
+        left: 24px;
+    }
+    /* 버튼끝...! */
+    /* 마케팅 정보수정 */
+    #marketingInfo{
+        margin-left: 30px;
+    }
+    #admin-main>h5{
+        text-align: center;
+    }
+    #largeCategory, #smallCategory{
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 200px;
+    }
+    /* 지수언니버튼 css */
+    .btn {
+        border-color: white;
+        margin-top: 10px;
+        }
+        .btn-basic {
+            background-color: #94D5DE;
+            
+        }
+        .btn-pink {
+            background-color: #EBC3C3;
+        }
+        .ing-class-btn{
+            color: white;
+            border: none;
+            width: 100px;
+            line-height: 35px;
+            height: 35px;
+            border-radius: 3px;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .ing-class-btn:first-child:hover{
+            background-color: #5fc8d6;
+        }
+        .ing-class-btn:last-child:hover{
+            background-color: #f3aeae;
+        }
+        #ing-class-btn-d{
+            position: relative;
+            left: 550px;
+            
+        }
+        /* 수강생목록 테이블*/
+        #memberList-tbl{           
+            margin: 0 auto;
+            text-align: center;
+            width: 1000px;
+            /* margin-bottom: 100px; */
+            margin-top: 100px;   
+            vertical-align: middle;         
+        }
+        #memberList-tbl img{
+            width : 70px; 
+            height: 70px;
+            border-radius: 50px;
+        }
+        #memberListInfo>tr>td{
+            padding: 10px 10px 10px 10px;
+        }
+        #th-name{
+            width: 100px;
+        }
+        #th-phone{
+            width: 150px;
+        }
+        #memberList-tbl>tbody>tr>td:last-child{
+            text-align: left;
+        }
+        #memberList-container{
+            width: 1100px;
+            min-height: 300px;
+        }
+        #memberList-container>div:first-child{
+            margin-top: 100px;
+        }
+        #memberListCount{
+            margin-bottom: 0px;
+        }
+        .relative-ml{
+            position: relative;
+            left: 920px;
+            padding-top: 10px;
+        }
+        /* 클래스승인 페이지 테이블 */
+        #class-appr-tbl button,#class-drop-tbl button,#comment-drop-tbl button{
+            background-color: #e5f4f7;    
+            border: none;
+            width: 100px;
+            height: 30px;
+            font-size: 14px;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        #class-appr-tbl button:hover{
+            background-color: #94D5DE;
+        }
+        #class-drop-tbl button:hover{
+            background-color: #94D5DE;
+        }
+        #comment-drop-tbl button:hover{
+            background-color: #94D5DE;
+        }
+        #class-appr-tbl,#class-drop-tbl,#comment-drop-tbl{
+            text-align: center;
+            vertical-align: middle;
+        }
+        #comment-drop-tbl>thead>tr>th:nth-child(1){
+            width: 80px;
+        }
+        #comment-drop-tbl>thead>tr>th:nth-child(2){
+            width: 300px;
+        }
+        #comment-drop-tbl>thead>tr>th:nth-child(3){
+            width: 400px;
+        }
+        #comment-drop-tbl>thead>tr>th:nth-child(1){
+            width: 80px;
+        }
+        #comment-drop-tbl>tbody>tr>:nth-child(3){
+            text-align: left;
+        }
+        #my-menu{
+            border-radius: 5px;
+        }
+
+        
+        
+        
+        
