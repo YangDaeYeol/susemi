@@ -1,0 +1,239 @@
+*{
+    font-family: "서울남산체";
+}
+
+ section{
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    /* width: 100%;   */
+} 
+
+.card-title{
+    margin-left: 10px;
+}
+
+
+/*위아래 나누기*/
+.container>div{ 
+    margin-top: 100px;
+}
+
+/* 왼쪽 디브전체 */
+#mainInfo>div>div{ 
+    margin-bottom: 50px; 
+}
+
+.row>div:first{ /*왼쪽오른쪽 사이 넓히고 싶은데..*/
+
+   
+}
+
+/* .card{
+    border-color: red;
+} */
+
+.review-enroll{
+    margin-bottom: 20px;
+}
+
+ /* #left>div{
+    padding-bottom: 20px;
+
+}  */
+
+
+.form-check-input {
+    background-color: #C4C4C4; 
+}
+
+
+
+.col {
+    position: relative;
+}
+
+.btn {
+    border-color: white;
+    margin-top: 10px;
+}
+
+
+.btn-basic {
+    background-color: #94D5DE;
+    
+}
+
+.btn-pink {
+    background-color: #EBC3C3;
+}
+
+.img_basic{
+    border-radius: 50%;
+}
+.img_tutor{
+    width: 90px;
+    height: 90px;
+}
+
+.img_review{
+    width: 60px;
+    height: 60px;
+}
+
+#applycount {
+    display: flex;
+    justify-content: space-between;
+}
+
+.line{
+    height: 5px;
+    width: 100%;
+    block-size: 3px;
+    background-color: #94D5DE;  
+    margin-bottom: 20px;
+}
+
+.socialImg {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.tutorbox_info{
+    margin-left: 15px;
+}
+/* 수업일정 */
+.list-group-item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-group-item>input {
+    margin-top: 16px;
+}
+
+ .schedule-text {
+    position: relative;
+    margin-right: 30px;
+} 
+
+.class-date{
+    font-size: large;
+}
+
+.class-region {
+    margin-top: 16px;
+    float: right;
+}
+
+
+
+#totutor {
+    resize: none;
+    width: 100%;
+    border: none;
+    outline: none;
+
+}
+
+#tutor-message {
+    border: 1px solid #C4C4C4;
+} 
+
+
+.apply>div{
+    margin-bottom: 10px;
+}
+
+#report>a{
+    color: gray;
+}
+
+#report>a:hover {
+    background-color: #94D5DE;
+}
+
+/* #review-enroll{
+    display: flex; 
+    margin: 0 auto; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} */
+
+.review-head{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* ------------------------------------------------------------별점 */
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+
+/****** Style Star Rating Widget *****/
+
+#starrate { 
+    border: none;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+margin: 5px;
+font-size: 1.25em;
+font-family: FontAwesome;
+display: inline-block;
+content: "\f005";
+}
+
+.rating > .half:before { 
+content: "\f089";
+position: absolute;
+}
+
+.rating > label { 
+color: #ddd; 
+float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+/* ------------------------------------------------------------별점 */
+
+/* vodClass.html */
+#vod-title{
+    font-size: 35px;
+}
+
+#vodlist-title{
+    font-size: 25px;
+}
+
+.checkicon{
+    width: 25px;
+}
+
+.tutor-btn {
+    display: flex;
+    justify-content: space-between;
+}

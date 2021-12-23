@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
     font-family: "서울남산체";
     
@@ -187,3 +188,344 @@ footer>div {
     position: absolute;
     right: -5%;
 }
+=======
+@charset "UTF-8";
+    * {
+        font-family: "서울남산체";
+    }
+    a {
+        text-decoration-line: none;
+    }
+   	body {
+   		background-color : white;
+   	}
+    li {
+        list-style: none;
+    }
+    section {
+        width: 100%;
+    }
+    input:focus {
+        outline: none;
+    }
+    #container {
+        min-width: 1024px;
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+    #header-top {
+        display: flex;
+        width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    #header-top>h1 {
+        margin-top: 15px;
+        padding-right: 410px;
+    }
+    #header-top>div {
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    #header-search {
+        text-align: center;
+        width: 400px;
+        height: 50px;
+        border: 1px #94D5DE solid;
+        border-radius: 50px;
+    }
+    #header-search>input {
+        width: 320px;
+        height: 100%;
+        border: 0;
+        text-align: left;
+        font-size: 15px;
+        padding-left: 10px;
+    }
+    #enrollMemberBtn {
+        background-color: #EBC3C3;
+        color: white;
+        border: 1px;
+        border-radius: 10px;
+        font-weight: bold;
+        width: 110px;
+        height: 30px;
+    }
+    #header-btn {
+        padding-left: 44px;
+    }
+    #header-search>button {
+        width: 30px;
+        height: 30px;
+        margin: 0;
+        background-image: url("https://cdn-icons-png.flaticon.com/512/61/61088.png") left center/cove;
+        border: none;
+    }
+    #header-btn>button{
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    #loginBtn {
+        background-color: #94D5DE;
+        color: white;
+        border: 1px;
+        border-radius: 10px;
+        font-weight: bold;
+        width: 110px;
+        height: 30px;
+    }
+    #header-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    #header-nav>ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+    }
+    #header-nav>ul>li:first-child {
+        margin-left: 0;
+    }
+    #header-nav>ul>li {
+        text-align: center;
+        margin-left: 25px;
+        font-weight: bold;
+        font-size: 20px;
+        width: 150px;
+        height: 50px;
+        line-height: 55px;
+    }
+    #header-nav>ul>li>a{
+        line-height:center;
+        color: #94D5DE;
+    }
+    #header-nav-sub1,#header-nav-sub2,#header-nav-sub3,#header-nav-sub4 {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        background-color: #94D5DE; 
+        height: 100px;
+    }
+    #header-nav-sub1>ul,#header-nav-sub2>ul,#header-nav-sub3>ul,#header-nav-sub4>ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        padding-top: 20px;
+    }
+    #header-nav-sub1>ul>li:first-child,#header-nav-sub2>ul>li:first-child,#header-nav-sub3>ul>li:first-child,#header-nav-sub4>ul>li:first-child {
+        margin-left: 0;
+    }
+    #header-nav-sub1>ul>li,#header-nav-sub2>ul>li,#header-nav-sub3>ul>li,#header-nav-sub4>ul>li {
+        margin-left: 25px;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    #header-nav-sub1>ul>li>a,#header-nav-sub2>ul>li>a,#header-nav-sub3>ul>li>a,#header-nav-sub4>ul>li>a{
+        color: white;
+    }
+    #header-nav-sub1>ul>li>a:hover,#header-nav-sub2>ul>li>a:hover,#header-nav-sub3>ul>li>a:hover,#header-nav-sub4>ul>li>a:hover {
+        text-decoration-line: underline;
+        text-decoration-thickness: 3px;
+    }
+    .slider {
+        padding-top: 30px;
+    }
+    .slider img {
+        width: 1200px;
+        height: 300px;
+    }
+    .class-list {
+        border: 1px solid #C4C4C4;
+    }
+    footer {
+        background-color: #94D5DE;
+        height: 300px;
+        margin: 0;
+    }
+    footer>div {
+        display: flex;
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 100%;
+        height: 100%;
+    }
+    #footer-left {
+        color: white;
+        padding-right: 697px;
+    }
+    #footer-left>h1 {
+        margin: 0;
+        text-align: left;
+    }
+    #footer-left>p {
+        margin: 0 auto;
+        text-align: left;
+    }
+    #footer-left>p:last-child {
+        margin-top: 50px;
+    }
+    #footer-right {
+        color: white;
+        margin-top: 79px;
+    }
+    #footer-right>p {
+        text-align: right;
+        margin-bottom: 5px;
+    }
+    #footer-right>h4 {
+        color: #3B56E9;
+        text-align: right;
+        font-size: 20px;
+    }
+    #footer-right>h5 {
+        text-align: right;
+        font-size: 17px;
+        padding-top: 5px;
+    }
+    #footer-right>h5>a {
+        color: white;
+    }
+    #col4{
+        font-size: 25px;
+    }
+
+    #row2{
+        margin-bottom: 5%;
+    }
+    #title{
+        font-size: 20px;
+    }
+    #price{
+        font-size: 15px;
+    }
+    .col{
+        margin-bottom: 40px;
+    }
+    #class-list {
+        width: 100%;
+        height: 500px;
+        border: 1px solid #C4C4C4;
+        border-radius: 10px;
+        padding: 30px 30px 0 30px;
+    }
+    #class-list>div {
+        display: flex;
+    }
+    #class-list>div>span{
+        float: right;
+    }
+    #class-list>div>h4 {
+        background-color: #94D5DE;
+        color: white;
+        width: 200px;
+        border-radius: 5px;
+        height: 40px;
+        line-height: 40px;
+        box-shadow: 2px 2px #C4C4C4;
+        font-weight: bold;
+    }
+    #list-container1 {
+        display: flex;
+    }
+    #list-container1>ul {
+        overflow: hidden;
+    }
+    #list-container1>ul {
+        padding: 0;
+        display: flex;
+    }
+    #list-container1>ul>li {
+        padding-right: 30px;
+    }
+    #list-container1>a {
+        padding-right: 30px;
+    }
+    #list-content {
+        border: 1px solid #C4C4C4;
+        margin-top: 20px;
+        border-radius: 5px;
+        width: 282px;
+    }
+    #list-content>div {
+        display: flex;
+    }
+    #list-content>img {
+        border-radius: 5px;
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+    #list-content>div {
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    #oneday>p {
+        position: absolute;
+        top: 43%;
+        background-color: orange;
+        opacity: 0.7;
+        width: 80px;
+        height: 20px; 
+        color: white;
+    }
+    #allday>p {
+        position: absolute;
+        top: 43%;
+        background-color: red;
+        opacity: 0.7;
+        width: 80px;
+        height: 20px; 
+        color: white;
+    }
+    #vod>p {
+        position: absolute;
+        top: 43%;
+        background-color: blue;
+        opacity: 0.7;
+        width: 40px;
+        height: 20px;
+        color: white;
+    }
+    #title {
+        word-break:break-all;
+        width: 200px;
+        color: black;
+    }
+    #place>strong {
+        color: hotpink;
+    }
+    #addlist {
+        height: 40px;
+        margin: 0 auto;
+    }
+    #addlist>span {
+        color: #999;
+    }
+    #content-right {
+        position: relative;
+        left: 3%;
+        top: 500;
+    }
+    #frofile-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 70%;
+        overflow: hidden;
+        margin-top: 35px;
+    }
+    #frofile-img>img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    #frofile-name {
+        margin: 0 auto;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+    }
+/* } */
+>>>>>>> branch 'master' of https://github.com/YangDaeYeol/susemi.git
