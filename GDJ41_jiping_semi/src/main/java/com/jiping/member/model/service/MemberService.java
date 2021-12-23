@@ -1,12 +1,13 @@
 package com.jiping.member.model.service;
 
-import static com.jiping.common.JDBCTemplate.getConnection;
 import static com.jiping.common.JDBCTemplate.close;
+import static com.jiping.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.List;
 
 import com.jiping.member.model.dao.MemberDao;
+import com.jiping.member.model.vo.Member;
 
 public class MemberService {
 	
@@ -17,5 +18,12 @@ public class MemberService {
 		List<String> list = dao.selectAllEmail(conn);
 		close(conn);
 		return list;
+	}
+	
+	public Member loginMember(String email, String password) {
+		Connection conn=getConnection();
+		Member m=dao.loginMember(conn, email, password);
+		close(conn);
+		return m;
 	}
 }

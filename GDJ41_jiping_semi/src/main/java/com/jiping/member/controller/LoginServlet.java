@@ -1,11 +1,17 @@
-package com.jp.member.controller;
+package com.jiping.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
  * Servlet implementation class LoginServlet
@@ -30,10 +36,20 @@ public class LoginServlet extends HttpServlet {
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		
-//		Member m=
+		Member m=new MemberService().loginMember(email, password);
 		
-		
-		
+		if(m!=null) {
+			HttpSession session=request.getSession();
+			session.setAttribute("loginMember", m);
+			System.out.println(m);			
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 다시 확인해주세요.'); location.href='"
+					+request.getContextPath()+"/views/login/loginMain.jsp';</script>");
+			out.close();
+		}
 		
 		
 	}

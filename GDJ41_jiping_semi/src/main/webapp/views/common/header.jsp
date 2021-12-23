@@ -35,7 +35,8 @@
                     </div>
                     <div id="header-btn">
                         <button id="enrollMemberBtn"><span>회원가입</span></button>
-                        <button id="loginBtn"><span>로그인</span></button>
+                        <button id="loginBtn" 
+                        	onclick="location.assign('<%=request.getContextPath()%>/member/loginPage.do');"><span>로그인</span></button>
                     </div>
                 </div>
                 <div id="nav-container">
