@@ -1377,9 +1377,7 @@
             for (let i = 1; i < val; i++) {
                 let dateContainer = $("#selectMultipleDates0").clone();
                 dateContainer.attr({ "id": "selectMultipleDates" + i });
-                dateContainer.attr({ "name" : "selectMultipleDates" + i});
                 dateContainer.find("span").text((i + 1) + "회 날짜 : ");
-               
 
                 if (i == 1) {
                     $("#selectMultipleDates0").after(dateContainer);
@@ -1571,7 +1569,6 @@
             keyupEvent();
         }
     </script>
-
     <script>
         var stepper1
         document.addEventListener('DOMContentLoaded', function () {
@@ -1700,6 +1697,7 @@
             }
             $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
         }
+
 
     </script>  
 
