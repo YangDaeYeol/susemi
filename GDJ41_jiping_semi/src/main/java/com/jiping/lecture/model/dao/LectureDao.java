@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.member.model.vo.Member;
 
 public class LectureDao {
 	
@@ -26,7 +27,6 @@ public class LectureDao {
 			e.printStackTrace();
 		}
 	}
-
 	public Lecture lectureInfo(Connection conn, int num ) {
 		PreparedStatement pstmt=null;
 		ResultSet rs= null; 
@@ -96,6 +96,25 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return schedule;
+	}
+	
+	public int enrollTutorImage (Connection conn, Member m) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("enrollTutorImg");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, m.getProfileImg());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+		
+		
 	}
 	
 }

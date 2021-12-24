@@ -57,11 +57,6 @@
                                 </div>
                             </div>
                             <div class="bs-stepper-content">
-                            <form id='testForm'>
-                            	<input name='test1' id='test1' value='123' />
-                            	<input name='test2' id='test2' value='456' />
-                            	<input type='file' name='testFile' style="display:block;"/>
-                            </form>
                                 <form onsubmit="return false"  id="toSendForm">
 
                                     <div class="mainContent">
@@ -86,7 +81,7 @@
                                                                     alt="2021-12-17-18-59-18" width="100px"
                                                                     height="100px">
                                                             </label>
-                                                            <input id="file-input" type="file"
+                                                            <input id="file-input" name="tutorImgFile" type="file"
                                                                 accept="image/png, image/gif, image/jpeg, image/jpg">
                                                         </div>
                                                         <div id="resultTutorImg" style="margin-bottom: 30px;"></div>
@@ -99,6 +94,7 @@
                                                                 (0/500)
                                                             </div>
                                                         </div>
+                                                        
                                                         <div id="snsInfo">
                                                             <div>소셜미디어
                                                                 <span class="sugg">(권장사항)</span>
@@ -106,22 +102,23 @@
                                                             <div id="insta"><img
                                                                     src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
                                                                     alt="instagram" class="socialImg" width="18px"
-                                                                    height="18px"><input type="text"
+                                                                    height="18px"><input type="text" name="instaAddr"
                                                                     placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
                                                             </div>
                                                             <div id="facebook"><img
                                                                     src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
                                                                     alt="facebook" class="socialImg" width="18px"
-                                                                    height="18px"><input type="text"
+                                                                    height="18px"><input type="text" name="facebookAddr"
                                                                     placeholder="페이스북 주소를 입력해주세요" class="snsInputBox">
                                                             </div>
                                                             <div id="blog">
                                                                 <img src="https://www.coolstay.co.kr/img/main/naver.png"
                                                                     alt="blog" class="socialImg" width="18px"
-                                                                    height="18px"><input type="text"
+                                                                    height="18px"><input type="text" name="blogAddr"
                                                                     placeholder="블로그 주소를 입력해주세요" class="snsInputBox">
                                                             </div>
                                                         </div>
+                                                        </form>
                                                         <div>자격증 및 경력
                                                             <span class="sugg">(권장사항, 최대 5개)</span>
                                                         </div>
@@ -571,7 +568,7 @@
 
                                         </div>
                                     </div>
-                                </form>
+                                <!-- </form>이게 진짜 폼 끝이야! -->
                             </div>
                         </div>
                     </div>
@@ -1130,7 +1127,7 @@
     	    $.ajax({             
     	    	type: "POST",          
     	        enctype: 'multipart/form-data',  
-    	        url: "<%=request.getContextPath()%>/lectureEnroll.do",        
+    	        url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
     	        data: data,          
     	        processData: false,    
     	        contentType: false,      
