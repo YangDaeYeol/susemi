@@ -5,12 +5,14 @@
 	<section style="margin: 100px auto; text-align: center">
 		<main class="form-signin">
 			<form>           
-				<h4 class="h4 fw-normal ws-4">
-				    입력하신 이메일로 <br>
-				    임시 비밀번호가 전송되었습니다.<br><br>
-				    로그인 후 임시 비밀번호를<br> 
-					꼭 변경해주세요
-				</h4>    
+				<div class="pw-container">
+			      	<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
+					<span class="warningMsg">대/소문자,숫자,특수기호를 포함한 8자리 이상을 입력해주세요</span>
+			    </div>
+			    <div class="pwck-container">
+			      	<input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 재입력해주세요">
+					<span class="warningMsg">비밀번호가 일치하지 않습니다.</span>
+			    </div>   
 				<button class="w-100 btn btn-lg btn_mint mb-3 mt-5" type="submit">확인</button>    
 			</form>
 		</main>
