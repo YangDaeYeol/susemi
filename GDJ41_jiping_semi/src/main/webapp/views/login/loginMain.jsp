@@ -96,8 +96,8 @@
         
             <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">로그인</button>
             <div class="row fs_14">
-                <div class="col-6 col-md-4 border-right pd_5 likebtn"><a href="">아이디 찾기</a></div>
-                <div class="col-6 col-md-4 border-right pd_5 likebtn"><a href="">비밀번호 찾기</a></div>
+                <div class="col-6 col-md-4 border-right pd_5 likebtn"><a href="<%=request.getContextPath()%>/views/login/findEmail.jsp">아이디 찾기</a></div>
+                <div class="col-6 col-md-4 border-right pd_5 likebtn"><a href="<%=request.getContextPath()%>/views/login/findPassword.jsp">비밀번호 찾기</a></div>
                 <div class="col-6 col-md-4 pd_5 likeBtn"><a href="">회원가입</a></div>
             </div>
           </form>

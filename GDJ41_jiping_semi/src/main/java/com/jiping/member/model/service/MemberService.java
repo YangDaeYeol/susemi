@@ -20,9 +20,17 @@ public class MemberService {
 		return list;
 	}
 	
+
 	public Member loginMember(String email, String password) {
 		Connection conn=getConnection();
 		Member m=dao.loginMember(conn, email, password);
+		close(conn);
+		return m;
+	}
+	
+	public Member findEmail(String userName, String phone) {
+		Connection conn = getConnection();
+		Member m = dao.findEmail(conn,userName,phone);
 		close(conn);
 		return m;
 	}
