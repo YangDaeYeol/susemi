@@ -3,11 +3,14 @@
 <%@ include file="/views/common/header.jsp" %>
 <%@ page import="com.jiping.lecture.model.vo.Lecture,
 				com.jiping.lecture.model.vo.LectureContent,
-				com.jiping.lecture.model.vo.LectureSchedule " %>
+				com.jiping.lecture.model.vo.LectureSchedule,
+				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
 	LectureContent content= (LectureContent)request.getAttribute("content");
-	LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule");
+	/* LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule"); */
+	List<LectureSchedule> list= (List)request.getAttribute("scList");
+	System.out.println("jsp:"+ list);
 
 %>
 
@@ -151,51 +154,18 @@ $(()=>{
             <div id="class_schedule">
               <h5 class="card-title">수업일정</h5>
               <div class="list-group">
+                <%for(LectureSchedule lesc: list) { %>
                 <label class="list-group-item">
                   <input class="form-check-input me-1" type="checkbox" value="">
                   <div class="schedule-text">
-                    <span class="class-date"><%=sc.getLectureDate() %> </span> <span style="padding-left:30px"> 19:30-21:00</span>
+                    <span class="class-date"><%=lesc.getLectureDate() %> </span> 
+                    <span style="padding-left:30px"> <%=lesc.getStartDate()%>-<%=lesc.getEndDate() %></span>
                     <br>
-                    <span><%=sc.getLectureAddress() %></span>
+                    <span><%=lesc.getLectureAddress() %></span>
                   </div>
-                  <span class="class-region"><%=sc.getLectureLocation() %></span>
+                  <span class="class-region"><%=lesc.getLectureLocation() %></span>
                 </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  <div class="schedule-text">
-                    <span class="class-date">2021.12.21(토) </span> <span> 19:30-21:00</span>
-                    <br>
-                    <span>대륭테크노타운 3차 509호</span>
-                  </div>
-                  <span class="class-region">서울시 금천구</span>
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  <div class="schedule-text">
-                    <span class="class-date">날짜 </span> <span> 시간 </span>
-                    <br>
-                    <span>세부장소</span>
-                  </div>
-                  <span class="class-region">지역</span>
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  <div class="schedule-text">
-                    <span class="class-date">날짜 </span> <span> 시간 </span>
-                    <br>
-                    <span>세부장소</span>
-                  </div>
-                  <span class="class-region">지역</span>
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  <div class="schedule-text">
-                    <span class="class-date">날짜 </span> <span> 시간 </span>
-                    <br>
-                    <span>세부장소</span>
-                  </div>
-                  <span class="class-region">지역</span>
-                </label>
+                <%} %>
                 <div id="scheduleBtn" class="d-flex justify-content-center">
                   <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하 기</button>
                   <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신 청</button>
@@ -206,7 +176,9 @@ $(()=>{
               <h5 class="card-title">수강신청</h5>
               <div class="card">
                 <div class="card-body apply">
-                  <div id="toggletest"></div>
+                  <div id="toggletest">
+                  
+                  </div>
                   <div id="applycount">
                     <h6>수강신청 현황</h6>
                     <span>14/15</span>
@@ -231,6 +203,29 @@ $(()=>{
               </div>
             </div>
           </div>
+          
+<script>
+       $(() => {
+        $("#apply").click(e => {
+        	console.log($("input[name=form-check-input]"));
+        /* 	if($("input[name=form-check-input]")==checked){
+        		alert("asdf");
+        	} */
+        	
+        	
+          /* const test = $(".schedule-text").clone();
+          console.log(test);
+          span.append(test)*/
+
+          $("#class_submit").show();
+          $("#toggletest").html(test); 
+        });
+
+        $("#wish").click(e => {
+          alert("찜할래?")
+        })
+      }); 
+</script>
 
           <div id="review" class="row-1">
             <!--보라 2-->
@@ -340,26 +335,5 @@ $(()=>{
           </div>
           <br><br><br><br><br>
     </section>
-
-    <script>
-      $(() => {
-        $("#apply").click(e => {
-          const span = $("<span>");
-          const test = $(".schedule-text").clone();
-          console.log(test);
-          span.append(test)
-
-          $("#class_submit").show();
-          $("#toggletest").html(test);
-        });
-
-        $("#wish").click(e => {
-          alert("찜할래?")
-        })
-
-
-
-      });
-    </script>
 
 <%@ include file="/views/common/footer.jsp" %>

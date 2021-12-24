@@ -19,5 +19,8 @@ public class LectureSchedule {
 	private String lectureLocation;
 	private String lectureAddress;
 	private Date lectureDate;
+	private String startDate;
+	private String endDate;
+	
 	
 }

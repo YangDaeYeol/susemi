@@ -1,6 +1,7 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,12 +35,16 @@ public class LectureServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
+		
 		Lecture le= new LectureService().lectureInfo(lectureNo);
 		LectureContent content= new LectureService().lectureContent(lectureNo);
-		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
+//		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
+		List<LectureSchedule> scList= new LectureService().scheduleList();
+		
 		request.setAttribute("le", le);
 		request.setAttribute("content", content);
-		request.setAttribute("schedule", schedule);
+//		request.setAttribute("schedule", schedule);
+		request.setAttribute("scList", scList);
 		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);
 
 		

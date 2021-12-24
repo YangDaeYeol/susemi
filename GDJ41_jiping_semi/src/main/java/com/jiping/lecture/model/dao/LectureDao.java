@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
@@ -74,28 +76,56 @@ public class LectureDao {
 		return content;
 	}
 	
-	public LectureSchedule lectureSchedule(Connection conn, int num ) {
+//	public LectureSchedule lectureSchedule(Connection conn, int num ) {
+//		PreparedStatement pstmt=null;
+//		ResultSet rs= null; 
+//		LectureSchedule schedule=null;
+//		String sql=prop.getProperty("lectureSchedule");
+//		try {
+//			pstmt=conn.prepareStatement(sql);
+//			pstmt.setInt(1, num);
+//			rs=pstmt.executeQuery();
+//			if(rs.next()) {
+//				schedule= LectureSchedule.builder()
+//						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
+//						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
+//						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
+//			}
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return schedule;
+//	}
+	
+	public List<LectureSchedule> scheduleList(Connection conn){
 		PreparedStatement pstmt=null;
-		ResultSet rs= null; 
-		LectureSchedule schedule=null;
-		String sql=prop.getProperty("lectureSchedule");
+		ResultSet rs= null;
+		List <LectureSchedule> list= new ArrayList();
+		String sql= prop.getProperty("scheduleList");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
 			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				schedule= LectureSchedule.builder()
+			while(rs.next()) {
+				LectureSchedule schedule= LectureSchedule.builder()
 						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
 						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
-						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
+						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date"))
+						.startDate(rs.getString("start_date")).endDate(rs.getString("end_date")).build();
+				list.add(schedule);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(rs);
 			close(pstmt);
 		}
-		return schedule;
+//		System.out.println("dao list:"+list);
+		return list;
+		
 	}
+	
 	
 }

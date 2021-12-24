@@ -4,6 +4,7 @@ import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
@@ -28,11 +29,18 @@ public class LectureService {
 		return content;
 	}
 	
-	public LectureSchedule lectureSchedule(int lectureNo) {
+//	public LectureSchedule lectureSchedule(int lectureNo) {
+//		Connection conn=getConnection();
+//		LectureSchedule schedule= dao.lectureSchedule(conn, lectureNo);
+//		close(conn);
+//		return schedule;
+//	}
+	
+	public List<LectureSchedule> scheduleList(){
 		Connection conn=getConnection();
-		LectureSchedule schedule= dao.lectureSchedule(conn, lectureNo);
+		List<LectureSchedule> list=dao.scheduleList(conn);
 		close(conn);
-		return schedule;
+		return list;
 	}
 
 }
