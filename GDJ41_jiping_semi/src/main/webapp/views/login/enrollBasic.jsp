@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<%@ page import="java.util.List" %>
 <style>
 
 *{
@@ -55,9 +51,8 @@ section{
 	color: red; 
 	font-size: 10px;
 }
-
 </style>
-<section>
+<% List<String> list = (List)request.getAttribute("nickList"); %>
 	<main class="form-signin">
 	  <form>
 	    
@@ -69,6 +64,7 @@ section{
 	    <div class="userName-container">
 	    	<input type="text" class="form-control" id="userName" placeholder="이름(실명)을 입력해주세요">
 	    </div>
+	    <button id="zzaass">갑확인</button>
 	    <div class="userNickName-container">
 	      	<input type="text" class="form-control" id="userNickName" placeholder="닉네임을 입력해주세요">
 		  	<span class="warningMsg">이미 사용하고 있는 닉네임입니다.</span>
@@ -86,5 +82,9 @@ section{
 		
 	  </form>
 	</main>
-</section>
-<%@ include file="/views/common/footer.jsp" %>
+	<script>
+		$("#zzaass").click(e=> {
+			console.log("zz");
+			console.log($("#userName").val());
+		});
+	</script>

@@ -127,12 +127,6 @@
 	        });
         }
         $("#enrollMemberBtn").click(e=> {
-        	$.ajax({
-        		url : "<%= request.getContextPath() %>/enrollMember",
-        		dataType : "html",
-        		success : data => {
-        			$("section").html(data);
-        		}
-        	});
+        	location.assign("<%= request.getContextPath() %>/enrollMember");
         });
     </script>

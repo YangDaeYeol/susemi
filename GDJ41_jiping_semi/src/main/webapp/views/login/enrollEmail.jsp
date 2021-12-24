@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
+<%@ include file="/views/common/header.jsp" %>
 <style>
     *{
       font-family: "서울남산체";
@@ -98,7 +99,7 @@
 		email += s + ",";
 	}
 %>
-        <section>
+	<section>
         <main class="form-signin">
             
             <h4 class="h4 fw-normal">
@@ -119,7 +120,7 @@
             <span class="warningMsg"></span>
             </div>
         
-            <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">확인</button>
+            <button class="w-100 btn btn-lg btn_mint mb-3" id="enrollNext">확인</button>
             
         </main>
     </section>
@@ -138,18 +139,18 @@
     				dataType : "get",
     				data : {"val" : val}
     			});
-    		}
+    		}	
     	});
     	$("#number").click(e=> {
     		const val = $("#Certification_Number").val();
     		$.ajax({
     			url : "<%= request.getContextPath() %>/certificationNumber",
     			type : "get",
+    			dataType : "json",
     			data : {"val" : val},
     			success : data => {
-    				alert(data);
-    				flag = true;
-    				console.log(flag);
+    				alert(data["msg"]);
+    				flag = data["flag"];
     			},
     			error : (a,b,c) => {
     				console.log(a);
@@ -158,4 +159,18 @@
     			} 
     		});
     	});
+    	$("#enrollNext").click(e=> {
+    		if(flag) {
+    			$.ajax({
+    				url : "<%= request.getContextPath() %>/enrollMemberSecond",
+    				dataType : "html",
+    				success : data => {
+    					$("section").html(data);
+    				}
+    			});
+    		}else {
+    			alert("이메일인증을 해주세요.");
+    		}
+    	});
     </script>
+    <%@ include file="/views/common/footer.jsp" %>
