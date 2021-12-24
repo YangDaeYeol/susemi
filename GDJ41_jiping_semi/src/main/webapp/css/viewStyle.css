@@ -1,8 +1,9 @@
+@charset "UTF-8";
 *{
     font-family: "서울남산체";
 }
 
- section{
+ .container{
     padding-top: 30px;
     padding-bottom: 30px;
     /* width: 100%;   */
