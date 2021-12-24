@@ -1,8 +1,11 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +18,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.jiping.common.FileRename;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.member.model.vo.Member;
+import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -46,13 +50,12 @@ public class EnrollLectureServlet extends HttpServlet {
 					MultipartRequest mr = new MultipartRequest(request, path, maxSize, encode, new FileRename());
 					
 					Map<String, Object> lecture = new HashMap<>();
+					
 					Member m = Member.builder()
 							.profileImg(mr.getFilesystemName("tutorImgFile"))
 							.build();
 					
 					lecture.put("member",m);
-					
-					int result = new LectureService().enrollLecture(lecture);
 	
 					String tutorComment = mr.getParameter("tutorComment");
 					String tutorInsta = mr.getParameter("instaAddr");
@@ -67,6 +70,62 @@ public class EnrollLectureServlet extends HttpServlet {
 							.build();
 					
 					lecture.put("tutor",t);
+					
+					String[] certificateText = new String[5];
+					int TextNum = 1;
+					;
+					for (int i = 0; i < certificateText.length; i++) {
+						if ((mr.getParameter("text-career" + TextNum))!=null) {
+							//text-career가 null이 아닐 경우에만 배열에 값 넣기
+							certificateText[i] = mr.getParameter("text-career" + TextNum);
+							TextNum++;
+						}
+						
+					}
+//					String 배열에서 String 으로 변경
+					StringBuilder builder1 = new StringBuilder();
+					for(String s : certificateText) {
+					    builder1.append(s + ",");
+					}
+					String certificateTxt = builder1.toString();
+				      
+				      
+				      
+					String[] certificateImage = new String[5];
+					int FileNum = 1;
+					for (int i = 0; i < certificateImage.length; i++) {
+						if ((mr.getFilesystemName("file-career" + FileNum))!=null) {
+							//text-career가 null이 아닐 경우에만 배열에 값 넣기
+							certificateImage[i] = mr.getFilesystemName("file-career" + FileNum);
+							FileNum++;
+						}
+					}
+//					String 배열에서 String 으로 변경
+					StringBuilder builder2 = new StringBuilder();
+					for(String s : certificateImage) {
+					    builder2.append(s + ",");
+					}
+					String certificateImg = builder2.toString();
+
+					
+					Certificate c = null;
+					for (int i = 0; i < certificateImage.length; i++) {
+						c = Certificate.builder()
+								.certificateText(certificateTxt)
+								.certificateImg(certificateImg)
+								.build();
+					}
+					
+					lecture.put("certificate", c);
+					
+					
+					
+					
+					
+					
+					
+					
+					int result = new LectureService().enrollLecture(lecture);
 					
 	}
 

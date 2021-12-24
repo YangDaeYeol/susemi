@@ -57,7 +57,8 @@
                                 </div>
                             </div>
                             <div class="bs-stepper-content">
-                                <form onsubmit="return false"  id="toSendForm">
+                               <!--  <form onsubmit="return false"  id="toSendForm">
+                                여기가 진짜 폼 시작하는곳이야 -->
 
                                     <div class="mainContent">
                                         <div class="first"></div>
@@ -118,13 +119,14 @@
                                                                     placeholder="블로그 주소를 입력해주세요" class="snsInputBox">
                                                             </div>
                                                         </div>
-                                                        </form>
+                                                        <form onsubmit="return false"  id="toSendForm">
+                                                        
                                                         <div>자격증 및 경력
                                                             <span class="sugg">(권장사항, 최대 5개)</span>
                                                         </div>
                                                         <div id="toGetCarrerInformation">
                                                             <div class="image-career" id="image-career1">
-                                                                <input type="text"
+                                                                <input type="text" name="text-career1"
                                                                     placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
                                                                     class="careerInputBox">
                                                                 <label for="file-career1">
@@ -134,11 +136,11 @@
                                                                         height="18px" class="carrerimage" />
                                                                 </label>
 
-                                                                <input id="file-career1" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+                                                                <input id="file-career1" name="file-career1" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
                                                             </div>
 
                                                             <div class="image-career" id="image-career2">
-                                                                <input type="text"
+                                                                <input type="text" name="text-career2"
                                                                     placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
                                                                     class="careerInputBox">
                                                                 <label for="file-career2">
@@ -148,14 +150,16 @@
                                                                         height="18px" class="carrerimage" accept="image/png, image/gif, image/jpeg, image/jpg"/>
                                                                 </label>
 
-                                                                <input id="file-career2" type="file" />
+                                                                <input id="file-career2" name="file-career2" type="file" />
                                                             </div>
 
                                                         </div>
                                                         <div id="addCareer"><button onclick="addCareerArea();">+ 이력
                                                                 추가</button></div>
+                                                                
                                                         <div id="tutorCareerFile"
                                                             style="margin-bottom: 20px; font-size:12px;"></div>
+                                                            </form>
                                                         <!-- 튜터 소개 본문 내용 끝 -->
                                                         <button class="pageBtn" onclick="stepper1.next()">다음</button>
                                                     </div>
@@ -656,8 +660,7 @@
                 var filesAmount = input.files.length;
                 for (i = 0; i < 1; i++) {
                     var reader = new FileReader();
-                    reader.onload = function (event) {
-                        $($.parseHTML($("#" + id).val().replace(/.*(\/|\\)/, ''))).appendTo(placeToInsertImagePreview)
+                    reader.onload = function (event) {($.parseHTML($("#" + id).val().replace(/.*(\/|\\)/, ''))).appendTo(placeToInsertImagePreview);
                     };
                     reader.readAsDataURL(input.files[0]);
                 }
@@ -669,7 +672,11 @@
         });
 
         $("input").on('change', function () {
-            imagesPreview(this, "#tutorCareerFile", 'file-career');
+            imagesPreview(this, "#tutorCareerFile", 'file-career1');
+            imagesPreview(this, "#tutorCareerFile", 'file-career2');
+            imagesPreview(this, "#tutorCareerFile", 'file-career3');
+            imagesPreview(this, "#tutorCareerFile", 'file-career4');
+            imagesPreview(this, "#tutorCareerFile", 'file-career5');
         });
 
         // 선택한거대로 페이지 뜨게 하는 스크립트
@@ -1106,7 +1113,7 @@
                 });
                 return false;
             }
-            $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
+            $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"name="text-career' + numItems + '"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career"name="file-career' + numItems + '"type="file"accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
         }
         
        const toSubmit = () => {

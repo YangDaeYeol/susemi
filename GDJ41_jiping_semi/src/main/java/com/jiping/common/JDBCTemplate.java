@@ -48,7 +48,7 @@ public class JDBCTemplate {
 	
 	public static void close(Connection conn) {
 		try {
-			if(conn!=null && conn.isClosed()) conn.close();
+			if(conn!=null && !conn.isClosed()) conn.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

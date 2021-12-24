@@ -8,12 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.member.model.vo.Member;
+import com.jiping.tutor.model.vo.Certificate;
+import com.jiping.tutor.model.vo.Tutor;
 
 public class LectureDao {
 	
@@ -100,9 +103,9 @@ public class LectureDao {
 	
 	public int enrollTutorImage (Connection conn, Member m) {
 		
-		PreparedStatement pstmt=null;
-		int result=0;
-		String sql=prop.getProperty("enrollTutorImg");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollTutorImg");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, m.getProfileImg());
@@ -113,8 +116,44 @@ public class LectureDao {
 			close(pstmt);
 		} 
 		return result;
+	}
+	
+public int enrollTutorInformation (Connection conn, Tutor t) {
 		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollTutorInformation");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, t.getInsta());
+			pstmt.setString(2, t.getFacebook());
+			pstmt.setString(3, t.getBlog());
+			pstmt.setString(4, t.getTutorMsg());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
 		
+	}
+public int enrollCertificateInformation (Connection conn, Certificate c) {
+		PreparedStatement pstmt=null;
+		int result = 0;
+		String sql=prop.getProperty("enrollCertificateInformation");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getCertificateText());
+			pstmt.setString(2, c.getCertificateImg());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	
 	}
 	
 }
