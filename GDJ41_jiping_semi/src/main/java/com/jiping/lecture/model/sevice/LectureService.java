@@ -42,5 +42,12 @@ public class LectureService {
 		close(conn);
 		return list;
 	}
+	
+	public List<LectureSchedule> scheduleSelectList(int scheduleNo){
+		Connection conn=getConnection();
+		List<LectureSchedule> list=dao.scheduleSelectList(conn, scheduleNo);
+		close(conn);
+		return list;
+	}
 
 }

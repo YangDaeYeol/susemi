@@ -10,7 +10,7 @@
 	LectureContent content= (LectureContent)request.getAttribute("content");
 	/* LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule"); */
 	List<LectureSchedule> list= (List)request.getAttribute("scList");
-	System.out.println("jsp:"+ list);
+/* 	System.out.println("jsp:"+ list); */
 
 %>
 
@@ -156,7 +156,7 @@ $(()=>{
               <div class="list-group">
                 <%for(LectureSchedule lesc: list) { %>
                 <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
+                  <input class="form-check-input me-1" type="checkbox" value="<%=lesc.getScheduleNo()%>">
                   <div class="schedule-text">
                     <span class="class-date"><%=lesc.getLectureDate() %> </span> 
                     <span style="padding-left:30px"> <%=lesc.getStartDate()%>-<%=lesc.getEndDate() %></span>
@@ -205,26 +205,30 @@ $(()=>{
           </div>
           
 <script>
-       $(() => {
-        $("#apply").click(e => {
-        	console.log($("input[name=form-check-input]"));
-        /* 	if($("input[name=form-check-input]")==checked){
-        		alert("asdf");
-        	} */
-        	
-        	
-          /* const test = $(".schedule-text").clone();
-          console.log(test);
-          span.append(test)*/
+	let scheduleNo;
+	$("input[type=checkbox]").change(e=>{
+		scheduleNo=$(e.target).val();
+		console.log(scheduleNo);
+	})
 
-          $("#class_submit").show();
-          $("#toggletest").html(test); 
-        });
+	$("#apply").click(e => {
+ 	   $.ajax({
+ 		 url: "<%=request.getContextPath()%>/lecture/scheduleInfo.do",
+ 		 type: "get",
+ 		 dataType:"json",
+ 		 data: {"scheduleNo":scheduleNo},
+ 		 success: data=>{
+ 			 
+ 			 
+ 		 }
+/* 		    $("#wish").click(e => {
+		      alert("찜할래?") */
+ 			/*  $("#class_submit").show();
+ 	        $("#toggletest").html(); */
+    	})
 
-        $("#wish").click(e => {
-          alert("찜할래?")
-        })
-      }); 
+    }); 
+
 </script>
 
           <div id="review" class="row-1">

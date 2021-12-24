@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LectureSchedule {
 
+	private int scheduleNo;
 	private int lectureNo;
 	private int lecturePrice;
 	private int lecturePersons;

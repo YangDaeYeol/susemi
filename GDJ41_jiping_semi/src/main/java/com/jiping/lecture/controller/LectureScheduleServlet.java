@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.Lecture;
-import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureSchedule;
 
 /**
- * Servlet implementation class LectureServlet
+ * Servlet implementation class LectureScheduleServlet
  */
-@WebServlet("/lecture/lecture.do")
-public class LectureServlet extends HttpServlet {
+@WebServlet("/lecture/scheduleInfo.do")
+public class LectureScheduleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LectureServlet() {
+    public LectureScheduleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +34,17 @@ public class LectureServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
+		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
+		System.out.println("scheduleNo :"+scheduleNo);
+		List<LectureSchedule> scList= new LectureService().scheduleSelectList(scheduleNo);
 		
+		JSONObject jo= new JSONObject();
+		jo.put("scList", scList); //이걸 넣어주니까 밑에 투스트링이 생김
+		System.out.println("tostring: "+jo.toString());
+		System.out.println("scList: "+scList);
 		
-		Lecture le= new LectureService().lectureInfo(lectureNo);
-		LectureContent content= new LectureService().lectureContent(lectureNo);
-//		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
-		List<LectureSchedule> scList= new LectureService().scheduleList();
-		
-		request.setAttribute("le", le);
-		request.setAttribute("content", content);
-//		request.setAttribute("schedule", schedule);
 		request.setAttribute("scList", scList);
-		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);
-
-		
+	
 	}
 
 	/**
