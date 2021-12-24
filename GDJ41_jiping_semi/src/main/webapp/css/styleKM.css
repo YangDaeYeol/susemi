@@ -1,0 +1,213 @@
+@charset "UTF-8";
+section{
+	margin: 100px auto; 
+	text-align: center;
+}
+
+.form-signin {
+  width: 400px;
+  padding: 60px 15px 25px 15px;
+  margin: auto;
+  border: 1px solid #c4c4c4;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.loginContent{
+	margin-left: 10px;
+	margin-bottom: 5px;
+	display: block;
+	text-align: left;
+	color: #c4c4c4;
+}
+
+main.form-signin [class*='container'] {
+	width: 95%;
+	margin: 40px auto 40px 10px;
+}
+main.form-detail [class*='container'] {
+	width: 95%;
+	margin: 20px auto 20px 10px;
+}
+.CN-container{
+	margin-bottom: 50px;
+	text-align: left;
+}
+
+.categorydiv1, .categorydiv2 {
+	padding-top: 5px;
+}
+.border-right{
+        border-right: 1px solid black;
+}
+.fs_14{
+	font-size: 14px;
+}
+.btn_mint{
+	background-color: #94d5de;
+	color: white;
+}
+.pd_5{
+        padding-top: 5px;
+        padding-bottom: 5px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.warningMsg{
+	display:block; 
+	text-align: left; 
+	margin: 3px 0px 0px 5px; 
+	color: red; 
+	font-size: 10px;
+}
+	 
+main.form-signin input[type='radio'] {
+ display: none;
+}
+main.form-signin input[type='radio'] + label[for="male"],label[for="female"] {
+    width: 45%;
+    margin: 0px 5px 0px 0px;
+	padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #000000;
+    display: inline-block;
+}
+main.form-signin input[type='radio'] + label[for="normal"],label[for="tutor"] {
+    width: 40%;
+    margin: 50px 5px 50px 0px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #000000;
+	display: inline-block;
+}  
+main.form-signin input[type='radio']:checked + label {
+    
+    background: #94d5de;
+    border: 0cm;
+	color: white;
+}
+main.form-signin input[type='radio' ]:checked + label[for="male"] {
+    
+    background: #94d5de;
+    border: 0cm;
+	color: white;
+}
+main.form-signin input[type='radio' ]:checked + label[for="female"] {
+    
+    background: #ebc3c3;
+    border: 0cm;
+	color: white;
+}
+main.form-signin input.form {
+        display: inline-block;
+        width: 70%;
+        padding: 0.375rem 0.75rem;
+        margin-top: 5px;
+        margin-right: 10px;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        appearance: none;
+        border-radius: 0.25rem;
+        
+}
+main.form-signin input::placeholder{
+        font-size:12px;
+        color: #c4c4c4c4;
+}
+
+.form-select{
+	width:45%;
+	display: inline;
+	margin-right: 5px;
+	color: #c4c4c4;
+}
+.form-select option{
+	color: #c4c4c4;
+}
+.memberType button{
+	border: 1px solid black; 
+}
+/* 토글 버튼 */
+	.toggle {
+        position: relative;
+        display: inline-block;
+    }
+    .toggle input {
+        display: none;
+    }
+    .toggle label {
+        display: block;
+        width: 48px;
+        height: 24px;
+        text-indent: -250%; /* 라벨 텍스트 왼쪽으로 이동*/
+        user-select: none; /* 라벨 텍스트 선택 차단 */
+    }
+    .toggle label::before,
+    .toggle label::after {
+        content: "";
+        display: block;
+        position: absolute;
+        cursor: pointer;
+    }
+    .toggle label::before { /* 배경 */
+        width: 100%;
+        height: 100%;
+        background-color: #dedede;
+        border-radius: 1em;
+        -webkit-transition: background-color 0.25s ease;
+        transition: background-color 0.25s ease;/* 배경색 애니메이션*/
+    }
+    .toggle label::after { /* 스위치 */
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.45);
+        -webkit-transition: left 0.25s ease;
+        transition: left 0.25s ease; /* 스위치 이동 애니메이션 */
+    }
+    .toggle input:checked + label::before {
+        background-color: skyblue; /* 켠 상태 배경색 */
+    }
+    .toggle input:checked + label::after { /* 켠 상태 스위치 위치 */
+        left: 24px;
+    }
+/* payment */
+.form-payment {
+    width: 900px;
+    padding: 60px 15px 25px 15px;
+    margin: auto;
+    border: 1px solid #c4c4c4;
+}
+#paymentDetail{
+  text-align: left;
+  
+}
+#paymentDetail span{
+  display: block;
+}
+.line{
+  height: 5px;
+  width: 100%;
+  max-width: 900px;
+  block-size: 3px;
+  background-color: #94D5DE;
+  margin: auto;
+  margin-bottom: 50px;        
+}
+#firstMenu{
+  margin: auto; 
+  max-width: 900px; 
+}

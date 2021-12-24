@@ -92,6 +92,7 @@
     }
     
     </style>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">
 <%
 	List<String> list = (List)request.getAttribute("emailList");
 	String email = "";

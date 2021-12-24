@@ -88,3 +88,4 @@ section{
 			console.log($("#userName").val());
 		});
 	</script>
+<%@ include file="/views/common/footer.jsp" %>
