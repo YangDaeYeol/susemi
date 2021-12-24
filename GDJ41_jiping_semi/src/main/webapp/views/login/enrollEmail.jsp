@@ -144,13 +144,18 @@
     		const val = $("#Certification_Number").val();
     		$.ajax({
     			url : "<%= request.getContextPath() %>/certificationNumber",
-    			dataType : "get",
+    			type : "get",
     			data : {"val" : val},
     			success : data => {
     				alert(data);
     				flag = true;
     				console.log(flag);
-    			}
+    			},
+    			error : (a,b,c) => {
+    				console.log(a);
+    				console.log(b);
+    				console.log(c);
+    			} 
     		});
     	});
     </script>
