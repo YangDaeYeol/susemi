@@ -3,27 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 <style>
 
-    *{
-      font-family: "서울남산체";
-    }
     
-        html,
-    body {
-      height: 100%;
-      
-    }
-    
-    body {
-      
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: white;
-      text-align: center;
-    }
-    
-    section{
-      margin: 100px auto;
-    }
     
     .form-signin {
       width: 400px;
@@ -56,37 +36,14 @@
         background-color: #94d5de;
         color: white;
     }
-    .pd_5{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    a {
-        text-decoration: none;
-        color: black;
-    }
-    
-    
-    button {
-        display: flex;
-        word-spacing: -4px;
-    }
-    input::placeholder{
-        font-size:12px;
-        color: #c4c4c4c4;
-    }
     .ws-4{
         word-spacing: -4px;
     }
-    input::placeholder{
-        color: #c4c4c4;
-    }
-    .display{
-        display: none;
-    }
+    
     
     
     </style>
-    <section>
+    <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
           <form>
             

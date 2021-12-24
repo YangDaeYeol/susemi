@@ -2,28 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <style>
-
-    *{
-      font-family: "서울남산체";
-    }
-    
-        html,
-    body {
-      height: 100%;
-      
-    }
-    
-    body {
-      
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: white;
-      text-align: center;
-    }
-    
-    section{
-      margin: 100px auto;
-    }
     
     .form-signin {
       width: 400px;
@@ -71,7 +49,7 @@
         color: white;
     }
     
-    input[type="text"] {
+    main.form-signin input[type="text"] {
         display: block;
         width: 95%;
         padding: 0.375rem 0.75rem;
@@ -87,23 +65,20 @@
         border-radius: 0.25rem;
         
     }
-    button {
-        display: flex;
-        word-spacing: -4px;
-    }
-    input::placeholder{
+    
+    main.form-signin input::placeholder{
         font-size:12px;
         color: #c4c4c4c4;
     }
     
-    input::placeholder{
+    main.form-signin input::placeholder{
         color: #c4c4c4;
     }
     
     
     </style>
     
-        <section>
+        <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
           <form id="findEmailFrm" action="<%=request.getContextPath() %>/findEmail" method="post">
             

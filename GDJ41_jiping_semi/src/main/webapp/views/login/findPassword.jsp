@@ -3,27 +3,6 @@
 <%@ include file="/views/common/header.jsp" %>
 <style>
 
-    *{
-      font-family: "서울남산체";
-    }
-    
-        html,
-    body {
-      height: 100%;
-      
-    }
-    body {
-      
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: white;
-      text-align: center;
-    }
-    
-    section{
-      margin: 100px auto;
-    }
-    
     .form-signin {
       width: 400px;
       padding: 60px 15px 25px 15px;
@@ -49,14 +28,11 @@
         
     }
     
-    [class*='container'] {
+    main.form-signin [class*='container'] {
         width: 95%;
         margin: 40px auto 40px auto;
     }
     
-    .border-right{
-        border-right: 1px solid black;
-    }
     .fs_14{
         font-size: 14px;
     }
@@ -64,16 +40,9 @@
         background-color: #94d5de;
         color: white;
     }
-    .pd_5{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    a {
-        text-decoration: none;
-        color: black;
-    }
     
-    input[type="email"] {
+    
+    main.form-signin input[type="email"] {
         display: block;
         width: 95%;
         padding: 0.375rem 0.75rem;
@@ -89,27 +58,18 @@
         border-radius: 0.25rem;
         
     }
-    button {
-        display: flex;
-        word-spacing: -4px;
-    }
-    input::placeholder{
+    
+    main.form-signin input::placeholder{
         font-size:12px;
         color: #c4c4c4c4;
     }
     .ws-4{
         word-spacing: -4px;
     }
-    input::placeholder{
-        color: #c4c4c4;
-    }
-    .display{
-        display: none;
-    }
     
     
     </style>
-    <section>
+    <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
           <form>
             
