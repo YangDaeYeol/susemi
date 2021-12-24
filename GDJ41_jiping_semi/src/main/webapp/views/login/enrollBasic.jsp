@@ -1,57 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<style>
-
-*{
-  font-family: "서울남산체";
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: white;
-  text-align: center;
-}
-
-section{
-  margin: 100px auto;
-}
-
-.form-signin {
-  width: 400px;
-  padding: 60px 15px 25px 15px;
-  margin: auto;
-  border: 1px solid #c4c4c4;
-}
-
-.form-signin .checkbox {
-  font-weight: 400;
-}
-
-[class*='container'] {
-	width: 95%;
-	margin: 40px auto 40px auto;
-}
-
-.btn_mint{
-	background-color: #94d5de;
-	color: white;
-}
-.warningMsg{
-	display:block; 
-	text-align: left; 
-	margin: 3px 0px 0px 5px; 
-	color: red; 
-	font-size: 10px;
-}
-</style>
 <% List<String> list = (List)request.getAttribute("nickList"); %>
 	<main class="form-signin">
 	  <form>
