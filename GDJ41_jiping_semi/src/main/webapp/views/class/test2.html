@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/bs-stepper.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <script src="../../js/bs-stepper.min.js"></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+    * {
+        font-family: "서울남산체";
+    }
+
+    /* 인풋박스 포커스시 아웃라인 없애기 */
+    input:focus {
+        outline: none;
+    }
+
+    textarea:focus {
+        outline: none;
+    }
+
+    #enrollClass {
+        border-bottom: 1px solid;
+        padding: 20px;
+        width: 90%;
+    }
+
+    #menu {
+        padding: 20px;
+    }
+
+    #tutor {
+        margin-bottom: 15px;
+    }
+
+    #class {
+        margin-bottom: -10px;
+    }
+
+    #tutorIntro {
+        padding: 20px;
+    }
+
+    #tutorTitle {
+        font-size: 20px;
+        margin-bottom: 10px;
+        margin-top: 40px;
+    }
+
+    #profilePic {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    #uploadProfile {
+        margin-bottom: 20px;
+    }
+
+    .image-upload {
+        margin-bottom: 20px;
+    }
+
+    .image-upload>input {
+        display: none;
+
+    }
+
+
+    textarea {
+        border-radius: 10px;
+        border: 0px;
+        resize: none;
+    }
+
+    #tutorComment {
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 40px;
+        border: 1px solid black;
+    }
+
+    #introlimit {
+        text-align: right;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    .sugg {
+        font-size: 12px;
+    }
+
+    ::placeholder {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #snsInfo {
+        margin-bottom: 20px;
+    }
+
+    #insta {
+        border: 1px solid;
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #facebook {
+        border: 1px solid;
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #blog {
+        border: 1px solid;
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .snsInputBox {
+        border: 0px;
+        border-radius: 10px;
+        width: 90%;
+    }
+
+    .socialImg {
+        margin-left: 7px;
+        margin-right: 4px;
+    }
+
+    .career {
+        border: 1px solid;
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .carrerimage {
+        margin-left: 7px;
+        margin-right: 4px;
+    }
+
+    .careerInputBox {
+        border: 0px;
+        border-radius: 10px;
+        margin-left: 10px;
+        width: 90%;
+    }
+
+    .image-career>#file-career {
+        display: none;
+
+    }
+
+    .image-career {
+        border: 1px solid;
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #addCareer {
+        margin-bottom: 20px;
+    }
+
+    .fileImg {
+        margin-top: -3px;
+    }
+
+    button {
+        background-color: rgb(196, 196, 196);
+        border: none;
+        border-radius: 10px;
+        color: black;
+        padding: 5px 32px;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    #chooseCategory {
+        font-size: 16px;
+        margin-top: 40px;
+        padding-bottom: 20px;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    section {
+        margin-bottom: 40px;
+    }
+
+    .selectClass {
+        height: 70%;
+        display: block;
+        background: white;
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 1rem;
+        margin-bottom: 30px;
+
+        text-align: center;
+
+        position: relative;
+    }
+
+    input[type="radio"]:checked+label {
+        background: rgb(162, 221, 220);
+        color: hsla(215, 0%, 100%, 1);
+        border: 1px solid rgb(162, 221, 220);
+    }
+
+    #categoryDiv {
+        margin-bottom: 20px;
+    }
+
+    .container {
+        margin-bottom: 20px;
+    }
+
+    select {
+        width: 150px;
+        padding: 8px;
+        margin-right: 8px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    #classTitle {
+        display: flex;
+        border-radius: 10px;
+        width: 100%;
+        margin-bottom: 40px;
+        border: 1px solid black;
+    }
+
+    #titleLimit {
+        text-align: right;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    #classTitleHead {
+        font-size: 16px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    #classImgeHead {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    #classImgContent {
+        font-size: 14px;
+        /* margin-bottom: 20px; */
+    }
+
+    /* 클래스 이미지 등록 css 시작 */
+    input[type="file"] {
+        /* position: absolute;
+	right: -9999px; */
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    #upload:hover {
+        background-color: rgb(162, 221, 220);
+        color: #fff;
+        transition: 0.2s all;
+
+    }
+
+    #classImageUpload {
+        /* position: relative; */
+        padding: 10px;
+        background: #eee;
+        /* display: inline-block; */
+        text-align: center;
+        /* overflow: hidden; */
+        border-radius: 10px;
+        height: 40px;
+        width: 400px;
+    }
+
+    #classImageUpload:hover {
+        background: rgb(162, 221, 220);
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s all;
+
+    }
+
+    div.files {
+        background: #eee;
+        width: 395px;
+        padding: 1rem;
+        text-align: center;
+        /*margin: 1rem 0; */
+        border-radius: 10px;
+    }
+
+    div.files>ul {
+        list-style: none;
+        padding: 0;
+        max-height: 150px;
+        overflow: auto;
+    }
+
+    div.files>ul>li {
+        /* padding: 0.5rem 0;
+        padding-right: 2rem; */
+        position: relative;
+    }
+
+    div.files>ul>li>i {
+        cursor: pointer;
+        /* position: absolute;
+        top: 50%;
+        right: 0; */
+        transform: translatey(-50%);
+    }
+
+    div.files>ul>li>i.container {
+        width: 100%;
+        /* padding: 0 2rem; */
+
+    }
+
+    span.file-size {
+        color: #999;
+        padding-left: 0.5rem;
+    }
+
+
+    /* 클래스 이미지 등록 css 끝 */
+     
+   
+    .pageBtn {
+        background-color: rgb(162, 221, 220);
+        color: white;
+    }
+
+    #setClassTitle {
+        border: 0px;
+        border-radius: 10px;
+        width: 410px;
+        margin-left: 3px;
+    }
+
+    #classTitleText {
+        border: 0px;
+        display: flex;
+    }
+</style>
+<div id="container">
+    <header>
+        <div>
+            <div id="header-top">
+                <h1><a href=""><img src="../../img/logo.png" width="80px" height="80px"></a></h1>
+                <div id="header-search">
+                    <input type="search" id="searchBar" placeholder="검색어를 입력해주세요." style="border-radius: 20px;">
+                    <button><span></span></button>
+                </div>
+                <div id="header-btn">
+                    <button id="enrollMemberBtn"><span style="font-size: 16px;">회원가입</span></button>
+                    <button id="loginBtn"><span style="font-size: 16px;">로그인</span></button>
+                </div>
+            </div>
+            <div id="nav-container">
+                <div id="header-nav">
+                    <ul>
+                        <li><a href="" style="text-decoration-line: none;">취미/공예</a></li>
+                        <li><a href="" style="text-decoration-line: none">액티비티</a></li>
+                        <li><a href="" style="text-decoration-line: none">커리어</a></li>
+                        <li><a href="" style="text-decoration-line: none">디자인</a></li>
+                    </ul>
+                </div>
+                <div id="header-nav-sub1">
+                    <ul>
+                        <li><a href="" style="text-decoration-line: none">사진</a></li>
+                        <li><a href="" style="text-decoration-line: none">취미미술</a></li>
+                        <li><a href="" style="text-decoration-line: none">디지털드로잉</a></li>
+                        <li><a href="" style="text-decoration-line: none">요리,베이킹</a></li>
+                        <li><a href="" style="text-decoration-line: none">커피</a></li>
+                        <li><a href="" style="text-decoration-line: none">보컬</a></li>
+                        <li><a href="" style="text-decoration-line: none">악기</a></li>
+                        <li><a href="" style="text-decoration-line: none">작곡</a></li>
+                    </ul>
+                </div>
+                <div id="header-nav-sub2">
+                    <ul>
+                        <li><a href="" style="text-decoration-line: none">방송댄스</a></li>
+                        <li><a href="" style="text-decoration-line: none">연기,무용</a></li>
+                        <li><a href="" style="text-decoration-line: none">스포츠,레저</a></li>
+                        <li><a href="" style="text-decoration-line: none">이색 액티비티</a></li>
+                    </ul>
+                </div>
+                <div id="header-nav-sub3">
+                    <ul>
+                        <li><a href="" style="text-decoration-line: none">업무역량</a></li>
+                        <li><a href="" style="text-decoration-line: none">마케팅</a></li>
+                        <li><a href="" style="text-decoration-line: none">엑셀</a></li>
+                        <li><a href="" style="text-decoration-line: none">파워포인트</a></li>
+                        <li><a href="" style="text-decoration-line: none">데이터분석</a></li>
+                        <li><a href="" style="text-decoration-line: none">앱개발</a></li>
+                        <li><a href="" style="text-decoration-line: none">컴퓨터공학</a></li>
+                        <li><a href="" style="text-decoration-line: none">자격증</a></li>
+                    </ul>
+                </div>
+                <div id="header-nav-sub4">
+                    <ul>
+                        <li><a href="" style="text-decoration-line: none">건축</a></li>
+                        <li><a href="" style="text-decoration-line: none">그래픽디자인</a></li>
+                        <li><a href="" style="text-decoration-line: none">UI/UX디자인</a></li>
+                        <li><a href="" style="text-decoration-line: none">제품디자인</a></li>
+                        <li><a href="" style="text-decoration-line: none">영상편집</a></li>
+                        <li><a href="" style="text-decoration-line: none">영상제작</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+
+        <body>
+            <div class="bs-stepper">
+                <div class="container flex-grow-1 flex-shrink-0 py-5">
+                    <div class="mb-5 p-4 bg-white shadow-sm">
+                        <h3>클래스 등록</h3>
+                        <div id="stepper1" class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                                <div class="step" data-target="#test-l-1">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
+                                        aria-controls="test-l-1">
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">튜터 소개</span>
+                                    </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-2">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
+                                        aria-controls="test-l-2">
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">클래스 유형</span>
+                                    </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-3">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
+                                        aria-controls="test-l-3">
+                                        <span class="bs-stepper-circle">3</span>
+                                        <span class="bs-stepper-label">클래스 제목 및 커버</span>
+                                    </button>
+                                </div>
+                                <!-- 클래스 상세 설명 -->
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-4">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger4"
+                                        aria-controls="test-l-4">
+                                        <span class="bs-stepper-circle">4</span>
+                                        <span class="bs-stepper-label">클래스 상세 설명</span>
+                                    </button>
+                                </div>
+                                <!-- 기타 -->
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-5">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger5"
+                                        aria-controls="test-l-5">
+                                        <span class="bs-stepper-circle">5</span>
+                                        <span class="bs-stepper-label">기타</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bs-stepper-content">
+                                <form onSubmit="return false">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col"></div>
+                                            <div class="col-5">
+                                                <!-- 폼 내용 START -->
+                                                <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
+                                                    aria-labelledby="stepper1trigger1">
+                                                    <div class="form-group">
+                                                        <!-- 튜터 소개 본문 내용 시작 -->
+                                                        <div>
+                                                            <div id="tutorTitle">튜터 소개</div>
+
+                                                            <div>프로필 사진</div>
+                                                            <div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png, gif,
+                                                                jpeg, jpg만
+                                                                가능)</div>
+
+                                                            <div class="image-upload">
+                                                                <label for="file-input">
+                                                                    <img src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
+                                                                        alt="2021-12-17-18-59-18" width="100px"
+                                                                        height="100px">
+                                                                </label>
+                                                                <input id="file-input" type="file"
+                                                                    accept="image/png, image/gif, image/jpeg, image/jpg">
+                                                            </div>
+                                                            <div id="resultTutorImg" style="margin-bottom: 30px;"></div>
+                                                            <script>
+                                                                //첨부이미지 파일 이름 보여주기
+                                                                $(function () {
+
+                                                                    var imagesPreview = function (input, placeToInsertImagePreview) {
+
+                                                                        if (input.files) {
+                                                                            var filesAmount = input.files.length;
+
+                                                                            for (i = 0; i < 1; i++) {
+                                                                                var reader = new FileReader();
+
+                                                                                reader.onload = function (event) {
+                                                                                    $($.parseHTML($("#file-input").val().replace(/.*(\/|\\)/, ''))).appendTo(placeToInsertImagePreview)
+                                                                                };
+
+                                                                                reader.readAsDataURL(input.files[0]);
+                                                                            }
+                                                                        }
+
+                                                                    };
+
+                                                                    $("input").on('change', function () {
+                                                                        imagesPreview(this, "#resultTutorImg");
+                                                                    });
+                                                                });
+
+
+
+                                                            </script>
+
+                                                            <div>튜터의 한마디</div>
+                                                            <div id="tutorComment">
+                                                                <textarea cols="50" rows="5"
+                                                                    id="tutorIntroduction"></textarea>
+                                                                <div id="introlimit">
+                                                                    (0/500)
+                                                                </div>
+                                                            </div>
+                                                            <div id="snsInfo">
+                                                                <div>소셜미디어
+                                                                    <span class="sugg">(권장사항)</span>
+                                                                </div>
+                                                                <div id="insta"><img
+                                                                        src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
+                                                                        alt="instagram" class="socialImg" width="18px"
+                                                                        height="18px"><input type="text"
+                                                                        placeholder="인스타그램 주소를 입력해주세요"
+                                                                        class="snsInputBox">
+                                                                </div>
+                                                                <div id="facebook"><img
+                                                                        src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
+                                                                        alt="facebook" class="socialImg" width="18px"
+                                                                        height="18px"><input type="text"
+                                                                        placeholder="페이스북 주소를 입력해주세요"
+                                                                        class="snsInputBox">
+                                                                </div>
+                                                                <div id="blog">
+                                                                    <img src="https://www.coolstay.co.kr/img/main/naver.png"
+                                                                        alt="blog" class="socialImg" width="18px"
+                                                                        height="18px"><input type="text"
+                                                                        placeholder="블로그 주소를 입력해주세요"
+                                                                        class="snsInputBox">
+                                                                </div>
+                                                            </div>
+                                                            <div>자격증 및 경력
+                                                                <span class="sugg">(권장사항, 최대 5개)</span>
+                                                            </div>
+                                                            <div class="image-career" id="image-career1">
+                                                                <input type="text"
+                                                                    placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요"
+                                                                    class="careerInputBox">
+                                                                <label for="file-career">
+
+                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+                                                                        alt="2021-12-17-18-59-18" width="18px"
+                                                                        height="18px" class="carrerimage" />
+                                                                </label>
+
+                                                                <input id="file-career" type="file" />
+                                                            </div>
+                                                            <script>
+                                                                //첨부이미지 파일 이름 보여주기
+                                                                $(function () {
+
+                                                                    var imagesPreview = function (input, placeToInsertImagePreview) {
+
+                                                                        if (input.files) {
+                                                                            var filesAmount = input.files.length;
+
+                                                                            for (i = 0; i < 1; i++) {
+                                                                                var reader = new FileReader();
+
+                                                                                reader.onload = function (event) {
+                                                                                    $($.parseHTML($("#file-career").val().replace(/.*(\/|\\)/, ''))).appendTo(placeToInsertImagePreview)
+                                                                                };
+
+                                                                                reader.readAsDataURL(input.files[0]);
+                                                                            }
+                                                                        }
+
+                                                                    };
+
+                                                                    $("input").on('change', function () {
+                                                                        imagesPreview(this, "#tutorCareerFile");
+                                                                    });
+                                                                });
+                                                            </script>
+                                                            <div class="image-career" id="image-career2">
+                                                                <input type="text"
+                                                                    placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요"
+                                                                    class="careerInputBox">
+                                                                <label for="file-career">
+
+                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+                                                                        alt="2021-12-17-18-59-18" width="18px"
+                                                                        height="18px" class="carrerimage" />
+                                                                </label>
+
+                                                                <input id="file-career" type="file" />
+                                                            </div>
+                                                            
+                                                          
+                                                            <div id="addCareer"><button>+ 이력 추가</button></div>
+                                                            <div id="tutorCareerFile"
+                                                                style="margin-bottom: 20px; font-size:12px;"></div>
+                                                            <!-- 튜터 소개 본문 내용 끝 -->
+                                                            <button class="pageBtn"
+                                                                onclick="stepper1.next()">다음</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
+                                                    aria-labelledby="stepper1trigger2">
+                                                    <div class="form-group">
+                                                        <!-- 클래스 유형 본문 내용 시작 -->
+                                                        <div id="chooseCategory">클래스 유형</div>
+
+                                                        <div id="introBox2">
+
+
+                                                            <div>
+                                                                <input type="radio" id="control_01" name="select"
+                                                                    value="1" checked>
+                                                                <label for="control_01" class="selectClass">
+                                                                    원데이 클래스
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <input type="radio" id="control_02" name="select"
+                                                                    value="2">
+                                                                <label for="control_02" class="selectClass">
+                                                                    다회차 클래스
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <input type="radio" id="control_03" name="select"
+                                                                    value="3">
+                                                                <label for="control_03" class="selectClass">
+                                                                    VOD
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- 카테고리 선택 -->
+                                                        <div id="categoryDiv">카테고리 선택</div>
+                                                        <div
+                                                            style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+                                                            <select name="bigCategory" id="sido1"
+                                                                style="flex-grow: 1;"></select>
+                                                            <select name="gugun1" id="gugun1"
+                                                                style="flex-grow: 1;"></select>
+                                                        </div>
+                                                        <script>
+                                                            $('document').ready(function () {
+                                                                var area0 = ["대분류", "취미/공예", "액티비티", "커리어", "디자인"];
+                                                                var area1 = ["사진", "취미미술", "디지털드로잉", "요리/베이킹", "커피/차/술", "보컬", "악기", "작곡/디제잉"];
+                                                                var area2 = ["방송댄스", "연기/무용", "스포츠/레저", "이색 액티비티"];
+                                                                var area3 = ["업무역량", "마케팅", "취업/이직/진로", "엑셀", "파워포인트", "스피치", "데이터 분석", "앱개발", "컴퓨터 공학", "자격증/시험"];
+                                                                var area4 = ["건축", "그래픽디자인", "UX/UI 디자인", "제품 디자인", "영상편집", "영상제작"];
+
+                                                                // 대분류 선택 박스 초기화
+
+                                                                $("select[name^=bigCategory]").each(function () {
+                                                                    $selCategory = $(this);
+                                                                    $.each(eval(area0), function () {
+                                                                        $selCategory.append("<option value='" + this + "'>" + this + "</option>");
+                                                                    });
+                                                                    $selCategory.next().append("<option value=''>소분류</option>");
+                                                                });
+
+
+
+                                                                // 대분류 선택시 소분류 설정
+
+                                                                $("select[name^=bigCategory]").change(function () {
+                                                                    var area = "area" + $("option", $(this)).index($("option:selected", $(this))); // 대분류의 소분류 Array
+                                                                    var $smallCategory = $(this).next(); // 선택영역 소분류 객체
+                                                                    $("option", $smallCategory).remove(); // 소분류 초기화
+
+                                                                    if (area == "area0")
+                                                                        $smallCategory.append("<option value=''>소분류</option>");
+                                                                    else {
+                                                                        $.each(eval(area), function () {
+                                                                            $smallCategory.append("<option value='" + this + "'>" + this + "</option>");
+                                                                        });
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                        <!-- 클래스 유형 본문 내용 끝 -->
+                                                        <div style="display: flex;">
+                                                            <button class="pageBtn" style="margin-right: 5px;"
+                                                                onclick="stepper1.previous()">이전</button>
+                                                            <button class="pageBtn"
+                                                                onclick="stepper1.next()">다음</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="test-l-3" role="tabpanel" class="bs-stepper-pane"
+                                                    aria-labelledby="stepper1trigger3">
+                                                    <div class="form-group">
+                                                        <!-- 클래스 제목 및 커버 본문 내용 시작 -->
+                                                        
+                                                        <div id="testjs1" class="d-none">
+                                                            원데이
+                                                        </div>
+                                                        <div id="testjs2" class="d-none">
+                                                            다회차
+                                                        </div>
+                                                        <div id="testjs3" class="d-none">
+                                                            VOD
+                                                        </div>
+
+                                                        <div id="classTitleHead">클래스 제목</div>
+                                                        <div id="classTitle">
+                                                            <!-- 텍스트박스 -->
+
+                                                            <div id="classTitleText">
+                                                                <input type="text"
+                                                                    placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"
+                                                                    id="setClassTitle">
+                                                                <div id="titleLimit">
+                                                                    (0/30)
+                                                                </div>
+                                                            </div>
+                                                            <!-- 텍스트 박스 -->
+                                                            <!-- <div style="margin-left: 3px;"><textarea cols="48" rows="1"
+                                                            id="setClassTitle"
+                                                            placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"></textarea></div>
+                                                    <div id="titleLimit">
+                                                        (0/30)
+                                                    </div> -->
+                                                        </div>
+                                                        <div id="classImgeHead">클래스 이미지</div>
+                                                        <div id="classImgContent">이미지 파일만 가능합니다. (png, gif, jpeg, jpg)
+                                                            4개의 이미지만
+                                                            사용되므로 4개를 초과하는 이미지들을 업로드 했을경우 이미지는 랜덤으로 사용됩니다.</div>
+                                                        <!-- 인풋파일 업로드 시작 -->
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-offset-2 col-sm-8"><br><br>
+
+                                                                    <!-- 이미지 업로드 시작 -->
+                                                                    <div class="container">
+
+                                                                        <div>
+                                                                            <label for="upload" id="classImageUpload">
+                                                                                이미지를 선택
+                                                                                <input type="file" id="upload" multiple>
+
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="files">
+                                                                            선택된 이미지
+                                                                            <ul id="selectedImg"></ul>
+                                                                        </div>
+
+
+                                                                        
+                                                                    </div>
+                                                                    <div id="resultImg" style="display: flex;"></div>
+                                                        
+                                                                    <script>
+                                                                        // no react or anything
+                                                                        let state = {};
+
+                                                                        // state management
+                                                                        function updateState(newState) {
+                                                                            state = { ...state, ...newState };
+                                                                        }
+
+                                                                        // event handlers
+                                                                        $("input").change(function (e) {
+                                                                            let files = $("#upload")[0].files;
+                                                                            let filesArr = Array.from(files);
+                                                                            updateState({ files: files, filesArr: filesArr });
+
+                                                                            renderFileList();
+                                                                        });
+
+                                                                        $(".files").on("click", function (e) {
+                                                                            let key = $(this)
+                                                                                .parent()
+                                                                                .attr("key");
+                                                                            let curArr = state.filesArr;
+                                                                            curArr.splice(key, 1);
+                                                                            updateState({ filesArr: curArr });
+                                                                            renderFileList();
+                                                                        });
+
+                                                                        // render functions
+                                                                        function renderFileList() {
+                                                                            let fileMap = state.filesArr.map((file, index) => {
+                                                                                let suffix = "bytes";
+                                                                                let size = file.size;
+                                                                                if (size >= 1024 && size < 1024000) {
+                                                                                    suffix = "KB";
+                                                                                    size = Math.round(size / 1024 * 100) / 100;
+                                                                                } else if (size >= 1024000) {
+                                                                                    suffix = "MB";
+                                                                                    size = Math.round(size / 1024000 * 100) / 100;
+                                                                                }
+
+                                                                                return `<li key="${index}">${file.name
+                                                                                    } <span class="file-size">${size} ${suffix}</span><i class="material-icons md-48">delete</i></li>`;
+                                                                            });
+                                                                            $("#selectedImg").html(fileMap);
+                                                                        }
+
+                                                                        //미리보기 스크립트 시작
+                                                                        $(function () {
+                                                                            // Multiple images preview in browser
+                                                                            var imagesPreview = function (input, placeToInsertImagePreview) {
+
+                                                                                if (input.files) {
+                                                                                    var filesAmount = input.files.length;
+
+                                                                                    for (i = 0; i < filesAmount; i++) {
+                                                                                        if(i==4){
+                                                                                            return false;
+                                                                                        }
+                                                                                        var reader = new FileReader();
+
+                                                                                        reader.onload = function (event) {
+                                                                                            $($.parseHTML('<img>')).attr('src', event.target.result).attr('width', "150px").appendTo(placeToInsertImagePreview);
+                                                                                        }
+                                                                                        reader.readAsDataURL(input.files[i]);
+                                                                                        
+                                                                                    }
+                                                                                }
+
+                                                                            };
+
+                                                                            $("input").on('change', function () {
+                                                                                imagesPreview(this, "#resultImg");
+                                                                            });
+                                                                        });
+                                                                        //미리보기 스크립트 끝
+                                                                    </script>
+                                                                    <!-- 이미지 업로드 끝 -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- 인풋파일 업로드 끝 -->
+
+                                                        <!-- 클래스 제목 및 커버 본문 내용 끝 -->
+                                                    </div>
+                                                    <div style="display: flex;">
+                                                        <button class="pageBtn" style="margin-right: 5px;"
+                                                            onclick="stepper1.previous()">이전</button>
+                                                        <button class="pageBtn" onclick="stepper1.next()">다음</button>
+                                                    </div>
+                                                </div>
+                                                <div id="test-l-4" role="tabpanel" class="bs-stepper-pane"
+                                                    aria-labelledby="stepper1trigger4">
+                                                    <div class="form-group">
+                                                        <!-- <label for="exampleInputPassword1">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                                    placeholder="Password"> -->
+                                                    </div>
+                                                    <div style="display: flex;">
+                                                        <button class="pageBtn" style="margin-right: 5px;"
+                                                            onclick="stepper1.previous()">이전</button>
+                                                        <button class="pageBtn" onclick="stepper1.next()">다음</button>
+                                                    </div>
+                                                </div>
+                                                <div id="test-l-5" role="tabpanel" class="bs-stepper-pane"
+                                                    aria-labelledby="stepper1trigger5">
+                                                    <div class="form-group">
+                                                        <!-- <label for="exampleInputPassword1">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                                    placeholder="Password"> -->
+                                                    </div>
+                                                    <div style="display: flex;">
+                                                        <button class="pageBtn" style="margin-right: 5px;"
+                                                            onclick="stepper1.previous()">이전</button>
+                                                        <button type="submit" class="pageBtn">제출</button>
+                                                    </div>
+                                                </div>
+                                                <!-- 폼 내용 END -->
+                                            </div>
+                                            <div class="col"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    </body>
+    <footer>
+        <div>
+            <div id="footer-left">
+                <h1><img src="../../img/logo.png" width="80px" height="80px"></h1>
+                <p>주소 : 서울시 가산동 금천구 가산디지털2로 115, 506호<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(가산동, 대룡테크노타운
+                    3차)</p>
+                <p>통신판매업 신고번호 : 제 2021-서울시 금천구 - 10445</p>
+                <p>개인정보책임자 : 양대열 / daeyeol9245@naver.com</p>
+                <p>Copyright&copy; 2021.<strong>JI PING.</strong>ALL Right Reserverd.</p>
+            </div>
+            <div id="footer-right">
+                <p>JIPING CENTER</p>
+                <h4><a href="#"><img src="../../img/kakao.png" width="20px" height="20px"></a>지핑 문의하기</h4>
+                <p>운영시간</p>
+                <p>평일 09 : 00 ~ 18 : 00<br>
+                    점심 12 : 20 ~ 13 : 30</p>
+                <h5><a href="#">카카오톡 채널가기</a></h5>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // 푸터 jQuery
+    $("#header-nav>ul>li:first-child").hover(e => {
+        $("#header-nav-sub1").css({ "display": "flex" });
+        $("#header-nav-sub2").css({ "display": "none" });
+        $("#header-nav-sub3").css({ "display": "none" });
+        $("#header-nav-sub4").css({ "display": "none" });
+        $("#header-nav>ul>li:nth-child(2)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(3)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:last-child").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(2)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:nth-child(3)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:last-child>a").css({ "color": "#94D5DE" });
+        $(e.target).css({ "background-color": "#94D5DE" });
+        $(e.target.children).css({ "color": "white" });
+    });
+    $("#header-nav>ul>li:nth-child(2)").hover(e => {
+        $("#header-nav-sub1").css({ "display": "none" });
+        $("#header-nav-sub2").css({ "display": "flex" });
+        $("#header-nav-sub3").css({ "display": "none" });
+        $("#header-nav-sub4").css({ "display": "none" });
+        $("#header-nav>ul>li:nth-child(1)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(3)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:last-child").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(1)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:nth-child(3)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:last-child>a").css({ "color": "#94D5DE" });
+        $(e.target).css({ "background-color": "#94D5DE" });
+        $(e.target.children).css({ "color": "white" });
+    });
+    $("#header-nav>ul>li:nth-child(3)").hover(e => {
+        $("#header-nav-sub1").css({ "display": "none" });
+        $("#header-nav-sub2").css({ "display": "none" });
+        $("#header-nav-sub3").css({ "display": "flex" });
+        $("#header-nav-sub4").css({ "display": "none" });
+        $("#header-nav>ul>li:nth-child(1)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(2)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:last-child").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(1)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:nth-child(2)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:last-child>a").css({ "color": "#94D5DE" });
+        $(e.target).css({ "background-color": "#94D5DE" });
+        $(e.target.children).css({ "color": "white" });
+    });
+    $("#header-nav>ul>li:last-child").hover(e => {
+        $("#header-nav-sub1").css({ "display": "none" });
+        $("#header-nav-sub2").css({ "display": "none" });
+        $("#header-nav-sub3").css({ "display": "none" });
+        $("#header-nav-sub4").css({ "display": "flex" });
+        $("#header-nav>ul>li:nth-child(1)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(2)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(3)").css({ "background-color": "white" });
+        $("#header-nav>ul>li:nth-child(1)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:nth-child(2)>a").css({ "color": "#94D5DE" });
+        $("#header-nav>ul>li:nth-child(3)>a").css({ "color": "#94D5DE" });
+        $(e.target).css({ "background-color": "#94D5DE" });
+        $(e.target.children).css({ "color": "white" });
+    });
+
+    $("#searchBar").focusin(e => {
+        $(e.target).parent().css({ "border": "3px #94D5DE solid" });
+    });
+    $("#searchBar").focusout(e => {
+        $(e.target).parent().css({ "border": "1px #94D5DE solid" });
+    });
+</script>
+<script>
+    var stepper1
+    document.addEventListener('DOMContentLoaded', function () {
+        stepper1 = new Stepper(document.querySelector('#stepper1'))
+    })
+    // 페이지1에 있는 내용 입력시 border설정 시작
+    $("#tutorComment>textarea").focus(e => {
+        $("#tutorComment").css({ "border": "2px rgb(162, 221, 220) solid" });
+    });
+    $("#tutorComment>textarea").blur(e => {
+        $("#tutorComment").css({ "border": "1px black solid" });
+    });
+    $("#insta>input").focus(e => {
+        $("#insta").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#insta>input").blur(e => {
+        $("#insta").css({ "border": "1px black solid" });
+    })
+    $("#facebook>input").focus(e => {
+        $("#facebook").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#facebook>input").blur(e => {
+        $("#facebook").css({ "border": "1px black solid" });
+    })
+    $("#blog>input").focus(e => {
+        $("#blog").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#blog>input").blur(e => {
+        $("#blog").css({ "border": "1px black solid" });
+    })
+    $("#image-career1>input").focus(e => {
+        $("#image-career1").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#image-career1>input").blur(e => {
+        $("#image-career1").css({ "border": "1px black solid" });
+    })
+    $("#image-career2>input").focus(e => {
+        $("#image-career2").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#image-career2>input").blur(e => {
+        $("#image-career2").css({ "border": "1px black solid" });
+    })
+    $("#image-career3>input").focus(e => {
+        $("#image-career3").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#image-career3>input").blur(e => {
+        $("#image-career3").css({ "border": "1px black solid" });
+    })
+    $("#image-career4>input").focus(e => {
+        $("#image-career4").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#image-career4>input").blur(e => {
+        $("#image-career4").css({ "border": "1px black solid" });
+    })
+    $("#image-career5>input").focus(e => {
+        $("#image-career5").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#image-career5>input").blur(e => {
+        $("#image-career5").css({ "border": "1px black solid" });
+    })
+    // 페이지1에 있는 내용 입력시 border설정 끝
+
+    // 페이지2에 있는 내용 입력시 border설정 시작
+    $("#classTitleText>input").focus(e => {
+        $("#classTitle").css({ "border": "2px rgb(162, 221, 220) solid" });
+    })
+    $("#classTitleText>input").blur(e => {
+        $("#classTitle").css({ "border": "1px black solid" });
+    })
+    // 페이지2에 있는 내용 입력시 border설정 시작
+
+    $("input[type='radio']").click(e=>{
+    	  console.log($(e.target).val());
+          if($(e.target).val()=="1"){
+            document.getElementById('testjs1').className = 'd-flex';
+            document.getElementById('testjs2').className = 'd-none';
+            document.getElementById('testjs3').className = 'd-none';
+
+          }else if($(e.target).val()=="2"){
+            document.getElementById('testjs1').className = 'd-none';
+            document.getElementById('testjs2').className = 'd-flex';
+            document.getElementById('testjs3').className = 'd-none'; 
+          }else if($(e.target).val()=="3"){
+            document.getElementById('testjs1').className = 'd-none';
+            document.getElementById('testjs2').className = 'd-none';
+            document.getElementById('testjs3').className = 'd-flex'; 
+          }
+	 })
+	
+</script>
+
+</html>

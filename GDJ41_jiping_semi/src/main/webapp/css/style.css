@@ -1,3 +1,194 @@
+<<<<<<< HEAD
+* {
+    font-family: "서울남산체";
+    
+}
+a {
+    text-decoration-line: none;
+}
+input:focus {
+    outline: none;
+}
+#container {
+    min-width: 1080px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+#header-top {
+    display: flex;
+    width: 100%;
+    margin-left: 30px;
+}
+#header-top>h1 {
+    margin-top: 15px;
+}
+#header-top>div {
+    margin-top: 30px;
+    margin-left: 20px;
+}
+#header-search {
+    width: 400px;
+    height: 50px;
+    border: 1px #94D5DE solid;
+    border-radius: 50px;
+}
+#header-search>input {
+    width: 320px;
+    height: 100%;
+    border: 0;
+    text-align: left;
+    font-size: 15px;
+}
+#enrollMemberBtn {
+    background-color: #EBC3C3;
+    color: white;
+    border: 1px;
+    border-radius: 10px;
+    font-weight: bold;
+    width: 110px;
+    height: 30px;
+}
+#header-search>button {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/61/61088.png") left center/cove;
+    border: none;
+}
+#header-btn>button{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+#loginBtn {
+    background-color: #94D5DE;
+    color: white;
+    border: 1px;
+    border-radius: 10px;
+    font-weight: bold;
+    width: 110px;
+    height: 30px;
+}
+#header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#header-nav>ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+#header-nav>ul>li:first-child {
+    margin-left: 0;
+}
+#header-nav>ul>li {
+    text-align: center;
+    margin-left: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    width: 150px;
+    height: 50px;
+    line-height: 55px;
+}
+#header-nav>ul>li>a{
+    line-height:center;
+    color: #94D5DE;
+}
+#header-nav-sub1,#header-nav-sub2,#header-nav-sub3,#header-nav-sub4 {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #94D5DE; 
+    height: 100px;
+}
+#header-nav-sub1>ul,#header-nav-sub2>ul,#header-nav-sub3>ul,#header-nav-sub4>ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    padding-top: 20px;
+}
+#header-nav-sub1>ul>li:first-child,#header-nav-sub2>ul>li:first-child,#header-nav-sub3>ul>li:first-child,#header-nav-sub4>ul>li:first-child {
+    margin-left: 0;
+}
+#header-nav-sub1>ul>li,#header-nav-sub2>ul>li,#header-nav-sub3>ul>li,#header-nav-sub4>ul>li {
+    margin-left: 25px;
+    font-weight: bold;
+    font-size: 15px;
+}
+#header-nav-sub1>ul>li>a,#header-nav-sub2>ul>li>a,#header-nav-sub3>ul>li>a,#header-nav-sub4>ul>li>a{
+    color: white;
+}
+#header-nav-sub1>ul>li>a:hover,#header-nav-sub2>ul>li>a:hover,#header-nav-sub3>ul>li>a:hover,#header-nav-sub4>ul>li>a:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 3px;
+}
+footer {
+    background-color: #94D5DE;
+    height: 300px;
+    margin: 0;
+}
+footer>div {
+    display: flex;
+    margin-left: 30px;
+}
+#footer-left {
+    color: white;
+}
+#footer-left>h1 {
+    margin: 0;
+    text-align: left;
+}
+#footer-left>p {
+    margin: 0 auto;
+    text-align: left;
+}
+#footer-left>p:last-child {
+    margin-top: 50px;
+}
+#footer-right {
+    color: white;
+    margin-top: 80px;
+    margin-left:675px;
+}
+#footer-right>p {
+    text-align: right;
+     margin-bottom: 5px;
+}
+#footer-right>h4 {
+    color: #3B56E9;
+    text-align: right;
+    font-size: 20px;
+}
+#footer-right>h5 {
+    text-align: right;
+    font-size: 17px;
+    padding-top: 5px;
+}
+#footer-right>h5>a {
+    color: white;
+}
+#col4{
+    font-size: 25px;
+}
+
+#row2{
+    margin-bottom: 5%;
+}
+#title{
+    font-size: 20px;
+}
+#price{
+    font-size: 15px;
+}
+.col{
+    margin-bottom: 40px;
+}
+#allClass{
+    position: absolute;
+    right: -5%;
+}
+=======
 @charset "UTF-8";
     * {
         font-family: "서울남산체";
@@ -337,3 +528,4 @@
         font-weight: bold;
     }
 /* } */
+>>>>>>> branch 'master' of https://github.com/YangDaeYeol/susemi.git

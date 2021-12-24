@@ -112,3 +112,4 @@ input[type='radio']:checked + label {
   </script>
 
 <%@ include file="/views/common/footer.jsp" %>
+
