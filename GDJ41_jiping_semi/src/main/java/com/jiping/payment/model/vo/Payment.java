@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
-	private String payment_No;
-	private int lecture_No;
+	private String paymentNo;
+	private int lectureNo;
 	private String email;
-	private String payment_Type;
-	private int payment_price;
+	private String paymentType;
+	private int paymentPrice;
 }

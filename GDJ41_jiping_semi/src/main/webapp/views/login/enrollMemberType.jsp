@@ -3,26 +3,6 @@
 <%@ include file="/views/common/header.jsp" %>
 <style>
 
-*{
-  font-family: "서울남산체";
-}
-
-    html,
-body {
-  height: 100%;
-}
-
-body {
-  
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: white;
-  text-align: center;
-}
-
-section{
-  margin: 100px auto;
-}
 
 .form-signin {
   width: 400px;
@@ -45,11 +25,11 @@ section{
 }
 
 /* [라디오 버튼 관련 레이아웃] */
-input[type='radio'] {
+main.form-signin input[type='radio'] {
  display: none;
 }
 
-input[type='radio'] + label {
+main.form-signin input[type='radio'] + label {
     width: 40%;
     margin: 50px 5px 50px 0px;
 	padding: 10px;
@@ -66,7 +46,7 @@ input[type='radio'] + label {
     /* [p 태그 수직 정렬 위해 table 선언] */
     display: inline-block;
 } 
-input[type='radio']:checked + label {
+main.form-signin input[type='radio']:checked + label {
     /* [라디오 버튼이 클릭 되었을 때 배경 색상 변경] */
     background: #94d5de;
 
@@ -79,7 +59,7 @@ input[type='radio']:checked + label {
 
 
 </style>
-<section>
+<section style="margin: 100px auto; text-align: center">
 	<main class="form-signin">
 		<form>
 

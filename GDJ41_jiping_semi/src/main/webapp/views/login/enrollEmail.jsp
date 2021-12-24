@@ -2,27 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <style>
-    *{
-      font-family: "서울남산체";
-    }
-    
-        html,
-    body {
-      height: 100%;
-      
-    }
-    
-    body {
-      
-      padding-bottom: 40px;
-      background-color: white;
-      text-align: center;
-    }
-    
-    section{
-      margin: 100px auto;
-    }
-    
+
     .form-signin {
       width: 400px;
       padding: 60px 15px 25px 15px;
@@ -60,7 +40,7 @@
         color: white;
     }
     
-    input.form {
+    main.form-signin input.form {
         display: inline-block;
         width: 70%;
         padding: 0.375rem 0.75rem;
@@ -77,7 +57,7 @@
         
     }
     
-    input::placeholder{
+    main.form-signin input::placeholder{
         font-size:12px;
         color: #c4c4c4c4;
     }
@@ -98,7 +78,7 @@
 		email += s + ",";
 	}
 %>
-        <section>
+	<section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
             
             <h4 class="h4 fw-normal">

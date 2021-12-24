@@ -7,27 +7,6 @@
 %>
 <style>
 
-    *{
-      font-family: "서울남산체";
-    }
-    
-        html,
-    body {
-      height: 100%;
-      
-    }
-    
-    body {
-      
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: white;
-      text-align: center;
-    }
-    
-    section{
-      margin: 100px auto;
-    }
     
     .form-signin {
       width: 400px;
@@ -47,7 +26,7 @@
         color: white;
     }
     
-    input::placeholder{
+    main.form-signin input::placeholder{
         color: #c4c4c4;
     }
     
@@ -55,7 +34,7 @@
     
     </style>
     
-    <section>
+    <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
           <form action="<%=request.getContextPath()%>/views/login/loginMain.jsp">
             
