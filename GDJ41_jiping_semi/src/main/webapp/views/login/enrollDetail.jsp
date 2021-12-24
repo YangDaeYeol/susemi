@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">
-	<section>
+	<section style="margin: 100px auto; text-align: center">
 		<main class="form-signin form-detail">
 			<form>
 				<h4 class="h4 fw-normal mb-5">
