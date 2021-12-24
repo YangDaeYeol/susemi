@@ -1,43 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<style>
-
-
-.form-signin {
-  width: 400px;
-  padding: 60px 15px 25px 15px;
-  margin: auto;
-  border: 1px solid #c4c4c4;
-}
-
-.form-signin .checkbox {
-  font-weight: 400;
-}
-
-main.form-signin [class*='container'] {
-	width: 95%;
-	margin: 40px auto 40px auto;
-}
-
-.btn_mint{
-	background-color: #94d5de;
-	color: white;
-}
-.warningMsg{
-	display:block; 
-	text-align: left; 
-	margin: 3px 0px 0px 5px; 
-	color: red; 
-	font-size: 10px;
-}
-
-</style>
-<section style="margin: 100px auto; text-align: center">
+<%@ page import="java.util.List" %>
+<%
+	List<String> list = (List)request.getAttribute("nickList");
+	String Nickname = "";
+	for(String s : list) {
+		Nickname += s + ",";
+	}
+%>
 	<main class="form-signin">
 	  <form>
 	    
@@ -51,7 +21,7 @@ main.form-signin [class*='container'] {
 	    </div>
 	    <div class="userNickName-container">
 	      	<input type="text" class="form-control" id="userNickName" placeholder="닉네임을 입력해주세요">
-		  	<span class="warningMsg">이미 사용하고 있는 닉네임입니다.</span>
+		  	<span class="warningMsg"></span>
 	    </div>
 	    <div class="pw-container">
 	      	<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
@@ -66,5 +36,11 @@ main.form-signin [class*='container'] {
 		
 	  </form>
 	</main>
-</section>
-<%@ include file="/views/common/footer.jsp" %>
+	<script>
+		const nick = "<%= Nickname %>",split(",");
+		console.log(nick);
+		$("#userNickName").keyup(e=> {
+			console.log("zz");
+			console.log($("#userName").val());
+		});
+	</script>

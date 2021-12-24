@@ -34,4 +34,11 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	
+	public List<String> selectAllNickname() {
+		Connection conn = getConnection();
+		List<String> list = dao.selectAllNickname(conn);
+		close(conn);
+		return list;
+	}
 }
