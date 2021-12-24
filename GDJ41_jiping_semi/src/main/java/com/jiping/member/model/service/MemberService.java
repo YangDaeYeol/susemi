@@ -2,6 +2,8 @@ package com.jiping.member.model.service;
 
 import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.getConnection;
+import static com.jiping.common.JDBCTemplate.rollback;
+import static com.jiping.common.JDBCTemplate.commit;
 
 import java.sql.Connection;
 import java.util.List;
@@ -33,5 +35,14 @@ public class MemberService {
 		Member m = dao.findEmail(conn,userName,phone);
 		close(conn);
 		return m;
+	}
+	
+	public int dropMember(String email) {
+		Connection conn=getConnection();
+		int result=dao.dropMember(conn, email);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 }

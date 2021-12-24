@@ -151,7 +151,7 @@
     *{
         font-family: '서울남산체';
     }
-    #saveBtn{
+    #saveBtn,#dropBtn{
         width: 120px;
         height: 40px;
         background-color: #94D5DE;

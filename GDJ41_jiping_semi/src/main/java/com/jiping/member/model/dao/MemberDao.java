@@ -105,4 +105,19 @@ public class MemberDao {
 		}
 		return m;
 	}
+	
+	public int dropMember(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("dropMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 }

@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MypageServlet
+ * Servlet implementation class UpdateMemberServlet
  */
-@WebServlet("/member/mypage.do")
-public class MypageServlet extends HttpServlet {
+@WebServlet("/member/updateMember.do")
+public class UpdateMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageServlet() {
+    public UpdateMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,8 @@ public class MypageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email=request.getParameter("email");
-		request.setAttribute("email", email);
-		request.getRequestDispatcher("/views/member/myPageUser.jsp").forward(request, response);
+		//if(grade가 수강생이면 memberUpdateUser.jsp로 튜터면 memberUpdateTutor.jsp로 이동 ->일단 유저로 
+		request.getRequestDispatcher("/views/member/memberUpdateUser.jsp").forward(request, response);
 	}
 
 	/**

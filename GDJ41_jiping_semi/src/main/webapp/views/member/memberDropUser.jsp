@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
+<%@ page import="com.jiping.member.model.vo.Member" %>
+<%
+	
+	Member loginMember=(Member)request.getAttribute("loginMember");
+
+
+%>
     <section id="sectionMargin">
             <div id="drop-container" class="flex">
                 <div class="inlineblock overflow" id="mypage-menu">          
@@ -17,7 +24,7 @@
                                         <li><a>- 수강완료 클래스</a></li>
                                     </ul>
                                 </nav>
-                                <li><a href="">· 회원탈퇴</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
                             </ul>                  
                         </div>
                 </div>
@@ -69,7 +76,7 @@
                             </div>
                         </div>
                         <div style="margin-left: 80px; margin-bottom: 100px;">
-                            <input type="checkbox" name=""> 상기 제시된 회원 탈퇴 관련 안내사항을 모두 확인하였습니다.
+                            <label for="dropNoticeCheck"><input type="checkbox" id="dropNoticeCheck" name="dropNoticeCheck"> 상기 제시된 회원 탈퇴 관련 안내사항을 모두 확인하였습니다.</label>
                         </div>
                         <div id="dropLine6" style="margin-left: 40px;" class="">
                             <div class="flex">    
@@ -84,18 +91,18 @@
                                 <form action="">
                                     <div class="" style="margin-left: 50px;">
                                         <select name="reason" style="border-radius: 8px;">
-                                            <option value="탈퇴사유 선택">탈퇴사유 선택하기</option>
-                                            <option value="강의 종류가 적음">강의 종류가 적음</option>
-                                            <option value="왜 탈퇴하니?">왜 탈퇴하니?</option>
-                                            <option value="이 좋은 사이트를?">이 좋은 사이트를?</option>
-                                            <option value="듣고 싶은 강의가 없음">듣고 싶은 강의가 없음 </option>
-                                            <option value="기타">직접 작성</option>
+                                            <option value="">탈퇴사유 선택하기</option>
+                                            <option value="듣고 싶은 강의가 없음">듣고 싶은 강의가 없음</option>
+                                            <option value="강의 가격 부적절">강의 가격 부적절</option>
+                                            <option value="시스템 에러가 많음">시스템 에러가 많음</option>
+                                            <option value="재가입">재가입</option>
+                                            <option value="기타">기타</option>
                                         </select>                                   
                                     </div>
                                     <br>
                                     <div class="" style="margin-left: 50px; display:table-caption;">
                                         <div>
-                                            <textarea id="drop-reason" cols="63px" rows="3px" placeholder="" style="border-radius: 8px;"></textarea>
+                                            <textarea id="drop-reason" cols="63px" rows="3px" placeholder="기타 선택 시 입력" style="border-radius: 8px;"></textarea>
                                             <div id="word-count" style="float:right;"></div>
                                         </div>    
                                         
@@ -151,7 +158,7 @@
                     </div>
                     <div class="line"></div> 
                     <div id="save-info">
-                        <button onclick="confirm('정말 탈퇴하시겠습니까?')" id="saveBtn">탈퇴하기</button>
+                        <button onclick="dropMember();" id="dropBtn">탈퇴하기</button>
                     </div>  
                 </div>              
             </div>
@@ -159,6 +166,19 @@
         
   <%@ include file="/views/common/footer.jsp"%>
   <script>
+  	dropMember=()=>{ 		
+  		if($("#dropNoticeCheck").is(":checked")==true){
+	  		if(confirm('정말 탈퇴하시겠습니까?')==true){
+	  			location.assign('<%=request.getContextPath()%>/member/dropEnd.do');
+	  		}else{
+	  			location.assign('<%=request.getContextPath()%>/member/dropMember.do?email=');
+	  		}
+	  		
+  		}else{
+  			alert('탈퇴 관련 안내사항을 확인 여부를 체크해주세요!');
+  		}
+  	}
+  	
 	//마이클래스 서브메뉴!!
 	  $("#sub-menu").hide();
 	  $(".nav-sub").mouseenter(e=>{
