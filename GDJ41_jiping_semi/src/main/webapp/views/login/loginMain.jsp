@@ -58,21 +58,18 @@
     </style>
     <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
-          <form>
-            
+          <form id="loginFrm" action="<%=request.getContextPath()%>/member/login.do" method="post">           
             <h4 class="h4 fw-normal">
             로그인하고 지핑에서<br>
             다양한 경험을 만끽해보세요
-            </h4>
-        
+            </h4>        
             <div class="email-container">
                 <span class="loginContent fs_14">이메일</span>
-                  <input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력해주세요">
-                
+                  <input type="email" class="form-control" id="email" name="email" placeholder="이메일 주소를 입력해주세요">               
             </div>
             <div class="pw-container">
                 <span class="loginContent fs_14">비밀번호</span>
-                  <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
                 <span class="warningMsg">이메일 또는 비밀번호가 일치하지 않습니다.</span>
             </div>
         

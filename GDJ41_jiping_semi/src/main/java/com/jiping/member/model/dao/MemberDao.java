@@ -1,5 +1,7 @@
 package com.jiping.member.model.dao;
 
+import static com.jiping.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -46,6 +48,39 @@ public class MemberDao {
 		}
 		return list;
 	}
+	
+	public Member loginMember(Connection conn, String email, String password) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql=prop.getProperty("loginMember");
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=Member.builder()
+						.email(rs.getString("email"))
+						.memberGrade(rs.getString("member_grade"))
+						.password(rs.getString("password"))
+//						.memberName(rs.getString("member_name"))
+//						.gender(rs.getString("gender").charAt(0))
+//						.phone(rs.getString("phone"))
+//						.marketing(rs.getString("marketing").charAt(0))
+//						.profileImg(rs.getString("profile_img"))
+						.nickname(rs.getString("nickname"))
+						.build();
+			}								
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;		
+	}
+
 
 	public Member findEmail(Connection conn, String userName, String phone) {
 		PreparedStatement pstmt = null;
