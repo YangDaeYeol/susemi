@@ -109,7 +109,7 @@
     justify-content: space-between;
 }
 
-.list-group-item>input {
+.list-group-item>#innerboxcheck {
     margin-top: 16px;
 }
 
@@ -129,7 +129,7 @@
 
 
 
-#totutor {
+.msgbox {
     resize: none;
     width: 100%;
     border: none;

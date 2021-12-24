@@ -148,7 +148,7 @@
                     <div class="list-group">
                         <%for(LectureSchedule lesc: list) { %>
                             <label class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="<%=lesc.getScheduleNo()%>">
+                                <input id="innerboxcheck" class="form-check-input me-1" type="checkbox" value="<%=lesc.getScheduleNo()%>">
                                 <div class="schedule-text">
                                     <span class="class-date">
                                         <%=lesc.getLectureDate() %>
@@ -196,9 +196,9 @@
                                 <div>
                                     <h6>튜터에게 전하는 말</h6>
                                     <div id="tutor-message">
-                                        <textarea id="totutor" class="card" cols="43" rows="7"
+                                        <textarea id="totutor" class="card msgbox" cols="43" rows="7"
                                             placeholder="예) 초보니까 쉽게 가르쳐주세요!"></textarea>
-                                        <div id="check-word-count" style="float: right;">0/70</div>
+                                        <div id="check-word-count" style="float: right;">(0/70)</div>
                                     </div>
                                 </div>
                                 <div>
@@ -240,6 +240,11 @@
                         }
                     })
                 });
+                
+                $("#totutor").keyup(e=>{
+                	let length=$(e.target).val().length;
+                	$("#check-word-count").html("("+length+"/70)");
+                });
 
             </script> 
 
@@ -250,14 +255,14 @@
                     <div class="card-body">
                         <!-- -------------------------------------------------- -->
                         <div class="review-head">
-                            <div id="title">클래스제목</div>
+                            <div id="title"><%=le.getLectureTitle() %></div>
                             <div id="tutor-review">튜터이름</div>
                         </div>
                         <div id="starrate">
                             <div>
                                 <img class="img_basic img_review" src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTMy/MDAxNTc2MTM4NTc5MjAy.d6qoHmyl15AA4MjNVN7uOMbOJplPrhTktLxfMQXze9Ig.Ui8K9n80tzLCRsYmAK1VGmFxcRJ6-fndALhaNI69n9Ug.JPEG/%EC%A4%80%ED%98%81_%284%29.jpg?type=w1200
                          ">
-                                <span>닉네임</span>
+                                <span>닉네임(로그인한 사람)/결제여부로 분기처리?</span>
                             </div>
                             <div>
                                 <fieldset class="rating">
@@ -286,14 +291,24 @@
                             </div>
                         </div>
                         <div class="card">
-                            <textarea class="card-body" id="totutor" cols="43" rows="3"
+                            <textarea class="card-body msgbox" id="totutor-review" cols="43" rows="3"
                                 placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
                         </div>
-                        <span style="float: right;">0/100</span> <br>
+                        <span id="review-count" style="float: right;">(0/100)</span> <br>
                         <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
                             등록하기</button>
                     </div>
                 </div>
+                <script>
+ 	                $("#totutor-review").keyup(e=>{
+	                	let length=$(e.target).val().length;
+	                	$("#review-count").html("("+length+"/100)");
+	                }); 
+                
+                </script>
+                
+                
+                
 
                 <div id="review-list">
                     <h5 class="card-title ">수강생 리뷰</h5>
