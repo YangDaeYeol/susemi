@@ -1,76 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<style>
-
-    .form-signin {
-      width: 400px;
-      padding: 60px 15px 25px 15px;
-      margin: auto;
-      border: 1px solid #c4c4c4;
-    }
-    
-    .form-signin .checkbox {
-      font-weight: 400;
-    }
-    
-    .loginContent{
-        margin-left: 10px;
-        margin-bottom: 5px;
-        display: block;
-        text-align: left;
-        color: #c4c4c4;
-    }
-    
-    .email-container{
-        margin-top: 40px;
-        margin-bottom: 40px;
-        text-align: left;
-    }
-    .CN-container{
-        margin-bottom: 50px;
-        text-align: left;
-    }
-    
-    .fs_14{
-        font-size: 14px;
-    }
-    .btn_mint{
-        background-color: #94d5de;
-        color: white;
-    }
-    
-    main.form-signin input.form {
-        display: inline-block;
-        width: 70%;
-        padding: 0.375rem 0.75rem;
-        margin-top: 5px;
-        margin-right: 10px;
-        font-size: 1rem;
-        line-height: 1.5;
-        color: #212529;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        appearance: none;
-        border-radius: 0.25rem;
-        
-    }
-    
-    main.form-signin input::placeholder{
-        font-size:12px;
-        color: #c4c4c4c4;
-    }
-    
-    .warningMsg{
-        display:block; 
-        text-align: left; 
-        margin: 3px 0px 0px 5px; 
-        color: red; 
-        font-size: 10px;
-    }
-    
-    </style>
+<%@ include file="/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">
 <%
 	List<String> list = (List)request.getAttribute("emailList");
 	String email = "";
@@ -78,7 +10,7 @@
 		email += s + ",";
 	}
 %>
-	<section style="margin: 100px auto; text-align: center">
+	<section>
         <main class="form-signin">
             
             <h4 class="h4 fw-normal">
@@ -99,7 +31,7 @@
             <span class="warningMsg"></span>
             </div>
         
-            <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">확인</button>
+            <button class="w-100 btn btn-lg btn_mint mb-3" id="enrollNext">확인</button>
             
         </main>
     </section>
@@ -118,19 +50,38 @@
     				dataType : "get",
     				data : {"val" : val}
     			});
-    		}
+    		}	
     	});
     	$("#number").click(e=> {
     		const val = $("#Certification_Number").val();
     		$.ajax({
     			url : "<%= request.getContextPath() %>/certificationNumber",
-    			dataType : "get",
+    			type : "get",
+    			dataType : "json",
     			data : {"val" : val},
     			success : data => {
-    				alert(data);
-    				flag = true;
-    				console.log(flag);
-    			}
+    				alert(data["msg"]);
+    				flag = data["flag"];
+    			},
+    			error : (a,b,c) => {
+    				console.log(a);
+    				console.log(b);
+    				console.log(c);
+    			} 
     		});
     	});
+    	$("#enrollNext").click(e=> {
+    		if(flag) {
+    			$.ajax({
+    				url : "<%= request.getContextPath() %>/enrollMemberSecond",
+    				dataType : "html",
+    				success : data => {
+    					$("section").html(data);
+    				}
+    			});
+    		}else {
+    			alert("이메일인증을 해주세요.");
+    		}
+    	});
     </script>
+    <%@ include file="/views/common/footer.jsp" %>

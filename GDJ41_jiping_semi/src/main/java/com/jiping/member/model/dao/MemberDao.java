@@ -105,4 +105,24 @@ public class MemberDao {
 		}
 		return m;
 	}
+	
+	public List<String> selectAllNickname(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> list = new ArrayList<String>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectAllNickname"));
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String name = rs.getString("nickname");
+				list.add(name);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return list;
+	}
 }
