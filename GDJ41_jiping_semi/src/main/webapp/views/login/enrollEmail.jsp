@@ -10,7 +10,7 @@
 		email += s + ",";
 	}
 %>
-	<section>
+	<section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
             
             <h4 class="h4 fw-normal">
