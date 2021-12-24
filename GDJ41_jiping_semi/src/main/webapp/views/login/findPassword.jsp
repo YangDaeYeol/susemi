@@ -69,7 +69,9 @@
     		if(flag) {
     			$.ajax({
     				url : "<%= request.getContextPath() %>/findPasswordSecond",
+    				type : "get",
     				dataType : "html",
+    				data : {"email" : $("#email").val() },
     				success : data => {
     					$("section").html(data);
     				}

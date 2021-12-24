@@ -27,7 +27,9 @@ public class FindPasswordSecondServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/login/findEmailResult.jsp").forward(request, response);
+		
+		request.setAttribute("email",request.getParameter("email"));
+		request.getRequestDispatcher("/views/login/findPasswordResult.jsp").forward(request, response);
 	}
 
 	/**
