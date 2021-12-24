@@ -1,627 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
-<style>
-
-#header-search>input {
-    width: 320px;
-    height: 100%;
-    border: 0;
-    text-align: left;
-    font-size: 15px;
-}
-#header-btn>button {
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-#enrollMemberBtn {
-    background-color: rgb(89, 30, 30);
-    color: rgb(255, 255, 255);
-    border-color: initial;
-    padding: 1px 6px;
-}
-#enrollMemberBtn {
-    background-color: #EBC3C3;
-    color: white;
-    border: 1px;
-    border-radius: 10px;
-    font-weight: bold;
-    width: 110px;
-    height: 30px;
-}
-    input {
-        font-size: 14px;
-    }
-
-    .classDetailHead {
-        font-size: 20px;
-        margin-top: 40px;
-        margin-bottom: 10px;
-    }
-
-    div.first {
-        width: 20%;
-    }
-
-    div.middle {
-        width: 45%;
-        margin: 0 auto;
-    }
-
-    div.last {
-        width: 20%;
-    }
-
-    .mainContents {
-        margin-left: 30px;
-        margin-right: 30px;
-    }
-
-    /* 인풋박스 포커스시 아웃라인 없애기 */
-    input:focus {
-        outline: none;
-    }
-
-    textarea:focus {
-        outline: none;
-    }
-
-    #enrollClass {
-        border-bottom: 1px solid;
-        padding: 20px;
-        width: 90%;
-    }
-
-    #menu {
-        padding: 20px;
-    }
-
-    #tutor {
-        margin-bottom: 15px;
-    }
-
-    #class {
-        margin-bottom: -10px;
-    }
-
-    #tutorIntro {
-        padding: 20px;
-    }
-
-    #tutorTitle {
-        font-size: 20px;
-        margin-bottom: 10px;
-        margin-top: 40px;
-    }
-
-    #profilePic {
-        font-size: 12px;
-        margin-bottom: 20px;
-    }
-
-    #uploadProfile {
-        margin-bottom: 20px;
-    }
-
-    .image-upload {
-        margin-bottom: 20px;
-    }
-
-    .image-upload>input {
-        display: none;
-
-    }
-
-
-    textarea {
-        border-radius: 10px;
-        border: 0px;
-        resize: none;
-    }
-
-    #tutorComment {
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 40px;
-        border: 1px solid black;
-    }
-
-    #introlimit {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    .sugg {
-        font-size: 12px;
-    }
-
-    ::placeholder {
-        color: gray;
-        font-size: 12px;
-    }
-
-    #snsInfo {
-        margin-bottom: 20px;
-    }
-
-    #insta {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #facebook {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #blog {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 40px;
-    }
-
-    .snsInputBox {
-        border: 0px;
-        border-radius: 10px;
-        width: 90%;
-    }
-
-    .socialImg {
-        margin-left: 7px;
-        margin-right: 4px;
-    }
-
-    .career {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .carrerimage {
-        margin-left: 7px;
-        margin-right: 4px;
-    }
-
-    .careerInputBox {
-        border: 0px;
-        border-radius: 10px;
-        margin-left: 10px;
-        width: 88%;
-    }
-
-    .image-career>#file-career {
-        display: none;
-
-    }
-
-    .image-career {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #addCareer {
-        margin-bottom: 20px;
-    }
-
-    .fileImg {
-        margin-top: -3px;
-    }
-
-    button {
-        background-color: rgb(196, 196, 196);
-        border: none;
-        border-radius: 10px;
-        color: black;
-        padding: 5px 32px;
-        text-align: center;
-        text-decoration: none;
-        width: 100%;
-        font-size: 13px;
-        margin-bottom: 10px;
-    }
-
-    #chooseCategory {
-        font-size: 20px;
-        margin-top: 40px;
-        padding-bottom: 20px;
-    }
-
-    input[type="radio"] {
-        display: none;
-    }
-
-    section {
-        margin-bottom: 40px;
-    }
-
-    .selectClass {
-        height: 8%%;
-        display: block;
-        background: white;
-        border: 1px solid black;
-        border-radius: 20px;
-        padding: 1rem;
-        margin-bottom: 30px;
-
-        text-align: center;
-
-        position: relative;
-    }
-
-    input[type="radio"]:checked+label {
-        background: rgb(162, 221, 220);
-        color: hsla(215, 0%, 100%, 1);
-        border: 1px solid rgb(162, 221, 220);
-    }
-
-    #categoryDiv {
-        margin-bottom: 20px;
-        font-size: 20px;
-    }
-
-    .container {
-        margin-bottom: 20px;
-    }
-
-    select {
-        width: 150px;
-        padding: 8px;
-        margin-right: 2px;
-        font-size: 14px;
-        border-radius: 10px;
-    }
-
-    #classTitle {
-        display: flex;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 40px;
-        border: 1px solid black;
-    }
-
-    #showMeTheLimitOfTitleLength1 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #showMeTheLimitOfTitleLength2 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #showMeTheLimitOfTitleLength3 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #classTitleHead {
-        font-size: 20px;
-        margin-top: 40px;
-        margin-bottom: 10px;
-    }
-
-    #classImgeHead {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    #classImgContent {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    /* 클래스 이미지 등록 css 시작 */
-    input[type="file"] {
-        position: absolute;
-        right: -9999px;
-        visibility: hidden;
-        opacity: 0;
-    }
-
-
-
-    #toUploadClassImg:hover {
-        background-color: rgb(162, 221, 220);
-        color: #fff;
-        transition: 0.2s all;
-
-    }
-
-    #uploadImageBtn {
-        text-align: center;
-    }
-
-    #classImageUpload {
-        position: relative;
-        padding: 10px;
-        background: #eee;
-        display: inline-block;
-        text-align: center;
-        overflow: hidden;
-        border-radius: 10px;
-        height: 40px;
-        width: 100%;
-    }
-
-    #classImageUpload:hover {
-        background: rgb(162, 221, 220);
-        color: #fff;
-        cursor: pointer;
-        transition: 0.2s all;
-
-    }
-
-    div.files {
-        background: #eee;
-        width: 100%;
-        padding: 1rem;
-        text-align: center;
-        margin: 1rem 0;
-        border-radius: 10px;
-    }
-
-    div.files>ul {
-        list-style: none;
-        padding: 0;
-        max-height: 150px;
-        overflow: auto;
-    }
-
-    div.files>ul>li {
-        padding: 0.5rem 0;
-        padding-right: 2rem;
-        position: relative;
-    }
-
-    div.files>ul>li>i {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translatey(-50%);
-    }
-
-    div.files>ul>li>i.container {
-        width: 100%;
-        padding: 0 2rem;
-
-    }
-
-    span.file-size {
-        color: #999;
-        padding-left: 0.5rem;
-    }
-
-
-
-    /* 클래스 이미지 등록 css 끝 */
-
-
-    .pageBtn {
-        background-color: rgb(162, 221, 220);
-        color: white;
-    }
-
-    /* setClassTitle처리하기~! */
-    #setClassTitle1 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    #setClassTitle2 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    #setClassTitle3 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    #setClassTitle4 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    /* 클래스 제목및 커버 css 시작 */
-
-
-    #classTitleText {
-        border: 0px;
-        display: flex;
-    }
-
-    /* 클래스 제목및 커버 css 끝 */
-
-    /* 상세설명 css 시작 */
-    #classComment1 {
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    #classComment2 {
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    #classComment3 {
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    #classComment4 {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    #detailInfoLengthLimit1 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #detailInfoLengthLimit2 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #detailInfoLengthLimit3 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #detailInfoLengthLimit4 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    /* 기타 css */
-    #selectedVOD {
-        margin-top: 40px;
-    }
-
-    .vodEachClassInformation {
-        margin-left: 5px;
-        border-radius: 10px;
-        margin-top: 5px;
-    }
-
-    .vodEachClassInformationDiv {
-        margin-top: 20px;
-        border-radius: 10px;
-        border: 1px solid black;
-    }
-
-    .vodEachClassUrlAddressLimit {
-        font-size: 12px;
-        margin-top: 5px;
-    }
-
-    .vodEachClassTitleLimit {
-        font-size: 12px;
-        margin-top: 5px
-    }
-
-    .vodEachClassInfoLimit {
-        text-align: right;
-        font-size: 12px;
-    }
-
-    #urlTextBox {
-        border: 0px;
-        margin-left: 3px;
-        display: flex;
-    }
-
-    .classIntInputBox {
-        border-radius: 10px;
-        border: 0px;
-        width: 90%;
-    }
-
-    .inputVODinfoTxtBox {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-right: 5px;
-        width: 100%;
-        height: 30px;
-    }
-
-    .inputUrlAddress {
-        border-radius: 10px;
-        border: 0px;
-        width: 97%;
-        margin-left: 5px;
-    }
-
-    .inputSmallTitle {
-        margin-left: 5px;
-        border-radius: 10px;
-        border: 0px;
-        width: 97%;
-    }
-
-
-    .classIntBox {
-        border: 1px solid black;
-        border-radius: 10px;
-        height: 30px;
-        margin-top: 3px;
-    }
-
-    .won {
-        margin-right: 5px;
-    }
-
-    .times {
-        margin-left: 4px;
-        margin-right: 4px;
-    }
-
-    .classCetegory {
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
-
-    .classLocationTitle {
-        margin-bottom: 10px;
-    }
-
-    #detailPlace1 {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    #detailPlace2 {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    .pricePerClass1 {
-        font-size: 15px;
-    }
-
-    .totalClass1 {
-        font-size: 14px;
-    }
-
-    .won {
-        font-size: 12px;
-    }
-    #bigCategory{
-   		height: 10%;
-   	}
-</style>
 <body>
 <div id="container">
        <%@ include file="/views/common/header.jsp" %>
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/css/getClassInformation.css">
         <section>
 
 
@@ -817,9 +200,9 @@
                                                     <div
                                                         style="display: flex; justify-content: space-between; margin-bottom: 40px;">
                                                         <select name="bigCategory" id="bigCategory"
-                                                            style="flex-grow: 1;"></select>
+                                                            class="categoryClass" style="flex-grow: 1;"></select>
                                                         <select name="smallCategory" id="smallCategory"
-                                                            style="flex-grow: 1; margin-right: 0;"></select>
+                                                            style="flex-grow: 1; margin-right: 0;" class="categoryClass"></select>
                                                     </div>
 
                                                     <!-- 클래스 유형 본문 내용 끝 -->
@@ -969,7 +352,7 @@
                                                             <div>
                                                                 <div class="pricePerClass1">총 클래스 횟수</div>
                                                                 <div>
-                                                                    <select name="numOfClass1" id="numOfClass1"
+                                                                    <select name="numOfClass1" id="numOfClass1" class="categoryClass"
                                                                         style="flex-grow: 1; margin-bottom: 20px;"
                                                                         onchange="toGetValue(this.value)">
                                                                         <option value="1">1회</option>
@@ -1014,9 +397,9 @@
                                                         <div class="classLocationTitle">클래스 위치</div>
                                                         <div
                                                             style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="sido1" id="sido1"
+                                                            <select name="sido1" id="sido1" class="categoryClass"
                                                                 style="flex-grow: 1"></select>
-                                                            <select name="gugun1" id="gugun1"
+                                                            <select name="gugun1" id="gugun1" class="categoryClass"
                                                                 style="flex-grow: 1"></select>
                                                         </div>
                                                         <div id="detailPlace2">
@@ -1029,7 +412,7 @@
                                                         <div class="classLocationTitle">최대 참여 인원</div>
                                                         <div
                                                             style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="peopleNum2" id="peopleNum2"
+                                                            <select name="peopleNum2" id="peopleNum2" class="categoryClass"
                                                                 style="flex-grow: 1; margin-bottom: 40px;"></select>
                                                         </div>
                                                         <div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.
@@ -1044,7 +427,7 @@
                                                             <div style="display: inline-block;">
                                                                 <div class="pricePerClass1">총 클래스 횟수</div>
                                                                 <div>
-                                                                    <select name="numOfClass2" id="numOfClass2"
+                                                                    <select name="numOfClass2" id="numOfClass2" class="categoryClass"
                                                                         style="flex-grow: 1">
                                                                         <option value="2">2회</option>
                                                                         <option value="3">3회</option>
@@ -1072,9 +455,9 @@
                                                         <div class="classLocationTitle">클래스 위치</div>
                                                         <div
                                                             style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="sido2" id="sido2"
+                                                            <select name="sido2" id="sido2" class="categoryClass"
                                                                 style="flex-grow: 1"></select>
-                                                            <select name="gugun2" id="gugun2"
+                                                            <select name="gugun2" id="gugun2" class="categoryClass"
                                                                 style="flex-grow: 1"></select>
                                                         </div>
                                                         <div id="detailPlace1">
@@ -1087,7 +470,7 @@
                                                         <div class="classLocationTitle">최대 참여 인원</div>
                                                         <div
                                                             style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="peopleNum1" id="peopleNum1"
+                                                            <select name="peopleNum1" id="peopleNum1" class="categoryClass"
                                                                 style="flex-grow: 1; margin-bottom: 40px;"></select>
                                                         </div>
                                                         <div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.
@@ -1100,7 +483,7 @@
                                                         <h5 class="classCetegory">VOD</h5>
                                                         <div class="pricePerClass1">총 클래스 횟수</div>
                                                         <div>
-                                                            <select name="numOfClass3" id="numOfClass3"
+                                                            <select name="numOfClass3" id="numOfClass3" class="categoryClass"
                                                                 style="flex-grow: 1; margin-bottom: 20px;"
                                                                 onchange="toGetVodValue(this.value)">
                                                                 <option value="1">1회</option>
