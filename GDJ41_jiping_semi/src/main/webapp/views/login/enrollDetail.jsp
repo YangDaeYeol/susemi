@@ -4,26 +4,6 @@
 
 <style>
 
-*{
-  font-family: "서울남산체";
-}
-
-    html,
-body {
-  height: 100%;
-}
-
-body {
-  
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: white;
-  text-align: center;
-}
-
-section{
-  margin: 100px auto;
-}
 
 .form-signin {
   width: 400px;
@@ -44,7 +24,7 @@ section{
 	color: #c4c4c4;
 }
 
-[class*='container'] {
+main.form-signin [class*='container'] {
 	width: 95%;
 	margin: 20px auto 20px auto;
 }
@@ -60,10 +40,10 @@ section{
 	color: white;
 }
 
-input[type='radio'] {
+main.form-signin input[type='radio'] {
  display: none;
 }
-input[type='radio'] + label {
+main.form-signin input[type='radio'] + label {
 	display:block;
     width: 45%;
     margin: 0px 5px 0px 0px;
@@ -73,19 +53,19 @@ input[type='radio'] + label {
     border: 1px solid #000000;
     display: inline-block;
 } 
-input[type='radio']:checked + label {
+main.form-signin input[type='radio']:checked + label {
     
     background: #94d5de;
     border: 0cm;
 	color: white;
 }
-input[type='radio' ]:checked + label[for="male"] {
+main.form-signin input[type='radio' ]:checked + label[for="male"] {
     
     background: #94d5de;
     border: 0cm;
 	color: white;
 }
-input[type='radio' ]:checked + label[for="female"] {
+main.form-signin input[type='radio' ]:checked + label[for="female"] {
     
     background: #ebc3c3;
     border: 0cm;
@@ -149,7 +129,7 @@ input[type='radio' ]:checked + label[for="female"] {
     }
 
 </style>
-<section>
+<section style="margin: 100px auto; text-align: center">
 	<main class="form-signin">
 		<form>
 		  
@@ -166,9 +146,9 @@ input[type='radio' ]:checked + label[for="female"] {
 		  <div class="gender-container">
 			  <span class="loginContent fs_14">성별</span>
 			  <input type="radio" name="gender" id="male" value="male">
-			  <label for="male">남성</label>
+			  <label for="male">남자</label>
 			  <input type="radio" name="gender" id="female" value="female">
-			  <label for="female">여성</label>
+			  <label for="female">여자</label>
 		  </div>
 		  <div class="category-container">
 			  <span class="loginContent fs_14">관심분야 선택</span>

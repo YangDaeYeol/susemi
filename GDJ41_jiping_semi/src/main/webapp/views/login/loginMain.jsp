@@ -3,27 +3,6 @@
 <%@ include file="/views/common/header.jsp" %>
 <style>
 
-    *{
-      font-family: "서울남산체";
-    }
-    
-        html,
-    body {
-      height: 100%;
-    }
-    
-    body {
-      
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: white;
-      text-align: center;
-    }
-    
-    section{
-      margin: 100px auto;
-    }
-    
     .form-signin {
       width: 400px;
       padding: 60px 15px 25px 15px;
@@ -77,7 +56,7 @@
     }
     
     </style>
-    <section>
+    <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
           <form id="loginFrm" action="<%=request.getContextPath()%>/member/login.do" method="post">           
             <h4 class="h4 fw-normal">

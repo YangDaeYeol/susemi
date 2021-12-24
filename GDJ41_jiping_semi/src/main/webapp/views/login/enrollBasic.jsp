@@ -7,26 +7,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
 
-*{
-  font-family: "서울남산체";
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: white;
-  text-align: center;
-}
-
-section{
-  margin: 100px auto;
-}
 
 .form-signin {
   width: 400px;
@@ -39,7 +19,7 @@ section{
   font-weight: 400;
 }
 
-[class*='container'] {
+main.form-signin [class*='container'] {
 	width: 95%;
 	margin: 40px auto 40px auto;
 }
@@ -57,7 +37,7 @@ section{
 }
 
 </style>
-<section>
+<section style="margin: 100px auto; text-align: center">
 	<main class="form-signin">
 	  <form>
 	    
