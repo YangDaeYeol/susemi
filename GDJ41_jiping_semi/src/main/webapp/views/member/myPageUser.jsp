@@ -7,7 +7,7 @@
                         <h3>MY PAGE</h3>
                         <div class="" id="my-menu" >
                             <ul id="menu-list">
-                                <li><a href="">· 나의정보</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/mypage.do">· 나의정보</a></li>
                                 <li><a href="">· 정보수정</a></li>
                                 <nav class="nav-sub">
                                     <li ><a href="">· 마이클래스</a></li>
