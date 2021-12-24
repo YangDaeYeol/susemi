@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<% List<String> list = (List)request.getAttribute("nickList"); %>
+<%
+	List<String> list = (List)request.getAttribute("nickList");
+	String Nickname = "";
+	for(String s : list) {
+		Nickname += s + ",";
+	}
+%>
 	<main class="form-signin">
 	  <form>
 	    
@@ -13,10 +19,9 @@
 	    <div class="userName-container">
 	    	<input type="text" class="form-control" id="userName" placeholder="이름(실명)을 입력해주세요">
 	    </div>
-	    <button id="zzaass">갑확인</button>
 	    <div class="userNickName-container">
 	      	<input type="text" class="form-control" id="userNickName" placeholder="닉네임을 입력해주세요">
-		  	<span class="warningMsg">이미 사용하고 있는 닉네임입니다.</span>
+		  	<span class="warningMsg"></span>
 	    </div>
 	    <div class="pw-container">
 	      	<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
@@ -32,9 +37,10 @@
 	  </form>
 	</main>
 	<script>
-		$("#zzaass").click(e=> {
+		const nick = "<%= Nickname %>",split(",");
+		console.log(nick);
+		$("#userNickName").keyup(e=> {
 			console.log("zz");
 			console.log($("#userName").val());
 		});
 	</script>
-<%@ include file="/views/common/footer.jsp" %>
