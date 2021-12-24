@@ -258,7 +258,6 @@ input[type='radio' ]:checked + label[for="female"] {
 		  
 		</form>
 	  </main>
-	</main>
 </section>
 	<script>
 		//버튼 on/off 스크립트
@@ -514,3 +513,4 @@ input[type='radio' ]:checked + label[for="female"] {
 	
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
+>>>>>>> branch 'master' of https://github.com/YangDaeYeol/susemi.git

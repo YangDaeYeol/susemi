@@ -105,7 +105,7 @@
     
         <section>
         <main class="form-signin">
-          <form>
+          <form id="findEmailFrm" action="<%=request.getContextPath() %>/findEmail" method="post">
             
             <h4 class="h4 fw-normal ws-4">
             회원가입 시 등록했던 <br>
@@ -115,13 +115,13 @@
     
             <div class="userName-container">
             <span class="loginContent fs_14">이름(실명)</span>
-            <input type="text" class="form-control" id="userName" placeholder="이름(실명)을 입력해주세요">
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="이름(실명)을 입력해주세요">
             
             </div>
             
             <div class="phone-container">
             <span class="loginContent fs_14">휴대폰 번호</span>
-            <input type="text" class="form-control" id="phone" placeholder="-를 제외한 휴대폰 번호를 입력해주세요">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="-를 제외한 휴대폰 번호를 입력해주세요">
               
             </div>
         
