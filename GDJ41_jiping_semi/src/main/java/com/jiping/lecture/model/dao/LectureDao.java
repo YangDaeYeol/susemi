@@ -128,23 +128,23 @@ public class LectureDao {
 		
 	}
 	
-	public List<LectureSchedule> scheduleSelectList(Connection conn, int scheduleNo){
+	public LectureSchedule scheduleSelectList(Connection conn, int scheduleNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
-		List <LectureSchedule> list= new ArrayList();
+		LectureSchedule sc=null;
 		String sql= prop.getProperty("scheduleSelectList");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, scheduleNo);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				LectureSchedule schedule= LectureSchedule.builder()
+			if(rs.next()) {
+				sc= LectureSchedule.builder()
 						.scheduleNo(rs.getInt("schedule_No"))
 						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
 						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
 						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date"))
 						.startDate(rs.getString("start_date")).endDate(rs.getString("end_date")).build();
-				list.add(schedule);
+				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -153,7 +153,7 @@ public class LectureDao {
 			close(pstmt);
 		}
 //		System.out.println("dao list:"+list);
-		return list;
+		return sc;
 		
 	}
 	

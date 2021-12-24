@@ -43,11 +43,11 @@ public class LectureService {
 		return list;
 	}
 	
-	public List<LectureSchedule> scheduleSelectList(int scheduleNo){
+	public LectureSchedule scheduleSelectList(int scheduleNo){
 		Connection conn=getConnection();
-		List<LectureSchedule> list=dao.scheduleSelectList(conn, scheduleNo);
+		LectureSchedule sc=dao.scheduleSelectList(conn, scheduleNo);
 		close(conn);
-		return list;
+		return sc;
 	}
 
 }

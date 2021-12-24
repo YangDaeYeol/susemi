@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.LectureSchedule;
 
@@ -36,14 +37,11 @@ public class LectureScheduleServlet extends HttpServlet {
 
 		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
 		System.out.println("scheduleNo :"+scheduleNo);
-		List<LectureSchedule> scList= new LectureService().scheduleSelectList(scheduleNo);
+		LectureSchedule sc= new LectureService().scheduleSelectList(scheduleNo);
 		
-		JSONObject jo= new JSONObject();
-		jo.put("scList", scList); //이걸 넣어주니까 밑에 투스트링이 생김
-		System.out.println("tostring: "+jo.toString());
-		System.out.println("scList: "+scList);
+		new Gson().toJson(sc,response.getWriter());
 		
-		request.setAttribute("scList", scList);
+		
 	
 	}
 
