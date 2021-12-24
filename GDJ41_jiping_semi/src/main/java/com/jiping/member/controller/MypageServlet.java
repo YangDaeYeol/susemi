@@ -28,7 +28,7 @@ public class MypageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		request.setAttribute("email", email);
-		request.getRequestDispatcher("/views/member/myPageUser.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/mypage.jsp").forward(request, response);
 	}
 
 	/**

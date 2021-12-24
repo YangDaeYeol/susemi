@@ -64,11 +64,11 @@ public class MemberDao {
 						.email(rs.getString("email"))
 						.memberGrade(rs.getString("member_grade"))
 						.password(rs.getString("password"))
-//						.memberName(rs.getString("member_name"))
-//						.gender(rs.getString("gender").charAt(0))
-//						.phone(rs.getString("phone"))
-//						.marketing(rs.getString("marketing").charAt(0))
-//						.profileImg(rs.getString("profile_img"))
+						.memberName(rs.getString("member_name"))
+						.gender(rs.getString("gender").charAt(0))
+						.phone(rs.getString("phone"))
+						.marketing(rs.getString("marketing").charAt(0))
+						.profileImg(rs.getString("profile_img"))
 						.nickname(rs.getString("nickname"))
 						.build();
 			}								
