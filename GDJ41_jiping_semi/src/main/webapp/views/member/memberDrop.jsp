@@ -4,17 +4,18 @@
 <%@ page import="com.jiping.member.model.vo.Member" %>
 <%
 	
-	Member loginMember=(Member)request.getAttribute("loginMember");
+	/* Member loginMember=(Member)request.getAttribute("loginMember"); */
 
 
 %>
     <section id="sectionMargin">
             <div id="drop-container" class="flex">
                 <div class="inlineblock overflow" id="mypage-menu">          
+                    <%if(loginMember.getMemberGrade().equals("수강생")){ %>
                     <h3>MY PAGE</h3>
                         <div class="" id="my-menu" >
                             <ul id="menu-list">
-                                <li><a href="">· 나의정보</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/mypage.do?email<%=loginMember.getEmail()%>">· 나의정보</a></li>
                                 <li><a href="">· 정보수정</a></li>
                                 <nav class="nav-sub">
                                     <li ><a href="">· 마이클래스</a></li>
@@ -24,9 +25,26 @@
                                         <li><a>- 수강완료 클래스</a></li>
                                     </ul>
                                 </nav>
-                                <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email<%=loginMember.getEmail()%>">· 회원탈퇴</a></li>
                             </ul>                  
                         </div>
+                      <%}else{ %>
+                      		<h3>MY PAGE</h3>
+                    		<div class="" id="my-menu" >
+                      			 <ul id="menu-list">
+                           			<li><a href="">· 나의정보</a></li>
+                            		<li><a href="">· 정보수정</a></li>
+                            			<nav class="nav-sub">
+                                			<li ><a href="">· 클래스</a></li>
+                                			<ul id="sub-menu">
+			                                    <li><a>- 운영중인 클래스</a></li>
+			                                    <li><a>- 운영종료 클래스</a></li>
+                                			</ul>
+                            			</nav>
+                            		<li><a href="<%=request.getContextPath()%>/member/dropMember.do?email<%=loginMember.getEmail()%>">· 회원탈퇴</a></li>
+                        		</ul>                  
+                    		</div>
+                      <%} %> 
                 </div>
                 <div class="" id="mypage-content">
                     <img id="info-icon" src="<%=request.getContextPath() %>/img/remove-user.png" width="30px" height="30px" class="inlineblock" style="margin-bottom: 10px;">
@@ -83,7 +101,7 @@
                                 <div class="inlineblock"><img src="<%=request.getContextPath() %>/img/question.png" alt="" width="40px" height="40px"></div>
                                 <div class="inlineblock" id="wait" style="margin-left: 10px;">
                                     <h5 style="margin-bottom: 0px;">회원 탈퇴 사유는 무엇인가요?</h5>
-                                    <p>- 회원 탈퇴 이유를 선택해주시면, 앞으로 더 나은 모습의 지핑으로 성장하겠습니다.</p>                               
+                                    <p>- 회원 탈퇴 이유를 선택해주시면, 앞으로 더 나은 모습의 지핑으로 성장하도록 노력하겠습니다.</p>                               
                                 </div>
                                 <br><br> <br>
                             </div>
@@ -114,7 +132,7 @@
 
                                 <div>
                                     <img src="<%=request.getContextPath() %>/img/notification.png" alt="" width="30px" height="30px">
-                                    <span>000님에게 추천드릴 클래스가 아직 남아 있어요!</span>
+                                    <span><%=loginMember.getNickname() %>님에게 추천드릴 클래스가 아직 남아 있어요!</span>
                                 </div>
                                 <br>
                                 <div class="col inlineblock drop-class-margin">
@@ -169,13 +187,14 @@
   	dropMember=()=>{ 		
   		if($("#dropNoticeCheck").is(":checked")==true){
 	  		if(confirm('정말 탈퇴하시겠습니까?')==true){
-	  			location.assign('<%=request.getContextPath()%>/member/dropEnd.do');
+	  			location.assign('<%=request.getContextPath()%>/member/dropEnd.do?email=<%=loginMember.getEmail()%>');
 	  		}else{
-	  			location.assign('<%=request.getContextPath()%>/member/dropMember.do?email=');
+	  			location.assign('<%=request.getContextPath()%>/member/dropMember.do?email=<%=loginMember.getEmail()%>');
 	  		}
 	  		
   		}else{
   			alert('탈퇴 관련 안내사항을 확인 여부를 체크해주세요!');
+  			scrollIntoView($("#dropNoticeCheck"));
   		}
   	}
   	

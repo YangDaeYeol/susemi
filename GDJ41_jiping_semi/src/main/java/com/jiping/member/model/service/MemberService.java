@@ -37,6 +37,13 @@ public class MemberService {
 		return m;
 	}
 	
+	public Member selectMember(String email) {
+		Connection conn=getConnection();
+		Member m=dao.selectMember(conn, email);
+		close(conn);
+		return m;
+	}
+	
 	public int dropMember(String email) {
 		Connection conn=getConnection();
 		int result=dao.dropMember(conn, email);

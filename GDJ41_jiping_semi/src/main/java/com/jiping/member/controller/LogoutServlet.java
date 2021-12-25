@@ -1,27 +1,26 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.jiping.member.model.service.MemberService;
-import com.jiping.member.model.vo.Member;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MypageServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/member/mypage.do")
-public class MypageServlet extends HttpServlet {
+@WebServlet("/member/logout.do")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +29,16 @@ public class MypageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email=request.getParameter("email");
-		request.setAttribute("email", email);
-		Member m=new MemberService().selectMember(email);
-		request.setAttribute("loginMember", m);
-		request.getRequestDispatcher("/views/member/mypage.jsp").forward(request, response);
+	
+		HttpSession session=request.getSession(false);
+		if(session!=null) {
+			session.invalidate();
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.println("<script>alert('페이지 로그아웃'); location.href='"
+					+request.getContextPath()+"/';</script>");
+			out.close();
+		}  
 	}
 
 	/**

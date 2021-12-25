@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ include file="/views/common/header.jsp"%>
  <%
-
+	
  
  %>   
     
@@ -14,8 +14,8 @@
                   <h3>MY PAGE</h3>
                   <div class="" id="my-menu" >
                       <ul id="menu-list">
-                          <li><a href="<%=request.getContextPath()%>/member/mypage.do">· 나의정보</a></li>
-                          <li><a href="<%=request.getContextPath()%>/member/updateMember.do">· 정보수정</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=loginMember.getEmail()%>">· 나의정보</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=loginMember.getEmail()%>">· 정보수정</a></li>
                           <nav class="nav-sub">
                               <li ><a href="">· 마이클래스</a></li>
                               <ul id="sub-menu">
@@ -24,7 +24,7 @@
                                   <li><a>- 수강완료 클래스</a></li>
                               </ul>
                           </nav>
-                          <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=loginMember.getEmail()%>">· 회원탈퇴</a></li>
                       </ul>                  
                   </div>
           </div>   
@@ -262,7 +262,7 @@
                                     <li><a>- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="">· 회원탈퇴</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
                         </ul>                  
                     </div>
             </div>   
