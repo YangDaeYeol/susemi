@@ -4,13 +4,17 @@
 <%@ page import="com.jiping.lecture.model.vo.Lecture,
 				com.jiping.lecture.model.vo.LectureContent,
 				com.jiping.lecture.model.vo.LectureSchedule,
+				com.jiping.lecture.model.vo.LectureImg,
+				com.jiping.member.model.vo.Tutor,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
 	LectureContent content= (LectureContent)request.getAttribute("content");
 	/* LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule"); */
 	List<LectureSchedule> list= (List)request.getAttribute("scList");
-/* 	System.out.println("jsp:"+ list); */
+	List<LectureImg> imgList= (List)request.getAttribute("imgList");
+	Tutor tutor=(Tutor)request.getAttribute("tutor");
+ 	System.out.println("jsp:"+ imgList); 
 
 %>
 
@@ -26,22 +30,15 @@
                         <%=le.getLectureTitle() %>
                     </h5>
                     <!--class="card-title"-->
-                    <div class="card">
+                     <div class="card">
                         <div class="card-body">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
+                                <%for(LectureImg imgs: imgList) { %>
                                     <div class="carousel-item active">
-                                        <img src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTQ3/MDAxNTc2MTM4NTUyNzM4.NcQoxd0YDv6Ihnb3snU5cF-OVlBXyS5eL6pEd-4Df74g.m8xgeLxThkSKU8_dYPo9UlbdgLiTaYUG6WO34ER_k-0g.JPEG/%EC%A4%80%ED%98%81_%281%29.jpg?type=w1200
-                                " class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgs.getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src="https://post-phinf.pstatic.net/MjAyMDA5MjVfMTc4/MDAxNjAxMDI0MTAyNTY2.hV-sDoyZYI6CSJunuYzelN-t6RmQ63NyuGNvRTKCk3cg.K_DN1PZKXoeMTp-sZLeNjL3MpONfqMfFMpslHkvRM3Mg.JPEG/%EC%A4%80%ED%98%81_%2813%29.jpg?type=w1200"
-                                            class="d-block w-100" alt="...">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://post-phinf.pstatic.net/MjAyMDA3MjZfMjUz/MDAxNTk1NzUxOTczNDcy.Qio9niIKRMWxwQ92ilGnSmOncAuUpbAiZ1re0hl6R6wg.21S6u-Ctupv21VxBqMq0q911-SZ4AkyYl9q8oEUZX0kg.JPEG/%EC%84%9C%ED%94%84%EB%A1%9C_%2819%29.jpg?type=w1200"
-                                            class="d-block w-100" alt="...">
-                                    </div>
+                                <%} %>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -53,7 +50,7 @@
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -114,16 +111,16 @@
                           " alt="..." class="img_basic img_tutor">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <span>이름 : </span><br>
-                                    <span>연락처 : </span><br>
-                                    <a href=""><img
+                                    <span><%=tutor.getNickname() %> </span><br>
+                                    <span><%=tutor.getPhone() %> </span><br>
+                                    <a href="<%=tutor.getInsta() %>"><img
                                             src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
                                             alt="instagram" class="socialImg">
                                     </a>
-                                    <a href=""><img src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
+                                    <a href="<%=tutor.getFacebook() %>"><img src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
                                             alt="facebook" class="socialImg">
                                     </a>
-                                    <a href=""><img src="https://www.coolstay.co.kr/img/main/naver.png" alt="blog"
+                                    <a href="<%=tutor.getBlog() %>"><img src="https://www.coolstay.co.kr/img/main/naver.png" alt="blog"
                                             class="socialImg">
                                     </a>
                                 </div>
@@ -136,7 +133,7 @@
                                     <li>경력2</li>
                                 </ul>
                                 <span>튜터의 한마디</span>
-                                <p class="tutorbox_info">튜터의 한마디</p>
+                                <p class="tutorbox_info"><%=tutor.getTutorMsg() %></p>
                             </div>
                         </div>
                     </div>

@@ -136,7 +136,7 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-primary btn-lg btn-basic" style="float: right;">강 의 실 이 동</button>
+            <button type="button" class="btn btn-primary btn-lg btn-basic" style="float: right;">강 의 실 입 장</button>
           </div>
         </div>
 

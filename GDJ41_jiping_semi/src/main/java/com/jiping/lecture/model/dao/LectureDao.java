@@ -14,7 +14,9 @@ import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.member.model.vo.Tutor;
 
 public class LectureDao {
 	
@@ -157,5 +159,54 @@ public class LectureDao {
 		
 	}
 	
+	
+	public List<LectureImg> imgList(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <LectureImg> list= new ArrayList();
+		String sql= prop.getProperty("imgList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				LectureImg img= LectureImg.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.lectureFileName(rs.getString("lecture_filename")).build();
+				list.add(img);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public Tutor tutorInfo(Connection conn, int num) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		Tutor tutor=null;
+		String sql=prop.getProperty("tutorInfo");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				tutor= Tutor.builder()
+						.nickname(rs.getString("nickname")).phone(rs.getString("phone")).insta(rs.getString("insta")).facebook(rs.getString("blog"))
+						.tutorMsg(rs.getString("tutor_msg")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("dao:"+tutor);
+		return tutor;
+	}
 	
 }

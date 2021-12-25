@@ -142,27 +142,8 @@
                     <div class="card">
                         <div class="card-body apply">
                             <div id="apply-class">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="schedule-text">
-                                            <span id="apply-title" class="class-date">타이틀</span><br>
-                                      		<span id="apply-date" class="class-date">날짜 </span>
-                                      		<span id="apply-time" style="padding-left:30px"> 시작시간-끝시간</span><br>
-                                            <span id="apply-adr">주소</span>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div id="applycount">
-                                    <h6>수강신청 현황</h6>
-                                    <span>14/15</span>
-                                </div>
-                                <div>
-                                    <h6>튜터에게 전하는 말</h6>
-                                    <div id="tutor-message">
-                                        <textarea id="totutor" class="card msgbox" cols="43" rows="7"
-                                            placeholder="예) 초보니까 쉽게 가르쳐주세요!"></textarea>
-                                        <div id="check-word-count" style="float: right;">(0/70)</div>
-                                    </div>
+                                    <h6>이 강좌는 무기한으로 수강이 가능합니다.</h6>
                                 </div>
                                 <div>
                                     <p>총 결제금액</p>

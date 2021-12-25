@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.member.model.vo.Tutor;
 
 /**
  * Servlet implementation class LectureServlet
@@ -39,13 +41,18 @@ public class LectureServlet extends HttpServlet {
 		
 		Lecture le= new LectureService().lectureInfo(lectureNo);
 		LectureContent content= new LectureService().lectureContent(lectureNo);
+		
 //		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
 		List<LectureSchedule> scList= new LectureService().scheduleList();
+		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
+		Tutor tutor= new LectureService().totorInfo(lectureNo);
 		
 		request.setAttribute("le", le);
 		request.setAttribute("content", content);
 //		request.setAttribute("schedule", schedule);
 		request.setAttribute("scList", scList);
+		request.setAttribute("imgList", imgList);
+		request.setAttribute("tutor", tutor);
 		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);
 
 		
