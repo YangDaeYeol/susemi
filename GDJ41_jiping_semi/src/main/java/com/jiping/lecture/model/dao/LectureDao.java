@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
@@ -109,6 +110,7 @@ public class LectureDao {
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, m.getProfileImg());
+			//여기에 추가해야함
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,16 +121,17 @@ public class LectureDao {
 	}
 	
 public int enrollTutorInformation (Connection conn, Tutor t) {
-		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+		//to-do:1. 닉네임받아오기. 2. 핸드폰 번호 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollTutorInformation");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, t.getInsta());
-			pstmt.setString(2, t.getFacebook());
-			pstmt.setString(3, t.getBlog());
-			pstmt.setString(4, t.getTutorMsg());
+			pstmt.setString(1, "화이자");
+			pstmt.setString(2, t.getInsta());
+			pstmt.setString(3, t.getFacebook());
+			pstmt.setString(4, t.getBlog());
+			pstmt.setString(5, t.getTutorMsg());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -139,14 +142,15 @@ public int enrollTutorInformation (Connection conn, Tutor t) {
 		
 	}
 public int enrollCertificateInformation (Connection conn, Certificate c) {
-		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
 		PreparedStatement pstmt=null;
 		int result = 0;
 		String sql=prop.getProperty("enrollCertificateInformation");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, c.getCertificateText());
-			pstmt.setString(2, c.getCertificateImg());
+			pstmt.setString(1, "화이자");
+			pstmt.setString(2, c.getCertificateText());
+			pstmt.setString(3, c.getCertificateImg());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -176,5 +180,23 @@ public int enrollLectureInoformation (Connection conn, Lecture l) {
 	} 
 	return result;
 	}
+
+public int enrollLectureImg(Connection conn, LectureImg lImg) {
+	PreparedStatement pstmt = null;
+	int result = 0;
+	String sql = prop.getProperty("enrollLectureImg");
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, "화이자");
+		pstmt.setString(2, lImg.getLectureFilename());
+		result=pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	} 
+	return result;
+	}
+	
 	
 }

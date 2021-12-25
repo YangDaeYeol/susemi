@@ -11,6 +11,7 @@ import java.util.Map;
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
+import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
@@ -59,7 +60,18 @@ public class LectureService {
 					int result4 = dao.enrollLectureInoformation(conn, l);
 					if (result4 > 0) {
 						commit(conn);
+						LectureImg lImg = (LectureImg)lecture.get("lectureImg");
+						int result5 = dao.enrollLectureImg(conn, lImg);
+						if (result5 > 0) {
+							commit(conn);
+						} else {
+							rollback(conn);
+						}
+					} else {
+						rollback(conn);
 					}
+				} else {
+					rollback(conn);
 				}
 			} else {
 				rollback(conn);

@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class LectureImg {
 	
 	private int lectureNo;
-	private List<String> lectureFilename;
+	private String lectureFilename;
 	
 }

@@ -59,8 +59,8 @@
 								</div>
 							</div>
 							<div class="bs-stepper-content">
-								<!--  <form onsubmit="return false"  id="toSendForm">
-                                여기가 진짜 폼 시작하는곳이야 -->
+								<form onsubmit="return false"  id="toSendForm">
+                                <!-- 여기가 진짜 폼 시작하는곳이야  -->
 
 								<div class="mainContent">
 									<div class="first"></div>
@@ -234,12 +234,13 @@
 													</div>
 												</div>
 												
-												<form onsubmit="return false" id="toSendForm">
+												<!-- <form onsubmit="return false" id="toSendForm"> -->
 												<div id="classImgeHead">클래스 이미지</div>
 												<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
 													jpeg, jpg) 4개의 이미지만 사용되므로 4개를 초과하는 이미지들을 업로드 했을경우 이미지는 랜덤으로
 													사용됩니다.</div>
 												<!-- 인풋파일 업로드 시작 -->
+												
 												<div class="container">
 													<!-- 이미지 업로드 시작 -->
 													<div class="imageUpload">
@@ -267,7 +268,6 @@
 
 													<!-- 이미지 업로드 끝 -->
 												</div>
-												</form>
 												<!-- 인풋파일 업로드 끝 -->
 
 												<!-- 클래스 제목 및 커버 본문 내용 끝 -->
@@ -284,7 +284,7 @@
 												<!-- 4. 클래스 상새 소게 페이지 -->
 												<div class="classDetailHead">클래스 상세 소개</div>
 												<div id="classComment1">
-													<textarea cols="58" rows="5" id="classIntroduction1"
+													<textarea cols="58" rows="5" id="classIntroduction1" name="lectureIntroduce"
 														placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
 														style="margin-top: 5px; margin-left: 5px;"
 														onkeyup="limit500(event, 'detailInfoLengthLimit1')"></textarea>
@@ -294,7 +294,7 @@
 
 												<div class="classDetailHead">강의추천 / 비추천 대상</div>
 												<div id="classComment2">
-													<textarea cols="58" rows="5" id="classIntroduction2"
+													<textarea cols="58" rows="5" id="classIntroduction2" name="recommend"
 														placeholder="ex) 이런 사람들에게 추천합니다"
 														style="margin-top: 5px; margin-left: 5px;"
 														onkeyup="limit500(event, 'detailInfoLengthLimit2')"></textarea>
@@ -308,7 +308,7 @@
 														시간을 회차별 커리큘럼과 함께 적어주세요.</span>
 												</div>
 												<div id="classComment3">
-													<textarea cols="58" rows="5" id="classIntroduction3"
+													<textarea cols="58" rows="5" id="classIntroduction3" name="curriculum"
 														placeholder="ex) 회차별 커리큘럼"
 														style="margin-top: 5px; margin-left: 5px;"
 														onkeyup="limit500(event, 'detailInfoLengthLimit3')"></textarea>
@@ -318,14 +318,14 @@
 
 												<div class="classDetailHead">유의사항</div>
 												<div id="classComment4">
-													<textarea cols="58" rows="5" id="classIntroduction4"
+													<textarea cols="58" rows="5" id="classIntroduction4" name="lectureNotice"
 														placeholder="ex) 유의사항 / 준비물"
 														style="margin-top: 5px; margin-left: 5px;"
 														onkeyup="limit500(event, 'detailInfoLengthLimit4')"></textarea>
 													<div id="detailInfoLengthLimit4">(0/500)</div>
 												</div>
 
-
+												</form>
 												<!-- 클래스 상세 소개 페이지 끝 -->
 											</div>
 											<div style="display: flex;">
@@ -1109,33 +1109,41 @@
     	   var form = $('#toSendForm')[0];
     	   console.debug('form', form);
     	   
-    	   var data = new FormData(form);
-    	   console.debug('data', data);
+    	 /*   var data = new FormData(form);
+    	   console.debug('data', data); */
+    	   
+    	   const frm = new FormData(form);
+	   		const fileInput=$("input[name=classImageFiles]");
+	   		for(let i=0; i<fileInput[0].files.length;i++) {
+	   			frm.append("upfile"+i,fileInput[0].files[i]);
+	   		}
     	   
     	   // FormData의 값 확인 
-    	   for (var pair of data.entries()) { 
+    	   for (var pair of frm.entries()) { 
    		   	console.debug(pair[0], pair[1]); 
    		   }
+    	   
     	    
-    	    $.ajax({             
-    	    	type: "POST",          
-    	        enctype: 'multipart/form-data',  
-    	        url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
-    	        data: data,          
-    	        processData: false,    
-    	        contentType: false,      
-    	        cache: false,           
-    	        timeout: 600000,       
-    	        success: function (data) { 
-    	        	alert("complete");           
-    	        	$("#btnSubmit").prop("disabled", false);      
-    	        },          
-    	        error: function (e) {  
-    	        	console.log("ERROR : ", e);     
-    	            $("#btnSubmit").prop("disabled", false);    
-    	            alert("fail");      
-    	         }     
-    		});  
+	    	   $.ajax({             
+	    	   	type: "POST",          
+	    	       enctype: 'multipart/form-data',  
+	    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
+	    	       data: frm,          
+	    	       processData: false,    
+	    	       contentType: false,      
+	    	       cache: false,           
+	    	       timeout: 600000,       
+	    	       success: function (frm) { 
+	    	       	alert("complete");           
+	    	       	$("#btnSubmit").prop("disabled", false);      
+	    	       },          
+	    	       error: function (e) {  
+	    	       	console.log("ERROR : ", e);     
+	    	           $("#btnSubmit").prop("disabled", false);    
+	    	           alert("fail");      
+	    	        }     
+	    	});
+    	  
 <%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 
            function load(url, callback) {

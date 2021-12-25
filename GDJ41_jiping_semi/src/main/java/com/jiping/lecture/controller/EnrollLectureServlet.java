@@ -2,6 +2,7 @@ package com.jiping.lecture.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -29,6 +32,11 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class EnrollLectureServlet
  */
 @WebServlet("/lecture/enrolllecture.do")
+@MultipartConfig(
+		fileSizeThreshold=1024*1024*10, 	// 10 MB 
+		maxFileSize=1024*1024*50,      	// 50 MB
+		maxRequestSize=1024*1024*100
+		)  
 public class EnrollLectureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,8 +56,28 @@ public class EnrollLectureServlet extends HttpServlet {
 				
 //					튜터 이미지받아서 처리하는부분 시작
 					String path = request.getServletContext().getRealPath("/upload/tutor/");
+					//String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
 					int maxSize = 1024 * 1024 * 10;
 					String encode = "UTF-8";
+					
+//					Collection<Part> parts = request.getParts();
+//					Collection<Part> filesParts = new ArrayList<>();
+//					ArrayList<String> partfileNames = new ArrayList<>();
+//					String fileName;
+//					
+//					for(Part part : parts) {
+//						if(null == part.getContentType()){
+//							
+//						}
+//					}
+//					
+//					for (Part part : request.getParts()) {
+//			            fileName = getFileName(part);
+//			            partfileNames.add(part.getSubmittedFileName());			            
+//			            //			            part.write(uploadFilePath + File.separator + fileName);
+//			        }
+					
+					
 					MultipartRequest mr = new MultipartRequest(request, path, maxSize, encode, new FileRename());
 					
 					Map<String, Object> lecture = new HashMap<>();
@@ -88,7 +116,7 @@ public class EnrollLectureServlet extends HttpServlet {
 //					String 배열에서 String 으로 변경
 					StringBuilder builder1 = new StringBuilder();
 					for(String s : certificateText) {
-					    builder1.append(s + ",");
+					    builder1.append(s + "_");
 					}
 					String certificateTxt = builder1.toString();
 				      
@@ -147,23 +175,32 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					lecture.put("lecture", l);
 					
-					List<String> lectureImg = new ArrayList<>();
-					List<String> arr = new ArrayList<>();
-					Enumeration fileNames = mr.getFileNames();
-					while (fileNames.hasMoreElements()) {
-					 	String name =  (String)fileNames.nextElement();
-					 	String filename = mr.getFilesystemName(name);
-					 	
-					 	lectureImg.add(name);
-					 	arr.add(filename);
-					 	
+					Enumeration<String> e=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
+					
+					List<String> classImgfiles=new ArrayList<>();
+					
+					String classFinalImgFiles = "";
+					while(e.hasMoreElements()) {
+						String fileName = e.nextElement(); 
+						if(fileName.startsWith("upfile")) {
+							classFinalImgFiles += ((mr.getFilesystemName(fileName))+",");
+						}
 					}
-					for (int i = 0; i < 3; i++) {
-						lectureImg.add(mr.getFilesystemName("classImageFiles"));
-					}
-//					for (String s : lectureImg) {
-//						lectureImg.add(mr.getFilesystemName("classImageFiles"));
-//					}
+					
+					LectureImg lImg = LectureImg.builder()
+							.lectureFilename(classFinalImgFiles)
+							.build();
+					
+					lecture.put("lectureImg", lImg);
+					
+					String lectureIntroduce = mr.getParameter("lectureIntroduce");
+					String recommend = mr.getParameter("recommend");
+					String curriculum = mr.getParameter("curriculum");
+					String lectureNotice = mr.getParameter("lectureNotice");
+					
+					
+					
+					
 					
 					
 					
@@ -182,5 +219,6 @@ public class EnrollLectureServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }
