@@ -102,7 +102,7 @@ public class LectureDao {
 	}
 	
 	public int enrollTutorImage (Connection conn, Member m) {
-		
+		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollTutorImg");
@@ -119,7 +119,7 @@ public class LectureDao {
 	}
 	
 public int enrollTutorInformation (Connection conn, Tutor t) {
-		
+		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollTutorInformation");
@@ -139,6 +139,7 @@ public int enrollTutorInformation (Connection conn, Tutor t) {
 		
 	}
 public int enrollCertificateInformation (Connection conn, Certificate c) {
+		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
 		PreparedStatement pstmt=null;
 		int result = 0;
 		String sql=prop.getProperty("enrollCertificateInformation");
@@ -154,6 +155,26 @@ public int enrollCertificateInformation (Connection conn, Certificate c) {
 		} 
 		return result;
 	
+	}
+
+public int enrollLectureInoformation (Connection conn, Lecture l) {
+	//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
+	PreparedStatement pstmt = null;
+	int result = 0;
+	String sql = prop.getProperty("enrollLectureInformation");
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, "화이자");
+		pstmt.setString(2, l.getLectureType());
+		pstmt.setString(3, l.getLectureCategory());
+		pstmt.setString(4, l.getLectureTitle());
+		result=pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	} 
+	return result;
 	}
 	
 }

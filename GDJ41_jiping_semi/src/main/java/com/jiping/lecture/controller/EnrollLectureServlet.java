@@ -17,6 +17,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.jiping.common.FileRename;
 import com.jiping.lecture.model.sevice.LectureService;
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
@@ -118,7 +119,31 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					lecture.put("certificate", c);
 					
+					String oneday = mr.getParameter("onedayClassType");
+					String multipleClass = mr.getParameter("multipleClassType");
+					String vod = mr.getParameter("VodClassType");
 					
+					if (oneday != null && oneday.equals("1")) {
+						oneday = "원데이";
+					} else if (multipleClass != null && multipleClass.equals("2")) {
+						multipleClass = "다회차";
+					} else {
+						vod = "VOD";
+					}
+					String typeTemp = oneday + multipleClass + vod;
+					String finalType = typeTemp.replaceAll("null", "");
+				
+
+					String category = mr.getParameter("smallCategory");
+					String lectureTitle = mr.getParameter("lectureTitle");
+
+					Lecture l = Lecture.builder()
+							.lectureType(finalType)
+							.lectureCategory(category)
+							.lectureTitle(lectureTitle)
+							.build();
+					
+					lecture.put("lecture", l);
 					
 					
 					

@@ -55,7 +55,11 @@ public class LectureService {
 				int result3 = dao.enrollCertificateInformation(conn, c);
 				if (result3 > 0) {
 					commit(conn);
-//					4번째 구문
+					Lecture l = (Lecture)lecture.get("lecture");
+					int result4 = dao.enrollLectureInoformation(conn, l);
+					if (result4 > 0) {
+						commit(conn);
+					}
 				}
 			} else {
 				rollback(conn);
