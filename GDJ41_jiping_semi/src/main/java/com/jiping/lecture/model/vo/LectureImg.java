@@ -1,5 +1,6 @@
-package com.jiping.tutor.model.vo;
+package com.jiping.lecture.model.vo;
 
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Certificate {
+public class LectureImg {
 	
-	private String email;
-	private String certificateText;
-	private String certificateImg;
+	private int lectureNo;
+	private List<String> lectureFilename;
+	
 }

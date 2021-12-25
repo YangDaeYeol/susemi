@@ -171,7 +171,7 @@
 										</div>
 										<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
 											aria-labelledby="stepper1trigger2">
-											<form onsubmit="return false" id="toSendForm">
+											
 											<div class="form-group">
 												<!-- 2. 클래스 유형 본문 내용 시작 -->
 												<div id="chooseCategory">클래스 유형</div>
@@ -233,7 +233,8 @@
 														<div id="showMeTheLimitOfTitleLength1">(0/30)</div>
 													</div>
 												</div>
-												</form>
+												
+												<form onsubmit="return false" id="toSendForm">
 												<div id="classImgeHead">클래스 이미지</div>
 												<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
 													jpeg, jpg) 4개의 이미지만 사용되므로 4개를 초과하는 이미지들을 업로드 했을경우 이미지는 랜덤으로
@@ -245,7 +246,7 @@
 
 														<div id="uploadImageBtn">
 															<label for="toUploadClassImg" id="classImageUpload">
-																이미지를 선택 <input type="file" id="toUploadClassImg"
+																이미지를 선택 <input type="file" name="classImageFiles" id="toUploadClassImg"
 																multiple>
 
 															</label>
@@ -266,6 +267,7 @@
 
 													<!-- 이미지 업로드 끝 -->
 												</div>
+												</form>
 												<!-- 인풋파일 업로드 끝 -->
 
 												<!-- 클래스 제목 및 커버 본문 내용 끝 -->
@@ -1112,7 +1114,7 @@
     	   
     	   // FormData의 값 확인 
     	   for (var pair of data.entries()) { 
-   		   	console.log(pair[0]+ ', ' + pair[1]); 
+   		   	console.debug(pair[0], pair[1]); 
    		   }
     	    
     	    $.ajax({             

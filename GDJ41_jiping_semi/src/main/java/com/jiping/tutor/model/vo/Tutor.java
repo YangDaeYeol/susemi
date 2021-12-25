@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Tutor {
+	
 	private String email;
 	private String insta;
 	private String facebook;
 	private String blog;
 	private String tutorMsg;
+	
 }

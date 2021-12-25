@@ -2,6 +2,7 @@ package com.jiping.lecture.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.jiping.common.FileRename;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
@@ -144,6 +146,25 @@ public class EnrollLectureServlet extends HttpServlet {
 							.build();
 					
 					lecture.put("lecture", l);
+					
+					List<String> lectureImg = new ArrayList<>();
+					List<String> arr = new ArrayList<>();
+					Enumeration fileNames = mr.getFileNames();
+					while (fileNames.hasMoreElements()) {
+					 	String name =  (String)fileNames.nextElement();
+					 	String filename = mr.getFilesystemName(name);
+					 	
+					 	lectureImg.add(name);
+					 	arr.add(filename);
+					 	
+					}
+					for (int i = 0; i < 3; i++) {
+						lectureImg.add(mr.getFilesystemName("classImageFiles"));
+					}
+//					for (String s : lectureImg) {
+//						lectureImg.add(mr.getFilesystemName("classImageFiles"));
+//					}
+					
 					
 					
 					
