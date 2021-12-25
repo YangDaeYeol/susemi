@@ -64,6 +64,13 @@ public class LectureService {
 						int result5 = dao.enrollLectureImg(conn, lImg);
 						if (result5 > 0) {
 							commit(conn);
+							LectureContent lc = (LectureContent)lecture.get("lectureContent");
+							int result6 = dao.enrollLectureContent(conn, lc);
+							if (result6 > 0) {
+								commit(conn);
+							} else {
+								rollback(conn);
+							}
 						} else {
 							rollback(conn);
 						}

@@ -197,6 +197,27 @@ public int enrollLectureImg(Connection conn, LectureImg lImg) {
 	} 
 	return result;
 	}
+
+public int enrollLectureContent(Connection conn, LectureContent lc) {
+	PreparedStatement pstmt = null;
+	int result = 0;
+	String sql = prop.getProperty("enrollLectureContent");
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, "화이자");
+		pstmt.setString(2, lc.getLectureIntroduce());
+		pstmt.setString(3, lc.getRecommend());
+		pstmt.setString(4, lc.getCurriculum());
+		pstmt.setString(5, lc.getLectureNotice());
+		result = pstmt.executeUpdate();		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	} 
+	return result;
+	
+}
 	
 	
 }

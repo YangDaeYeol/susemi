@@ -22,6 +22,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.jiping.common.FileRename;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
@@ -163,10 +164,12 @@ public class EnrollLectureServlet extends HttpServlet {
 					String typeTemp = oneday + multipleClass + vod;
 					String finalType = typeTemp.replaceAll("null", "");
 				
-
-					String category = mr.getParameter("smallCategory");
+					String bigCategory = mr.getParameter("bigCategory");
+					String smallCategory = mr.getParameter("smallCategory");
 					String lectureTitle = mr.getParameter("lectureTitle");
 
+					String category = bigCategory +" "+ smallCategory;
+					
 					Lecture l = Lecture.builder()
 							.lectureType(finalType)
 							.lectureCategory(category)
@@ -193,13 +196,19 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					lecture.put("lectureImg", lImg);
 					
-					String lectureIntroduce = mr.getParameter("lectureIntroduce");
-					String recommend = mr.getParameter("recommend");
-					String curriculum = mr.getParameter("curriculum");
-					String lectureNotice = mr.getParameter("lectureNotice");
+					String lectureIntroduceValue = mr.getParameter("lectureIntroduce");
+					String recommendValue = mr.getParameter("recommend");
+					String curriculumValue = mr.getParameter("curriculum");
+					String lectureNoticeValue = mr.getParameter("lectureNotice");
 					
+					LectureContent lc = LectureContent.builder()
+							.lectureIntroduce(lectureIntroduceValue)
+							.recommend(recommendValue)
+							.curriculum(curriculumValue)
+							.lectureNotice(lectureNoticeValue)
+							.build();
 					
-					
+					lecture.put("lectureContent", lc);
 					
 					
 					
