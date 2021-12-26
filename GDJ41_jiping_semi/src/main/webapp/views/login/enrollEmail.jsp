@@ -40,7 +40,7 @@
     	$("#sendEmail").click(e=> {
     		const val = $("#email").val();
     		if(email.includes(val)) {
-    			$(e.target).next("span").text("이미 존재하는 이메일입니다.");
+    			$(e.target).next("span").text("이미 가입된 이메일입니다.");
     		}else {
     			$(e.target).next("span").text("입력하신 이메일로 인증번호가 발송되었습니다.");
     			$(e.target).next("span").css({"color":"green"});
@@ -70,10 +70,12 @@
     		});
     	});
     	$("#enrollNext").click(e=> {
-    		if(true) {
+    		if(flag) {
+    			const email = $("#email").val();
     			$.ajax({
-    				url : "<%= request.getContextPath() %>/enrollMemberSecond",
+    				url : "<%= request.getContextPath() %>/enrollmembertype",
     				dataType : "html",
+    				data : {"email":email},
     				success : data => {
     					$("section").html(data);
     				}

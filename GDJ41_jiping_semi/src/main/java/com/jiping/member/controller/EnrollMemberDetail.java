@@ -1,27 +1,25 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberEnrollSecondServlet
+ * Servlet implementation class EnrollMemberDetail
  */
-@WebServlet("/enrollMemberSecond")
-public class MemberEnrollSecondServlet extends HttpServlet {
+@WebServlet(name="enrollmember" ,urlPatterns="/enrolldetail")
+public class EnrollMemberDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberEnrollSecondServlet() {
+    public EnrollMemberDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +29,16 @@ public class MemberEnrollSecondServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String type = request.getParameter("type");
-		String email = request.getParameter("email");
-		List<String> list = new MemberService().selectAllNickname();
-		request.setAttribute("nickList", list);
-		request.setAttribute("type", type);
-		request.setAttribute("email", email);
-		request.getRequestDispatcher("/views/login/enrollBasic.jsp").forward(request, response);
+		String password = request.getParameter("password");
+		Member m = Member.builder().email(request.getParameter("email"))
+				.memberGrade(request.getParameter("type"))
+				.memberName(request.getParameter("userName"))
+				.nickname(request.getParameter("nickName"))
+						.build();
+		m.setPassword(password);
+		System.out.println(m);
+		request.setAttribute("member", m);
+		request.getRequestDispatcher("/views/login/enrollDetail.jsp").forward(request, response);
 	}
 
 	/**

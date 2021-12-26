@@ -34,7 +34,7 @@
                                                 <img src="https://blog.kakaocdn.net/dn/sOFQo/btqFXIdG4BC/OSX6phlqjlj7p3EYH1jZjk/img.png">
                                             </div>
                                             <div id="frofile-name">
-                                                <p>아이유</p>
+                                                <p>아아이유</p>
                                             </div>
                                         </div>
                                     </div>
@@ -222,6 +222,14 @@
                 <div id="list-container3">
 
                 </div>
+            </div>
+            <div id="banner-img" style="display: flex;">
+            	<div id="left-banner">
+            		<img src="<%= request.getContextPath() %>/img/banner1.png">
+            	</div>
+            	<div id="right-banner">
+            		<img src="<%= request.getContextPath() %>/img/banner2.png">
+            	</div>
             </div>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </section>

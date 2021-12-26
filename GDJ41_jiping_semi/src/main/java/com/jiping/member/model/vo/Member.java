@@ -16,7 +16,7 @@ public class Member {
 	private String memberGrade;
 	private String password;
 	private String memberName;
-	private char gender;
+	private String gender;
 	private String phone;
 	private char marketing;
 	private String profileImg;
