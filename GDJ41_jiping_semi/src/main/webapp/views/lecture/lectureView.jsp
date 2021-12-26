@@ -5,7 +5,7 @@
 				com.jiping.lecture.model.vo.LectureContent,
 				com.jiping.lecture.model.vo.LectureSchedule,
 				com.jiping.lecture.model.vo.LectureImg,
-				com.jiping.member.model.vo.Tutor,
+				com.jiping.tutor.model.vo.Tutor,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");

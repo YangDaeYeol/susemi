@@ -15,7 +15,7 @@ import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.lecture.model.vo.VodLecture;
-import com.jiping.member.model.vo.Tutor;
+import com.jiping.tutor.model.vo.Tutor;
 
 /**
  * Servlet implementation class LectureServlet
