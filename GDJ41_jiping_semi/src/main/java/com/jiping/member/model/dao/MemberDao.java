@@ -14,8 +14,6 @@ import java.util.Properties;
 
 import com.jiping.member.model.vo.Member;
 
-import static com.jiping.common.JDBCTemplate.close;
-
 public class MemberDao {
 	
 	private Properties prop = new Properties();
@@ -124,5 +122,22 @@ public class MemberDao {
 			close(rs);
 		}
 		return list;
+	}
+
+	public int passwordUpdate(Connection conn, String email, String password) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("passwordUpdate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.setString(2, email);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

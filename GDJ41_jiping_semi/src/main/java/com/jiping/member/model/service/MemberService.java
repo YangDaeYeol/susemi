@@ -1,6 +1,8 @@
 package com.jiping.member.model.service;
 
 import static com.jiping.common.JDBCTemplate.close;
+import static com.jiping.common.JDBCTemplate.commit;
+import static com.jiping.common.JDBCTemplate.rollback;
 import static com.jiping.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -41,4 +43,22 @@ public class MemberService {
 		close(conn);
 		return list;
 	}
+
+
+	
+	
+	
+	
+	
+	
+	public int passwordUpdate(String email, String password) {
+		Connection conn = getConnection();
+		int result = dao.passwordUpdate(conn,email,password);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;	
+	}
+
+
 }
