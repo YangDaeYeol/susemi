@@ -194,4 +194,28 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public Member nicknameDuplicateCheck(Connection conn, String newNick) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m=null;
+		String sql=prop.getProperty("selectNickname");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, newNick);
+			if(rs.next()) {
+				m=Member.builder()
+						.email(rs.getString("email"))
+						.nickname(rs.getString("nickname"))
+						.build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;				
+	}
+	
 }

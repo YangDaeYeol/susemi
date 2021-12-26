@@ -4,8 +4,8 @@
 <%
 	Member m=(Member)request.getAttribute("loginMember");
 	System.out.println(m);
-	/* 관심분야 */
 	
+	/* 관심분야 */	
 		String[] categories;
 		String[] largeCategories;
 		String[] smallCategories;
@@ -137,7 +137,7 @@
                        <div>
                            <input type="text" readonly name="" placeholder="<%=largeCategories[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                            <input type="text" readonly name="" placeholder="<%=smallCategories[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-                       </div>   --%>                                                        
+                       </div>                                                       
                   </div>
               </div> 
               <div class="menu-margin margin-left" id="tutor-area">
@@ -187,7 +187,7 @@
                           	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
                               <label for="toggle1"></label>
 	                       </div>
-	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;">ss</div>
                           <%} %>
                   </div>  
               </div>
@@ -208,8 +208,8 @@
                             <nav class="nav-sub">
                                 <li >· 클래스</li>
                	                 <ul id="sub-menu">
-                                    <li><a href="">- 운영중인 클래스</a></li>
-                                    <li><a href="">- 운영종료 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=<%=m.getEmail()%>">- 운영중인 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=<%=m.getEmail()%>">- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
                             <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
@@ -276,7 +276,7 @@
                           	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
                               <label for="toggle1"></label>
 	                       </div>
-	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;">ss</div>
                           <%} %>
                   </div>  
                 </div>

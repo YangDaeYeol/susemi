@@ -33,7 +33,7 @@
                         <h4 class="inlineblock" style="margin-bottom: 0; margin-left: 10px;" >마이 클래스</h4>
                         <div id="ing-class-btn-d">
                             <button class="btn-basic ing-class-btn">오프라인</button>
-                            <button class="btn-pink ing-class-btn">VOD</button>
+                            <button class="btn-pink ing-class-btn" onclick="location.assign('<%=request.getContextPath()%>/member/myclassIngVod.do?email=<%=m.getEmail()%>')">VOD</button>
                         </div>
                     </div>
                     <div class="line"></div>
@@ -44,7 +44,7 @@
                         </div>
                         <div id="ing-class-list">
                             <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
+                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=5&lectureType=원데이">
                                     <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
                                         height="150px" width="200px" ><br>
                                     <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
@@ -53,7 +53,7 @@
                                 </div>                           
                             </div>
                             <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
+                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=5&lectureType=원데이" >
                                     <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
                                         height="150px" width="200px" ><br>
                                     <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
