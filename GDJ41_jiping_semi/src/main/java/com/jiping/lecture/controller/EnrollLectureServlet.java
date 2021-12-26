@@ -213,6 +213,7 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					lecture.put("lectureImg", lImg);
 					
+					//4페이지------------------------------------------------------
 					String lectureIntroduceValue = mr.getParameter("lectureIntroduce");
 					String recommendValue = mr.getParameter("recommend");
 					String curriculumValue = mr.getParameter("curriculum");
@@ -227,37 +228,34 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					lecture.put("lectureContent", lc);
 					
+					//5페이지---------------------------------------
+					String[] classDateTemp = new String[10];
+					String[] classStartTime = new String[10];
+					String[] classEndTime = new String[10];
+					int classPrice = 0;
 					
-					String[] onedayClassDateTemp = new String[10];
-					String[] onedayClassStartTime = new String[10];
-					String[] onedayClassEndTime = new String[10];
-					int onedayClassPrice = 0;
-					
-					Date[] onedayClassDate = new Date[10];
-//					String onedayClassStartTime = null;
-//					String onedayClassEndTime = null;
+					Date[] classDate = new Date[10];
 					
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-						if (oneday != null) {//원데이 선택했을경우의 분기문
+						if (oneday != null) {
+							//원데이 선택했을경우에 들어오는 곳이다
 						
 						for (int i = 0; i < 10; i++) {
-							onedayClassDateTemp[i] = mr.getParameter("classDate" + i);
-							onedayClassStartTime[i] = mr.getParameter("startTime" + i);
-							onedayClassEndTime[i] = mr.getParameter("endTime" + i);
+							classDateTemp[i] = mr.getParameter("classDate" + i);
+							classStartTime[i] = mr.getParameter("startTime" + i);
+							classEndTime[i] = mr.getParameter("endTime" + i);
 							}
 						for (int i = 0; i < 10; i++) {
-							if (onedayClassDateTemp[i]!=null) {
-								onedayClassDate[i] = Date.valueOf(onedayClassDateTemp[i]);
+							if (classDateTemp[i]!=null) {
+								classDate[i] = Date.valueOf(classDateTemp[i]);
 							}
 							
 						}
 
+						lecture.put("classDate", classDate);
 						
-						
-						lecture.put("onedayClassDate", onedayClassDate);
-						
-						onedayClassPrice = Integer.parseInt(mr.getParameter("onedayClassPrice"));
+						classPrice = Integer.parseInt(mr.getParameter("onedayClassPrice"));
 //						
 ////						String배열을 String으로 처리
 //						for (int i = 0; i < 10; i++) {
@@ -287,21 +285,55 @@ public class EnrollLectureServlet extends HttpServlet {
 						int numOfStu = Integer.parseInt(mr.getParameter("peopleNum2"));
 						
 						LectureSchedule ls = LectureSchedule.builder()
-								.lecturePrice(onedayClassPrice)
+								.lecturePrice(classPrice)
 								.lecturePersons(numOfStu)
 								.lectureLocation(location)
 								.lectureAddress(address)
 								.build();
 						
 						lecture.put("LectureSchedule", ls);
-						lecture.put("onedayClassStartTime", onedayClassStartTime);
-						lecture.put("onedayClassEndTime", onedayClassEndTime);
-						
-						
+						lecture.put("classStartTime", classStartTime);
+						lecture.put("classEndTime", classEndTime);
 						
 						
 					} else if (multipleClass != null) {
-						multipleClass = "다회차";
+						
+						//다회차일경우에 들어오는곳이다
+						for (int i = 0; i < 10; i++) {
+							classDateTemp[i] = mr.getParameter("classDateTwo" + i);
+							classStartTime[i] = mr.getParameter("startTimeTwo" + i);
+							classEndTime[i] = mr.getParameter("endTimeTwo" + i);
+							}
+						for (int i = 0; i < 10; i++) {
+							
+							if (classDateTemp[i] != null) {
+								classDate[i] = Date.valueOf(classDateTemp[i]);
+							}
+							
+						}
+						
+						lecture.put("classDate", classDate);
+						
+						classPrice = Integer.parseInt(mr.getParameter("multipleDayClassPrice"));
+						
+						String temp1 = mr.getParameter("sido2");
+						String temp2 = mr.getParameter("gugun2");
+						String location = temp1 + " " + temp2;
+						String address = mr.getParameter("address2");
+						
+						int numOfStu = Integer.parseInt(mr.getParameter("peopleNum1"));
+						
+						LectureSchedule ls = LectureSchedule.builder()
+								.lecturePrice(classPrice)
+								.lecturePersons(numOfStu)
+								.lectureLocation(location)
+								.lectureAddress(address)
+								.build();
+						
+						lecture.put("LectureSchedule", ls);
+						lecture.put("classStartTime", classStartTime);
+						lecture.put("classEndTime", classEndTime);
+						
 					} else {
 						vod = "VOD";
 					}

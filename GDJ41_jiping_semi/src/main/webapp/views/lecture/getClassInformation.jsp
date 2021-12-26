@@ -462,7 +462,8 @@
 															<div class="pricePerClass1">총 클래스 횟수</div>
 															<div>
 																<select name="numOfClass2" id="numOfClass2"
-																	class="categoryClass" style="flex-grow: 1">
+																	class="categoryClass" style="flex-grow: 1"
+																	onchange="toGetValue2(this.value)">
 																	<option value="2">2회</option>
 																	<option value="3">3회</option>
 																	<option value="4">4회</option>
@@ -478,11 +479,33 @@
 														</div>
 														<div class="times" style="display: inline-block;"></div>
 														<div style="display: inline-block;">
+															<div id="selectMultipleDatesTwo0" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>1회 날짜 : </span><input type="date" name="classDateTwo0"
+																		style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTimeTwo0" style="border-radius: 7px;">&nbsp;&nbsp;
+																	종료 시간 : <input type="time" name="endTimeTwo0" style="border-radius: 7px;">
+																</div>
+															</div>
+															<div id="selectMultipleDatesTwo1" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>2회 날짜 : </span><input type="date" name="classDateTwo1"
+																		style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTimeTwo1" style="border-radius: 7px;">&nbsp;&nbsp;
+																	종료 시간 : <input type="time" name="endTimeTwo1" style="border-radius: 7px;">
+																</div>
+															</div>
 															<div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
 															<div
 																style="display: inline-block; border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px;"
 																class="classIntBox" id="inputBoxOfTimes">
-																<input type="text" class="classIntInputBox"
+																<input type="text" class="classIntInputBox" name="multipleDayClassPrice"
 																	id="classTxtBox2"><span class="won">원</span>
 															</div>
 														</div>
@@ -496,7 +519,7 @@
 															id="gugun2" class="categoryClass" style="flex-grow: 1"></select>
 													</div>
 													<div id="detailPlace1">
-														<input type="text" placeholder="세부 장소를 입력해주세요"
+														<input type="text" placeholder="세부 장소를 입력해주세요" name="address2"
 															id="setClassTitle3"> <span
 															id="showMeTheLimitOfTitleLength2"> (0/50) </span>
 													</div>
@@ -845,6 +868,26 @@
                     $("#selectMultipleDates0").after(dateContainer);
                 } else {
                     $("#selectMultipleDates" + (i - 1)).after(dateContainer);
+                }
+            }
+        }
+        toGetValue2 = (val) => {
+            for (let i = 1; i < 10; i++) {
+                let deleteCon = "#selectMultipleDatesTwo" + i;
+                $("div").remove(deleteCon);
+            }
+            for (let i = 1; i < val; i++) {
+                let dateContainer = $("#selectMultipleDatesTwo0").clone();
+                dateContainer.attr({ "id": "selectMultipleDatesTwo" + i });
+                dateContainer.find("input[name='classDateTwo0']").attr({ "name" : "classDateTwo" + i});
+                dateContainer.find("input[name='startTimeTwo0']").attr({ "name" : "startTimeTwo" + i});
+                dateContainer.find("input[name='endTimeTwo0']").attr({ "name" : "endTimeTwo" + i});
+                dateContainer.find("span").text((i + 1) + "회 날짜 : ");
+
+                if (i == 1) {
+                    $("#selectMultipleDatesTwo0").after(dateContainer);
+                } else {
+                    $("#selectMultipleDatesTwo" + (i - 1)).after(dateContainer);
                 }
             }
         }
