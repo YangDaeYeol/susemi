@@ -84,6 +84,30 @@ public class LectureService {
 		return vodList;
 	}
 	
+	public Member tutorImg(int lectureNo) {
+		Connection conn=getConnection();
+		Member m= dao.tutorImg(conn, lectureNo);
+		close(conn);
+		return m;
+	}
+	
+	public List<Certificate> certificate(int lectureNo){
+		Connection conn=getConnection();
+		List<Certificate> c= dao.certificate(conn, lectureNo);
+		close(conn);
+		return c;
+	}
+	
+	public VodLecture selectTitleVod(String vodTitle, int lectureNo) {
+		Connection conn=getConnection();
+		VodLecture v= dao.selectTitleVod(conn, vodTitle, lectureNo);
+		close(conn);
+		return v;
+	}
+	
+	
+//	-----------------------------------------------------------
+	
 	public int enrollLecture(Map lecture) {
 		Connection conn = getConnection();
 		Member m = (Member)lecture.get("member");
