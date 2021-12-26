@@ -41,13 +41,13 @@
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName().get(0)%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName().get(1)%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName().get(2)%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
@@ -189,8 +189,15 @@
                         </div>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary btn-lg btn-basic" style="float: right;">결 제
-                            하 기</button>
+                    	<form action="<%=request.getContextPath()%>/lecture/lecturePayment">
+                    		<input type="hidden" name="thumbnail" value="<%=imgList.get(0).getLectureFileName()%>">
+	                    	<input type="hidden" name="lectureType" value="<%=le.getLectureType() %>">
+	                    	<input type="hidden" name="lectureTitle" value="<%=le.getLectureTitle() %>">
+	                    	<input type="hidden" name="tutorImg" value="<%=m.getProfileImg() %>">
+	                    	<input type="hidden" name="tutorNickName" value="<%=tutor.getNickname() %>">
+	                    	<input type="hidden" name="lecturePrice" value="<%=vodList.get(0).getVodPrice() %>">
+	                        <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;">결 제 하 기</button>
+                        </form>
                     </div>
                 </div>
           </div>
