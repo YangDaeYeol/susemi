@@ -31,7 +31,7 @@
 	</section>
 	<script>
 		let msg = "<%= msg %>";
-		if(msg!="") {
+		if(msg!="null") {
 			alert(msg);
 		}
 	</script>

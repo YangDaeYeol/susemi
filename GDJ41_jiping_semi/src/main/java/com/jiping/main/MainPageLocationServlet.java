@@ -27,7 +27,7 @@ public class MainPageLocationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("/").forward(request, response);
 	}
 
 	/**
