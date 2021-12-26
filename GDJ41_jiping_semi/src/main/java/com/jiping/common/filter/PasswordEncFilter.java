@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * Servlet Filter implementation class PasswordEncFilter
  */
 @WebFilter(servletNames = { 
-		"passwordUpdate",
+		"passwordUpdate", "login"
 })
 public class PasswordEncFilter implements Filter {
 
