@@ -10,20 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.jiping.member.model.service.MemberService;
-import com.jiping.member.model.vo.Member;
-
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/member/login.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/member/logout.do")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +29,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String email=request.getParameter("email");
-		String password=request.getParameter("password");
-		
-		Member m=new MemberService().loginMember(email, password);
-		
-		if(m!=null) {
-			HttpSession session=request.getSession();
-			session.setAttribute("loginMember", m);
-//			System.out.println(m);			
-			request.getRequestDispatcher("/").forward(request, response);
-		}else {
+	
+		HttpSession session=request.getSession(false);
+		if(session!=null) {
+			session.invalidate();
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out=response.getWriter();
-			out.println("<script>alert('로그인에 실패하였습니다. 아이디와 비밀번호를 다시 확인해주세요.'); location.href='"
-					+request.getContextPath()+"/views/login/loginMain.jsp';</script>");
+			out.println("<script>alert('페이지 로그아웃'); location.href='"
+					+request.getContextPath()+"/';</script>");
 			out.close();
-		}
-		
-		
+		}  
 	}
 
 	/**

@@ -4,6 +4,8 @@ import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.commit;
 import static com.jiping.common.JDBCTemplate.rollback;
 import static com.jiping.common.JDBCTemplate.getConnection;
+import static com.jiping.common.JDBCTemplate.rollback;
+import static com.jiping.common.JDBCTemplate.commit;
 
 import java.sql.Connection;
 import java.util.List;
@@ -37,6 +39,22 @@ public class MemberService {
 		return m;
 	}
 	
+	public Member selectMember(String email) {
+		Connection conn=getConnection();
+		Member m=dao.selectMember(conn, email);
+		close(conn);
+		return m;
+	}
+	
+	public int dropMember(String email) {
+		Connection conn=getConnection();
+		int result=dao.dropMember(conn, email);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
 	public List<String> selectAllNickname() {
 		Connection conn = getConnection();
 		List<String> list = dao.selectAllNickname(conn);
@@ -44,13 +62,6 @@ public class MemberService {
 		return list;
 	}
 
-
-	
-	
-	
-	
-	
-	
 	public int passwordUpdate(String email, String password) {
 		Connection conn = getConnection();
 		int result = dao.passwordUpdate(conn,email,password);
@@ -59,6 +70,5 @@ public class MemberService {
 		close(conn);
 		return result;	
 	}
-
 
 }

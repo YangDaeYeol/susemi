@@ -1,25 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
+<%@ page import="com.jiping.member.model.vo.Member" %>
+<%
+	
+	Member m=(Member)request.getAttribute("loginMember");
+
+
+%>
     <section id="sectionMargin">
             <div id="drop-container" class="flex">
                 <div class="inlineblock overflow" id="mypage-menu">          
+                    <%if(m.getMemberGrade().equals("수강생")){ %>
                     <h3>MY PAGE</h3>
                         <div class="" id="my-menu" >
                             <ul id="menu-list">
-                                <li><a href="">· 나의정보</a></li>
-                                <li><a href="">· 정보수정</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/mypage.do?email<%=m.getEmail()%>">· 나의정보</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email<%=m.getEmail()%>">· 정보수정</a></li>
                                 <nav class="nav-sub">
                                     <li ><a href="">· 마이클래스</a></li>
                                     <ul id="sub-menu">
-                                        <li><a>- 수강중인 클래스</a></li>
-                                        <li><a>- 찜한 클래스</a></li>
-                                        <li><a>- 수강완료 클래스</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/member/ingClassOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
+                                        <li><a href="">- 찜한 클래스</a></li>
+                                        <li><a href="">- 수강완료 클래스</a></li>
                                     </ul>
                                 </nav>
-                                <li><a href="">· 회원탈퇴</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                             </ul>                  
                         </div>
+                      <%}else{ %>
+                      		<h3>MY PAGE</h3>
+                    		<div class="" id="my-menu" >
+                      			 <ul id="menu-list">
+                           			<li><a href="">· 나의정보</a></li>
+                            		<li><a href="">· 정보수정</a></li>
+                            			<nav class="nav-sub">
+                                			<li ><a href="">· 클래스</a></li>
+                                			<ul id="sub-menu">
+			                                    <li><a>- 운영중인 클래스</a></li>
+			                                    <li><a>- 운영종료 클래스</a></li>
+                                			</ul>
+                            			</nav>
+                            		<li><a href="<%=request.getContextPath()%>/member/dropMember.do?email<%=m.getEmail()%>">· 회원탈퇴</a></li>
+                        		</ul>                  
+                    		</div>
+                      <%} %> 
                 </div>
                 <div class="" id="mypage-content">
                     <img id="info-icon" src="<%=request.getContextPath() %>/img/remove-user.png" width="30px" height="30px" class="inlineblock" style="margin-bottom: 10px;">
@@ -69,14 +94,14 @@
                             </div>
                         </div>
                         <div style="margin-left: 80px; margin-bottom: 100px;">
-                            <input type="checkbox" name=""> 상기 제시된 회원 탈퇴 관련 안내사항을 모두 확인하였습니다.
+                            <label for="dropNoticeCheck"><input type="checkbox" id="dropNoticeCheck" name="dropNoticeCheck"> 상기 제시된 회원 탈퇴 관련 안내사항을 모두 확인하였습니다.</label>
                         </div>
                         <div id="dropLine6" style="margin-left: 40px;" class="">
                             <div class="flex">    
                                 <div class="inlineblock"><img src="<%=request.getContextPath() %>/img/question.png" alt="" width="40px" height="40px"></div>
                                 <div class="inlineblock" id="wait" style="margin-left: 10px;">
                                     <h5 style="margin-bottom: 0px;">회원 탈퇴 사유는 무엇인가요?</h5>
-                                    <p>- 회원 탈퇴 이유를 선택해주시면, 앞으로 더 나은 모습의 지핑으로 성장하겠습니다.</p>                               
+                                    <p>- 회원 탈퇴 이유를 선택해주시면, 앞으로 더 나은 모습의 지핑으로 성장하도록 노력하겠습니다.</p>                               
                                 </div>
                                 <br><br> <br>
                             </div>
@@ -84,18 +109,18 @@
                                 <form action="">
                                     <div class="" style="margin-left: 50px;">
                                         <select name="reason" style="border-radius: 8px;">
-                                            <option value="탈퇴사유 선택">탈퇴사유 선택하기</option>
-                                            <option value="강의 종류가 적음">강의 종류가 적음</option>
-                                            <option value="왜 탈퇴하니?">왜 탈퇴하니?</option>
-                                            <option value="이 좋은 사이트를?">이 좋은 사이트를?</option>
-                                            <option value="듣고 싶은 강의가 없음">듣고 싶은 강의가 없음 </option>
-                                            <option value="기타">직접 작성</option>
+                                            <option value="">탈퇴사유 선택하기</option>
+                                            <option value="듣고 싶은 강의가 없음">듣고 싶은 강의가 없음</option>
+                                            <option value="강의 가격 부적절">강의 가격 부적절</option>
+                                            <option value="시스템 에러가 많음">시스템 에러가 많음</option>
+                                            <option value="재가입">재가입</option>
+                                            <option value="기타">기타</option>
                                         </select>                                   
                                     </div>
                                     <br>
                                     <div class="" style="margin-left: 50px; display:table-caption;">
                                         <div>
-                                            <textarea id="drop-reason" cols="63px" rows="3px" placeholder="" style="border-radius: 8px;"></textarea>
+                                            <textarea id="drop-reason" cols="63px" rows="3px" placeholder="기타 선택 시 입력" style="border-radius: 8px;"></textarea>
                                             <div id="word-count" style="float:right;"></div>
                                         </div>    
                                         
@@ -107,7 +132,7 @@
 
                                 <div>
                                     <img src="<%=request.getContextPath() %>/img/notification.png" alt="" width="30px" height="30px">
-                                    <span>000님에게 추천드릴 클래스가 아직 남아 있어요!</span>
+                                    <span><%=m.getNickname() %>님에게 추천드릴 클래스가 아직 남아 있어요!</span>
                                 </div>
                                 <br>
                                 <div class="col inlineblock drop-class-margin">
@@ -151,7 +176,7 @@
                     </div>
                     <div class="line"></div> 
                     <div id="save-info">
-                        <button onclick="confirm('정말 탈퇴하시겠습니까?')" id="saveBtn">탈퇴하기</button>
+                        <button onclick="dropMember();" id="dropBtn">탈퇴하기</button>
                     </div>  
                 </div>              
             </div>
@@ -159,6 +184,20 @@
         
   <%@ include file="/views/common/footer.jsp"%>
   <script>
+  	dropMember=()=>{ 		
+  		if($("#dropNoticeCheck").is(":checked")==true){
+	  		if(confirm('정말 탈퇴하시겠습니까?')==true){
+	  			location.assign('<%=request.getContextPath()%>/member/dropEnd.do?email=<%=m.getEmail()%>');
+	  		}else{
+	  			location.assign('<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>');
+	  		}
+	  		
+  		}else{
+  			alert('탈퇴 관련 안내사항을 확인 여부를 체크해주세요!');
+  			scrollIntoView($("#dropNoticeCheck"));
+  		}
+  	}
+  	
 	//마이클래스 서브메뉴!!
 	  $("#sub-menu").hide();
 	  $(".nav-sub").mouseenter(e=>{

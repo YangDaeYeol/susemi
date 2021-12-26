@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<% List<String> list = (List)request.getAttribute("nickList"); %>
+<%
+	List<String> list = (List)request.getAttribute("nickList");
+	String Nickname = "";
+	for(String s : list) {
+		Nickname += s + ",";
+	}
+%>
 	<main class="form-signin">
 	  <form>
 	    
@@ -13,14 +19,13 @@
 	    <div class="userName-container">
 	    	<input type="text" class="form-control" id="userName" placeholder="이름(실명)을 입력해주세요">
 	    </div>
-	    <button id="zzaass">갑확인</button>
 	    <div class="userNickName-container">
 	      	<input type="text" class="form-control" id="userNickName" placeholder="닉네임을 입력해주세요">
-		  	<span class="warningMsg">이미 사용하고 있는 닉네임입니다.</span>
+		  	<span class="warningMsg"></span>
 	    </div>
 	    <div class="pw-container">
 	      	<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
-			<span class="warningMsg">대/소문자,숫자,특수기호를 포함한 8자리 이상을 입력해주세요</span>
+			<span class="warningMsg">영문자,숫자,특수기호를 포함한 8자리 이상을 입력해주세요</span>
 	    </div>
 	    <div class="pwck-container">
 	      	<input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 재입력해주세요">
@@ -32,9 +37,17 @@
 	  </form>
 	</main>
 	<script>
-		$("#zzaass").click(e=> {
-			console.log("zz");
-			console.log($("#userName").val());
+	//"^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{8,}$"
+		let nick = ("<%= Nickname %>").split(",");
+		$("#userNickName").focusout(e=> {
+			const inputNick = $(e.target).val();
+			if(nick.includes(inputNick)) {
+				$(e.target).next("span").text("이미 존재하는 닉네임입니다.");
+				$(e.target).next("span").css({"color":"red"});
+			}else {
+				$(e.target).next("span").text("사용 가능한 닉네임입니다.");
+    			$(e.target).next("span").css({"color":"green"});
+			}
 		});
+		
 	</script>
-<%@ include file="/views/common/footer.jsp" %>
