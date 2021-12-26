@@ -280,6 +280,29 @@ public class LectureDao {
 		return list;
 	}
 	
+	public VodLecture selectTitleVod(Connection conn, String title, int lectureNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		VodLecture v=null;
+		String sql=prop.getProperty("selectTitleVod");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setInt(2, lectureNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				v= VodLecture.builder()
+						.vodContent(rs.getString("vod_content")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return v;
+	}
+	
 //	----------------------------------------------------------------
 	
 	public int enrollTutorImage (Connection conn, Member m) {
@@ -368,7 +391,6 @@ public int enrollLectureImg(Connection conn, LectureImg lImg) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, "화이자");
-		pstmt.setString(2, lImg.getLectureFileName());
 		result=pstmt.executeUpdate();
 	} catch (SQLException e) {
 		e.printStackTrace();

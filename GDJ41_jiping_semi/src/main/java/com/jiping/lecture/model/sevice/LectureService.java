@@ -98,6 +98,14 @@ public class LectureService {
 		return c;
 	}
 	
+	public VodLecture selectTitleVod(String vodTitle, int lectureNo) {
+		Connection conn=getConnection();
+		VodLecture v= dao.selectTitleVod(conn, vodTitle, lectureNo);
+		close(conn);
+		return v;
+	}
+	
+	
 //	-----------------------------------------------------------
 	
 	public int enrollLecture(Map lecture) {
