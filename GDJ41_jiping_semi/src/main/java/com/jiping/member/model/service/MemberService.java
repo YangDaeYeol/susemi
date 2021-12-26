@@ -70,5 +70,21 @@ public class MemberService {
 		close(conn);
 		return result;	
 	}
+	
+	public int enrollMember(Member m) {
+		Connection conn = getConnection();
+		int result = dao.enrollMember(conn,m);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public Member nicknameDuplicateCheck(String newNick) {
+		Connection conn=getConnection();
+		Member m=dao.nicknameDuplicateCheck(conn, newNick);
+		close(conn);
+		return m;
+	}
 
 }

@@ -10,11 +10,11 @@
                             <nav class="nav-sub">
                                 <li ><a href="">· 클래스관리</a></li>
                                 <ul id="sub-menu">
-                                    <li><a>- 클래스 승인</a></li>
-                                    <li><a>- 클래스 삭제</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/admin/adminClassAppr">- 클래스 승인</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/views/admin/adminClassDrop.jsp">- 클래스 삭제</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="">· 댓글 관리</a></li>
+                            <li><a href="<%=request.getContextPath()%>/views/admin/adminComment.jsp">· 댓글 관리</a></li>
                         </ul>                  
                     </div>
                 </div>   

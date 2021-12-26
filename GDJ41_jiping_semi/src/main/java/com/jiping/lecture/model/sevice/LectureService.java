@@ -6,6 +6,7 @@ import static com.jiping.common.JDBCTemplate.getConnection;
 import static com.jiping.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -130,13 +131,41 @@ public class LectureService {
 					if (result4 > 0) {
 						commit(conn);
 						LectureImg lImg = (LectureImg)lecture.get("lectureImg");
-						int result5 = dao.enrollLectureImg(conn, lImg);
+						int result5 = 0;
+						String[] fileNameArray = lImg.getLectureFileName().split(",");
+						for (int i = 0; i < fileNameArray.length; i++) {
+							result5 = dao.enrollLectureImg(conn, lImg, fileNameArray[i]);
+						}
 						if (result5 > 0) {
 							commit(conn);
 							LectureContent lc = (LectureContent)lecture.get("lectureContent");
 							int result6 = dao.enrollLectureContent(conn, lc);
 							if (result6 > 0) {
 								commit(conn);
+								String[] classStartTime = (String[])lecture.get("classStartTime");
+								String[] classEndTime = (String[])lecture.get("classEndTime");
+								Date[] classDate = (Date[])lecture.get("classDate");
+								LectureSchedule ls = (LectureSchedule)lecture.get("LectureSchedule");
+								int result7 = 0;
+								if (classStartTime[0] != null) { //원데이 / 다회차를 선택했을경우에 이쪽에서 처리한다
+									for (int i = 0; i < 10; i++) {
+										if (classStartTime[i] != null) {
+											result7 = dao.enrollLectureSchedule(conn, ls, classDate[i], classStartTime[i], classEndTime[i]);
+											}
+										}
+										if (result7 > 0) {
+											commit(conn);
+									} else {
+										rollback(conn);
+									}
+									
+								} else { //VOD 를 선택했을떄 들어오는곳이다
+									
+									
+								}
+								
+								
+								
 							} else {
 								rollback(conn);
 							}
@@ -160,5 +189,24 @@ public class LectureService {
 		return result;
 		
 	}
+
+	public List<Lecture> apprLectureList() {
+		Connection conn=getConnection();
+		List<Lecture> apprLectureList= dao.apprLectureList(conn);
+		close(conn);
+		return apprLectureList;
+	}
+
+	public int apprLecture(int lectureNo) {
+		Connection conn=getConnection();
+		int result=dao.apprLecture(conn, lectureNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
 
 }

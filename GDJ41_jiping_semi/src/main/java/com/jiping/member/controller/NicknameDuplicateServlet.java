@@ -1,23 +1,27 @@
-package com.jiping.main;
+package com.jiping.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
+
 /**
- * Servlet implementation class MainPageLocationServlet
+ * Servlet implementation class NicknameDuplicateServlet
  */
-@WebServlet("/main")
-public class MainPageLocationServlet extends HttpServlet {
+@WebServlet("/member/nicknameDuplicate.do")
+public class NicknameDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageLocationServlet() {
+    public NicknameDuplicateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +30,14 @@ public class MainPageLocationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/").forward(request, response);
+		String newNick = request.getParameter("newNick");
+		System.out.println(newNick);
+		
+		Member m=new MemberService().nicknameDuplicateCheck(newNick);
+		request.setAttribute("nickCheckMember", m);
+		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

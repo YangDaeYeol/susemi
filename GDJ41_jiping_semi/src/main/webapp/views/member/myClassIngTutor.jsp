@@ -1,25 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
-
+<%
+	Member m=(Member)request.getAttribute("loginMember");
+	System.out.println(m);
+%>
 	<section id="sectionMargin">
             <div id="mypage-container" class="flex">
                 <div class=" inlineblock overflow" id="mypage-menu">          
                         <h3>MY PAGE</h3>
                         <div class="" id="my-menu" >
-                            <ul id="menu-list">
-                                <li><a href="">· 나의정보</a></li>
-                                <li><a href="">· 정보수정</a></li>
-                                <nav class="nav-sub">
-                                    <li ><a href="">· 클래스</a></li>
-                                    <ul id="sub-menu">
-                                        <li><a>- 운영중인 클래스</a></li>
-                                        <li><a>- 운영종료 클래스</a></li>
-                                    </ul>
-                                </nav>
-                                <li><a href="">· 회원탈퇴</a></li>
-                            </ul>                 
-                        </div>
+                        <ul id="menu-list">
+                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
+                            <nav class="nav-sub">
+                                <li >· 클래스</li>
+               	                 <ul id="sub-menu">
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=<%=m.getEmail()%>">- 운영중인 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=<%=m.getEmail()%>">- 운영종료 클래스</a></li>
+                                </ul>
+                            </nav>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
+                        </ul>                  
+                    </div>
                 </div>   
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">

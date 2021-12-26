@@ -88,7 +88,6 @@
 													<div>튜터의 한마디</div>
 													<div id="tutorComment">
 														<textarea name="tutorComment" cols="58" rows="5"
-														onfocus="changeBorderBox(event);"
 														id="tutorIntroduction"
 														onkeyup="limit500(event, 'introlimit')" ></textarea>
 														<div id="introlimit">(0/500)</div>
@@ -279,11 +278,10 @@
 												<!-- <form onsubmit="return false" id="toSendForm"> -->
 												<div id="classImgeHead">클래스 이미지</div>
 												<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
-													jpeg, jpg) 4개의 이미지만 사용되므로 4개를 초과하는 이미지들을 업로드 했을경우 이미지는 랜덤으로
-													사용됩니다.</div>
+													jpeg, jpg)</div>
 												<!-- 인풋파일 업로드 시작 -->
 												
-												<div class="container">
+												<div id="previewImgcontainer">
 													<!-- 이미지 업로드 시작 -->
 													<div class="imageUpload">
 
@@ -305,7 +303,7 @@
 
 													</div>
 													<div id="resultImg"
-														style="display: flex; justify-content: center;"></div>
+														style="display: flex; justify-content: center; margin-bottom:40px;"></div>
 
 
 													<!-- 이미지 업로드 끝 -->
@@ -345,9 +343,7 @@
 
 
 												<div class="classDetailHead">
-													클래스 진행 방식 <span id="classProcedure"
-														style="font-size: 14px; display: none;">진행 날짜, 진행
-														시간을 회차별 커리큘럼과 함께 적어주세요.</span>
+													클래스 진행 방식
 												</div>
 												<div id="classComment3">
 													<textarea cols="58" rows="5" id="classIntroduction3" name="curriculum"
@@ -367,7 +363,7 @@
 													<div id="detailInfoLengthLimit4">(0/500)</div>
 												</div>
 
-												</form>
+												
 												<!-- 클래스 상세 소개 페이지 끝 -->
 											</div>
 											<div style="display: flex;">
@@ -452,6 +448,7 @@
 													</div>
 													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
 														등록됩니다.</div>
+														</form>
 												</div>
 												<!-- 원데이 끝 -->
 												<div id="selectedMultipleClass" style="display: none;">
@@ -463,7 +460,8 @@
 															<div class="pricePerClass1">총 클래스 횟수</div>
 															<div>
 																<select name="numOfClass2" id="numOfClass2"
-																	class="categoryClass" style="flex-grow: 1">
+																	class="categoryClass" style="flex-grow: 1"
+																	onchange="toGetValue2(this.value)">
 																	<option value="2">2회</option>
 																	<option value="3">3회</option>
 																	<option value="4">4회</option>
@@ -479,11 +477,33 @@
 														</div>
 														<div class="times" style="display: inline-block;"></div>
 														<div style="display: inline-block;">
+															<div id="selectMultipleDatesTwo0" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>1회 날짜 : </span><input type="date" name="classDateTwo0"
+																		style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTimeTwo0" style="border-radius: 7px;">&nbsp;&nbsp;
+																	종료 시간 : <input type="time" name="endTimeTwo0" style="border-radius: 7px;">
+																</div>
+															</div>
+															<div id="selectMultipleDatesTwo1" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>2회 날짜 : </span><input type="date" name="classDateTwo1"
+																		style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTimeTwo1" style="border-radius: 7px;">&nbsp;&nbsp;
+																	종료 시간 : <input type="time" name="endTimeTwo1" style="border-radius: 7px;">
+																</div>
+															</div>
 															<div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
 															<div
 																style="display: inline-block; border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px;"
 																class="classIntBox" id="inputBoxOfTimes">
-																<input type="text" class="classIntInputBox"
+																<input type="text" class="classIntInputBox" name="multipleDayClassPrice"
 																	id="classTxtBox2"><span class="won">원</span>
 															</div>
 														</div>
@@ -497,7 +517,7 @@
 															id="gugun2" class="categoryClass" style="flex-grow: 1"></select>
 													</div>
 													<div id="detailPlace1">
-														<input type="text" placeholder="세부 장소를 입력해주세요"
+														<input type="text" placeholder="세부 장소를 입력해주세요" name="address2"
 															id="setClassTitle3"> <span
 															id="showMeTheLimitOfTitleLength2"> (0/50) </span>
 													</div>
@@ -649,6 +669,8 @@
      // render functions
         const renderFileList = () => {
             let fileMap = state.filesArr.map((file, index) => {
+            	console.debug('index ' + index, file)
+            	console.debug('index2 ' + index, file.name)
                 let suffix = "bytes";
                 let size = file.size;
                 if (size >= 1024 && size < 1024000) {
@@ -659,9 +681,10 @@
                     size = Math.round(size / 1024000 * 100) / 100;
                 }
 
-                return `<li key='${index}'>${file.name
-                    } <span class="file-size">${size} ${suffix}</span><i class="material-icons md-48">delete</i></li>`;
+                return `<li key=${'${index}'}>${'${file.name}'}<span class="file-size">${'${size}'} ${'${suffix}'}</span><i class="material-icons md-48">delete</i></li>`;
             });
+            
+            console.debug('filemap', fileMap);
             $("#selectedImg").html(fileMap);
         }
 
@@ -707,19 +730,19 @@
         	imagesPreview(this, "#tutorCareerFile", 'file-career1');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career2").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career2');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career3").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career3');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career4").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career4');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career5").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career5');
         });
 
@@ -732,8 +755,6 @@
         $("input[id='control_02']").change(function () {
             let multi = document.getElementById("selectedMultipleClass");
             multi.style.display = "block";
-            let multi2 = document.getElementById("classProcedure");
-            multi2.style.display = "block";
         });
 
         $("input[id='control_03']").change(function () {
@@ -851,6 +872,26 @@
                 }
             }
         }
+        toGetValue2 = (val) => {
+            for (let i = 1; i < 10; i++) {
+                let deleteCon = "#selectMultipleDatesTwo" + i;
+                $("div").remove(deleteCon);
+            }
+            for (let i = 1; i < val; i++) {
+                let dateContainer = $("#selectMultipleDatesTwo0").clone();
+                dateContainer.attr({ "id": "selectMultipleDatesTwo" + i });
+                dateContainer.find("input[name='classDateTwo0']").attr({ "name" : "classDateTwo" + i});
+                dateContainer.find("input[name='startTimeTwo0']").attr({ "name" : "startTimeTwo" + i});
+                dateContainer.find("input[name='endTimeTwo0']").attr({ "name" : "endTimeTwo" + i});
+                dateContainer.find("span").text((i + 1) + "회 날짜 : ");
+
+                if (i == 1) {
+                    $("#selectMultipleDatesTwo0").after(dateContainer);
+                } else {
+                    $("#selectMultipleDatesTwo" + (i - 1)).after(dateContainer);
+                }
+            }
+        }
     </script>
 
 	<script>
@@ -956,7 +997,7 @@
     </script>
 
 	<script>
-        var chooseNumOfClassStudent = ["인원 선택", "5명", "10명", "15명", "20명", "25명", "30명", "35명", "40명", "45명", "50명"];
+        var chooseNumOfClassStudent = ["5", "10", "15", "20", "25", "30", "35", "40", "45", "50"];
 
         $('document').ready(function () {
            
@@ -1039,11 +1080,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             stepper1 = new Stepper(document.querySelector('#stepper1'))
         })
-       	const changeBorderBox = (e) => {
-            $(e.target).parent.css({ "border": "1px rgb(162, 221, 220) solid" });
-        }
-
-
+		$("#tutorComment>textarea").focus(e => {
+            $("#tutorComment").css({ "border": "1px rgb(162, 221, 220) solid" });
+        });
         $("#tutorComment>textarea").blur(e => {
             $("#tutorComment").css({ "border": "1px black solid" });
         });
@@ -1150,6 +1189,27 @@
         $("#detailPlace2>#detailTxtBox").blur(e => {
             $("#detailPlace2").css({ "border": "1px black solid" });
         })
+         $("#detailPlace1>#setClassTitle3").focus(e => {
+            $("#detailPlace1").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#detailPlace1>#setClassTitle3").blur(e => {
+            $("#detailPlace1").css({ "border": "1px black solid" });
+        })
+        
+        
+        $("#inputBoxOfOneDayTimes>#classTxtBox1").focus(e => {
+            $("#inputBoxOfOneDayTimes").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#inputBoxOfOneDayTimes>#classTxtBox1").blur(e => {
+            $("#inputBoxOfOneDayTimes").css({ "border": "1px black solid" });
+        })
+         $("#detailPlace2>#setClassTitle4").focus(e => {
+            $("#detailPlace2").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#detailPlace2>#setClassTitle4").blur(e => {
+            $("#detailPlace2").css({ "border": "1px black solid" });
+        })
+        
 		var numItems = 3;
         const addCareerArea = () => {
         	

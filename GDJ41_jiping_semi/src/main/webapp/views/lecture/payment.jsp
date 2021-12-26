@@ -2,7 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">
- 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+ <%
+ 	String thumbnail = (String)request.getParameter("thumbnail");
+	String lectureType = (String)request.getParameter("lectureType");
+	String lectureTitle = (String)request.getParameter("lectureTitle");
+	String tutorImg = (String)request.getParameter("tutorImg");
+	String tutorNickName = (String)request.getParameter("tutorNickName");
+	String lecturePrice = (String)request.getParameter("lecturePrice");
+	String lectureDate = (String)request.getParameter("lectureDate");
+	String lectureAddr = (String)request.getParameter("lectureAddr");
+%>
 <section style="margin: 100px auto; text-align: center">
 	<div id="firstMenu">
 		<h4 style="text-align: left;">결제하기</h4> 
@@ -13,22 +23,27 @@
     	<div class="payment-container">
 			<div class="row fs_14">
 				<div class="col-6 col-md-3">
-					<img src="../../img/Thumbnail.png" alt="Thumbnail">
+					<img src="<%=request.getContextPath() %>/upload/<%=thumbnail %>" width="180px" height="120px" alt="Thumbnail">
 				</div>
 				<div class="col-6 col-md-6" id="paymentDetail">
-					<h3>YBS의 신나는 생활코딩</h3>
-					<span>일시 : 2021.12.22</span>
-					<span>총 : 1회</span>
+					<h3><%=lectureTitle %></h3>
+					<span>유형: <%=lectureType %></span>
+					<%if(lectureType.equals("VOD")){ %>
+					<span>VOD는 무기한으로 시청 가능합니다.</span>
+					<%}else{ %>
+					<span>일시 : <%=lectureDate %></span>
 					<span>수강인원 : 총 1명</span>
-					<span>장소 : 서울시 금천구 대륭테크노타운 3차 509호</span>
+					<span>장소 : <%=lectureAddr %></span>
+					<%} %>
+					
 				</div>
 				<div class="col-6 col-md-3">
-					<img src="../../img/YBS.png" alt="tutorPic">
-					<span style="font-size: 18px;">YBS 선생님</span>
+					<img src="<%=request.getContextPath() %>/upload/<%=tutorImg %>" width="60px" height="60px" alt="tutorPic">
+					<span style="font-size: 18px;"><%=tutorNickName %></span>
 				</div>
 			</div>
 		</div>
-		<div style="text-align: right; margin-right: 15px;">결제 금액: 30,000원</div>
+		<div style="text-align: right; margin-right: 15px;">결제 금액: <%=lecturePrice %>원</div>
 	</main>
 
 	<div id="paymentType" style="padding: 100px;">
@@ -45,14 +60,15 @@
 	      IMP.request_pay({
 	        pg : 'kakaopay',
 	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0005", // 상점에서 관리하는 주문 번호
-	    name : 'YBS의 신나는 생활코딩',
-	    amount : 100,
-	    buyer_email : 'user00@naver.com',
-	    buyer_name : '유저공공',
-	    buyer_tel : '010-0000-0000',
-	    buyer_addr : '',
-	    buyer_postcode : ''
+	    merchant_uid: "order_no_0007", // 상점에서 관리하는 주문 번호
+	    name : '<%=lectureTitle %>',
+	    <%-- amount : <%=lecturePrice %>, --%>
+	    amount : 10,	    
+	    buyer_email : '<%=loginMember.getEmail() %>',
+	    buyer_name : '<%=loginMember.getMemberName() %>',
+	    buyer_tel : '<%=loginMember.getPhone() %>'
+/* 	    buyer_addr : '',
+	    buyer_postcode : '' */
 	      }, function(rsp) {
 	          console.log(rsp);
 	        if ( rsp.success ) {
@@ -72,20 +88,22 @@
 	
 	//카드결제
 	$("#cardPay").click(e=>{
-	        
+		
 	      //가맹점 식별코드
 	      IMP.init('imp77938975');
 	      IMP.request_pay({
 	        pg : 'nice',
 	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0005", // 상점에서 관리하는 주문 번호
-	    name : 'YBS의 신나는 생활코딩',
-	    amount : 100,
-	    buyer_email : 'user00@naver.com',
-	    buyer_name : '유저공공',
-	    buyer_tel : '010-0000-0000',
+	    merchant_uid: "order_no_0007", // 상점에서 관리하는 주문 번호
+	    name : '<%=lectureTitle %>',
+	    <%-- amount : <%=lecturePrice %>, --%>
+	    amount : 10,
+	    buyer_email : '<%=loginMember.getEmail() %>',
+	    buyer_name : '<%=loginMember.getMemberName() %>',
+	    buyer_tel : '<%=loginMember.getPhone() %>'
+/* 	    buyer_tel : '010-0000-0000',
 	    buyer_addr : '',
-	    buyer_postcode : ''
+	    buyer_postcode : '' */
 	      }, function(rsp) {
 	          console.log(rsp);
 	        if ( rsp.success ) {
