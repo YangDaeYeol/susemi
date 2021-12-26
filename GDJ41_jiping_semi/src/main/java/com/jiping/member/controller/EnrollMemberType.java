@@ -1,4 +1,4 @@
-package com.jiping.main;
+package com.jiping.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainPageLocationServlet
+ * Servlet implementation class EnrollMemberType
  */
-@WebServlet("/main")
-public class MainPageLocationServlet extends HttpServlet {
+@WebServlet("/enrollmembertype")
+public class EnrollMemberType extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPageLocationServlet() {
+    public EnrollMemberType() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,9 @@ public class MainPageLocationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/").forward(request, response);
+		String email = request.getParameter("email");
+		request.setAttribute("email", email);
+		request.getRequestDispatcher("/views/login/enrollMemberType.jsp").forward(request, response);
 	}
 
 	/**

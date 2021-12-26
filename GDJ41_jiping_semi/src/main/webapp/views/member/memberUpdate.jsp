@@ -285,7 +285,7 @@
                     <div class="menu-margin margin-left" id="tutor-gender">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
                         <div class="info-content inlineblock">
-                        <%if(m.getGender()=='남') {%>
+                        <%if(m.getGender().equals("남자")) {%>
                           <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
                           <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
                         <%}else{ %>

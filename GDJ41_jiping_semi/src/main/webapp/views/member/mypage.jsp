@@ -4,50 +4,54 @@
 <%
 	Member m=(Member)request.getAttribute("loginMember");
 	System.out.println(m);
+
+	String[] largeCategory=new String[3]; 
+	if(m.getMemberCategory()!=null){
+		largeCategory=m.getMemberCategory().split(",");
+		for(String c : largeCategory){
+			System.out.println(c);
+		}		
+	} else {
+
 	
 	/* 관심분야 */	
 		String[] categories;
 		String[] largeCategories;
 		String[] smallCategories;
-	if(m.getMemberGrade().equals("수강생") && m.getMemberCategory()!=null){
-		categories=m.getMemberCategory().split(",");
-		largeCategories=new String[categories.length];
-		smallCategories=new String[categories.length];
+		if(m.getMemberGrade().equals("수강생") && m.getMemberCategory()!=null){
+			categories=m.getMemberCategory().split(",");
+			largeCategories=new String[categories.length];
+			smallCategories=new String[categories.length];
 
-		for(int i=0; i<categories.length; i++){
-			largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
-			smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
+			for(int i=0; i<categories.length; i++){
+				largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
+				smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
+				
+				System.out.println(largeCategories[i]);
+				System.out.println(smallCategories[i]);
 			
-			System.out.println(largeCategories[i]);
-			System.out.println(smallCategories[i]);
-			
+			}
+
 		}
-	}
 	
 	/* 관심지역 */
-	String[] categories2;
-	String[] largeCategories2;
-	String[] smallCategories2;
-	if(m.getMemberGrade().equals("수강생") && m.getMemberLocation()!=null){		
-		categories2=m.getMemberLocation().split(",");
-		largeCategories2=new String[categories2.length];
-		smallCategories2=new String[categories2.length];
-		
-		for(int i=0; i<categories2.length; i++){
-			largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
-			smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
+		String[] categories2;
+		String[] largeCategories2;
+		String[] smallCategories2;
+		if(m.getMemberGrade().equals("수강생") && m.getMemberLocation()!=null){		
+			categories2=m.getMemberLocation().split(",");
+			largeCategories2=new String[categories2.length];
+			smallCategories2=new String[categories2.length];
 			
-			System.out.println(largeCategories2[i]);
-			System.out.println(smallCategories2[i]);
+			for(int i=0; i<categories2.length; i++){
+				largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
+				smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
+				
+				System.out.println(largeCategories2[i]);
+				System.out.println(smallCategories2[i]);
+			}
 		}
-	
-		
 	}
-	
-	
-	
-	
-	
 %>
 <!-- 수강생 마이페이지 -->    
 <%if(m.getMemberGrade().equals("수강생")){ %>    
@@ -163,7 +167,7 @@
               <div class="menu-margin margin-left" id="tutor-gender">
                       <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
                       <div class="info-content inlineblock">
-                      	<%if(m.getGender()=='남') {%>
+                      	<%if(m.getGender().equals("남자")) {%>
                           <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
                           <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
                         <%}else{ %>
@@ -252,7 +256,7 @@
                 <div class="menu-margin margin-left" id="tutor-gender">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
                         <div class="info-content inlineblock">
-                        <%if(m.getGender()=='남') {%>
+                        <%if(m.getGender().equals("남자")) {%>
                           <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
                           <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
                         <%}else{ %>
@@ -284,7 +288,7 @@
             </div>
         </div>
     </section>                
-        <%} %>
+<% } %>
         
 <%@ include file="/views/common/footer.jsp"%>
 <script>

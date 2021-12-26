@@ -215,8 +215,17 @@
                         </div>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary btn-lg btn-basic" style="float: right;">결 제
-                            하 기</button>
+                        <form action="<%=request.getContextPath()%>/lecture/lecturePayment">
+                    		<input type="hidden" name="thumbnail" value="<%=imgList.get(0).getLectureFileName()%>">
+	                    	<input type="hidden" name="lectureType" value="<%=le.getLectureType() %>">
+	                    	<input type="hidden" name="lectureTitle" value="<%=le.getLectureTitle() %>">
+	                    	<input type="hidden" name="tutorImg" value="<%=m.getProfileImg() %>">
+	                    	<input type="hidden" name="tutorNickName" value="<%=tutor.getNickname() %>">
+	                    	<input type="hidden" name="lecturePrice" value="<%=list.get(0).getLecturePrice() %>">
+	                    	<input type="hidden" name="lectureDate" value="">
+	                    	<input type="hidden" name="lectureAddr" value="">
+	                        <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;">결 제 하 기</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -236,6 +245,8 @@
                         dataType: "json",
                         data: { "scheduleNo": scheduleNo },
                         success: data => {
+                        	$("input[name=lectureDate]").val(data["lectureDate"]);
+                        	$("input[name=lectureAddr]").val(data["lectureAddress"]);
                             const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
                             const date = $("#apply-date").html(data["lectureDate"]);
                             const time = $("#apply-time").html(data["startDate"]+"-"+data["endDate"]);
