@@ -155,6 +155,48 @@
 																</label> <input id="file-career2" name="file-career2"
 																	type="file" />
 															</div>
+															<div class="image-career" id="image-career3" style="display:none;">
+																<input type="text" name="text-career3"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career3">
+
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career3" name="file-career3"
+																	type="file" />
+															</div>
+															<div class="image-career" id="image-career4" style="display:none;">
+																<input type="text" name="text-career4"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career4">
+
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career4" name="file-career4"
+																	type="file" />
+															</div>
+															<div class="image-career" id="image-career5" style="display:none;">
+																<input type="text" name="text-career5"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career5">
+
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career5" name="file-career5"
+																	type="file" />
+															</div>
 
 														</div>
 														<div id="addCareer">
@@ -368,13 +410,13 @@
 														<!-- 회차에 따라서 펼쳐지는 날짜와 시간들 시작  -->
 														<div id="selectMultipleDates0" style="display: block;">
 															<div style="padding-top: 20px; margin-bottom: 10px;">
-																<span>1회 날짜 : </span><input type="date"
+																<span>1회 날짜 : </span><input type="date" name="classDate0"
 																	style="border-radius: 7px;">
 															</div>
 															<div
 																style="padding-bottom: 20px; border-bottom: 1px solid black;">
-																시작 시간 : <input type="time" style="border-radius: 7px;">&nbsp;&nbsp;
-																종료 시간 : <input type="time" style="border-radius: 7px;">
+																시작 시간 : <input type="time" name="startTime0" style="border-radius: 7px;">&nbsp;&nbsp;
+																종료 시간 : <input type="time" name="endTime0" style="border-radius: 7px;">
 															</div>
 														</div>
 														<div style="padding-top: 20px;">
@@ -383,7 +425,7 @@
 															<div
 																style="border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px; width: 38%;"
 																class="classIntBox" id="inputBoxOfOneDayTimes">
-																<input type="text" class="classIntInputBox"
+																<input type="text" class="classIntInputBox" name="onedayClassPrice"
 																	id="classTxtBox1"><span class="won">원</span>
 															</div>
 														</div>
@@ -397,7 +439,7 @@
 															id="gugun1" class="categoryClass" style="flex-grow: 1"></select>
 													</div>
 													<div id="detailPlace2">
-														<input type="text" placeholder="세부 장소를 입력해주세요"
+														<input type="text" placeholder="세부 장소를 입력해주세요" name="address1"
 															id="setClassTitle4"> <span
 															id="showMeTheLimitOfTitleLength3"> (0/50) </span>
 													</div>
@@ -664,6 +706,22 @@
         $("input#file-career1").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career1');
         });
+        
+        $("input#file-career1").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career2');
+        });
+        
+        $("input#file-career1").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career3');
+        });
+        
+        $("input#file-career1").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career4');
+        });
+        
+        $("input#file-career1").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career5');
+        });
 
         // 선택한거대로 페이지 뜨게 하는 스크립트
         $("input[id='control_01']").change(function () {
@@ -781,6 +839,9 @@
             for (let i = 1; i < val; i++) {
                 let dateContainer = $("#selectMultipleDates0").clone();
                 dateContainer.attr({ "id": "selectMultipleDates" + i });
+                dateContainer.find("input[name='classDate0']").attr({ "name" : "classDate" + i});
+                dateContainer.find("input[name='startTime0']").attr({ "name" : "startTime" + i});
+                dateContainer.find("input[name='endTime0']").attr({ "name" : "endTime" + i});
                 dateContainer.find("span").text((i + 1) + "회 날짜 : ");
 
                 if (i == 1) {
@@ -1089,9 +1150,10 @@
         $("#detailPlace2>#detailTxtBox").blur(e => {
             $("#detailPlace2").css({ "border": "1px black solid" });
         })
-
+		var numItems = 3;
         const addCareerArea = () => {
-            var numItems = ($('.image-career').length) + 1;
+        	
+            
             if (numItems == 6) {
                 Swal.fire({
                     icon: 'error',
@@ -1099,7 +1161,9 @@
                 });
                 return false;
             }
-            $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"name="text-career' + numItems + '"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career"name="file-career' + numItems + '"type="file"accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
+            $("#image-career" + numItems).css("display","block");
+            numItems++;
+            /* $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"name="text-career' + numItems + '"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career"name="file-career' + numItems + '"type="file"accept="image/png, image/gif, image/jpeg, image/jpg/></div>'); */
         }
         
        const toSubmit = () => {
@@ -1134,7 +1198,7 @@
 	    	       cache: false,           
 	    	       timeout: 600000,       
 	    	       success: function (frm) { 
-	    	       	alert("complete");           
+	    	    	   Swal.fire('클래스 등록 승인결과는 마이 페이지에서 확인 가능합니다')         
 	    	       	$("#btnSubmit").prop("disabled", false);      
 	    	       },          
 	    	       error: function (e) {  

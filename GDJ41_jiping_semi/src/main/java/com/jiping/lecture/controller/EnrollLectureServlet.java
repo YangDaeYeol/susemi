@@ -33,11 +33,11 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class EnrollLectureServlet
  */
 @WebServlet("/lecture/enrolllecture.do")
-@MultipartConfig(
-		fileSizeThreshold=1024*1024*10, 	// 10 MB 
-		maxFileSize=1024*1024*50,      	// 50 MB
-		maxRequestSize=1024*1024*100
-		)  
+//@MultipartConfig(
+//		fileSizeThreshold=1024*1024*10, 	// 10 MB 
+//		maxFileSize=1024*1024*50,      	// 50 MB
+//		maxRequestSize=1024*1024*100
+//		)  
 public class EnrollLectureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -117,9 +117,17 @@ public class EnrollLectureServlet extends HttpServlet {
 //					String 배열에서 String 으로 변경
 					StringBuilder builder1 = new StringBuilder();
 					for(String s : certificateText) {
-					    builder1.append(s + "_");
+					    builder1.append(s + ",");
 					}
 					String certificateTxt = builder1.toString();
+					
+					//null있을경우 삭제
+					if (certificateTxt.contains("null")) {
+						certificateTxt.replaceAll("null", "");
+					}
+					
+					//맨 마지막의 , 삭제
+					certificateTxt = certificateTxt.substring(0, certificateTxt.length()-1);
 				      
 				      
 				      
@@ -138,6 +146,15 @@ public class EnrollLectureServlet extends HttpServlet {
 					    builder2.append(s + ",");
 					}
 					String certificateImg = builder2.toString();
+					
+					//null있을경우 삭제
+					if (certificateImg.contains("null")) {
+						certificateImg.replaceAll("null", "");
+					}
+					
+					//맨 마지막의 , 삭제
+					certificateImg = certificateImg.substring(0, certificateImg.length()-1);
+				     
 
 					
 					Certificate c = null;
@@ -162,7 +179,7 @@ public class EnrollLectureServlet extends HttpServlet {
 						vod = "VOD";
 					}
 					String typeTemp = oneday + multipleClass + vod;
-					String finalType = typeTemp.replaceAll("null", "");
+					String type = typeTemp.replaceAll("null", "");
 				
 					String bigCategory = mr.getParameter("bigCategory");
 					String smallCategory = mr.getParameter("smallCategory");
@@ -171,7 +188,7 @@ public class EnrollLectureServlet extends HttpServlet {
 					String category = bigCategory +" "+ smallCategory;
 					
 					Lecture l = Lecture.builder()
-							.lectureType(finalType)
+							.lectureType(type)
 							.lectureCategory(category)
 							.lectureTitle(lectureTitle)
 							.build();
@@ -179,19 +196,21 @@ public class EnrollLectureServlet extends HttpServlet {
 					lecture.put("lecture", l);
 					
 					Enumeration<String> e=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
-					
-					List<String> classImgfiles=new ArrayList<>();
-					
-					String classFinalImgFiles = "";
+		
+					String classImgFiles = "";
 					while(e.hasMoreElements()) {
 						String fileName = e.nextElement(); 
 						if(fileName.startsWith("upfile")) {
-							classFinalImgFiles += ((mr.getFilesystemName(fileName))+",");
+							classImgFiles += ((mr.getFilesystemName(fileName))+",");
 						}
 					}
 					
+					//맨 마지막의 , 삭제
+					classImgFiles = classImgFiles.substring(0, classImgFiles.length()-1);
+				     
+					
 					LectureImg lImg = LectureImg.builder()
-							.lectureFilename(classFinalImgFiles)
+							.lectureFilename(classImgFiles)
 							.build();
 					
 					lecture.put("lectureImg", lImg);
@@ -211,7 +230,56 @@ public class EnrollLectureServlet extends HttpServlet {
 					lecture.put("lectureContent", lc);
 					
 					
+					String[] onedayClassDateTemp = new String[10];
+					String[] onedayClassStartTimeTemp = new String[10];
+					String[] onedayClassEndTimeTemp = new String[10];
+					int onedayClassPrice = 0;
 					
+					String onedayClassDate = null;
+					String onedayClassStartTime = null;
+					String onedayClassEndTime = null;
+					if (oneday != null) {//원데이 선택했을경우의 분기문
+						
+						for (int i = 0; i < 10; i++) {
+							onedayClassDateTemp[i] = mr.getParameter("classDate" + i);
+							onedayClassStartTimeTemp[i] = mr.getParameter("startTime" + i);
+							onedayClassEndTimeTemp[i] = mr.getParameter("endTime" + i);
+							}
+						
+						onedayClassPrice = Integer.parseInt(mr.getParameter("onedayClassPrice"));
+						
+//						String배열을 String으로 처리
+						for (int i = 0; i < 10; i++) {
+							onedayClassDate += onedayClassDateTemp[i] + ",";
+							onedayClassStartTime += onedayClassStartTimeTemp[i] + ",";
+							onedayClassEndTime += onedayClassEndTimeTemp[i] + ",";
+						}
+						
+//						마지막 문자열의 , 제거
+						onedayClassDate = onedayClassDate.substring(0, onedayClassDate.length()-1);
+						onedayClassStartTime = onedayClassStartTime.substring(0, onedayClassStartTime.length()-1);
+						onedayClassEndTime = onedayClassEndTime.substring(0, onedayClassEndTime.length()-1);
+						
+//						null값이 있을경우에 null없애기
+						if (onedayClassDate.contains("null")) {
+							onedayClassDate.replaceAll("null", "");
+							onedayClassStartTime.replaceAll("null", "");
+						}
+						
+						String temp1 = mr.getParameter("sido1");
+						String temp2 = mr.getParameter("gugun1");
+						String location = temp1 + " " + temp2;
+						String address = mr.getParameter("address1");
+						
+//						int numOfStu = mr.getParameter(address)
+//						
+						
+						
+					} else if (multipleClass != null) {
+						multipleClass = "다회차";
+					} else {
+						vod = "VOD";
+					}
 					
 					
 					
