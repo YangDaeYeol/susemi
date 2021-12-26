@@ -207,7 +207,6 @@ public class LectureDao {
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println("dao:"+tutor);
 		return tutor;
 	}
 	
@@ -234,6 +233,54 @@ public class LectureDao {
 		}
 		return list;
 	}
+	
+	public Member tutorImg(Connection conn, int num) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		Member m=null;
+		String sql=prop.getProperty("selectTutorImg");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m= Member.builder()
+						.nickname(rs.getString("nickname"))
+						.profileImg(rs.getString("profile_img")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	public List<Certificate> certificate(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Certificate> list= new ArrayList();
+		String sql= prop.getProperty("certificateList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Certificate c= Certificate.builder()
+						.certificateText(rs.getString("certificate_text")).build();
+				list.add(c);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+//	----------------------------------------------------------------
 	
 	public int enrollTutorImage (Connection conn, Member m) {
 		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 

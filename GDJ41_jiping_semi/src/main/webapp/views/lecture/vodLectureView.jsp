@@ -5,6 +5,7 @@
 				com.jiping.lecture.model.vo.LectureContent,
 				com.jiping.lecture.model.vo.LectureSchedule,
 				com.jiping.lecture.model.vo.VodLecture,
+				com.jiping.lecture.model.vo.LectureImg,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
@@ -12,6 +13,7 @@
 	/* LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule"); */
 	/*List<LectureSchedule> list= (List)request.getAttribute("scList");*/
 	List<VodLecture> list= (List)request.getAttribute("vodList");
+	List<LectureImg> imgList= (List)request.getAttribute("imgList");
 /* 	System.out.println("jsp:"+ list); */
 
 %>
@@ -32,16 +34,13 @@
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTQ3/MDAxNTc2MTM4NTUyNzM4.NcQoxd0YDv6Ihnb3snU5cF-OVlBXyS5eL6pEd-4Df74g.m8xgeLxThkSKU8_dYPo9UlbdgLiTaYUG6WO34ER_k-0g.JPEG/%EC%A4%80%ED%98%81_%281%29.jpg?type=w1200
-                                " class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="https://post-phinf.pstatic.net/MjAyMDA5MjVfMTc4/MDAxNjAxMDI0MTAyNTY2.hV-sDoyZYI6CSJunuYzelN-t6RmQ63NyuGNvRTKCk3cg.K_DN1PZKXoeMTp-sZLeNjL3MpONfqMfFMpslHkvRM3Mg.JPEG/%EC%A4%80%ED%98%81_%2813%29.jpg?type=w1200"
-                                            class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="https://post-phinf.pstatic.net/MjAyMDA3MjZfMjUz/MDAxNTk1NzUxOTczNDcy.Qio9niIKRMWxwQ92ilGnSmOncAuUpbAiZ1re0hl6R6wg.21S6u-Ctupv21VxBqMq0q911-SZ4AkyYl9q8oEUZX0kg.JPEG/%EC%84%9C%ED%94%84%EB%A1%9C_%2819%29.jpg?type=w1200"
-                                            class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
