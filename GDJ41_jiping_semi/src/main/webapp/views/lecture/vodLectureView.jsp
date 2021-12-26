@@ -41,13 +41,13 @@
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName().get(0)%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName().get(1)%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName().get(2)%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
