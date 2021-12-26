@@ -44,7 +44,7 @@
                         </div>
                         <div id="ing-class-list">
                             <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
+                                <div class="class-hover" onclick="" >
                                     <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
                                         height="150px" width="200px" ><br>
                                     <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
