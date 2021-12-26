@@ -54,10 +54,10 @@
     </div>
     <div id="review" class="row-1" style="display: inline;">
         <div>
-            <span id="vodlist-title">1강</span>
+            <span id="vodlist-title">1강. <%=list.get(0).getVodTitle() %></span>
         </div>
         <div>
-            <span id="vodlist-content">강의설명 이 강의는 자바에 대한 기초를 ...</span>
+            <span id="vodlist-content"><%=list.get(0).getVodContent() %></span>
         </div>
         <div class="btn-group" style="float: right;">
             <a href="#" class="btn btn-primary btn-basic">이전강의</a>

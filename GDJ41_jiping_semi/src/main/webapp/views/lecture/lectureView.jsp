@@ -208,7 +208,7 @@
                                 </div>
                                 <div>
                                     <p>총 결제금액</p>
-                                    <p id="apply-cost" style="float: right;">가격</p>
+                                    <p id="apply-cost" style="float: right;"><%=list.get(0).getLecturePrice() %></p>
                                 </div>
                             </div>
 
@@ -260,14 +260,14 @@
                     <div class="card-body">
                         <!-- -------------------------------------------------- -->
                         <div class="review-head">
-                            <div id="title"><%=le.getLectureTitle() %></div>
-                            <div id="tutor-review">튜터이름</div>
+                            <div id="title"><%=le.getLectureTitle() %> </div>
+                            <div id="tutor-review"><%=le.getNickName() %> 튜터 </div>
                         </div>
+                        <%if(loginMember!=null) { %>
                         <div id="starrate">
                             <div>
-                                <img class="img_basic img_review" src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTMy/MDAxNTc2MTM4NTc5MjAy.d6qoHmyl15AA4MjNVN7uOMbOJplPrhTktLxfMQXze9Ig.Ui8K9n80tzLCRsYmAK1VGmFxcRJ6-fndALhaNI69n9Ug.JPEG/%EC%A4%80%ED%98%81_%284%29.jpg?type=w1200
-                         ">
-                                <span>닉네임(로그인한 사람)/결제여부로 분기처리?</span>
+                                <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
+                                <span><%=loginMember.getNickname() %></span>
                             </div>
                             <div>
                                 <fieldset class="rating">
@@ -295,13 +295,16 @@
                                 </fieldset>
                             </div>
                         </div>
+                        <%} %>
                         <div class="card">
-                            <textarea class="card-body msgbox" id="totutor-review" cols="43" rows="3"
-                                placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+	                        <form action="" method="">
+	                            <textarea class="card-body msgbox" id="totutor-review" cols="43" rows="3"
+	                                placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+		                        <span id="review-count" style="float: right;">(0/100)</span> <br>
+		                        <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
+		                            등록하기</button>
+	                        </form>
                         </div>
-                        <span id="review-count" style="float: right;">(0/100)</span> <br>
-                        <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
-                            등록하기</button>
                     </div>
                 </div>
                 <script>
@@ -333,12 +336,8 @@
                                     <span>★★★★★</span><br>
                                     <span>홍대불주먹</span><br>
                                     <p>
-                                        1월부터 변경된 지침~ 1/3일부터는 수업시간이 변경되고 한시적으로 시행했던 훈련장려금도 복원된다고 하네요.
-                                        아쉽다.. 훈련 시작일로부터 산정해주면 좋을텐데 왜 수업일 기준으로 보나요~ 이것에 대한 건의는..고노부에 직접 하도록 하세요~!
-                                        1월부터 변경된 지침~ 1/3일부터는 수업시간이 변경되고 한시적으로 시행했던 훈련장려금도 복원된다고 하네요.
-                                        아쉽다.. 훈련 시작일로부터 산정해주면 좋을텐데 왜 수업일 기준으로 보나요~ 이것에 대한 건의는..고노부에 직접 하도록 하세요~!
-                                        1월부터 변경된 지침~ 1/3일부터는 수업시간이 변경되고 한시적으로 시행했던 훈련장려금도 복원된다고 하네요.
-                                        아쉽다.. 훈련 시작일로부터 산정해주면 좋을텐데 왜 수업일 기준으로 보나요~ 이것에 대한 건의는..고노부에 직접 하도록 하세요~!
+                                    	자바를 쉽게 배울 수 있어서 너무 행복하고 좋네요..! 수료일 이후가 기대됩니다~~~~~~~~~~~~~ 프로젝트를 정말 재밌게 해냈어요! 
+                        				인생의 값진 경험........ 이 수업 덕에 좋은 곳에 취업하고 갑니다~~~~~~!! 
                                     </p>
                                 </div>
                             </div>
