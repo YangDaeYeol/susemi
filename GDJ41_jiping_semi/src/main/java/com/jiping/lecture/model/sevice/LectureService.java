@@ -2,25 +2,21 @@ package com.jiping.lecture.model.sevice;
 
 import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.commit;
-import static com.jiping.common.JDBCTemplate.rollback;
 import static com.jiping.common.JDBCTemplate.getConnection;
+import static com.jiping.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-
 import java.util.List;
-
 import java.util.Map;
-
 
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
-
 import com.jiping.lecture.model.vo.VodLecture;
-
 import com.jiping.member.model.vo.Member;
+import com.jiping.payment.model.vo.Payment;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 
@@ -103,6 +99,13 @@ public class LectureService {
 		VodLecture v= dao.selectTitleVod(conn, vodTitle, lectureNo);
 		close(conn);
 		return v;
+	}
+	
+	public List<Payment> payment(int lectureNo){
+		Connection conn=getConnection();
+		List<Payment> p= dao.payment(conn, lectureNo);
+		close(conn);
+		return p;
 	}
 	
 	

@@ -18,6 +18,7 @@ import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Member;
+import com.jiping.payment.model.vo.Payment;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 
@@ -184,7 +185,6 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return list;
-		
 	}
 	
 	public Tutor tutorInfo(Connection conn, int num) {
@@ -301,6 +301,30 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return v;
+	}
+	
+	public List<Payment> payment(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Payment> list= new ArrayList();
+		String sql= prop.getProperty("selectPayment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Payment p= Payment.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.email(rs.getString("email")).build();
+				list.add(p);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 //	----------------------------------------------------------------

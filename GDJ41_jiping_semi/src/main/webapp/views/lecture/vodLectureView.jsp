@@ -9,6 +9,7 @@
 				com.jiping.tutor.model.vo.Tutor,
 				com.jiping.member.model.vo.Member,
 				com.jiping.tutor.model.vo.Certificate,
+				com.jiping.payment.model.vo.Payment,
 				java.util.List " %>
 <%
 	List<VodLecture> vodList=(List)request.getAttribute("vodList");
@@ -20,7 +21,9 @@
 	Tutor tutor=(Tutor)request.getAttribute("tutor");
 	Member m=(Member)request.getAttribute("m");
 	List<Certificate> cList= (List)request.getAttribute("c");
- 	System.out.println("jsp:"+ tutor); 
+	List<Payment> pList= (List)request.getAttribute("p");
+	
+ 	System.out.println("jsp:"+ pList); 
 
 %>
 
@@ -170,8 +173,8 @@
                 </div>
               </div>
             </div>
-            
-            
+            <%for(Payment p:pList) { 
+	            if(!(p.getEmail().contains(loginMember.getEmail()))) { %>
             <div id="class_submit" style="display: none;">
                     <h5 class="card-title">수강신청</h5>
                     <div class="card">
@@ -193,6 +196,10 @@
                             하 기</button>
                     </div>
                 </div>
+	           <% } else { %>
+	        	   <button type="button" class="btn btn-primary btn-lg btn-basic" style="float: right;">강 의 실 입 장</button>
+	          <% }
+            } %>
           </div>
           <script>
 	          $("#totutor").keyup(e=>{
