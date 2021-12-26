@@ -5,35 +5,42 @@
 	Member m=(Member)request.getAttribute("loginMember");
 	System.out.println(m);
 	/* 관심분야 */
-	String[] categories=new String[3];
-	String[] largeCategories=new String[3];
-	String[] smallCategories=new String[3];
 	
+		String[] categories;
+		String[] largeCategories;
+		String[] smallCategories;
 	if(m.getMemberGrade().equals("수강생") && m.getMemberCategory()!=null){
 		categories=m.getMemberCategory().split(",");
+		largeCategories=new String[categories.length];
+		smallCategories=new String[categories.length];
+
+		for(int i=0; i<categories.length; i++){
+			largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
+			smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
+			
+			System.out.println(largeCategories[i]);
+			System.out.println(smallCategories[i]);
+			
+		}
 	}
-	for(int i=0; i<categories.length; i++){
-		largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
-		smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
-		
-		System.out.println(largeCategories[i]);
-		System.out.println(smallCategories[i]);
-		
-	}
+	
 	/* 관심지역 */
-	String[] categories2=new String[3];
-	String[] largeCategories2=new String[3];
-	String[] smallCategories2=new String[3];
-	
-	if(m.getMemberGrade().equals("수강생") && m.getMemberLocation()!=null){
+	String[] categories2;
+	String[] largeCategories2;
+	String[] smallCategories2;
+	if(m.getMemberGrade().equals("수강생") && m.getMemberLocation()!=null){		
 		categories2=m.getMemberLocation().split(",");
-	}
-	for(int i=0; i<categories2.length; i++){
-		largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
-		smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
+		largeCategories2=new String[categories2.length];
+		smallCategories2=new String[categories2.length];
 		
-		System.out.println(largeCategories2[i]);
-		System.out.println(smallCategories2[i]);
+		for(int i=0; i<categories2.length; i++){
+			largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
+			smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
+			
+			System.out.println(largeCategories2[i]);
+			System.out.println(smallCategories2[i]);
+	}
+	
 		
 	}
 	
@@ -41,16 +48,9 @@
 	
 	
 	
-%>
- <%
-	/* String[] smallCategory=new String[6];
-		for(int i=0; i<largeCategory.length; i++){
-		smallCategory[i]=largeCategory[i].split(" ");
-	}  */
-                      
 %>
 <!-- 수강생 마이페이지 -->    
-<%if(loginMember.getMemberGrade().equals("수강생")){ %>    
+<%if(m.getMemberGrade().equals("수강생")){ %>    
 <section id="sectionMargin">
       <div id="mypage-container" class="flex">
           <div class=" inlineblock overflow" id="mypage-menu">          
@@ -60,11 +60,11 @@
                           <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
                           <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                           <nav class="nav-sub">
-                              <li ><a href="">· 마이클래스</a></li>
+                              <li>· 마이클래스</li>
                               <ul id="sub-menu">
-                                  <li><a>- 수강중인 클래스</a></li>
-                                  <li><a>- 찜한 클래스</a></li>
-                                  <li><a>- 수강완료 클래스</a></li>
+                                  <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
+                                  <li><a href="<%=request.getContextPath()%>/member/myclassHeart.do?email=<%=m.getEmail()%>">- 찜한 클래스</a></li>
+                                  <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
                               </ul>
                           </nav>
                           <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
@@ -117,8 +117,17 @@
                   		<span class="margin-right menu-list-name" >관심 분야</span>
                   </div>
                   <div class="info-content inlineblock" >                           
-                       <div>
-                           <input type="text" readonly name="" placeholder="<%=largeCategories[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                  <%-- <%if(categories!=null){ %>    
+                       <%for(int i=0; i<categories.length; i++) {%>
+                       		<div>
+	                           <input type="text" readonly name="" placeholder="<%=largeCategories[i] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                           <input type="text" readonly name="" placeholder="<%=smallCategories[i] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                      		</div>
+                       <%}
+                       
+                       }%> --%>
+                       <%-- <div>
+                           <input type="text" readonly name="" placeholder="<%if(largeCategories[0]==null){ %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                            <input type="text" readonly name="" placeholder="<%=smallCategories[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                        </div>
                        <div>
@@ -128,7 +137,7 @@
                        <div>
                            <input type="text" readonly name="" placeholder="<%=largeCategories[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                            <input type="text" readonly name="" placeholder="<%=smallCategories[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-                       </div>                                                          
+                       </div>   --%>                                                        
                   </div>
               </div> 
               <div class="menu-margin margin-left" id="tutor-area">
@@ -136,7 +145,7 @@
                           <span class="margin-right menu-list-name">관심 지역</span>
                       </div>
                       <div class="info-content inlineblock">
-                          <div>
+                          <%-- <div>
                                <input type="text" readonly name="" placeholder="<%=largeCategories2[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                                <input type="text" readonly name="" placeholder="<%=smallCategories2[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                            </div>
@@ -147,7 +156,7 @@
                            <div>
                                <input type="text" readonly name="" placeholder="<%=largeCategories2[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                                <input type="text" readonly name="" placeholder="<%=smallCategories2[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-                           </div>
+                           </div> --%>
                           
                       </div>
               </div> 
@@ -194,16 +203,16 @@
                     <h3>MY PAGE</h3>
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
-                            <li><a href="<%=request.getContextPath()%>/member/mypage.do">· 나의정보</a></li>
-                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do">· 정보수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                             <nav class="nav-sub">
-                                <li ><a href="">· 클래스</a></li>
+                                <li >· 클래스</li>
                	                 <ul id="sub-menu">
                                     <li><a href="">- 운영중인 클래스</a></li>
                                     <li><a href="">- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                         </ul>                  
                     </div>
             </div>   

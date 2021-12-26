@@ -15,14 +15,14 @@
                     <h3>MY PAGE</h3>
                         <div class="" id="my-menu" >
                             <ul id="menu-list">
-                                <li><a href="<%=request.getContextPath()%>/member/mypage.do?email<%=m.getEmail()%>">· 나의정보</a></li>
-                                <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email<%=m.getEmail()%>">· 정보수정</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                                 <nav class="nav-sub">
-                                    <li ><a href="">· 마이클래스</a></li>
+                                    <li >· 마이클래스</li>
                                     <ul id="sub-menu">
-                                        <li><a href="<%=request.getContextPath()%>/member/ingClassOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
-                                        <li><a href="">- 찜한 클래스</a></li>
-                                        <li><a href="">- 수강완료 클래스</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
+	                                    <li><a href="<%=request.getContextPath()%>/member/myclassHeart.do?email=<%=m.getEmail()%>">- 찜한 클래스</a></li>
+	                                    <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
                                     </ul>
                                 </nav>
                                 <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
