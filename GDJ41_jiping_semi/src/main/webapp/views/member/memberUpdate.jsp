@@ -60,6 +60,7 @@
                         </ul>                  
                     </div>
             </div>   
+           <form id="userUpdateFrm" action="" method="post" action="<%= %>">
             <div id="mypage-content" class="inlineblock">
                 <div class="">
                     <img id="info-icon" src="<%=request.getContextPath() %>/img/setting.png" width="20px" height="20px" class="inlineblock" style="margin-bottom: 10px;">
@@ -89,8 +90,7 @@
                     <div class="menu-margin margin-left" id="tutor-name">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
                             <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
-                    </div>
-				<form>	                   
+                    </div>					                   
                     <div class="menu-margin margin-left" id="tutor-beforePw">
                         <div class="info-title inlineblock">
                             <span class="margin-right menu-list-name">현재 비밀번호</span>
@@ -120,7 +120,7 @@
                         <div class="inlineblock">
                             <button onclick="" style="margin-left: 10px;">비밀번호 확인</button>
                         </div>
-                </form>        
+                       
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-nick">
                             <div class="info-title inlineblock">
@@ -311,12 +311,15 @@
 	                       </div>
 	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
                           <%} %>
-                    </div>  
+                    </div>
+                     
                 </div>
+                
                 <div class="line"></div>
                 <div id="save-info">
                     <button onclick="updateMember();" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
                 </div>
+                </form>
             </div>
         </div>
     </section>
