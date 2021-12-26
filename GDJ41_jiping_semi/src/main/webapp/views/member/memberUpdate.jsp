@@ -35,7 +35,7 @@
                 <div style="margin-left: 80px;">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/김수현.jpg"></div>
+                        <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/<%=m.getProfileImg()%>"></div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
                             <input type="button" value="기본이미지">
                             <input type="file" name="" id="" value="파일 선택" class="" width="">
@@ -46,7 +46,7 @@
                                 <span class="margin-right menu-list-name">이메일</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" readonly name="" placeholder="prince@naver.com" class="placeholder-center" size="25">
+                                <input type="text" readonly name="" placeholder="<%=m.getEmail() %>" class="placeholder-center" size="25">
                             </div>
                             <div class="inlineblock">
                                 <p class="guide">※ 아이디는 변경이 불가능합니다.</p>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="menu-margin margin-left" id="tutor-name">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="김수현" class="placeholder-center" size="25"></div>
+                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
                     </div>
                     <div class="menu-margin margin-left" id="tutor-beforePw">
                         <div class="info-title inlineblock">
@@ -91,7 +91,7 @@
                                 <span class="margin-right menu-list-name">닉네임</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="도민준" class="placeholder-center " size="25">
+                                <input type="text" name="" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
                             </div>
                             <div class="inlineblock">
                                 <button onclick="" style="margin-left: 10px;">닉네임 중복 확인</button>
@@ -100,7 +100,7 @@
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="010-3788-3333" class="placeholder-center" size="25">
+                                <input type="text" name="" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
                             </div>
                     </div>
                     <div class="menu-margin margin-left" id="inter-field">
@@ -247,26 +247,34 @@
                         </div>
                 </div>  
                     <div class="menu-margin margin-left" id="tutor-gender">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
-                            <div class="info-content inlineblock">
-                                <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
-                                <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
-                                <!--DB에서 남자면 여자 disabled 여자면 남자 disabled -->
-                            </div>
+                        <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
+                        <div class="info-content inlineblock">
+                        <%if(m.getGender()=='남') {%>
+                          <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                          <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                        <%}else{ %>
+                          <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                          <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                        <%} %>
+                        </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-marketing" >
-                            <div class="info-title inlineblock">
-                                <span class="margin-right menu-list-name">마케팅 정보수신</span>
-                            </div>
-                            <div class="info-content inlineblock"></div>
-                            <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
-                                <input type="checkbox" name="toggle1" id="toggle1" value="on" >
-                                <label for="toggle1"></label>
-                            </div>
-                            <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
-                            <div class="inlineblock">
-                                <span class="guide" id="marketingInfo">※ 수신 동의 설정 시 다양한 이벤트 및 혜택 정보를 제공받을 수 있습니다.</span>
-                            </div>
+                          <div class="info-title inlineblock">
+                          		<span class="margin-right menu-list-name">마케팅 정보수신</span>
+                          </div>
+                          <div class="info-content inlineblock"></div>
+                          <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+                          <%if(m.getMarketing()=='Y'){ %>
+                              <input type="checkbox" name="toggle1" id="toggle1" value="on" onclick="return false;" checked>
+                              <label for="toggle1"></label>
+                          </div>
+                          <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%}else{ %>
+                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
+                              <label for="toggle1"></label>
+	                       </div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%} %>  
                     </div>  
                 </div>
                 <div class="line"></div>
