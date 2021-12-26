@@ -25,7 +25,7 @@
 	    </div>
 	    <div class="pw-container">
 	      	<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
-			<span class="warningMsg">대/소문자,숫자,특수기호를 포함한 8자리 이상을 입력해주세요</span>
+			<span class="warningMsg">영문자,숫자,특수기호를 포함한 8자리 이상을 입력해주세요</span>
 	    </div>
 	    <div class="pwck-container">
 	      	<input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 재입력해주세요">
@@ -37,10 +37,17 @@
 	  </form>
 	</main>
 	<script>
-		const nick = "<%= Nickname %>",split(",");
-		console.log(nick);
-		$("#userNickName").keyup(e=> {
-			console.log("zz");
-			console.log($("#userName").val());
+	//"^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{8,}$"
+		let nick = ("<%= Nickname %>").split(",");
+		$("#userNickName").focusout(e=> {
+			const inputNick = $(e.target).val();
+			if(nick.includes(inputNick)) {
+				$(e.target).next("span").text("이미 존재하는 닉네임입니다.");
+				$(e.target).next("span").css({"color":"red"});
+			}else {
+				$(e.target).next("span").text("사용 가능한 닉네임입니다.");
+    			$(e.target).next("span").css({"color":"green"});
+			}
 		});
+		
 	</script>
