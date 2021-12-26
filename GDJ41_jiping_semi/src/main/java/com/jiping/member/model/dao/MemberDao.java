@@ -63,12 +63,11 @@ public class MemberDao {
 				m=Member.builder()
 						.email(rs.getString("email"))
 						.memberGrade(rs.getString("member_grade"))
-						.password(rs.getString("password"))
 //						.memberName(rs.getString("member_name"))
 //						.gender(rs.getString("gender").charAt(0))
 //						.phone(rs.getString("phone"))
 //						.marketing(rs.getString("marketing").charAt(0))
-//						.profileImg(rs.getString("profile_img"))
+						.profileImg(rs.getString("profile_img"))
 						.nickname(rs.getString("nickname"))
 						.build();
 			}								
@@ -104,6 +103,61 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return m;
+	}
+
+	public Member selectMember(Connection conn, String email) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		String sql=prop.getProperty("selectMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=Member.builder()
+						.email(rs.getString("email"))
+						.memberGrade(rs.getString("member_grade"))
+						.memberName(rs.getString("member_name"))
+						.gender(rs.getString("gender").charAt(0))
+						.phone(rs.getString("phone"))
+						.marketing(rs.getString("marketing").charAt(0))
+						.profileImg(rs.getString("profile_img"))
+						.nickname(rs.getString("nickname"))
+						.build();
+				if(m.getMemberGrade().equals("수강생")) {										
+					m.setMemberLocation(rs.getString("member_location")==null?"":rs.getString("member_location"));
+					m.setMemberCategory(rs.getString("member_category")==null?"":rs.getString("member_category"));
+					
+				}
+			}
+					
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+			
+				
+	}
+
+	public int dropMember(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("dropMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
 	}
 	
 	public List<String> selectAllNickname(Connection conn) {

@@ -17,7 +17,7 @@
                                     <li><a>- 수강완료 클래스</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="">· 회원탈퇴</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
                         </ul>                  
                     </div>
                 </div>   

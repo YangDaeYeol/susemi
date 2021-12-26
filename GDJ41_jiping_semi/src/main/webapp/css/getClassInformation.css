@@ -612,3 +612,6 @@
     #bigCategory{
    		height: 10%;
    	}
+   	.step-trigger{
+   		border-radius: 10px;
+   	}
