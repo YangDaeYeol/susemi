@@ -1,28 +1,23 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.VodLecture;
-
 /**
- * Servlet implementation class VodRoomAjaxServlet
+ * Servlet implementation class EnrollLectureMoveServlet
  */
-@WebServlet("/VodRoomAjaxServlet.do")
-public class VodRoomAjaxServlet extends HttpServlet {
+@WebServlet("/enrolllecture")
+public class EnrollLectureMoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VodRoomAjaxServlet() {
+    public EnrollLectureMoveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +26,8 @@ public class VodRoomAjaxServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String vodTitle=request.getParameter("vodTitle");
-		int lectureNo=Integer.parseInt(request.getParameter("lectureNo"));
-		VodLecture v= new LectureService().selectTitleVod(vodTitle, lectureNo);
-		new Gson().toJson(v,response.getWriter());
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/views/lecture/getClassInformation.jsp").forward(request, response);
 	}
 
 	/**

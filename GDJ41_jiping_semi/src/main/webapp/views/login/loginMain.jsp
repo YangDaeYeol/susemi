@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<% String msg = (String)request.getAttribute("msg"); %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">
 	<section style="margin: 100px auto; text-align: center">
 		<main class="form-signin">
@@ -16,7 +17,6 @@
        			<div class="pw-container">
 					<span class="loginContent fs_14">비밀번호</span>
             		<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
-            		<span class="warningMsg">이메일 또는 비밀번호가 일치하지 않습니다.</span>
         		</div>
     
 		        <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">로그인</button>
@@ -28,4 +28,10 @@
 			</form>
 		</main>
 	</section>
+	<script>
+		let msg = "<%= msg %>";
+		if(msg!="null") {
+			alert(msg);
+		}
+	</script>
 <%@ include file="/views/common/footer.jsp" %>

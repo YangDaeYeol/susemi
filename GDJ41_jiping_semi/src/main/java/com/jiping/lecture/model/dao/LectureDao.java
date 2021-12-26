@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -18,6 +19,7 @@ import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Member;
+import com.jiping.payment.model.vo.Payment;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 
@@ -80,29 +82,29 @@ public class LectureDao {
 		return content;
 	}
 	
-//	public LectureSchedule lectureSchedule(Connection conn, int num ) {
-//		PreparedStatement pstmt=null;
-//		ResultSet rs= null; 
-//		LectureSchedule schedule=null;
-//		String sql=prop.getProperty("lectureSchedule");
-//		try {
-//			pstmt=conn.prepareStatement(sql);
-//			pstmt.setInt(1, num);
-//			rs=pstmt.executeQuery();
-//			if(rs.next()) {
-//				schedule= LectureSchedule.builder()
-//						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
-//						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
-//						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
-//			}
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		return schedule;
-//	}
+	public LectureSchedule lectureSchedule(Connection conn, int num ) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		LectureSchedule schedule=null;
+		String sql=prop.getProperty("lectureSchedule");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				schedule= LectureSchedule.builder()
+						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
+						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
+						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return schedule;
+	}
 	
 	public List<LectureSchedule> scheduleList(Connection conn){
 		PreparedStatement pstmt=null;
@@ -161,7 +163,6 @@ public class LectureDao {
 		
 	}
 	
-	
 	public List<LectureImg> imgList(Connection conn, int lectureNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
@@ -174,7 +175,8 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureImg img= LectureImg.builder()
 						.lectureNo(rs.getInt("lecture_no"))
-						.lectureFileName(rs.getString("lecture_filename")).build();
+						.lectureFileName(rs.getString("lecture_filename"))
+						.build();
 				list.add(img);
 			}
 		}catch(SQLException e) {
@@ -184,7 +186,6 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return list;
-		
 	}
 	
 	public Tutor tutorInfo(Connection conn, int num) {
@@ -303,6 +304,30 @@ public class LectureDao {
 		return v;
 	}
 	
+	public List<Payment> payment(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Payment> list= new ArrayList();
+		String sql= prop.getProperty("selectPayment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Payment p= Payment.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.email(rs.getString("email")).build();
+				list.add(p);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 //	----------------------------------------------------------------
 	
 	public int enrollTutorImage (Connection conn, Member m) {
@@ -323,37 +348,58 @@ public class LectureDao {
 		return result;
 	}
 	
-public int enrollTutorInformation (Connection conn, Tutor t) {
-		//to-do:1. 닉네임받아오기. 2. 핸드폰 번호 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+	public int enrollTutorInformation (Connection conn, Tutor t) {
+			//to-do:1. 닉네임받아오기. 2. 핸드폰 번호 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+			PreparedStatement pstmt = null;
+			int result = 0;
+			String sql = prop.getProperty("enrollTutorInformation");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, "화이자");
+				pstmt.setString(2, t.getInsta());
+				pstmt.setString(3, t.getFacebook());
+				pstmt.setString(4, t.getBlog());
+				pstmt.setString(5, t.getTutorMsg());
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			} 
+			return result;
+			
+		}
+	public int enrollCertificateInformation (Connection conn, Certificate c) {
+			//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+			PreparedStatement pstmt=null;
+			int result = 0;
+			String sql=prop.getProperty("enrollCertificateInformation");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "화이자");
+				pstmt.setString(2, c.getCertificateText());
+				pstmt.setString(3, c.getCertificateImg());
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			} 
+			return result;
+		
+		}
+	
+	public int enrollLectureInoformation (Connection conn, Lecture l) {
+		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = prop.getProperty("enrollTutorInformation");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "화이자");
-			pstmt.setString(2, t.getInsta());
-			pstmt.setString(3, t.getFacebook());
-			pstmt.setString(4, t.getBlog());
-			pstmt.setString(5, t.getTutorMsg());
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		} 
-		return result;
-		
-	}
-public int enrollCertificateInformation (Connection conn, Certificate c) {
-		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
-		PreparedStatement pstmt=null;
-		int result = 0;
-		String sql=prop.getProperty("enrollCertificateInformation");
+		String sql = prop.getProperty("enrollLectureInformation");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "화이자");
-			pstmt.setString(2, c.getCertificateText());
-			pstmt.setString(3, c.getCertificateImg());
+			pstmt.setString(2, l.getLectureType());
+			pstmt.setString(3, l.getLectureCategory());
+			pstmt.setString(4, l.getLectureTitle());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -361,106 +407,108 @@ public int enrollCertificateInformation (Connection conn, Certificate c) {
 			close(pstmt);
 		} 
 		return result;
+	}
 	
+	public int enrollLectureImg(Connection conn, LectureImg lImg, String fileNameArray) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollLectureImg");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "화이자");
+			pstmt.setString(2, fileNameArray);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
 	}
-
-public int enrollLectureInoformation (Connection conn, Lecture l) {
-	//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureInformation");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		pstmt.setString(2, l.getLectureType());
-		pstmt.setString(3, l.getLectureCategory());
-		pstmt.setString(4, l.getLectureTitle());
-		result=pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
-	}
-
-public int enrollLectureImg(Connection conn, LectureImg lImg) {
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureImg");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		result=pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
-	}
-
-public int enrollLectureContent(Connection conn, LectureContent lc) {
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureContent");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		pstmt.setString(2, lc.getLectureIntroduce());
-		pstmt.setString(3, lc.getRecommend());
-		pstmt.setString(4, lc.getCurriculum());
-		pstmt.setString(5, lc.getLectureNotice());
-		result = pstmt.executeUpdate();		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
 	
-}
-public List<Lecture> apprLectureList(Connection conn) {
-	PreparedStatement pstmt=null;
-	ResultSet rs= null;
-	List <Lecture> list= new ArrayList();
-	String sql= prop.getProperty("apprLectureList");
-	try {
-		pstmt=conn.prepareStatement(sql);
-		rs=pstmt.executeQuery();
-		while(rs.next()) {
-			Lecture apprLecture= Lecture.builder()
-					.lectureNo(rs.getInt("lecture_No"))
-					.lectureTitle(rs.getString("lecture_Title"))
-					.nickName(rs.getString("nickname"))
-					.confirm(rs.getString("confirm").charAt(0))
-					.build();
-			list.add(apprLecture);
+	public int enrollLectureContent(Connection conn, LectureContent lc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollLectureContent");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "화이자");
+			pstmt.setString(2, lc.getLectureIntroduce());
+			pstmt.setString(3, lc.getRecommend());
+			pstmt.setString(4, lc.getCurriculum());
+			pstmt.setString(5, lc.getLectureNotice());
+			result = pstmt.executeUpdate();		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+	
+	public List<Lecture> apprLectureList(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Lecture> list= new ArrayList();
+		String sql= prop.getProperty("apprLectureList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture apprLecture= Lecture.builder()
+						.lectureNo(rs.getInt("lecture_No"))
+						.lectureTitle(rs.getString("lecture_Title"))
+						.nickName(rs.getString("nickname"))
+						.confirm(rs.getString("confirm").charAt(0))
+						.build();
+				list.add(apprLecture);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
-	}catch(SQLException e) {
-		e.printStackTrace();
-	}finally {
-		close(rs);
-		close(pstmt);
+		return list;
 	}
-	return list;
-}
-public int apprLecture(Connection conn, int lectureNo) {
-	PreparedStatement pstmt=null;
-	int result=0;
-	String sql=prop.getProperty("apprLecture");
-	try {
-		pstmt=conn.prepareStatement(sql);
-		pstmt.setInt(1, lectureNo);
-		result=pstmt.executeUpdate();
+	public int apprLecture(Connection conn, int lectureNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("apprLecture");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int enrollLectureSchedule(Connection conn, LectureSchedule ls, Date onedayClassDate, String onedayClassStartTime, String onedayClassEndTime) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollLectureSchedule");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "화이자");
+			pstmt.setInt(2, ls.getLecturePrice());
+			pstmt.setInt(3, ls.getLecturePersons());
+			pstmt.setString(4, ls.getLectureLocation());
+			pstmt.setString(5, ls.getLectureAddress());
+			pstmt.setDate(6, onedayClassDate);
+			pstmt.setString(7, onedayClassStartTime);
+			pstmt.setString(8, onedayClassEndTime);
+			result = pstmt.executeUpdate();		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+		}
 		
-	}catch(SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
 	}
-	return result;
-}
-	
-	
-}
