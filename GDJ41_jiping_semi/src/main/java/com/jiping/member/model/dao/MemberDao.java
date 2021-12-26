@@ -63,11 +63,10 @@ public class MemberDao {
 				m=Member.builder()
 						.email(rs.getString("email"))
 						.memberGrade(rs.getString("member_grade"))
-						.password(rs.getString("password"))
-						.memberName(rs.getString("member_name"))
-						.gender(rs.getString("gender").charAt(0))
-						.phone(rs.getString("phone"))
-						.marketing(rs.getString("marketing").charAt(0))
+//						.memberName(rs.getString("member_name"))
+//						.gender(rs.getString("gender").charAt(0))
+//						.phone(rs.getString("phone"))
+//						.marketing(rs.getString("marketing").charAt(0))
 						.profileImg(rs.getString("profile_img"))
 						.nickname(rs.getString("nickname"))
 						.build();
@@ -119,7 +118,6 @@ public class MemberDao {
 				m=Member.builder()
 						.email(rs.getString("email"))
 						.memberGrade(rs.getString("member_grade"))
-						.password(rs.getString("password"))
 						.memberName(rs.getString("member_name"))
 						.gender(rs.getString("gender").charAt(0))
 						.phone(rs.getString("phone"))
@@ -127,6 +125,11 @@ public class MemberDao {
 						.profileImg(rs.getString("profile_img"))
 						.nickname(rs.getString("nickname"))
 						.build();
+				if(m.getMemberGrade().equals("수강생")) {										
+					m.setMemberLocation(rs.getString("member_location")==null?"":rs.getString("member_location"));
+					m.setMemberCategory(rs.getString("member_category")==null?"":rs.getString("member_category"));
+					
+				}
 			}
 					
 		}catch(SQLException e) {

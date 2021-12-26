@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="/views/common/header.jsp"%>
- <%
-	
- 
- %>   
-    
+    <%@ include file="/views/common/header.jsp"%>     
+<%
+	Member m=(Member)request.getAttribute("loginMember");
+	System.out.println(m);
+	String[] largeCategory=new String[3]; 
+	if(m.getMemberCategory()!=null){
+		largeCategory=m.getMemberCategory().split(",");
+		for(String c : largeCategory){
+			System.out.println(c);
+		}		
+	}
+%>
 <!-- 수강생 마이페이지 -->    
 <%if(loginMember.getMemberGrade().equals("수강생")){ %>    
 <section id="sectionMargin">
@@ -14,8 +20,8 @@
                   <h3>MY PAGE</h3>
                   <div class="" id="my-menu" >
                       <ul id="menu-list">
-                          <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=loginMember.getEmail()%>">· 나의정보</a></li>
-                          <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=loginMember.getEmail()%>">· 정보수정</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                           <nav class="nav-sub">
                               <li ><a href="">· 마이클래스</a></li>
                               <ul id="sub-menu">
@@ -24,7 +30,7 @@
                                   <li><a>- 수강완료 클래스</a></li>
                               </ul>
                           </nav>
-                          <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=loginMember.getEmail()%>">· 회원탈퇴</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                       </ul>                  
                   </div>
           </div>   
@@ -37,14 +43,14 @@
               <div style="margin-left: 80px;">
               <div class="menu-margin margin-left" id="tutor-img" >
                   <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                  <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/<%=loginMember.getProfileImg()%>"></div>
+                  <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/<%=m.getProfileImg()%>"></div>
               </div>
               <div class="menu-margin margin-left" id="tutor-email" >
                       <div class="info-title inlineblock">
                       	<span class="margin-right menu-list-name">이메일</span>
                       </div>
                       <div class="info-content inlineblock">
-                      	<input type="text" readonly name="" placeholder="<%=loginMember.getEmail()%>" class="placeholder-center" size="25">
+                      	<input type="text" readonly name="" placeholder="<%=m.getEmail()%>" class="placeholder-center" size="25">
                       </div>
               </div>
               <div class="menu-margin margin-left" id="tutor-name">
@@ -52,7 +58,7 @@
                      		<span class="margin-right menu-list-name">이름</span>
                       </div>
                       <div class="info-content inlineblock">
-                      	<input type="text"  readonly name="" placeholder="<%=loginMember.getMemberName()%>" class="placeholder-center" size="25">
+                      	<input type="text"  readonly name="" placeholder="<%=m.getMemberName()%>" class="placeholder-center" size="25">
                       </div>
               </div> 
               <div class="menu-margin margin-left" id="tutor-nick">
@@ -60,18 +66,26 @@
                           <span class="margin-right menu-list-name">닉네임</span>
                       </div>
                       <div class="info-content inlineblock">
-                          <input type="text"  readonly name="" placeholder="<%=loginMember.getNickname()%>" class="placeholder-center " size="25">
+                          <input type="text"  readonly name="" placeholder="<%=m.getNickname()%>" class="placeholder-center " size="25">
                       </div>
               </div> 
               <div class="menu-margin margin-left" id="tutor-phone">
                       <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                       <div class="info-content inlineblock">
-                          <input type="text"  readonly name="" placeholder="<%=loginMember.getPhone() %>" class="placeholder-center" size="25">
+                          <input type="text"  readonly name="" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
                       </div>
               </div> 
               <div class="menu-margin margin-left" id="inter-field">
                   <div class="info-title inlineblock"><span class="margin-right menu-list-name">관심 분야</span></div>
                   <div class="info-content inlineblock" style="vertical-align: middle; line-height: 150px">                           
+                      <%
+                      	String[] smallCategory=new String[6];
+                      		for(int i=0; i<largeCategory.length; i++){
+                      		smallCategory[i]=largeCategory[i].split(" ");
+                      	} 
+                      
+                      %>
+                      
                       <div class="categorydiv flex">
                           <select name="largeCategory" class="form-select" id="largeCategory" >
                               <option value="0" selected="selected">대분류</option>
@@ -213,7 +227,7 @@
               <div class="menu-margin margin-left" id="tutor-gender">
                       <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
                       <div class="info-content inlineblock">
-                      	<%if(loginMember.getGender()=='남') {%>
+                      	<%if(m.getGender()=='남') {%>
                           <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
                           <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
                         <%}else{ %>
@@ -228,13 +242,13 @@
                           </div>
                           <div class="info-content inlineblock"></div>
                           <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
-                          <%if(loginMember.getGender()=='Y'){ %>
+                          <%if(m.getMarketing()=='Y'){ %>
                               <input type="checkbox" name="toggle1" id="toggle1" value="on" onclick="return false;" checked>
                               <label for="toggle1"></label>
                           </div>
                           <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
                           <%}else{ %>
-                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;" checked>
+                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
                               <label for="toggle1"></label>
 	                       </div>
 	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
@@ -254,12 +268,12 @@
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
                             <li><a href="<%=request.getContextPath()%>/member/mypage.do">· 나의정보</a></li>
-                            <li><a href="">· 정보수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do">· 정보수정</a></li>
                             <nav class="nav-sub">
                                 <li ><a href="">· 클래스</a></li>
-                                <ul id="sub-menu">
-                                    <li><a>- 운영중인 클래스</a></li>
-                                    <li><a>- 운영종료 클래스</a></li>
+               	                 <ul id="sub-menu">
+                                    <li><a href="">- 운영중인 클래스</a></li>
+                                    <li><a href="">- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
                             <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
@@ -275,49 +289,60 @@
                 <div style="margin-left: 80px;">
                 <div class="menu-margin margin-left" id="tutor-img" >
                     <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                    <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/김수현.jpg"></div>
+                    <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/<%=m.getProfileImg() %>"></div>
                 </div>
                 <div class="menu-margin margin-left" id="tutor-email" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">이메일</span></div>
-                        <div class="info-content inlineblock"><input type="text" readonly name="" placeholder="prince@naver.com" class="placeholder-center" size="25"></div>
+                        <div class="info-content inlineblock"><input type="text" readonly name="" placeholder="<%=m.getEmail() %>" class="placeholder-center" size="25"></div>
                 </div>
                 <div class="menu-margin margin-left" id="tutor-name">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                        <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="김수현" class="placeholder-center" size="25"></div>
+                        <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
                 </div> 
                 <div class="menu-margin margin-left" id="tutor-nick">
                         <div class="info-title inlineblock">
                             <span class="margin-right menu-list-name">닉네임</span>
                         </div>
                         <div class="info-content inlineblock">
-                            <input type="text"  readonly name="" placeholder="도민준" class="placeholder-center " size="25">
+                            <input type="text"  readonly name="" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
                         </div>
                 </div> 
                 <div class="menu-margin margin-left" id="tutor-phone">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                         <div class="info-content inlineblock">
-                            <input type="text"  readonly name="" placeholder="010-3788-3333" class="placeholder-center" size="25">
+                            <input type="text"  readonly name="" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
                         </div>
                 </div> 
                 <div class="menu-margin margin-left" id="tutor-gender">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
                         <div class="info-content inlineblock">
-                            <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
-                            <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
-                            <!--DB에서 남자면 여자 disabled 여자면 남자 disabled -->
+                        <%if(m.getGender()=='남') {%>
+                          <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                          <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                        <%}else{ %>
+                          <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                          <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                        <%} %>
                         </div>
                 </div> 
-                <div class="menu-margin margin-left flex" id="tutor-marketing" >
-                        <div class="info-title inlineblock">
-                            <span class="margin-right menu-list-name">마케팅 정보수신</span>
-                        </div>
-                        <div class="info-content inlineblock"></div>
-                        <div class="toggle" id="marketingBtn">
-                            <input type="checkbox" name="toggle1" id="toggle1" value="on" onclick="return false;" checked>
-                            <label for="toggle1"></label>
-                        </div>
-                        <div id="onOff"></div>
-                </div>  
+                <div class="menu-margin margin-left" id="tutor-marketing" >
+                          <div class="info-title inlineblock">
+                          		<span class="margin-right menu-list-name">마케팅 정보수신</span>
+                          </div>
+                          <div class="info-content inlineblock"></div>
+                          <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+                          <%if(m.getMarketing()=='Y'){ %>
+                              <input type="checkbox" name="toggle1" id="toggle1" value="on" onclick="return false;" checked>
+                              <label for="toggle1"></label>
+                          </div>
+                          <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%}else{ %>
+                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
+                              <label for="toggle1"></label>
+	                       </div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%} %>
+                  </div>  
                 </div>
                 <div class="line"></div>
             </div>

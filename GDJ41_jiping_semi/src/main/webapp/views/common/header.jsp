@@ -4,7 +4,7 @@
 <%@ page import="com.jiping.member.model.vo.Member" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember"); 
-	System.out.println(loginMember);
+	
 
 %>
 <!DOCTYPE html>
@@ -45,6 +45,7 @@
                         	onclick="location.assign('<%=request.getContextPath()%>/member/loginPage.do');"><span>로그인</span></button>
                         	<%if(loginMember!=null){ %>
                     		<span onclick="location.assign('<%=request.getContextPath() %>/member/mypage.do?email=<%=loginMember.getEmail()%>');">마이페이지</span>
+                    		<span onclick="location.assign('<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>');">로그아웃</span>
                     		<%} %>
                     </div>
                 </div>

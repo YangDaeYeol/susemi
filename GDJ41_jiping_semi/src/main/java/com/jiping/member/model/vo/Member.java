@@ -1,5 +1,7 @@
 package com.jiping.member.model.vo;
 
+import java.sql.Array;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +21,6 @@ public class Member {
 	private char marketing;
 	private String profileImg;
 	private String nickname;
-	private String[] memberLocation;
-	private String[] memberCategory;
+	private String memberLocation;
+	private String memberCategory;
 }

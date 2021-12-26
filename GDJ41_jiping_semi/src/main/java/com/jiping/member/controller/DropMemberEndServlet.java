@@ -37,7 +37,7 @@ public class DropMemberEndServlet extends HttpServlet {
 		if(result>0) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out=response.getWriter();
-			out.println("<script>alert('회원탈퇴가 정상적으로 진행되었습니다. 그 동안 저희 지핑을 이용해주셔서 감사합니다.'); location.href='"
+			out.println("<script>alert('회원탈퇴가 정상적으로 진행되었습니다. \n 그동안 저희 지핑을 이용해주셔서 감사합니다.'); location.href='"
 					+request.getContextPath()+"/';</script>");
 			out.close();
 		}else {

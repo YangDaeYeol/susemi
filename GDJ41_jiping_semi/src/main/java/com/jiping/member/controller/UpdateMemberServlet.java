@@ -1,11 +1,15 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
  * Servlet implementation class UpdateMemberServlet
@@ -26,8 +30,10 @@ public class UpdateMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//if(grade가 수강생이면 memberUpdateUser.jsp로 튜터면 memberUpdateTutor.jsp로 이동 ->일단 유저로 
-		request.getRequestDispatcher("/views/member/memberUpdateUser.jsp").forward(request, response);
+		String email=request.getParameter("email");
+		Member m=new MemberService().selectMember(email);
+		request.setAttribute("loginMember", m);
+		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
 	}
 
 	/**

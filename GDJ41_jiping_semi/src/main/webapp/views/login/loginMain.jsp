@@ -70,7 +70,7 @@
             <div class="pw-container">
                 <span class="loginContent fs_14">비밀번호</span>
                   <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
-                <span class="warningMsg">이메일 또는 비밀번호가 일치하지 않습니다.</span>
+                <!-- <span class="warningMsg">이메일 또는 비밀번호가 일치하지 않습니다.</span> -->
             </div>
         
             <button class="w-100 btn btn-lg btn_mint mb-3" type="submit">로그인</button>
