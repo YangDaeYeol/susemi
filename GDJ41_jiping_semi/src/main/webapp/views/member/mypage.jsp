@@ -10,6 +10,8 @@
 		for(String c : largeCategory){
 			System.out.println(c);
 		}		
+	} else {
+		
 	}
 %>
 <!-- 수강생 마이페이지 -->    

@@ -345,9 +345,7 @@
 
 
 												<div class="classDetailHead">
-													클래스 진행 방식 <span id="classProcedure"
-														style="font-size: 14px; display: none;">진행 날짜, 진행
-														시간을 회차별 커리큘럼과 함께 적어주세요.</span>
+													클래스 진행 방식
 												</div>
 												<div id="classComment3">
 													<textarea cols="58" rows="5" id="classIntroduction3" name="curriculum"
@@ -367,7 +365,7 @@
 													<div id="detailInfoLengthLimit4">(0/500)</div>
 												</div>
 
-												</form>
+												
 												<!-- 클래스 상세 소개 페이지 끝 -->
 											</div>
 											<div style="display: flex;">
@@ -452,6 +450,7 @@
 													</div>
 													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
 														등록됩니다.</div>
+														</form>
 												</div>
 												<!-- 원데이 끝 -->
 												<div id="selectedMultipleClass" style="display: none;">
@@ -732,8 +731,6 @@
         $("input[id='control_02']").change(function () {
             let multi = document.getElementById("selectedMultipleClass");
             multi.style.display = "block";
-            let multi2 = document.getElementById("classProcedure");
-            multi2.style.display = "block";
         });
 
         $("input[id='control_03']").change(function () {
@@ -956,7 +953,7 @@
     </script>
 
 	<script>
-        var chooseNumOfClassStudent = ["인원 선택", "5명", "10명", "15명", "20명", "25명", "30명", "35명", "40명", "45명", "50명"];
+        var chooseNumOfClassStudent = ["5", "10", "15", "20", "25", "30", "35", "40", "45", "50"];
 
         $('document').ready(function () {
            

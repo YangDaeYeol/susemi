@@ -1,13 +1,12 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,15 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.jiping.common.FileRename;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
+import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
@@ -33,11 +30,11 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class EnrollLectureServlet
  */
 @WebServlet("/lecture/enrolllecture.do")
-//@MultipartConfig(
-//		fileSizeThreshold=1024*1024*10, 	// 10 MB 
-//		maxFileSize=1024*1024*50,      	// 50 MB
-//		maxRequestSize=1024*1024*100
-//		)  
+@MultipartConfig(
+		fileSizeThreshold=1024*1024*10, 	// 10 MB 
+		maxFileSize=1024*1024*50,      	// 50 MB
+		maxRequestSize=1024*1024*100
+		)  
 public class EnrollLectureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -196,12 +193,13 @@ public class EnrollLectureServlet extends HttpServlet {
 					lecture.put("lecture", l);
 					
 					Enumeration<String> e=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
-		
+//					
+//					List<String> classImgFiles = new ArrayList<>();
 					String classImgFiles = "";
 					while(e.hasMoreElements()) {
 						String fileName = e.nextElement(); 
 						if(fileName.startsWith("upfile")) {
-							classImgFiles += ((mr.getFilesystemName(fileName))+",");
+							classImgFiles += (mr.getFilesystemName(fileName)) + ",";
 						}
 					}
 					
@@ -231,47 +229,74 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					
 					String[] onedayClassDateTemp = new String[10];
-					String[] onedayClassStartTimeTemp = new String[10];
-					String[] onedayClassEndTimeTemp = new String[10];
+					String[] onedayClassStartTime = new String[10];
+					String[] onedayClassEndTime = new String[10];
 					int onedayClassPrice = 0;
 					
-					String onedayClassDate = null;
-					String onedayClassStartTime = null;
-					String onedayClassEndTime = null;
-					if (oneday != null) {//원데이 선택했을경우의 분기문
+					Date[] onedayClassDate = new Date[10];
+//					String onedayClassStartTime = null;
+//					String onedayClassEndTime = null;
+					
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+						if (oneday != null) {//원데이 선택했을경우의 분기문
 						
 						for (int i = 0; i < 10; i++) {
 							onedayClassDateTemp[i] = mr.getParameter("classDate" + i);
-							onedayClassStartTimeTemp[i] = mr.getParameter("startTime" + i);
-							onedayClassEndTimeTemp[i] = mr.getParameter("endTime" + i);
+							onedayClassStartTime[i] = mr.getParameter("startTime" + i);
+							onedayClassEndTime[i] = mr.getParameter("endTime" + i);
 							}
+						for (int i = 0; i < 10; i++) {
+							if (onedayClassDateTemp[i]!=null) {
+								onedayClassDate[i] = Date.valueOf(onedayClassDateTemp[i]);
+							}
+							
+						}
+
+						
+						
+						lecture.put("onedayClassDate", onedayClassDate);
 						
 						onedayClassPrice = Integer.parseInt(mr.getParameter("onedayClassPrice"));
+//						
+////						String배열을 String으로 처리
+//						for (int i = 0; i < 10; i++) {
+//							onedayClassDate += onedayClassDateTemp[i] + ",";
+//							onedayClassStartTime += onedayClassStartTimeTemp[i] + ",";
+//							onedayClassEndTime += onedayClassEndTimeTemp[i] + ",";
+//						}
+//						
+//
+////						null값이 있을경우에 null없애기
+//						if (onedayClassDate.contains("null")) {
+//							onedayClassDate.replaceAll("null", "");
+//							onedayClassStartTime.replaceAll("null", "");
+//						}
 						
-//						String배열을 String으로 처리
-						for (int i = 0; i < 10; i++) {
-							onedayClassDate += onedayClassDateTemp[i] + ",";
-							onedayClassStartTime += onedayClassStartTimeTemp[i] + ",";
-							onedayClassEndTime += onedayClassEndTimeTemp[i] + ",";
-						}
 						
-//						마지막 문자열의 , 제거
-						onedayClassDate = onedayClassDate.substring(0, onedayClassDate.length()-1);
-						onedayClassStartTime = onedayClassStartTime.substring(0, onedayClassStartTime.length()-1);
-						onedayClassEndTime = onedayClassEndTime.substring(0, onedayClassEndTime.length()-1);
-						
-//						null값이 있을경우에 null없애기
-						if (onedayClassDate.contains("null")) {
-							onedayClassDate.replaceAll("null", "");
-							onedayClassStartTime.replaceAll("null", "");
-						}
-						
+////						마지막 문자열의 , 제거
+//						onedayClassDate = onedayClassDate.substring(0, onedayClassDate.length()-1);
+//						onedayClassStartTime = onedayClassStartTime.substring(0, onedayClassStartTime.length()-1);
+//						onedayClassEndTime = onedayClassEndTime.substring(0, onedayClassEndTime.length()-1);
+//						
 						String temp1 = mr.getParameter("sido1");
 						String temp2 = mr.getParameter("gugun1");
 						String location = temp1 + " " + temp2;
 						String address = mr.getParameter("address1");
 						
 						int numOfStu = Integer.parseInt(mr.getParameter("peopleNum2"));
+						
+						LectureSchedule ls = LectureSchedule.builder()
+								.lecturePrice(onedayClassPrice)
+								.lecturePersons(numOfStu)
+								.lectureLocation(location)
+								.lectureAddress(address)
+								.build();
+						
+						lecture.put("LectureSchedule", ls);
+						lecture.put("onedayClassStartTime", onedayClassStartTime);
+						lecture.put("onedayClassEndTime", onedayClassEndTime);
+						
 						
 						
 						
@@ -294,7 +319,15 @@ public class EnrollLectureServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			doGet(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

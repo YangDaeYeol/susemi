@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LectureImg {
 	
-	private int lectureNo;
+	private	int lectureNo;
 	private String lectureFileName;
 	
 }
