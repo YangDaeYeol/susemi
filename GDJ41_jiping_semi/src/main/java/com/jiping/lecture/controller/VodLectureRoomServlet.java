@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.VodLecture;
 
 /**
@@ -35,9 +36,11 @@ public class VodLectureRoomServlet extends HttpServlet {
 		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
 		Lecture le= new LectureService().lectureInfo(lectureNo);
 		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
+		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
 		
 		request.setAttribute("le", le);
 		request.setAttribute("vodList", vodList);
+		request.setAttribute("imgList", imgList);
 		request.getRequestDispatcher("/views/lecture/vodLectureRoom.jsp").forward(request, response);
 	}
 

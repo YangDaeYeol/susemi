@@ -31,8 +31,57 @@
                 <!-- <iframe width="100%" height="600px" src="https://www.youtube.com/embed/ltaDbuOl29E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
         </div>
+
+        <!-- https://getbootstrap.com/docs/5.1/components/list-group/ -->
+        <div id="right" class="col">
+            <p>
+                수강진도율 : 1강/10강(10%)
+            </p>
+            <div class="list-group">
+           <%for(int i=0; i<list.size(); i++) { %> 
+                <div class="list-group-item list-group-item-action" style="display:inline;">
+                	<div class="schedule-text">
+	                    <!-- <img src="img/js_unchecked.png" alt="" class="checkicon">  -->
+	                    <img src="<%=request.getContextPath() %>/img/js_unchecked.png" alt="" class="checkicon"> 
+		                <span class="vod-content" style="display:none"><%=list.get(i).getVodContent() %></span>
+	                    <span class="vod-name"> <%=i+1%>강. <%=list.get(i).getVodTitle() %></span>
+	                    <input type="hidden" id="vod-url" value="<%=list.get(i).getVodUrl() %>">
+                    </div>
+                </div>
+               <%} %> 
+              </div>
+        </div>
+    </div>
+    <div id="review" class="row-1" style="display: inline;">
+        <div>
+            <span id="vodlist-title">1강. <%=list.get(0).getVodTitle() %></span>
+        </div>
+        <div>
+            <span id="vodlist-content"><%=list.get(0).getVodContent() %></span>
+        </div>
+        <div class="btn-group" style="float: right;">
+            <a href="#" class="btn btn-primary btn-basic">이전강의</a>
+            <a href="#" class="btn btn-primary btn-basic">다음강의</a>
+        </div> 
+    </div>
+</div>
+
 <script>
+ 	let vodTitle;
+  	let content;
+	let temp="<%=list.get(0).getVodUrl()%>";
+	$(".list-group-item").click(e => {
+		vodTitle=$(e.target).find("span[class=vod-name]").clone();
+		content=$(e.target).find("span[class=vod-content]").clone();
+		temp=$("#vod-url").val();
+		
+		content.css("display","block");
+ 		$("#vodlist-title").html(vodTitle);
+		$("#vodlist-content").html(content);
+		$("#left").find("iframe").attr("src","https://www.youtube.com/embed/"+temp);
+	});
        var tag = document.createElement('script');
+       
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -41,7 +90,7 @@
                 player = new YT.Player('player', {
                     width:'100%',
                     height:'600px',
-                    videoId: 'MhLcEITuMZo',
+                    videoId: temp,
                     events: {
                         'onReady': onPlayerReady,
                         'onStateChange':checkPlayerState
@@ -59,37 +108,6 @@
                 }
             }            
 </script>
-
-        <!-- https://getbootstrap.com/docs/5.1/components/list-group/ -->
-        <div id="right" class="col">
-            <p>
-                수강진도율 : 1강/10강(10%)
-            </p>
-            <div class="list-group">
-            <%for(VodLecture vl:list) { %>
-                <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
-                    <!-- <img src="img/js_unchecked.png" alt="" class="checkicon">  -->
-                    <img src="img/js_checked.png" alt="" class="checkicon"> 
-                    <span class="vod-name"> 1강. <%=vl.getVodTitle() %></span>
-                </a>
-                <%} %>
-              </div>
-        </div>
-    </div>
-    <div id="review" class="row-1" style="display: inline;">
-        <div>
-            <span id="vodlist-title">1강 어쩌구</span>
-        </div>
-        <div>
-            <span>강의설명 이 강의는 자바에 대한 기초를 ...</span>
-        </div>
-        <div class="btn-group" style="float: right;">
-            <a href="#" class="btn btn-primary btn-basic">이전강의</a>
-            <a href="#" class="btn btn-primary btn-basic">다음강의</a>
-        </div> 
-    </div>
-</div>
-
 </section>
 
 </body>
