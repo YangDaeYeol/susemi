@@ -2,13 +2,14 @@ package com.jiping.lecture.model.sevice;
 
 import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.commit;
-import static com.jiping.common.JDBCTemplate.rollback;
 import static com.jiping.common.JDBCTemplate.getConnection;
+import static com.jiping.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.util.List;
 
+import java.sql.Date;
+
+import java.util.List;
 import java.util.Map;
 
 import com.jiping.lecture.model.dao.LectureDao;
@@ -16,10 +17,9 @@ import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
-
 import com.jiping.lecture.model.vo.VodLecture;
-
 import com.jiping.member.model.vo.Member;
+import com.jiping.payment.model.vo.Payment;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 
@@ -82,6 +82,37 @@ public class LectureService {
 		close(conn);
 		return vodList;
 	}
+	
+	public Member tutorImg(int lectureNo) {
+		Connection conn=getConnection();
+		Member m= dao.tutorImg(conn, lectureNo);
+		close(conn);
+		return m;
+	}
+	
+	public List<Certificate> certificate(int lectureNo){
+		Connection conn=getConnection();
+		List<Certificate> c= dao.certificate(conn, lectureNo);
+		close(conn);
+		return c;
+	}
+	
+	public VodLecture selectTitleVod(String vodTitle, int lectureNo) {
+		Connection conn=getConnection();
+		VodLecture v= dao.selectTitleVod(conn, vodTitle, lectureNo);
+		close(conn);
+		return v;
+	}
+	
+	public List<Payment> payment(int lectureNo){
+		Connection conn=getConnection();
+		List<Payment> p= dao.payment(conn, lectureNo);
+		close(conn);
+		return p;
+	}
+	
+	
+//	-----------------------------------------------------------
 	
 	public int enrollLecture(Map lecture) {
 		Connection conn = getConnection();

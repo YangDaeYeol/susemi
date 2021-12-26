@@ -1,31 +1,26 @@
-package com.jiping.lecture.controller;
+package com.jiping.member.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
- * Servlet implementation class LectureScheduleServlet
+ * Servlet implementation class TutorEndClassServlet
  */
-@WebServlet("/lecture/scheduleInfo.do")
-public class LectureScheduleServlet extends HttpServlet {
+@WebServlet("/member/tutorEndClass.do")
+public class TutorEndClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LectureScheduleServlet() {
+    public TutorEndClassServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,15 +29,10 @@ public class LectureScheduleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
-		System.out.println("scheduleNo :"+scheduleNo);
-		LectureSchedule sc= new LectureService().scheduleSelectList(scheduleNo);
-		
-		new Gson().toJson(sc,response.getWriter());
-		
-		
-	
+		String email=request.getParameter("email");
+		Member m=new MemberService().selectMember(email);
+		request.setAttribute("loginMember", m);
+		request.getRequestDispatcher("/views/member/myClassEndTutor.jsp").forward(request, response);
 	}
 
 	/**

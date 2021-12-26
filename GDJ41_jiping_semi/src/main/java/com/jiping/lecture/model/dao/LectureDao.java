@@ -19,6 +19,7 @@ import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Member;
+import com.jiping.payment.model.vo.Payment;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 
@@ -185,7 +186,6 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return list;
-		
 	}
 	
 	public Tutor tutorInfo(Connection conn, int num) {
@@ -208,7 +208,6 @@ public class LectureDao {
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println("dao:"+tutor);
 		return tutor;
 	}
 	
@@ -235,6 +234,101 @@ public class LectureDao {
 		}
 		return list;
 	}
+	
+	public Member tutorImg(Connection conn, int num) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		Member m=null;
+		String sql=prop.getProperty("selectTutorImg");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m= Member.builder()
+						.nickname(rs.getString("nickname"))
+						.profileImg(rs.getString("profile_img")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	public List<Certificate> certificate(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Certificate> list= new ArrayList();
+		String sql= prop.getProperty("certificateList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Certificate c= Certificate.builder()
+						.certificateText(rs.getString("certificate_text")).build();
+				list.add(c);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public VodLecture selectTitleVod(Connection conn, String title, int lectureNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null; 
+		VodLecture v=null;
+		String sql=prop.getProperty("selectTitleVod");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setInt(2, lectureNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				v= VodLecture.builder()
+						.vodContent(rs.getString("vod_content")).build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return v;
+	}
+	
+	public List<Payment> payment(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Payment> list= new ArrayList();
+		String sql= prop.getProperty("selectPayment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Payment p= Payment.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.email(rs.getString("email")).build();
+				list.add(p);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+//	----------------------------------------------------------------
 	
 	public int enrollTutorImage (Connection conn, Member m) {
 		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 

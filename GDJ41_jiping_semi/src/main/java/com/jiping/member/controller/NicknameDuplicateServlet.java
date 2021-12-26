@@ -1,7 +1,6 @@
-package com.jiping.lecture.controller;
+package com.jiping.member.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.Lecture;
-import com.jiping.lecture.model.vo.LectureImg;
-import com.jiping.lecture.model.vo.VodLecture;
+import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
- * Servlet implementation class VodServlet
+ * Servlet implementation class NicknameDuplicateServlet
  */
-@WebServlet("/lecture/vodroom.do")
-public class VodLectureRoomServlet extends HttpServlet {
+@WebServlet("/member/nicknameDuplicate.do")
+public class NicknameDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VodLectureRoomServlet() {
+    public NicknameDuplicateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +30,14 @@ public class VodLectureRoomServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
-		Lecture le= new LectureService().lectureInfo(lectureNo);
-		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
-		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
+		String newNick = request.getParameter("newNick");
+		System.out.println(newNick);
 		
-		request.setAttribute("le", le);
-		request.setAttribute("vodList", vodList);
-		request.setAttribute("imgList", imgList);
-		request.getRequestDispatcher("/views/lecture/vodLectureRoom.jsp").forward(request, response);
+		Member m=new MemberService().nicknameDuplicateCheck(newNick);
+		request.setAttribute("nickCheckMember", m);
+		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

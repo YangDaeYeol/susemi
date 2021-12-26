@@ -9,22 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
 import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.Lecture;
-import com.jiping.lecture.model.vo.LectureImg;
-import com.jiping.lecture.model.vo.VodLecture;
+import com.jiping.lecture.model.vo.LectureSchedule;
 
 /**
- * Servlet implementation class VodServlet
+ * Servlet implementation class LectureScheduleServlet
  */
-@WebServlet("/lecture/vodroom.do")
-public class VodLectureRoomServlet extends HttpServlet {
+@WebServlet("/lecture/scheduleInfo.do")
+public class LectureScheduleAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VodLectureRoomServlet() {
+    public LectureScheduleAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +34,13 @@ public class VodLectureRoomServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
-		Lecture le= new LectureService().lectureInfo(lectureNo);
-		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
-		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
+
+		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
+		System.out.println("scheduleNo :"+scheduleNo);
+		LectureSchedule sc= new LectureService().scheduleSelectList(scheduleNo);
 		
-		request.setAttribute("le", le);
-		request.setAttribute("vodList", vodList);
-		request.setAttribute("imgList", imgList);
-		request.getRequestDispatcher("/views/lecture/vodLectureRoom.jsp").forward(request, response);
+		new Gson().toJson(sc,response.getWriter());
+		
 	}
 
 	/**

@@ -3,29 +3,64 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	Member m=(Member)request.getAttribute("loginMember");
+	Member checkM=(Member)request.getAttribute("nickCheckMember");
+	/* System.out.println(m); */
 
+	/* 관심분야 */
+	String[] categories=new String[3];
+	String[] largeCategories=new String[3];
+	String[] smallCategories=new String[3];
+	
+	/* if(m.getMemberGrade().equals("수강생") && m.getMemberCategory()!=null){
+		categories=m.getMemberCategory().split(",");
+	}
+	for(int i=0; i<categories.length; i++){
+		largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
+		smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
+		
+		System.out.println(largeCategories[i]);
+		System.out.println(smallCategories[i]);
+		
+	} */
+	/* 관심지역 */
+	String[] categories2=new String[3];
+	String[] largeCategories2=new String[3];
+	String[] smallCategories2=new String[3];
+	
+	/* if(m.getMemberGrade().equals("수강생") && m.getMemberLocation()!=null){
+		categories2=m.getMemberLocation().split(",");
+	}
+	for(int i=0; i<categories2.length; i++){
+		largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
+		smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
+		
+		System.out.println(largeCategories2[i]);
+		System.out.println(smallCategories2[i]);
+	
+	} */
 %>
-<%if(loginMember.getMemberGrade().equals("수강생")){ %>
+<%if(m.getMemberGrade().equals("수강생")){ %>
 <section>
         <div id="mypage-container" class="flex">
             <div class="inlineblock overflow" id="mypage-menu">          
                     <h3>MY PAGE</h3>
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
-                            <li><a href="<%=request.getContextPath()%>/member/mypage.do">· 나의정보</a></li>
-                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do">· 정보수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                             <nav class="nav-sub">
-                                <li ><a href="">· 마이클래스</a></li>
+                                <li >· 마이클래스</li>
                                 <ul id="sub-menu">
-                                    <li><a>- 수강중인 클래스</a></li>
-                                    <li><a>- 찜한 클래스</a></li>
-                                    <li><a>- 수강완료 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/myclassHeart.do?email=<%=m.getEmail()%>">- 찜한 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                         </ul>                  
                     </div>
             </div>   
+           <form id="userUpdateFrm" action="" method="post" action="<%= %>">
             <div id="mypage-content" class="inlineblock">
                 <div class="">
                     <img id="info-icon" src="<%=request.getContextPath() %>/img/setting.png" width="20px" height="20px" class="inlineblock" style="margin-bottom: 10px;">
@@ -35,9 +70,9 @@
                 <div style="margin-left: 80px;">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock"><img src="<%=request.getContextPath() %>/img/김수현.jpg"></div>
+                        <div class="info-content inlineblock"><img id="deleteImg" src="<%=request.getContextPath() %>/img/<%=m.getProfileImg()%>"></div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
-                            <input type="button" value="기본이미지">
+                            <input type="button" value="기본이미지" onclick="deleteImg();">
                             <input type="file" name="" id="" value="파일 선택" class="" width="">
                         </div>
                     </div>
@@ -46,7 +81,7 @@
                                 <span class="margin-right menu-list-name">이메일</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" readonly name="" placeholder="prince@naver.com" class="placeholder-center" size="25">
+                                <input type="text" readonly name="" placeholder="<%=m.getEmail() %>" class="placeholder-center" size="25">
                             </div>
                             <div class="inlineblock">
                                 <p class="guide">※ 아이디는 변경이 불가능합니다.</p>
@@ -54,8 +89,8 @@
                     </div>
                     <div class="menu-margin margin-left" id="tutor-name">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="김수현" class="placeholder-center" size="25"></div>
-                    </div>
+                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
+                    </div>					                   
                     <div class="menu-margin margin-left" id="tutor-beforePw">
                         <div class="info-title inlineblock">
                             <span class="margin-right menu-list-name">현재 비밀번호</span>
@@ -85,13 +120,14 @@
                         <div class="inlineblock">
                             <button onclick="" style="margin-left: 10px;">비밀번호 확인</button>
                         </div>
+                       
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-nick">
                             <div class="info-title inlineblock">
                                 <span class="margin-right menu-list-name">닉네임</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="도민준" class="placeholder-center " size="25">
+                                <input type="text" name="" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
                             </div>
                             <div class="inlineblock">
                                 <button onclick="" style="margin-left: 10px;">닉네임 중복 확인</button>
@@ -100,7 +136,7 @@
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="010-3788-3333" class="placeholder-center" size="25">
+                                <input type="text" name="" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
                             </div>
                     </div>
                     <div class="menu-margin margin-left" id="inter-field">
@@ -247,32 +283,43 @@
                         </div>
                 </div>  
                     <div class="menu-margin margin-left" id="tutor-gender">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
-                            <div class="info-content inlineblock">
-                                <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
-                                <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
-                                <!--DB에서 남자면 여자 disabled 여자면 남자 disabled -->
-                            </div>
+                        <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
+                        <div class="info-content inlineblock">
+                        <%if(m.getGender()=='남') {%>
+                          <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                          <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                        <%}else{ %>
+                          <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                          <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                        <%} %>
+                        </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-marketing" >
-                            <div class="info-title inlineblock">
-                                <span class="margin-right menu-list-name">마케팅 정보수신</span>
-                            </div>
-                            <div class="info-content inlineblock"></div>
-                            <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
-                                <input type="checkbox" name="toggle1" id="toggle1" value="on" >
-                                <label for="toggle1"></label>
-                            </div>
-                            <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
-                            <div class="inlineblock">
-                                <span class="guide" id="marketingInfo">※ 수신 동의 설정 시 다양한 이벤트 및 혜택 정보를 제공받을 수 있습니다.</span>
-                            </div>
-                    </div>  
+                          <div class="info-title inlineblock">
+                          		<span class="margin-right menu-list-name">마케팅 정보수신</span>
+                          </div>
+                          <div class="info-content inlineblock"></div>
+                          <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+                          <%if(m.getMarketing()=='Y'){ %>
+                              <input type="checkbox" name="toggle1" id="toggle1" value="on"  checked>
+                              <label for="toggle1"></label>
+                          </div>
+                          <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%}else{ %>
+                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" >
+                              <label for="toggle1"></label>
+	                       </div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%} %>
+                    </div>
+                     
                 </div>
+                
                 <div class="line"></div>
                 <div id="save-info">
-                    <button onclick="" id="saveBtn">저장하기</button>
+                    <button onclick="updateMember();" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
                 </div>
+                </form>
             </div>
         </div>
     </section>
@@ -284,16 +331,16 @@
                     <h3>MY PAGE</h3>
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
-                            <li><a href="">· 나의정보</a></li>
-                            <li><a href="">· 정보수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                             <nav class="nav-sub">
-                                <li ><a href="">· 클래스</a></li>
-                                <ul id="sub-menu">
-                                    <li><a>- 운영중인 클래스</a></li>
-                                    <li><a>- 운영종료 클래스</a></li>
+                                <li >· 클래스</li>
+               	                 <ul id="sub-menu">
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=?<%=m.getEmail()%>">- 운영중인 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=?<%=m.getEmail()%>">- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="">· 회원탈퇴</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                         </ul>                  
                     </div>
             </div>   
@@ -306,9 +353,9 @@
                 <div style="margin-left: 80px;">
                 <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock"><img src=" <%=request.getContextPath() %>/img/김수현.jpg"></div>
+                        <div class="info-content inlineblock"><img id="deleteImg" src=" <%=request.getContextPath() %>/img/<%=m.getProfileImg() %>"></div>
                         <div class="inlineblock" style="margin-left: 10px;" id="uploadBtn-tutor">
-                            <input type="button" value="기본이미지">
+                            <input type="button" value="기본이미지" onclick="deleteImg();">
                             <input type="file" name="" id="" value="파일 선택" class="" width="">
                         </div>
                     </div>
@@ -317,7 +364,7 @@
                                 <span class="margin-right menu-list-name">이메일</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" readonly name="" placeholder="prince@naver.com" class="placeholder-center" size="25">
+                                <input type="text" readonly name="" placeholder="<%=m.getEmail()%>" class="placeholder-center" size="25">
                             </div>
                             <div class="inlineblock">
                                 <p class="guide">※ 아이디는 변경이 불가능합니다.</p>
@@ -325,7 +372,7 @@
                     </div>
                     <div class="menu-margin margin-left" id="tutor-name">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="김수현" class="placeholder-center" size="25"></div>
+                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
                     </div>
                     <div class="menu-margin margin-left" id="tutor-beforePw">
                         <div class="info-title inlineblock">
@@ -362,16 +409,35 @@
                             <span class="margin-right menu-list-name">닉네임</span>
                         </div>
                         <div class="info-content inlineblock">
-                            <input type="text" name="" placeholder="도민준" class="placeholder-center " size="25">
+                            <input id="newnickname" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
                         </div>
                         <div class="inlineblock">
-                            <button onclick="" style="margin-left: 10px;">닉네임 중복확인</button>
+                            <button id="nicknameDuplicate" style="margin-left: 10px;">닉네임 중복확인</button>
                         </div>
+                        <script>
+                        	$("#nicknameDuplicate").click(e=>{
+                        		const newNick=$(".newNick").val();
+                        		location.assign("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNick=newNick");
+                        		if(checkM==null){
+                        			alert('사용 가능한 닉네임입니다.');
+                        			$("#newnickname").focus();
+                        			
+                        		}else{
+                        			alert('이미 사용중인 닉네임입니다.');	
+                        			$("#newnickname").empty();
+                        		}
+                        		
+                        	});
+                        	
+                        		
+                        	
+                        
+                        </script>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="010-3788-3333" class="placeholder-center" size="25">
+                                <input type="text" name="" placeholder="<%=m.getPhone()%>" class="placeholder-center" size="25">
                             </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-gender">
@@ -382,24 +448,28 @@
                                 <!--DB에서 남자면 여자 disabled 여자면 남자 disabled -->
                             </div>
                     </div> 
-                    <div class="menu-margin margin-left flex" id="tutor-marketing" >
-                            <div class="info-title inlineblock">
-                                <span class="margin-right menu-list-name">마케팅 정보수신</span>
-                            </div>
-                            <div class="info-content inlineblock"></div>
-                            <div class="toggle" id="marketingBtn">
-                                <input type="checkbox" name="toggle1" id="toggle1" value="on">
-                                <label for="toggle1"></label>
-                            </div>
-                            <div id="onOff"></div>
-                            <div class="inlineblock">
-                                <span class="guide" id="marketingInfo">※ 수신 동의 설정 시 다양한 이벤트 및 혜택 정보를 제공받을 수 있습니다.</span>
-                            </div>
+                    <div class="menu-margin margin-left" id="tutor-marketing" >
+                          <div class="info-title inlineblock">
+                          		<span class="margin-right menu-list-name">마케팅 정보수신</span>
+                          </div>
+                          <div class="info-content inlineblock"></div>
+                          <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+                          <%if(m.getMarketing()=='Y'){ %>
+                              <input type="checkbox" name="toggle1" id="toggle1" value="on"  checked>
+                              <label for="toggle1"></label>
+                          </div>
+                          <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%}else{ %>
+                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" >
+                              <label for="toggle1"></label>
+	                       </div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                          <%} %>
                     </div>  
                 </div>
                 <div class="line"></div>
                 <div id="save-info">
-                    <button onclick="" id="saveBtn">저장하기</button>
+                    <button onclick="updateMember();" id="saveBtn">저장하기</button>
                 </div>
             </div>
         </div>
@@ -408,220 +478,226 @@
 
 <%@ include file="/views/common/footer.jsp"%>
  <script>
-    	 // 마이클래스 서브메뉴!!
-        $("#sub-menu").hide();
-        $(".nav-sub").mouseenter(e=>{
-            $("#sub-menu").show();
-        })  
-        $(".nav-sub").mouseleave(e=>{
-            $("#sub-menu").hide();
-        });
-        
-        const check=document.getElementById("toggle1");
-    	if(check.checked){
-    	        $("#onOff").html("on").css({"color":"#94D5DE","font-size":"15px", "font-weight":"bold"});
-    	    }else{
-    	        $("#onOff").html("off").css({"color":"black","font-size":"15px", "font-weight":"bold"});
-    	    }
-    	$("#toggle1").click(e=>{
-    	    if(check.checked){
-    	        $("#onOff").html("on").css({"color":"#94D5DE","font-size":"15px", "font-weight":"bold"});
-    	    }else{
-    	        $("#onOff").html("off").css({"color":"black","font-size":"15px", "font-weight":"bold"});
-    	    }
-    	});
-      //주소 api
-        $(function(){
-           $.ajax({
-              type: "get",
-              url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
-              async: false,
-              dataType: 'jsonp',
-              success: function(data) {
-                 let html = "<option>선택</option>";
+ 
+ 	/* 기본이미지로 변경 */
+	const deleteImg=()=>{
+		$("#deleteImg").attr("src","<%=request.getContextPath()%>/img/userimg.png");
+	} 
+ 	
+	// 마이클래스 서브메뉴!!
+   $("#sub-menu").hide();
+   $(".nav-sub").mouseenter(e=>{
+       $("#sub-menu").show();
+   })  
+   $(".nav-sub").mouseleave(e=>{
+       $("#sub-menu").hide();
+   });
+   
+   const check=document.getElementById("toggle1");
+	if(check.checked){
+	        $("#onOff").html("on").css({"color":"#94D5DE","font-size":"15px", "font-weight":"bold"});
+	    }else{
+	        $("#onOff").html("off").css({"color":"black","font-size":"15px", "font-weight":"bold"});
+	    }
+	$("#toggle1").click(e=>{
+	    if(check.checked){
+	        $("#onOff").html("on").css({"color":"#94D5DE","font-size":"15px", "font-weight":"bold"});
+	    }else{
+	        $("#onOff").html("off").css({"color":"black","font-size":"15px", "font-weight":"bold"});
+	    }
+	});
+ //주소 api
+   $(function(){
+      $.ajax({
+         type: "get",
+         url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
+         async: false,
+         dataType: 'jsonp',
+         success: function(data) {
+            let html = "<option>선택</option>";
 
-                 data.response.result.featureCollection.features.forEach(function(f){
-                    console.log(f.properties)
-                    let 행정구역코드 = f.properties.ctprvn_cd;
-                    let 행정구역명 = f.properties.ctp_kor_nm;
-                    
-                    html +="<option value='"+f.properties.ctprvn_cd+"'>"+f.properties.ctp_kor_nm+"</option>"
-                    
-                 })
-                 
-                    $('#sido_code').html(html);
-                 $('#sido_code2').html(html);
-                    $('#sido_code3').html(html);
-                 
-              },
-              error: function(xhr, stat, err) {}
-           });
-           
-           
-           $(document).on("change","#sido_code",function(){
-              let thisVal = $(this).val();      
+            data.response.result.featureCollection.features.forEach(function(f){
+               console.log(f.properties)
+               let 행정구역코드 = f.properties.ctprvn_cd;
+               let 행정구역명 = f.properties.ctp_kor_nm;
+               
+               html +="<option value='"+f.properties.ctprvn_cd+"'>"+f.properties.ctp_kor_nm+"</option>"
+               
+            })
+            
+               $('#sido_code').html(html);
+            $('#sido_code2').html(html);
+               $('#sido_code3').html(html);
+            
+         },
+         error: function(xhr, stat, err) {}
+      });
+      
+      
+      $(document).on("change","#sido_code",function(){
+         let thisVal = $(this).val();      
 
-              $.ajax({
-                 type: "get",
-                 url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-                 data : {attrfilter : 'sig_cd:like:'+thisVal},
-                 async: false,
-                 dataType: 'jsonp',
-                 success: function(data) {
-                    let html = "<option>선택</option>";
+         $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+            data : {attrfilter : 'sig_cd:like:'+thisVal},
+            async: false,
+            dataType: 'jsonp',
+            success: function(data) {
+               let html = "<option>선택</option>";
 
-                    data.response.result.featureCollection.features.forEach(function(f){
-                       console.log(f.properties)
-                       let 행정구역코드 = f.properties.sig_cd;
-                       let 행정구역명 = f.properties.sig_kor_nm;
-                       
-                       html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
-                       
-                    })
-                       $('#sigoon_code').html(html);
-                    
-                 },
-                 error: function(xhr, stat, err) {}
-              });
-           });
-           
-           $(document).on("change","#sigoon_code",function(){ 
-              
-              let thisVal = $(this).val();      
+               data.response.result.featureCollection.features.forEach(function(f){
+                  console.log(f.properties)
+                  let 행정구역코드 = f.properties.sig_cd;
+                  let 행정구역명 = f.properties.sig_kor_nm;
+                  
+                  html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
+                  
+               })
+                  $('#sigoon_code').html(html);
+               
+            },
+            error: function(xhr, stat, err) {}
+         });
+      });
+      
+      $(document).on("change","#sigoon_code",function(){ 
+         
+         let thisVal = $(this).val();      
 
-              $.ajax({
-                 type: "get",
-                 url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
-                 data : {attrfilter : 'emd_cd:like:'+thisVal},
-                 async: false,
-                 dataType: 'jsonp',
-                 success: function(data) {
-                    let html = "<option>선택</option>";
+         $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+            data : {attrfilter : 'emd_cd:like:'+thisVal},
+            async: false,
+            dataType: 'jsonp',
+            success: function(data) {
+               let html = "<option>선택</option>";
 
-                    data.response.result.featureCollection.features.forEach(function(f){
-                       console.log(f.properties)
-                       let 행정구역코드 = f.properties.emd_cd;
-                       let 행정구역명 = f.properties.emd_kor_nm;
-                       html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
-                       
-                    })
-                       $('#dong_code').html(html);
-                    
-                 },
-                 error: function(xhr, stat, err) {}
-              });
+               data.response.result.featureCollection.features.forEach(function(f){
+                  console.log(f.properties)
+                  let 행정구역코드 = f.properties.emd_cd;
+                  let 행정구역명 = f.properties.emd_kor_nm;
+                  html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
+                  
+               })
+                  $('#dong_code').html(html);
+               
+            },
+            error: function(xhr, stat, err) {}
+         });
 
-           });
+      });
 
-           $(document).on("change","#sido_code2",function(){
-              let thisVal = $(this).val();      
+      $(document).on("change","#sido_code2",function(){
+         let thisVal = $(this).val();      
 
-              $.ajax({
-                 type: "get",
-                 url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-                 data : {attrfilter : 'sig_cd:like:'+thisVal},
-                 async: false,
-                 dataType: 'jsonp',
-                 success: function(data) {
-                    let html = "<option>선택</option>";
+         $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+            data : {attrfilter : 'sig_cd:like:'+thisVal},
+            async: false,
+            dataType: 'jsonp',
+            success: function(data) {
+               let html = "<option>선택</option>";
 
-                    data.response.result.featureCollection.features.forEach(function(f){
-                       console.log(f.properties)
-                       let 행정구역코드 = f.properties.sig_cd;
-                       let 행정구역명 = f.properties.sig_kor_nm;
-                       
-                       html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
-                       
-                    })
-                       $('#sigoon_code2').html(html);
-                    
-                 },
-                 error: function(xhr, stat, err) {}
-              });
-           });
-           
-           $(document).on("change","#sigoon_code2",function(){ 
-              
-              let thisVal = $(this).val();      
+               data.response.result.featureCollection.features.forEach(function(f){
+                  console.log(f.properties)
+                  let 행정구역코드 = f.properties.sig_cd;
+                  let 행정구역명 = f.properties.sig_kor_nm;
+                  
+                  html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
+                  
+               })
+                  $('#sigoon_code2').html(html);
+               
+            },
+            error: function(xhr, stat, err) {}
+         });
+      });
+      
+      $(document).on("change","#sigoon_code2",function(){ 
+         
+         let thisVal = $(this).val();      
 
-              $.ajax({
-                 type: "get",
-                 url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
-                 data : {attrfilter : 'emd_cd:like:'+thisVal},
-                 async: false,
-                 dataType: 'jsonp',
-                 success: function(data) {
-                    let html = "<option>선택</option>";
+         $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+            data : {attrfilter : 'emd_cd:like:'+thisVal},
+            async: false,
+            dataType: 'jsonp',
+            success: function(data) {
+               let html = "<option>선택</option>";
 
-                    data.response.result.featureCollection.features.forEach(function(f){
-                       console.log(f.properties)
-                       let 행정구역코드 = f.properties.emd_cd;
-                       let 행정구역명 = f.properties.emd_kor_nm;
-                       html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
-                       
-                    })
-                       $('#dong_code2').html(html);
-                    
-                 },
-                 error: function(xhr, stat, err) {}
-              });
+               data.response.result.featureCollection.features.forEach(function(f){
+                  console.log(f.properties)
+                  let 행정구역코드 = f.properties.emd_cd;
+                  let 행정구역명 = f.properties.emd_kor_nm;
+                  html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
+                  
+               })
+                  $('#dong_code2').html(html);
+               
+            },
+            error: function(xhr, stat, err) {}
+         });
 
-           });
+      });
 
-           $(document).on("change","#sido_code3",function(){
-              let thisVal = $(this).val();      
+      $(document).on("change","#sido_code3",function(){
+         let thisVal = $(this).val();      
 
-              $.ajax({
-                 type: "get",
-                 url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-                 data : {attrfilter : 'sig_cd:like:'+thisVal},
-                 async: false,
-                 dataType: 'jsonp',
-                 success: function(data) {
-                    let html = "<option>선택</option>";
+         $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+            data : {attrfilter : 'sig_cd:like:'+thisVal},
+            async: false,
+            dataType: 'jsonp',
+            success: function(data) {
+               let html = "<option>선택</option>";
 
-                    data.response.result.featureCollection.features.forEach(function(f){
-                       console.log(f.properties)
-                       let 행정구역코드 = f.properties.sig_cd;
-                       let 행정구역명 = f.properties.sig_kor_nm;
-                       
-                       html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
-                       
-                    })
-                       $('#sigoon_code3').html(html);
-                    
-                 },
-                 error: function(xhr, stat, err) {}
-              });
-           });
-           
-           $(document).on("change","#sigoon_code3",function(){ 
-              
-              let thisVal = $(this).val();      
+               data.response.result.featureCollection.features.forEach(function(f){
+                  console.log(f.properties)
+                  let 행정구역코드 = f.properties.sig_cd;
+                  let 행정구역명 = f.properties.sig_kor_nm;
+                  
+                  html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
+                  
+               })
+                  $('#sigoon_code3').html(html);
+               
+            },
+            error: function(xhr, stat, err) {}
+         });
+      });
+      
+      $(document).on("change","#sigoon_code3",function(){ 
+         
+         let thisVal = $(this).val();      
 
-              $.ajax({
-                 type: "get",
-                 url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
-                 data : {attrfilter : 'emd_cd:like:'+thisVal},
-                 async: false,
-                 dataType: 'jsonp',
-                 success: function(data) {
-                    let html = "<option>선택</option>";
+         $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+            data : {attrfilter : 'emd_cd:like:'+thisVal},
+            async: false,
+            dataType: 'jsonp',
+            success: function(data) {
+               let html = "<option>선택</option>";
 
-                    data.response.result.featureCollection.features.forEach(function(f){
-                       console.log(f.properties)
-                       let 행정구역코드 = f.properties.emd_cd;
-                       let 행정구역명 = f.properties.emd_kor_nm;
-                       html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
-                       
-                    })
-                       $('#dong_code3').html(html);
-                    
-                 },
-                 error: function(xhr, stat, err) {}
-              });
+               data.response.result.featureCollection.features.forEach(function(f){
+                  console.log(f.properties)
+                  let 행정구역코드 = f.properties.emd_cd;
+                  let 행정구역명 = f.properties.emd_kor_nm;
+                  html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
+                  
+               })
+                  $('#dong_code3').html(html);
+               
+            },
+            error: function(xhr, stat, err) {}
+         });
 
-           });
-        })   
+      });
+   })   
 
-        </script>
+</script>		

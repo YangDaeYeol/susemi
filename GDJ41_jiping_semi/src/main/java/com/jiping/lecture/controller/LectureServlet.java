@@ -15,6 +15,9 @@ import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
 import com.jiping.lecture.model.vo.VodLecture;
+import com.jiping.member.model.vo.Member;
+import com.jiping.payment.model.vo.Payment;
+import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
 
 /**
@@ -48,9 +51,13 @@ public class LectureServlet extends HttpServlet {
 		List<LectureSchedule> scList= new LectureService().scheduleList();
 		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
 		Tutor tutor= new LectureService().totorInfo(lectureNo);
+		Member m= new LectureService().tutorImg(lectureNo);
+		List<Certificate> c= new LectureService().certificate(lectureNo);
+		
 		
 //		vod
 		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
+		List<Payment> p= new LectureService().payment(lectureNo);
 		
 		
 		
@@ -61,6 +68,9 @@ public class LectureServlet extends HttpServlet {
 		request.setAttribute("imgList", imgList);
 		request.setAttribute("tutor", tutor);
 		request.setAttribute("vodList", vodList);
+		request.setAttribute("m", m);
+		request.setAttribute("c", c);
+		request.setAttribute("p", p);
 		
 		
 		if(lectureType.contains("원데이")) {
