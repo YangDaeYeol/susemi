@@ -167,14 +167,14 @@
                 </div>
                 <%} %>
                 
-                <div id="scheduleBtn" class="d-flex justify-content-center">
+            <%for(Payment p:pList) { 
+	            if(loginMember==null||!(p.getEmail().contains(loginMember.getEmail()))) { %>
+	            <div id="scheduleBtn" class="d-flex justify-content-center">
                   <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하 기</button>
                   <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신 청</button>
                 </div>
               </div>
             </div>
-            <%for(Payment p:pList) { 
-	            if(!(p.getEmail().contains(loginMember.getEmail()))) { %>
             <div id="class_submit" style="display: none;">
                     <h5 class="card-title">수강신청</h5>
                     <div class="card">
@@ -197,7 +197,11 @@
                     </div>
                 </div>
 	           <% } else { %>
-	        	   <button type="button" class="btn btn-primary btn-lg btn-basic" style="float: right;">강 의 실 입 장</button>
+	           </div>
+              </div>
+	        	   <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;" 
+	        	   onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=16')">강 의 실 입 장</button>
+            </div>
 	          <% }
             } %>
           </div>
