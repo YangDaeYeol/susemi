@@ -88,7 +88,6 @@
 													<div>튜터의 한마디</div>
 													<div id="tutorComment">
 														<textarea name="tutorComment" cols="58" rows="5"
-														onfocus="changeBorderBox(event);"
 														id="tutorIntroduction"
 														onkeyup="limit500(event, 'introlimit')" ></textarea>
 														<div id="introlimit">(0/500)</div>
@@ -279,11 +278,10 @@
 												<!-- <form onsubmit="return false" id="toSendForm"> -->
 												<div id="classImgeHead">클래스 이미지</div>
 												<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
-													jpeg, jpg) 4개의 이미지만 사용되므로 4개를 초과하는 이미지들을 업로드 했을경우 이미지는 랜덤으로
-													사용됩니다.</div>
+													jpeg, jpg)</div>
 												<!-- 인풋파일 업로드 시작 -->
 												
-												<div class="container">
+												<div id="previewImgcontainer">
 													<!-- 이미지 업로드 시작 -->
 													<div class="imageUpload">
 
@@ -305,7 +303,7 @@
 
 													</div>
 													<div id="resultImg"
-														style="display: flex; justify-content: center;"></div>
+														style="display: flex; justify-content: center; margin-bottom:40px;"></div>
 
 
 													<!-- 이미지 업로드 끝 -->
@@ -671,6 +669,8 @@
      // render functions
         const renderFileList = () => {
             let fileMap = state.filesArr.map((file, index) => {
+            	console.debug('index ' + index, file)
+            	console.debug('index2 ' + index, file.name)
                 let suffix = "bytes";
                 let size = file.size;
                 if (size >= 1024 && size < 1024000) {
@@ -681,9 +681,10 @@
                     size = Math.round(size / 1024000 * 100) / 100;
                 }
 
-                return `<li key='${index}'>${file.name
-                    } <span class="file-size">${size} ${suffix}</span><i class="material-icons md-48">delete</i></li>`;
+                return `<li key=${'${index}'}>${'${file.name}'}<span class="file-size">${'${size}'} ${'${suffix}'}</span><i class="material-icons md-48">delete</i></li>`;
             });
+            
+            console.debug('filemap', fileMap);
             $("#selectedImg").html(fileMap);
         }
 
@@ -729,19 +730,19 @@
         	imagesPreview(this, "#tutorCareerFile", 'file-career1');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career2").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career2');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career3").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career3');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career4").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career4');
         });
         
-        $("input#file-career1").on('change', function () {
+        $("input#file-career5").on('change', function () {
         	imagesPreview(this, "#tutorCareerFile", 'file-career5');
         });
 
@@ -1079,11 +1080,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             stepper1 = new Stepper(document.querySelector('#stepper1'))
         })
-       	const changeBorderBox = (e) => {
-            $(e.target).parent.css({ "border": "1px rgb(162, 221, 220) solid" });
-        }
-
-
+		$("#tutorComment>textarea").focus(e => {
+            $("#tutorComment").css({ "border": "1px rgb(162, 221, 220) solid" });
+        });
         $("#tutorComment>textarea").blur(e => {
             $("#tutorComment").css({ "border": "1px black solid" });
         });
@@ -1190,6 +1189,27 @@
         $("#detailPlace2>#detailTxtBox").blur(e => {
             $("#detailPlace2").css({ "border": "1px black solid" });
         })
+         $("#detailPlace1>#setClassTitle3").focus(e => {
+            $("#detailPlace1").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#detailPlace1>#setClassTitle3").blur(e => {
+            $("#detailPlace1").css({ "border": "1px black solid" });
+        })
+        
+        
+        $("#inputBoxOfOneDayTimes>#classTxtBox1").focus(e => {
+            $("#inputBoxOfOneDayTimes").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#inputBoxOfOneDayTimes>#classTxtBox1").blur(e => {
+            $("#inputBoxOfOneDayTimes").css({ "border": "1px black solid" });
+        })
+         $("#detailPlace2>#setClassTitle4").focus(e => {
+            $("#detailPlace2").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#detailPlace2>#setClassTitle4").blur(e => {
+            $("#detailPlace2").css({ "border": "1px black solid" });
+        })
+        
 		var numItems = 3;
         const addCareerArea = () => {
         	

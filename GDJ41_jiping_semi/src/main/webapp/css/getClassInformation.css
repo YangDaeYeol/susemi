@@ -263,10 +263,6 @@
         font-size: 20px;
     }
 
-    .container {
-        margin-bottom: 20px;
-    }
-
     .categoryClass{
         width: 150px;
         padding: 8px;
@@ -400,6 +396,11 @@
     }
 
 
+	#previewImgcontainer{
+		padding-top: 0px;
+		padding-bottom: 40px;
+		margin-bottom: 40px;
+	}
 
     /* 클래스 이미지 등록 css 끝 */
 
