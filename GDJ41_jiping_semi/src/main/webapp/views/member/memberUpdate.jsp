@@ -60,7 +60,7 @@
                         </ul>                  
                     </div>
             </div>   
-           <form id="userUpdateFrm" action="" method="post" action="<%= %>">
+           <form id="userUpdateFrm" action="" method="post" action="">
             <div id="mypage-content" class="inlineblock">
                 <div class="">
                     <img id="info-icon" src="<%=request.getContextPath() %>/img/setting.png" width="20px" height="20px" class="inlineblock" style="margin-bottom: 10px;">
