@@ -11,6 +11,7 @@ import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Tutor;
 
 public class LectureService {
@@ -52,6 +53,13 @@ public class LectureService {
 		return sc;
 	}
 	
+	public Tutor totorInfo(int lectureNo) {
+		Connection conn=getConnection();
+		Tutor tutor= dao.tutorInfo(conn, lectureNo);
+		close(conn);
+		return tutor;
+	}
+	
 	public List<LectureImg> imgList(int lectureNo){
 		Connection conn=getConnection();
 		List<LectureImg> imgList= dao.imgList(conn, lectureNo);
@@ -59,11 +67,11 @@ public class LectureService {
 		return imgList;
 	}
 	
-	public Tutor totorInfo(int lectureNo) {
+	public List<VodLecture> vodList(int lectureNo){
 		Connection conn=getConnection();
-		Tutor tutor= dao.tutorInfo(conn, lectureNo);
+		List<VodLecture> vodList= dao.vodList(conn, lectureNo);
 		close(conn);
-		return tutor;
+		return vodList;
 	}
 
 }

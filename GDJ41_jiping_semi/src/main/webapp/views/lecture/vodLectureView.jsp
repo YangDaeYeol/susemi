@@ -4,12 +4,14 @@
 <%@ page import="com.jiping.lecture.model.vo.Lecture,
 				com.jiping.lecture.model.vo.LectureContent,
 				com.jiping.lecture.model.vo.LectureSchedule,
+				com.jiping.lecture.model.vo.VodLecture,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
 	LectureContent content= (LectureContent)request.getAttribute("content");
 	/* LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule"); */
 	/*List<LectureSchedule> list= (List)request.getAttribute("scList");*/
+	List<VodLecture> list= (List)request.getAttribute("vodList");
 /* 	System.out.println("jsp:"+ list); */
 
 %>
@@ -137,7 +139,31 @@
                 </div>
               </div>
             </div>
-            <div id="class_submit">
+            
+            <div id="class_schedule">
+              <h5 class="card-title">수업일정</h5>
+              <div class="list-group">
+              <%for(VodLecture vl: list) { %>
+                <div class="list-group-item">
+                  <span id="innerboxcheck"> 1 강</span>
+                  <div class="schedule-text">
+                    <span class="class-date"> <%=vl.getVodTitle() %> </span> <!-- <span> 19:30-21:00</span> -->
+                    <!-- <br>
+                    <span>대륭테크노타운 3차 509호</span> -->
+                  </div>
+                  <!-- <span class="class-region">서울시 금천구</span> -->
+                </div>
+                <%} %>
+                
+                <div id="scheduleBtn" class="d-flex justify-content-center">
+                  <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하 기</button>
+                  <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신 청</button>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div id="class_submit" style="display: none;">
                     <h5 class="card-title">수강신청</h5>
                     <div class="card">
                         <div class="card-body apply">
@@ -147,7 +173,7 @@
                                 </div>
                                 <div>
                                     <p>총 결제금액</p>
-                                    <p id="apply-cost" style="float: right;">가격</p>
+                                    <p id="apply-cost" style="float: right;"><%=list.get(0).getVodPrice() %></p>
                                 </div>
                             </div>
 
@@ -163,6 +189,10 @@
 	          $("#totutor").keyup(e=>{
 	          	let length=$(e.target).val().length;
 	          	$("#check-word-count").html("("+length+"/70)");
+	          });
+	          
+	          $("#apply").click(e=>{
+	        	  $("#class_submit").show();
 	          });
           
           </script>
@@ -230,7 +260,7 @@
                     </div>
                     <div class="flex-grow-1 ms-3">
                       <div style="float: right;">
-                        <span>2021.12.14 </span><span id="report"><a href=""> 신고</a></span>
+                        <span>2021.12.14 </span><span id="report"><a href="<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=16"> 신고</a></span>
                         <!-- 신고사유팝업 연결 -->
                       </div>
                       <span>★★★★★</span><br>

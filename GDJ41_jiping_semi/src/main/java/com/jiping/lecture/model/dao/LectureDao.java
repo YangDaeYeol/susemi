@@ -16,6 +16,7 @@ import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Tutor;
 
 public class LectureDao {
@@ -207,6 +208,30 @@ public class LectureDao {
 		}
 		System.out.println("dao:"+tutor);
 		return tutor;
+	}
+	
+	public List<VodLecture> vodList(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <VodLecture> list= new ArrayList();
+		String sql= prop.getProperty("vodList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				VodLecture vod= VodLecture.builder()
+						.vodUrl(rs.getString("vod_url")).vodPrice(rs.getInt("vod_price")).vodTitle(rs.getString("vod_title"))
+						.vodContent(rs.getString("vod_content")).build();
+				list.add(vod);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 }

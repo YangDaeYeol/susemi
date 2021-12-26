@@ -13,12 +13,19 @@
    
 </head>
 <body>
+<%@ page import="com.jiping.lecture.model.vo.Lecture,
+				com.jiping.lecture.model.vo.VodLecture,
+				java.util.List " %>
+<%
+	Lecture le= (Lecture)request.getAttribute("le");
+	List<VodLecture> list= (List)request.getAttribute("vodList");
+%>
 <section>
 <div class="container">
     <div id="mainInfo" class=row> 
         <div id="left" class="col-9"> <!--숫자로 조정-->
             <div>
-                <span id="vod-title">강의제목</span>
+                <span id="vod-title"><%=le.getLectureTitle() %></span>
             </div>
             <div id="player">
                 <!-- <iframe width="100%" height="600px" src="https://www.youtube.com/embed/ltaDbuOl29E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
@@ -34,7 +41,7 @@
                 player = new YT.Player('player', {
                     width:'100%',
                     height:'600px',
-                    videoId: 'UnIBtxMJEn4',
+                    videoId: 'MhLcEITuMZo',
                     events: {
                         'onReady': onPlayerReady,
                         'onStateChange':checkPlayerState
@@ -59,21 +66,13 @@
                 수강진도율 : 1강/10강(10%)
             </p>
             <div class="list-group">
+            <%for(VodLecture vl:list) { %>
                 <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
                     <!-- <img src="img/js_unchecked.png" alt="" class="checkicon">  -->
                     <img src="img/js_checked.png" alt="" class="checkicon"> 
-                    <span class="vod-name"> 1강. 자바첫걸음</span>
+                    <span class="vod-name"> 1강. <%=vl.getVodTitle() %></span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
-                    <img src="img/js_unchecked.png" alt="" class="checkicon"> 
-                    <!-- <img src="img/js_checked.png" alt="" class="checkicon"> -->
-                    <span class="vod-name"> 2강. 오픈소스 라이선스 확인 방법과 라이선스 의무사항 준수</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action" style="display:inline;">
-                    <img src="img/js_unchecked.png" alt="" class="checkicon"> 
-                    <!-- <img src="img/js_checked.png" alt="" class="checkicon">  -->
-                    <span class="vod-name"> 2강. 오픈소스 라이선스 확인 방법과 라이선스 의무사항 준수</span>
-                </a> 
+                <%} %>
               </div>
         </div>
     </div>

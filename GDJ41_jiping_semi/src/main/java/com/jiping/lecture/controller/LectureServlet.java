@@ -14,6 +14,7 @@ import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Tutor;
 
 /**
@@ -37,6 +38,7 @@ public class LectureServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int lectureNo= Integer.parseInt(request.getParameter("lectureNo"));
+		String lectureType=request.getParameter("lectureType");
 		
 		
 		Lecture le= new LectureService().lectureInfo(lectureNo);
@@ -47,13 +49,25 @@ public class LectureServlet extends HttpServlet {
 		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
 		Tutor tutor= new LectureService().totorInfo(lectureNo);
 		
+//		vod
+		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
+		
+		
+		
 		request.setAttribute("le", le);
 		request.setAttribute("content", content);
 //		request.setAttribute("schedule", schedule);
 		request.setAttribute("scList", scList);
 		request.setAttribute("imgList", imgList);
 		request.setAttribute("tutor", tutor);
-		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);
+		request.setAttribute("vodList", vodList);
+		
+		
+		if(lectureType.contains("원데이")) {
+			request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);			
+		} else if(lectureType.contains("VOD")) {
+			request.getRequestDispatcher("/views/lecture/vodLectureView.jsp").forward(request, response);
+		}
 
 		
 	}
