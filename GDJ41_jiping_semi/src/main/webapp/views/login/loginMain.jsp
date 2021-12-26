@@ -1,61 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-<style>
-
-    .form-signin {
-      width: 400px;
-      padding: 60px 15px 25px 15px;
-      margin: auto;
-      border: 1px solid #c4c4c4;
-    }
-    
-    .form-signin .checkbox {
-      font-weight: 400;
-    }
-    
-    .loginContent{
-        margin-left: 10px;
-        margin-bottom: 5px;
-        display: block;
-        text-align: left;
-        color: #c4c4c4;
-    }
-    
-    .email-container{
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
-    .pw-container{
-        margin-bottom: 50px;
-    }
-    .border-right{
-        border-right: 1px solid black;
-    }
-    .fs_14{
-        font-size: 14px;
-    }
-    .btn_mint{
-        background-color: #94d5de;
-        color: white;
-    }
-    .pd_5{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    a {
-        text-decoration: none;
-        color: black;
-    }
-    .warningMsg{
-        display:block; 
-        text-align: left; 
-        margin: 3px 0px 0px 5px; 
-        color: red; 
-        font-size: 10px;
-    }
-    
-    </style>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">       
     <section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
           <form id="loginFrm" action="<%=request.getContextPath()%>/member/login.do" method="post">           
