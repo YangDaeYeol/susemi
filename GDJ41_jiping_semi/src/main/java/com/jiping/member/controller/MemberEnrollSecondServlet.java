@@ -31,8 +31,12 @@ public class MemberEnrollSecondServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String type = request.getParameter("type");
+		String email = request.getParameter("email");
 		List<String> list = new MemberService().selectAllNickname();
 		request.setAttribute("nickList", list);
+		request.setAttribute("type", type);
+		request.setAttribute("email", email);
 		request.getRequestDispatcher("/views/login/enrollBasic.jsp").forward(request, response);
 	}
 

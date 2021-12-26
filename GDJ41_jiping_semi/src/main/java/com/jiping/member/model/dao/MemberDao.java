@@ -117,7 +117,7 @@ public class MemberDao {
 						.email(rs.getString("email"))
 						.memberGrade(rs.getString("member_grade"))
 						.memberName(rs.getString("member_name"))
-						.gender(rs.getString("gender").charAt(0))
+						.gender(rs.getString("gender"))
 						.phone(rs.getString("phone"))
 						.marketing(rs.getString("marketing").charAt(0))
 						.profileImg(rs.getString("profile_img"))
@@ -188,6 +188,30 @@ public class MemberDao {
 			pstmt.setString(2, email);
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int enrollMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("enrollMember"));
+			pstmt.setString(1, m.getEmail());
+			pstmt.setString(2, m.getMemberGrade());
+			pstmt.setString(3, m.getPassword());
+			pstmt.setString(4, m.getMemberName());
+			pstmt.setString(5, m.getGender());
+			pstmt.setString(6, m.getPhone());
+			pstmt.setString(7, String.valueOf(m.getMarketing()));
+			pstmt.setString(8, m.getNickname());
+			pstmt.setString(9, m.getMemberLocation());
+			pstmt.setString(10, m.getMemberCategory());
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);

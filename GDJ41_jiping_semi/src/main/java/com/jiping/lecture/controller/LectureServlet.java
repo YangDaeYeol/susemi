@@ -77,7 +77,7 @@ public class LectureServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);			
 		} else if(lectureType.contains("VOD")) {
 			request.getRequestDispatcher("/views/lecture/vodLectureView.jsp").forward(request, response);
-		}
+		} 
 
 		
 	}

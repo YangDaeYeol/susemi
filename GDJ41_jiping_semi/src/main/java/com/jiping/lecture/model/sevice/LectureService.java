@@ -6,9 +6,7 @@ import static com.jiping.common.JDBCTemplate.getConnection;
 import static com.jiping.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-
 import java.sql.Date;
-
 import java.util.List;
 import java.util.Map;
 
@@ -191,5 +189,24 @@ public class LectureService {
 		return result;
 		
 	}
+
+	public List<Lecture> apprLectureList() {
+		Connection conn=getConnection();
+		List<Lecture> apprLectureList= dao.apprLectureList(conn);
+		close(conn);
+		return apprLectureList;
+	}
+
+	public int apprLecture(int lectureNo) {
+		Connection conn=getConnection();
+		int result=dao.apprLecture(conn, lectureNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
 
 }

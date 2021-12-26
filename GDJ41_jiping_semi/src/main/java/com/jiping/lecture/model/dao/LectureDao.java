@@ -348,37 +348,58 @@ public class LectureDao {
 		return result;
 	}
 	
-public int enrollTutorInformation (Connection conn, Tutor t) {
-		//to-do:1. 닉네임받아오기. 2. 핸드폰 번호 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+	public int enrollTutorInformation (Connection conn, Tutor t) {
+			//to-do:1. 닉네임받아오기. 2. 핸드폰 번호 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+			PreparedStatement pstmt = null;
+			int result = 0;
+			String sql = prop.getProperty("enrollTutorInformation");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, "화이자");
+				pstmt.setString(2, t.getInsta());
+				pstmt.setString(3, t.getFacebook());
+				pstmt.setString(4, t.getBlog());
+				pstmt.setString(5, t.getTutorMsg());
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			} 
+			return result;
+			
+		}
+	public int enrollCertificateInformation (Connection conn, Certificate c) {
+			//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+			PreparedStatement pstmt=null;
+			int result = 0;
+			String sql=prop.getProperty("enrollCertificateInformation");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "화이자");
+				pstmt.setString(2, c.getCertificateText());
+				pstmt.setString(3, c.getCertificateImg());
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			} 
+			return result;
+		
+		}
+	
+	public int enrollLectureInoformation (Connection conn, Lecture l) {
+		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = prop.getProperty("enrollTutorInformation");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "화이자");
-			pstmt.setString(2, t.getInsta());
-			pstmt.setString(3, t.getFacebook());
-			pstmt.setString(4, t.getBlog());
-			pstmt.setString(5, t.getTutorMsg());
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		} 
-		return result;
-		
-	}
-public int enrollCertificateInformation (Connection conn, Certificate c) {
-		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
-		PreparedStatement pstmt=null;
-		int result = 0;
-		String sql=prop.getProperty("enrollCertificateInformation");
+		String sql = prop.getProperty("enrollLectureInformation");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "화이자");
-			pstmt.setString(2, c.getCertificateText());
-			pstmt.setString(3, c.getCertificateImg());
+			pstmt.setString(2, l.getLectureType());
+			pstmt.setString(3, l.getLectureCategory());
+			pstmt.setString(4, l.getLectureTitle());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -386,89 +407,108 @@ public int enrollCertificateInformation (Connection conn, Certificate c) {
 			close(pstmt);
 		} 
 		return result;
-	
-	}
-
-public int enrollLectureInoformation (Connection conn, Lecture l) {
-	//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureInformation");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		pstmt.setString(2, l.getLectureType());
-		pstmt.setString(3, l.getLectureCategory());
-		pstmt.setString(4, l.getLectureTitle());
-		result=pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
-	}
-
-public int enrollLectureImg(Connection conn, LectureImg lImg, String fileNameArray) {
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureImg");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		pstmt.setString(2, fileNameArray);
-		result=pstmt.executeUpdate();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
-	}
-
-public int enrollLectureContent(Connection conn, LectureContent lc) {
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureContent");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		pstmt.setString(2, lc.getLectureIntroduce());
-		pstmt.setString(3, lc.getRecommend());
-		pstmt.setString(4, lc.getCurriculum());
-		pstmt.setString(5, lc.getLectureNotice());
-		result = pstmt.executeUpdate();		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
-	
-	}
-
-public int enrollLectureSchedule(Connection conn, LectureSchedule ls, Date onedayClassDate, String onedayClassStartTime, String onedayClassEndTime) {
-	PreparedStatement pstmt = null;
-	int result = 0;
-	String sql = prop.getProperty("enrollLectureSchedule");
-	try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "화이자");
-		pstmt.setInt(2, ls.getLecturePrice());
-		pstmt.setInt(3, ls.getLecturePersons());
-		pstmt.setString(4, ls.getLectureLocation());
-		pstmt.setString(5, ls.getLectureAddress());
-		pstmt.setDate(6, onedayClassDate);
-		pstmt.setString(7, onedayClassStartTime);
-		pstmt.setString(8, onedayClassEndTime);
-		result = pstmt.executeUpdate();		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close(pstmt);
-	} 
-	return result;
-	
 	}
 	
-}
+	public int enrollLectureImg(Connection conn, LectureImg lImg, String fileNameArray) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollLectureImg");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "화이자");
+			pstmt.setString(2, fileNameArray);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+	
+	public int enrollLectureContent(Connection conn, LectureContent lc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollLectureContent");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "화이자");
+			pstmt.setString(2, lc.getLectureIntroduce());
+			pstmt.setString(3, lc.getRecommend());
+			pstmt.setString(4, lc.getCurriculum());
+			pstmt.setString(5, lc.getLectureNotice());
+			result = pstmt.executeUpdate();		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+	
+	public List<Lecture> apprLectureList(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Lecture> list= new ArrayList();
+		String sql= prop.getProperty("apprLectureList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture apprLecture= Lecture.builder()
+						.lectureNo(rs.getInt("lecture_No"))
+						.lectureTitle(rs.getString("lecture_Title"))
+						.nickName(rs.getString("nickname"))
+						.confirm(rs.getString("confirm").charAt(0))
+						.build();
+				list.add(apprLecture);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	public int apprLecture(Connection conn, int lectureNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("apprLecture");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int enrollLectureSchedule(Connection conn, LectureSchedule ls, Date onedayClassDate, String onedayClassStartTime, String onedayClassEndTime) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollLectureSchedule");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "화이자");
+			pstmt.setInt(2, ls.getLecturePrice());
+			pstmt.setInt(3, ls.getLecturePersons());
+			pstmt.setString(4, ls.getLectureLocation());
+			pstmt.setString(5, ls.getLectureAddress());
+			pstmt.setDate(6, onedayClassDate);
+			pstmt.setString(7, onedayClassStartTime);
+			pstmt.setString(8, onedayClassEndTime);
+			result = pstmt.executeUpdate();		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+		}
+		
+	}

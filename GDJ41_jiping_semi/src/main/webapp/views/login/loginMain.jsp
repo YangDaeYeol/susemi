@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<% String msg = (String)request.getAttribute("msg"); %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/styleKM.css">
 	<section style="margin: 100px auto; text-align: center">
 		<main class="form-signin">
@@ -27,4 +28,10 @@
 			</form>
 		</main>
 	</section>
+	<script>
+		let msg = "<%= msg %>";
+		if(msg!="null") {
+			alert(msg);
+		}
+	</script>
 <%@ include file="/views/common/footer.jsp" %>

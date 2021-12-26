@@ -34,7 +34,7 @@
                                                 <img src="https://blog.kakaocdn.net/dn/sOFQo/btqFXIdG4BC/OSX6phlqjlj7p3EYH1jZjk/img.png">
                                             </div>
                                             <div id="frofile-name">
-                                                <p>아이유</p>
+                                                <p>아아이유</p>
                                             </div>
                                         </div>
                                     </div>
@@ -223,6 +223,25 @@
 
                 </div>
             </div>
+            <div id="banner-img" style="display: flex;">
+            	<div id="left-banner">
+            		<a href="javascript:enrollLecture();"><img src="<%= request.getContextPath() %>/img/banner1.png"></a>
+            	</div>
+            	<div id="right-banner">
+            		<img src="<%= request.getContextPath() %>/img/banner2.png">
+            	</div>
+            </div>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </section>
+        <script>
+        	const enrollLecture=()=> {
+        		let grade = "<%= loginMember!=null?loginMember.getMemberGrade():""%>";
+        		console.log(grade);
+        		if(grade=="수강생" || grade=="") {
+        			alert("튜터만 등록 할 수 있습니다.");
+        		}else if(grade=="튜터") {
+        			 location.assign('<%= request.getContextPath() %>/enrolllecture');
+        		}
+        	}
+        </script>
 <%@ include file="views/common/footer.jsp" %>
