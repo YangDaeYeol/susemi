@@ -79,10 +79,10 @@
                   <div class="info-title inlineblock"><span class="margin-right menu-list-name">관심 분야</span></div>
                   <div class="info-content inlineblock" style="vertical-align: middle; line-height: 150px">                           
                       <%
-                      	String[] smallCategory=new String[6];
+                      	/* String[] smallCategory=new String[6];
                       		for(int i=0; i<largeCategory.length; i++){
                       		smallCategory[i]=largeCategory[i].split(" ");
-                      	} 
+                      	}  */
                       
                       %>
                       
