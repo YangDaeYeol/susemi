@@ -163,18 +163,30 @@ public class EnrollLectureServlet extends HttpServlet {
 					}
 					
 					lecture.put("certificate", c);
+					String classType = mr.getParameter("classType");
 					
-					String oneday = mr.getParameter("onedayClassType");
-					String multipleClass = mr.getParameter("multipleClassType");
-					String vod = mr.getParameter("VodClassType");
+					String oneday = null;
+					String multipleClass = null;
+					String vod = null;
 					
-					if (oneday != null && oneday.equals("1")) {
+					if (classType.equals("1")) {
 						oneday = "원데이";
-					} else if (multipleClass != null && multipleClass.equals("2")) {
+					} else if (classType.equals("2")) {
 						multipleClass = "다회차";
 					} else {
 						vod = "VOD";
 					}
+//					String oneday = mr.getParameter("onedayClassType");
+//					String multipleClass = mr.getParameter("multipleClassType");
+//					String vod = mr.getParameter("VodClassType");
+//					
+//					if (oneday != null && oneday.equals("1")) {
+//						oneday = "원데이";
+//					} else if (multipleClass != null && multipleClass.equals("2")) {
+//						multipleClass = "다회차";
+//					} else {
+//						vod = "VOD";
+//					}
 					String typeTemp = oneday + multipleClass + vod;
 					String type = typeTemp.replaceAll("null", "");
 				
