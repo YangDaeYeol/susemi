@@ -210,7 +210,7 @@ public class EnrollLectureServlet extends HttpServlet {
 				     
 					
 					LectureImg lImg = LectureImg.builder()
-							.lectureFilename(classImgFiles)
+							.lectureFileName(classImgFiles)
 							.build();
 					
 					lecture.put("lectureImg", lImg);
@@ -271,8 +271,8 @@ public class EnrollLectureServlet extends HttpServlet {
 						String location = temp1 + " " + temp2;
 						String address = mr.getParameter("address1");
 						
-//						int numOfStu = mr.getParameter(address)
-//						
+						int numOfStu = Integer.parseInt(mr.getParameter("peopleNum2"));
+						
 						
 						
 					} else if (multipleClass != null) {

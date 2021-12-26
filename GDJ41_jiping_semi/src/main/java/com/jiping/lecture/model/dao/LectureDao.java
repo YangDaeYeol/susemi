@@ -188,7 +188,7 @@ public int enrollLectureImg(Connection conn, LectureImg lImg) {
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, "화이자");
-		pstmt.setString(2, lImg.getLectureFilename());
+		pstmt.setString(2, lImg.getLectureFileName());
 		result=pstmt.executeUpdate();
 	} catch (SQLException e) {
 		e.printStackTrace();
