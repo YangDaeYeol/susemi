@@ -1,25 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>  
-<%@ page import="com.jiping.lecture.model.vo.Lecture,
+<%@ page import="com.jiping.lecture.model.vo.VodLecture,
+				com.jiping.lecture.model.vo.Lecture,
 				com.jiping.lecture.model.vo.LectureContent,
 				com.jiping.lecture.model.vo.LectureSchedule,
-				com.jiping.lecture.model.vo.VodLecture,
+				com.jiping.lecture.model.vo.LectureImg,
+				com.jiping.tutor.model.vo.Tutor,
+				com.jiping.member.model.vo.Member,
+				com.jiping.tutor.model.vo.Certificate,
 				java.util.List " %>
 <%
+	List<VodLecture> vodList=(List)request.getAttribute("vodList");
 	Lecture le= (Lecture)request.getAttribute("le");
 	LectureContent content= (LectureContent)request.getAttribute("content");
 	/* LectureSchedule sc = (LectureSchedule)request.getAttribute("schedule"); */
-	/*List<LectureSchedule> list= (List)request.getAttribute("scList");*/
-	List<VodLecture> list= (List)request.getAttribute("vodList");
-/* 	System.out.println("jsp:"+ list); */
+	List<LectureSchedule> list= (List)request.getAttribute("scList");
+	List<LectureImg> imgList= (List)request.getAttribute("imgList");
+	Tutor tutor=(Tutor)request.getAttribute("tutor");
+	Member m=(Member)request.getAttribute("m");
+	List<Certificate> cList= (List)request.getAttribute("c");
+ 	System.out.println("jsp:"+ tutor); 
 
 %>
+
 <section>
-      <div class="container">
+    <div class="container">
         <div id="mainInfo" class="row">
-          <!--보라 1-->
-          <div id="left" class="col-7">
+            <!--보라 1-->
+            <div id="left" class="col-7">
                 <div id="info_class">
                     <p class="card-text"><small class="text-muted">이 클래스는 <%=le.getLectureType() %>클래스 입니다. </small>
                     </p>
@@ -27,21 +36,18 @@
                         <%=le.getLectureTitle() %>
                     </h5>
                     <!--class="card-title"-->
-                    <div class="card">
+                     <div class="card">
                         <div class="card-body">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTQ3/MDAxNTc2MTM4NTUyNzM4.NcQoxd0YDv6Ihnb3snU5cF-OVlBXyS5eL6pEd-4Df74g.m8xgeLxThkSKU8_dYPo9UlbdgLiTaYUG6WO34ER_k-0g.JPEG/%EC%A4%80%ED%98%81_%281%29.jpg?type=w1200
-                                " class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="https://post-phinf.pstatic.net/MjAyMDA5MjVfMTc4/MDAxNjAxMDI0MTAyNTY2.hV-sDoyZYI6CSJunuYzelN-t6RmQ63NyuGNvRTKCk3cg.K_DN1PZKXoeMTp-sZLeNjL3MpONfqMfFMpslHkvRM3Mg.JPEG/%EC%A4%80%ED%98%81_%2813%29.jpg?type=w1200"
-                                            class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="https://post-phinf.pstatic.net/MjAyMDA3MjZfMjUz/MDAxNTk1NzUxOTczNDcy.Qio9niIKRMWxwQ92ilGnSmOncAuUpbAiZ1re0hl6R6wg.21S6u-Ctupv21VxBqMq0q911-SZ4AkyYl9q8oEUZX0kg.JPEG/%EC%84%9C%ED%94%84%EB%A1%9C_%2819%29.jpg?type=w1200"
-                                            class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
@@ -54,7 +60,7 @@
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -101,53 +107,56 @@
                         </div>
                     </div>
                 </div>
-            </div> col-7
+            </div> 
+            <!-- -------------- -->
 
-          <div id="right" class="col">
-            <div id="tutor" style="margin-top: 39px; ">
-              <h5 class="card-title">튜터를 소개합니다!</h5>
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <div name="flex-shrink-0">
-                      <img src="https://post-phinf.pstatic.net/MjAyMDA5MjVfMjEy/MDAxNjAxMDI0Nzc0MDM1.QKM6MrAbdwbp4ep1K0Q14ThsgdsYxMApPB7_934dwkMg.gCtesd36-LkJhWUmoTzeMSYsLOiKYgKMAXXsyGl2d5kg.JPEG/%EC%A4%80%ED%98%81_%2839%29.jpg?type=w1200
-                        " alt="..." class="img_basic img_tutor">
+            <div id="right" class="col">
+                <div id="tutor" style="margin-top: 39px;">
+                    <h5 class="card-title">튜터를 소개합니다!</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div name="flex-shrink-0">
+                                    <img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg() %>" alt="..." class="img_basic img_tutor">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <span><%=tutor.getNickname() %> </span><br>
+                                    <span>연락처 : <%=tutor.getPhone() %> </span><br>
+                                    <a href="<%=tutor.getInsta() %>"><img
+                                            src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
+                                            alt="instagram" class="socialImg">
+                                    </a>
+                                    <a href="<%=tutor.getFacebook() %>"><img src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
+                                            alt="facebook" class="socialImg">
+                                    </a>
+                                    <a href="<%=tutor.getBlog() %>"><img src="https://www.coolstay.co.kr/img/main/naver.png" alt="blog"
+                                            class="socialImg">
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="flex-grow-1 ms-3">
+                                <span>경력</span>
+                                <ul>
+                                <%for(Certificate c: cList) { %>
+                                    <li><%=c.getCertificateText() %></li>
+                                <%} %>
+                                </ul>
+                                <span>튜터의 한마디</span>
+                                <p class="tutorbox_info"><%=tutor.getTutorMsg() %></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex-grow-1 ms-3">
-                      <span>이름 : </span><br>
-                      <span>연락처 : </span><br>
-                      <a href=""><img src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
-                          alt="instagram" class="socialImg">
-                      </a>
-                      <a href=""><img src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg" alt="facebook"
-                          class="socialImg">
-                      </a>
-                      <a href=""><img src="https://www.coolstay.co.kr/img/main/naver.png" alt="blog" class="socialImg">
-                      </a>
-                    </div>
-                  </div>
-                  <br>
-                  <div class="flex-grow-1 ms-3">
-                    <span>경력</span>
-                    <ul>
-                      <li>경력1</li>
-                      <li>경력2</li>
-                    </ul>
-                    <span>튜터의 한마디</span>
-                    <p class="tutorbox_info">튜터의 한마디</p>
-                  </div>
                 </div>
-              </div>
-            </div>
             
             <div id="class_schedule">
               <h5 class="card-title">수업일정</h5>
               <div class="list-group">
-              <%for(VodLecture vl: list) { %>
+              <%for(int i=0; i<vodList.size(); i++) { %>
                 <div class="list-group-item">
-                  <span id="innerboxcheck"> 1 강</span>
+                  <span id="innerboxcheck"> <%=i+1 %>강.</span>
                   <div class="schedule-text">
-                    <span class="class-date"> <%=vl.getVodTitle() %> </span> <!-- <span> 19:30-21:00</span> -->
+                    <span class="class-date"> <%=vodList.get(i).getVodTitle() %> </span> <!-- <span> 19:30-21:00</span> -->
                     <!-- <br>
                     <span>대륭테크노타운 3차 509호</span> -->
                   </div>
@@ -173,7 +182,7 @@
                                 </div>
                                 <div>
                                     <p>총 결제금액</p>
-                                    <p id="apply-cost" style="float: right;"><%=list.get(0).getVodPrice() %></p>
+                                    <p id="apply-cost" style="float: right;"><%=vodList.get(0).getVodPrice() %></p>
                                 </div>
                             </div>
 

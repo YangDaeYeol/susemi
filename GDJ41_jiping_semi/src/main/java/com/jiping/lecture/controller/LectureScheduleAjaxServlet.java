@@ -19,13 +19,13 @@ import com.jiping.lecture.model.vo.LectureSchedule;
  * Servlet implementation class LectureScheduleServlet
  */
 @WebServlet("/lecture/scheduleInfo.do")
-public class LectureScheduleServlet extends HttpServlet {
+public class LectureScheduleAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LectureScheduleServlet() {
+    public LectureScheduleAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,8 +41,6 @@ public class LectureScheduleServlet extends HttpServlet {
 		
 		new Gson().toJson(sc,response.getWriter());
 		
-		
-	
 	}
 
 	/**

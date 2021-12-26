@@ -6,6 +6,8 @@
 				com.jiping.lecture.model.vo.LectureSchedule,
 				com.jiping.lecture.model.vo.LectureImg,
 				com.jiping.tutor.model.vo.Tutor,
+				com.jiping.member.model.vo.Member,
+				com.jiping.tutor.model.vo.Certificate,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
@@ -14,7 +16,9 @@
 	List<LectureSchedule> list= (List)request.getAttribute("scList");
 	List<LectureImg> imgList= (List)request.getAttribute("imgList");
 	Tutor tutor=(Tutor)request.getAttribute("tutor");
- 	System.out.println("jsp:"+ imgList); 
+	Member m=(Member)request.getAttribute("m");
+	List<Certificate> cList= (List)request.getAttribute("c");
+ 	System.out.println("jsp:"+ cList); 
 
 %>
 
@@ -34,11 +38,15 @@
                         <div class="card-body">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                <%for(LectureImg imgs: imgList) { %>
                                     <div class="carousel-item active">
-                                        <img src="<%=request.getContextPath()%>/upload/<%=imgs.getLectureFileName()%>" class="d-block w-100" alt="...">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>" class="d-block w-100" alt="...">
                                     </div>
-                                <%} %>
+                                    <div class="carousel-item">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>" class="d-block w-100" alt="...">
+                                    </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -97,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-            </div> col-7
+            </div> 
             <!-- -------------- -->
 
             <div id="right" class="col">
@@ -107,12 +115,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div name="flex-shrink-0">
-                                    <img src="https://post-phinf.pstatic.net/MjAyMDA5MjVfMjEy/MDAxNjAxMDI0Nzc0MDM1.QKM6MrAbdwbp4ep1K0Q14ThsgdsYxMApPB7_934dwkMg.gCtesd36-LkJhWUmoTzeMSYsLOiKYgKMAXXsyGl2d5kg.JPEG/%EC%A4%80%ED%98%81_%2839%29.jpg?type=w1200
-                          " alt="..." class="img_basic img_tutor">
+                                    <img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg() %>" alt="..." class="img_basic img_tutor">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <span><%=tutor.getNickname() %> </span><br>
-                                    <span><%=tutor.getPhone() %> </span><br>
+                                    <span>연락처 : <%=tutor.getPhone() %> </span><br>
                                     <a href="<%=tutor.getInsta() %>"><img
                                             src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
                                             alt="instagram" class="socialImg">
@@ -129,8 +136,9 @@
                             <div class="flex-grow-1 ms-3">
                                 <span>경력</span>
                                 <ul>
-                                    <li>경력1</li>
-                                    <li>경력2</li>
+                                <%for(Certificate c: cList) { %>
+                                    <li><%=c.getCertificateText() %></li>
+                                <%} %>
                                 </ul>
                                 <span>튜터의 한마디</span>
                                 <p class="tutorbox_info"><%=tutor.getTutorMsg() %></p>
@@ -211,7 +219,7 @@
                             하 기</button>
                     </div>
                 </div>
-            </div> col
+            </div>
 
 
             <script>
