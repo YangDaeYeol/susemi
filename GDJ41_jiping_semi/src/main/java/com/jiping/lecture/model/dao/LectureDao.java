@@ -351,6 +351,47 @@ public int enrollLectureContent(Connection conn, LectureContent lc) {
 	return result;
 	
 }
+public List<Lecture> apprLectureList(Connection conn) {
+	PreparedStatement pstmt=null;
+	ResultSet rs= null;
+	List <Lecture> list= new ArrayList();
+	String sql= prop.getProperty("apprLectureList");
+	try {
+		pstmt=conn.prepareStatement(sql);
+		rs=pstmt.executeQuery();
+		while(rs.next()) {
+			Lecture apprLecture= Lecture.builder()
+					.lectureNo(rs.getInt("lecture_No"))
+					.lectureTitle(rs.getString("lecture_Title"))
+					.nickName(rs.getString("nickname"))
+					.confirm(rs.getString("confirm").charAt(0))
+					.build();
+			list.add(apprLecture);
+		}
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rs);
+		close(pstmt);
+	}
+	return list;
+}
+public int apprLecture(Connection conn, int lectureNo) {
+	PreparedStatement pstmt=null;
+	int result=0;
+	String sql=prop.getProperty("apprLecture");
+	try {
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1, lectureNo);
+		result=pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
+	}
+	return result;
+}
 	
 	
 }

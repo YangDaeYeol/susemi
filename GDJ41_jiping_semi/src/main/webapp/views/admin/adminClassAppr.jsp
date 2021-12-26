@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
+<%@ page import="java.util.List,com.jiping.lecture.model.vo.Lecture" %>
+<%
+	List<Lecture> apprList = (List)request.getAttribute("apprList");
+	
+%>
 	<section id="sectionMargin">
             <div id="mypage-container" class="flex">
                 <div class=" inlineblock overflow" id="mypage-menu">          
@@ -10,11 +15,11 @@
                             <nav class="nav-sub">
                                 <li ><a href="">· 클래스관리</a></li>
                                 <ul id="sub-menu">
-                                    <li><a>- 클래스 승인</a></li>
-                                    <li><a>- 클래스 삭제</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/admin/adminClassAppr">- 클래스 승인</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/views/admin/adminClassDrop.jsp">- 클래스 삭제</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="">· 댓글 관리</a></li>
+                            <li><a href="<%=request.getContextPath()%>/views/admin/adminComment.jsp">· 댓글 관리</a></li>
                         </ul>                  
                     </div>
                 </div>   
@@ -35,33 +40,19 @@
                               </tr>
                             </thead>
                             <tbody>
+                              <!-- 불러온 값 -->
+                              <%for(int i=0;i<apprList.size();i++){ %>
+                              
                               <tr>
-                                <th scope="row">1</th>
-                                <td>알콩이의 아이패드 드로잉</td>
-                                <td>010-2323-4545</td>
+                                <th scope="row"><%=apprList.get(i).getLectureNo()%></th>
+                                <td><%=apprList.get(i).getLectureTitle()%></td>
+                                <td><%=apprList.get(i).getNickName()%></td>
                                 <td>
-                                    <button>클래스 승인</button>
+                                    <button onclick="location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo=<%=apprList.get(i).getLectureNo()%>')">클래스 승인</button>
                                     <button>클래스 거부</button>
                                 </td>
                               </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>
-                                    <button>클래스 승인</button>
-                                    <button>클래스 거부</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Larry the Bird</td>
-                                <td>Larry the Bird</td>
-                                <td>
-                                    <button>클래스 승인</button>
-                                    <button>클래스 거부</button>
-                                </td>
-                              </tr>
+                              <%} %>
                             </tbody>
                           </table>
                         </div>  

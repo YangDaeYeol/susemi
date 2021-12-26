@@ -63,31 +63,32 @@
 				<div class="location-container">
 					<span class="loginContent fs_14">관심지역 선택</span>
 					<div class="locationdiv">
-						<form id="nsdiSearchForm" action="#" class="form_data pb-1" onsubmit="return false;search();">
+						<div id="nsdiSearchForm1" class="form_data pb-1">
 							<select id="sido_code" class="form-select">
 								<option>선택</option>
 							</select>
 							<select id="sigoon_code" class="form-select">
 								<option>선택</option>
 							</select>
-						</form>
-						<form id="nsdiSearchForm2" action="#" class="form_data d-none pb-1 pt-1" onsubmit="return false;search();">
+						</div>
+						<div id="nsdiSearchForm2" class="form_data pb-1 d-none">
 							<select id="sido_code2" class="form-select">
 								<option>선택</option>
 							</select>
 							<select id="sigoon_code2" class="form-select">
 								<option>선택</option>
 							</select>
-						</form>
-						<form id="nsdiSearchForm3" action="#" class="form_data d-none pb-1" onsubmit="return false;search();">
+						</div>
+						<div id="nsdiSearchForm3" class="form_data pb-1 d-none">
 							<select id="sido_code3" class="form-select">
 								<option>선택</option>
 							</select>
 							<select id="sigoon_code3" class="form-select">
 								<option>선택</option>
 							</select>
-						</form>
+						</div>
 					</div>
+					
 					<button class="w-100 btn btn-lg btn_mint mt-2 mb-3" id="locationinsert" type="button">추가</button>
 				</div>
 				<!-- 지역끝 -->
@@ -149,7 +150,7 @@
 	function update_selected() {
 	$("#smallCategory").val(0);
 	$("#smallCategory").find("option[value!=0]").detach();
-
+	console.log($(this).val());
 	$("#smallCategory").append(categories.filter(".sc" + $(this).val()));
 	}
 
@@ -191,7 +192,7 @@
 		
 		$(document).on("change","#sido_code",function(){
 			let thisVal = $(this).val();		
-
+			/* let thisText = $("select[id=sido_code] option:selected").text(); */
 			$.ajax({
 				type: "get",
 				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
