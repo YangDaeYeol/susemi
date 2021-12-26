@@ -79,5 +79,12 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	public Member nicknameDuplicateCheck(String newNick) {
+		Connection conn=getConnection();
+		Member m=dao.nicknameDuplicateCheck(conn, newNick);
+		close(conn);
+		return m;
+	}
 
 }

@@ -9,6 +9,7 @@
 				com.jiping.tutor.model.vo.Tutor,
 				com.jiping.member.model.vo.Member,
 				com.jiping.tutor.model.vo.Certificate,
+				com.jiping.payment.model.vo.Payment,
 				java.util.List " %>
 <%
 	List<VodLecture> vodList=(List)request.getAttribute("vodList");
@@ -20,7 +21,9 @@
 	Tutor tutor=(Tutor)request.getAttribute("tutor");
 	Member m=(Member)request.getAttribute("m");
 	List<Certificate> cList= (List)request.getAttribute("c");
- 	System.out.println("jsp:"+ tutor); 
+	List<Payment> pList= (List)request.getAttribute("p");
+	
+ 	System.out.println("jsp:"+ pList); 
 
 %>
 
@@ -164,14 +167,14 @@
                 </div>
                 <%} %>
                 
-                <div id="scheduleBtn" class="d-flex justify-content-center">
+            <%for(Payment p:pList) { 
+	            if(loginMember==null||!(p.getEmail().contains(loginMember.getEmail()))) { %>
+	            <div id="scheduleBtn" class="d-flex justify-content-center">
                   <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하 기</button>
                   <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신 청</button>
                 </div>
               </div>
             </div>
-            
-            
             <div id="class_submit" style="display: none;">
                     <h5 class="card-title">수강신청</h5>
                     <div class="card">
@@ -193,6 +196,14 @@
                             하 기</button>
                     </div>
                 </div>
+	           <% } else { %>
+	           </div>
+              </div>
+	        	   <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;" 
+	        	   onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=16')">강 의 실 입 장</button>
+            </div>
+	          <% }
+            } %>
           </div>
           <script>
 	          $("#totutor").keyup(e=>{
@@ -275,12 +286,8 @@
                       <span>★★★★★</span><br>
                       <span>홍대불주먹</span><br>
                       <p>
-                        1월부터 변경된 지침~ 1/3일부터는 수업시간이 변경되고 한시적으로 시행했던 훈련장려금도 복원된다고 하네요.
-                        아쉽다.. 훈련 시작일로부터 산정해주면 좋을텐데 왜 수업일 기준으로 보나요~ 이것에 대한 건의는..고노부에 직접 하도록 하세요~!
-                        1월부터 변경된 지침~ 1/3일부터는 수업시간이 변경되고 한시적으로 시행했던 훈련장려금도 복원된다고 하네요.
-                        아쉽다.. 훈련 시작일로부터 산정해주면 좋을텐데 왜 수업일 기준으로 보나요~ 이것에 대한 건의는..고노부에 직접 하도록 하세요~!
-                        1월부터 변경된 지침~ 1/3일부터는 수업시간이 변경되고 한시적으로 시행했던 훈련장려금도 복원된다고 하네요.
-                        아쉽다.. 훈련 시작일로부터 산정해주면 좋을텐데 왜 수업일 기준으로 보나요~ 이것에 대한 건의는..고노부에 직접 하도록 하세요~!
+                        자바를 쉽게 배울 수 있어서 너무 행복하고 좋네요..! 수료일 이후가 기대됩니다~~~~~~~~~~~~~ 프로젝트를 정말 재밌게 해냈어요! 
+                        인생의 값진 경험........ 이 수업 덕에 좋은 곳에 취업하고 갑니다~~~~~~!! 
                       </p>
                     </div>
                   </div>

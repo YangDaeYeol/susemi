@@ -1,28 +1,26 @@
-package com.jiping.lecture.controller;
+package com.jiping.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.VodLecture;
+import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
- * Servlet implementation class VodRoomAjaxServlet
+ * Servlet implementation class TutorEndClassServlet
  */
-@WebServlet("/VodRoomAjaxServlet.do")
-public class VodRoomAjaxServlet extends HttpServlet {
+@WebServlet("/member/tutorEndClass.do")
+public class TutorEndClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VodRoomAjaxServlet() {
+    public TutorEndClassServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +29,10 @@ public class VodRoomAjaxServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String vodTitle=request.getParameter("vodTitle");
-		int lectureNo=Integer.parseInt(request.getParameter("lectureNo"));
-		VodLecture v= new LectureService().selectTitleVod(vodTitle, lectureNo);
-		new Gson().toJson(v,response.getWriter());
+		String email=request.getParameter("email");
+		Member m=new MemberService().selectMember(email);
+		request.setAttribute("loginMember", m);
+		request.getRequestDispatcher("/views/member/myClassEndTutor.jsp").forward(request, response);
 	}
 
 	/**

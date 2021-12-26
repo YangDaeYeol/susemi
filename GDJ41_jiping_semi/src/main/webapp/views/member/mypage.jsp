@@ -4,16 +4,57 @@
 <%
 	Member m=(Member)request.getAttribute("loginMember");
 	System.out.println(m);
+
 	String[] largeCategory=new String[3]; 
 	if(m.getMemberCategory()!=null){
 		largeCategory=m.getMemberCategory().split(",");
 		for(String c : largeCategory){
 			System.out.println(c);
 		}		
+	} else {
+
+	
+	/* 관심분야 */	
+		String[] categories;
+		String[] largeCategories;
+		String[] smallCategories;
+		if(m.getMemberGrade().equals("수강생") && m.getMemberCategory()!=null){
+			categories=m.getMemberCategory().split(",");
+			largeCategories=new String[categories.length];
+			smallCategories=new String[categories.length];
+
+			for(int i=0; i<categories.length; i++){
+				largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
+				smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
+				
+				System.out.println(largeCategories[i]);
+				System.out.println(smallCategories[i]);
+			
+			}
+
+		}
+	
+	/* 관심지역 */
+		String[] categories2;
+		String[] largeCategories2;
+		String[] smallCategories2;
+		if(m.getMemberGrade().equals("수강생") && m.getMemberLocation()!=null){		
+			categories2=m.getMemberLocation().split(",");
+			largeCategories2=new String[categories2.length];
+			smallCategories2=new String[categories2.length];
+			
+			for(int i=0; i<categories2.length; i++){
+				largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
+				smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
+				
+				System.out.println(largeCategories2[i]);
+				System.out.println(smallCategories2[i]);
+			}
+		}
 	}
 %>
 <!-- 수강생 마이페이지 -->    
-<%if(loginMember.getMemberGrade().equals("수강생")){ %>    
+<%if(m.getMemberGrade().equals("수강생")){ %>    
 <section id="sectionMargin">
       <div id="mypage-container" class="flex">
           <div class=" inlineblock overflow" id="mypage-menu">          
@@ -23,11 +64,11 @@
                           <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
                           <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                           <nav class="nav-sub">
-                              <li ><a href="">· 마이클래스</a></li>
+                              <li>· 마이클래스</li>
                               <ul id="sub-menu">
-                                  <li><a>- 수강중인 클래스</a></li>
-                                  <li><a>- 찜한 클래스</a></li>
-                                  <li><a>- 수강완료 클래스</a></li>
+                                  <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
+                                  <li><a href="<%=request.getContextPath()%>/member/myclassHeart.do?email=<%=m.getEmail()%>">- 찜한 클래스</a></li>
+                                  <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
                               </ul>
                           </nav>
                           <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
@@ -76,116 +117,31 @@
                       </div>
               </div> 
               <div class="menu-margin margin-left" id="inter-field">
-                  <div class="info-title inlineblock"><span class="margin-right menu-list-name">관심 분야</span></div>
-                  <div class="info-content inlineblock" style="vertical-align: middle; line-height: 150px">                           
-                      <%
-                      	/* String[] smallCategory=new String[6];
-                      		for(int i=0; i<largeCategory.length; i++){
-                      		smallCategory[i]=largeCategory[i].split(" ");
-                      	}  */
-                      
-                      %>
-                      
-                      <div class="categorydiv flex">
-                          <select name="largeCategory" class="form-select" id="largeCategory" >
-                              <option value="0" selected="selected">대분류</option>
-                              <option value="1">취미/공예</option>
-                              <option value="2">액티비티</option>
-                              <option value="3">커리어</option>
-                              <option value="4">디자인</option>
-                          </select>
-                          <select name="smallCategory" class="form-select" id="smallCategory">
-                              <option value="0" selected="selected">소분류</option>
-                              <!-- 취미/공예 -->
-                              <option value="picture" class="sc1">사진/미술</option>
-                              <option value="drawing" class="sc1">드로잉</option>
-                              <option value="cooking" class="sc1">요리/베이킹</option>
-                              <option value="music" class="sc1">음악</option>
-                              <!-- 액티비티 -->
-                              <option value="dance" class="sc2">댄스/무용</option>
-                              <option value="act" class="sc2">연기</option>
-                              <option value="sports" class="sc2">스포츠/레저</option>
-                              <option value="exotic_sports" class="sc2">이색 액티비티</option>
-                              <!-- 커리어 -->
-                              <option value="competency" class="sc3">업무 역량</option>
-                              <option value="marketing" class="sc3">마케팅</option>
-                              <option value="programming" class="sc3">프로그래밍</option>
-                              <option value="certificate" class="sc3">자격증/시험</option>
-                              <option value="employment" class="sc3">취업/이직/진로</option>
-                              <!-- 디자인 -->
-                              <option value="architecturalD" class="sc4">건축</option>
-                              <option value="graphicD" class="sc4">그래픽 디자인</option>
-                              <option value="productD" class="sc4">제품 디자인</option>
-                              <option value="videoD" class="sc4">영상 편집/제작</option>   
-                          </select>
-                      </div>
-                      
-                      <div class="categorydiv flex">
-                          <select name="largeCategory" class="form-select" id="largeCategory">
-                              <option value="0" selected="selected">대분류</option>
-                              <option value="1">취미/공예</option>
-                              <option value="2">액티비티</option>
-                              <option value="3">커리어</option>
-                              <option value="4">디자인</option>
-                          </select>
-                          <select name="smallCategory" class="form-select" id="smallCategory">
-                              <option value="0" selected="selected">소분류</option>
-                              <!-- 취미/공예 -->
-                              <option value="picture" class="sc1">사진/미술</option>
-                              <option value="drawing" class="sc1">드로잉</option>
-                              <option value="cooking" class="sc1">요리/베이킹</option>
-                              <option value="music" class="sc1">음악</option>
-                              <!-- 액티비티 -->
-                              <option value="dance" class="sc2">댄스/무용</option>
-                              <option value="act" class="sc2">연기</option>
-                              <option value="sports" class="sc2">스포츠/레저</option>
-                              <option value="exotic_sports" class="sc2">이색 액티비티</option>
-                              <!-- 커리어 -->
-                              <option value="competency" class="sc3">업무 역량</option>
-                              <option value="marketing" class="sc3">마케팅</option>
-                              <option value="programming" class="sc3">프로그래밍</option>
-                              <option value="certificate" class="sc3">자격증/시험</option>
-                              <option value="employment" class="sc3">취업/이직/진로</option>
-                              <!-- 디자인 -->
-                              <option value="architecturalD" class="sc4">건축</option>
-                              <option value="graphicD" class="sc4">그래픽 디자인</option>
-                              <option value="productD" class="sc4">제품 디자인</option>
-                              <option value="videoD" class="sc4">영상 편집/제작</option>   
-                          </select>
-                      </div>
-                      <div class="categorydiv flex">
-                          <select name="largeCategory" class="form-select" id="largeCategory">
-                              <option value="0" selected="selected">대분류</option>
-                              <option value="1">취미/공예</option>
-                              <option value="2">액티비티</option>
-                              <option value="3">커리어</option>
-                              <option value="4">디자인</option>
-                          </select>
-                          <select name="smallCategory" class="form-select" id="smallCategory">
-                              <option value="0" selected="selected">소분류</option>
-                              <!-- 취미/공예 -->
-                              <option value="picture" class="sc1">사진/미술</option>
-                              <option value="drawing" class="sc1">드로잉</option>
-                              <option value="cooking" class="sc1">요리/베이킹</option>
-                              <option value="music" class="sc1">음악</option>
-                              <!-- 액티비티 -->
-                              <option value="dance" class="sc2">댄스/무용</option>
-                              <option value="act" class="sc2">연기</option>
-                              <option value="sports" class="sc2">스포츠/레저</option>
-                              <option value="exotic_sports" class="sc2">이색 액티비티</option>
-                              <!-- 커리어 -->
-                              <option value="competency" class="sc3">업무 역량</option>
-                              <option value="marketing" class="sc3">마케팅</option>
-                              <option value="programming" class="sc3">프로그래밍</option>
-                              <option value="certificate" class="sc3">자격증/시험</option>
-                              <option value="employment" class="sc3">취업/이직/진로</option>
-                              <!-- 디자인 -->
-                              <option value="architecturalD" class="sc4">건축</option>
-                              <option value="graphicD" class="sc4">그래픽 디자인</option>
-                              <option value="productD" class="sc4">제품 디자인</option>
-                              <option value="videoD" class="sc4">영상 편집/제작</option>   
-                          </select>
-                      </div>                       
+                  <div class="info-title inlineblock" style="vertical-align: top; line-height: 150px">
+                  		<span class="margin-right menu-list-name" >관심 분야</span>
+                  </div>
+                  <div class="info-content inlineblock" >                           
+                  <%-- <%if(categories!=null){ %>    
+                       <%for(int i=0; i<categories.length; i++) {%>
+                       		<div>
+	                           <input type="text" readonly name="" placeholder="<%=largeCategories[i] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                           <input type="text" readonly name="" placeholder="<%=smallCategories[i] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                      		</div>
+                       <%}
+                       
+                       }%> --%>
+                       <%-- <div>
+                           <input type="text" readonly name="" placeholder="<%if(largeCategories[0]==null){ %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                           <input type="text" readonly name="" placeholder="<%=smallCategories[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                       </div>
+                       <div>
+                           <input type="text" readonly name="" placeholder="<%=largeCategories[1] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                           <input type="text" readonly name="" placeholder="<%=smallCategories[1] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                       </div>
+                       <div>
+                           <input type="text" readonly name="" placeholder="<%=largeCategories[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                           <input type="text" readonly name="" placeholder="<%=smallCategories[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                       </div>                                                       
                   </div>
               </div> 
               <div class="menu-margin margin-left" id="tutor-area">
@@ -193,35 +149,19 @@
                           <span class="margin-right menu-list-name">관심 지역</span>
                       </div>
                       <div class="info-content inlineblock">
-                          <div class="location-container " style="vertical-align: middle; line-height: 150px">
-                              <div class="locationdiv block">
-                                  <form id="nsdiSearchForm" action="#" class="form_data flex" onsubmit="return false;search();">                                        
-                                      <select id="sido_code" class="form-select margint-rb-10px"  style="width: 200px;">
-                                          <option>선택</option>
-                                      </select>
-                                      <select id="sigoon_code" class="form-select margint-rb-10px" style="width: 200px;">
-                                          <option>선택</option>
-                                      </select>
-                                  </form>
-                                  <form id="nsdiSearchForm2" action="#" class="form_data flex" onsubmit="return false;search();">                                        
-                                      <select id="sido_code2" class="form-select margint-rb-10px" style="width: 200px;">
-                                          <option>선택</option>
-                                      </select>
-                                      <select id="sigoon_code2" class="form-select margint-rb-10px" style="width: 200px;">
-                                          <option>선택</option>
-                                      </select>
-                                  </form>
-                                  <form id="nsdiSearchForm3" action="#" class="form_data flex" onsubmit="return false;search();">                                        
-                                      <select id="sido_code3" class="form-select margint-rb-10px" style="width: 200px;">
-                                          <option>선택</option>
-                                      </select>
-                                      <select id="sigoon_code3" class="form-select margint-rb-10px" style="width: 200px;">
-                                          <option>선택</option>
-                                      </select>
-                                  </form>
-                              </div>
+                          <%-- <div>
+                               <input type="text" readonly name="" placeholder="<%=largeCategories2[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                               <input type="text" readonly name="" placeholder="<%=smallCategories2[0] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
                            </div>
-                           
+                           <div>
+                               <input type="text" readonly name="" placeholder="<%=largeCategories2[1] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                               <input type="text" readonly name="" placeholder="<%=smallCategories2[1] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                           </div>
+                           <div>
+                               <input type="text" readonly name="" placeholder="<%=largeCategories2[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                               <input type="text" readonly name="" placeholder="<%=smallCategories2[2] %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+                           </div> --%>
+                          
                       </div>
               </div> 
               <div class="menu-margin margin-left" id="tutor-gender">
@@ -251,7 +191,7 @@
                           	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
                               <label for="toggle1"></label>
 	                       </div>
-	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;">ss</div>
                           <%} %>
                   </div>  
               </div>
@@ -267,16 +207,16 @@
                     <h3>MY PAGE</h3>
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
-                            <li><a href="<%=request.getContextPath()%>/member/mypage.do">· 나의정보</a></li>
-                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do">· 정보수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                             <nav class="nav-sub">
-                                <li ><a href="">· 클래스</a></li>
+                                <li >· 클래스</li>
                	                 <ul id="sub-menu">
-                                    <li><a href="">- 운영중인 클래스</a></li>
-                                    <li><a href="">- 운영종료 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=<%=m.getEmail()%>">- 운영중인 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=<%=m.getEmail()%>">- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do">· 회원탈퇴</a></li>
+                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                         </ul>                  
                     </div>
             </div>   
@@ -340,7 +280,7 @@
                           	  <input type="checkbox" name="toggle1" id="toggle1" value="off" onclick="return false;">
                               <label for="toggle1"></label>
 	                       </div>
-	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;">ss</div>
                           <%} %>
                   </div>  
                 </div>
@@ -348,7 +288,7 @@
             </div>
         </div>
     </section>                
-        <%} %>
+<% } %>
         
 <%@ include file="/views/common/footer.jsp"%>
 <script>

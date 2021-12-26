@@ -1,5 +1,5 @@
-
 package com.jiping.lecture.model.vo;
+
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LectureImg {
 	
-	private int lectureNo;
+	private	int lectureNo;
 	private String lectureFileName;
-
+	
 }
