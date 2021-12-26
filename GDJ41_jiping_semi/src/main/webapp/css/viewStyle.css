@@ -1,8 +1,9 @@
+@charset "UTF-8";
 *{
     font-family: "서울남산체";
 }
 
- section{
+ .container{
     padding-top: 30px;
     padding-bottom: 30px;
     /* width: 100%;   */
@@ -108,7 +109,7 @@
     justify-content: space-between;
 }
 
-.list-group-item>input {
+.list-group-item>#innerboxcheck {
     margin-top: 16px;
 }
 
@@ -128,7 +129,7 @@
 
 
 
-#totutor {
+.msgbox {
     resize: none;
     width: 100%;
     border: none;
@@ -143,6 +144,10 @@
 
 .apply>div{
     margin-bottom: 10px;
+}
+
+#apply-class>div{
+    margin-bottom: 20px;
 }
 
 #report>a{

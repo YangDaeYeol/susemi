@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.jiping.member.model.service.MemberService;
 
 /**
- * Servlet implementation class FindEmailServlet
+ * Servlet implementation class FindPasswordServlet
  */
-@WebServlet("/findEmail")
-public class FindEmailServlet extends HttpServlet {
+@WebServlet("/findPassword")
+public class FindPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindEmailServlet() {
+    public FindPasswordServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +31,9 @@ public class FindEmailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/login/findEmail.jsp").forward(request, response);
+		List<String> list = new MemberService().selectAllEmail();
+		request.setAttribute("emailList",list);
+		request.getRequestDispatcher("/views/login/findPassword.jsp").forward(request, response);
 	}
 
 	/**

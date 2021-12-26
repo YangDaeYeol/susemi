@@ -10,7 +10,7 @@
 		email += s + ",";
 	}
 %>
-	<section>
+	<section style="margin: 100px auto; text-align: center">
         <main class="form-signin">
             
             <h4 class="h4 fw-normal">
@@ -34,7 +34,6 @@
             <button class="w-100 btn btn-lg btn_mint mb-3" id="enrollNext">확인</button>
             
         </main>
-    </section>
     <script>
     	let flag = false;
     	const email = ("<%= email %>").split(",");
@@ -71,7 +70,7 @@
     		});
     	});
     	$("#enrollNext").click(e=> {
-    		if(flag) {
+    		if(true) {
     			$.ajax({
     				url : "<%= request.getContextPath() %>/enrollMemberSecond",
     				dataType : "html",
@@ -84,4 +83,5 @@
     		}
     	});
     </script>
+    </section>
     <%@ include file="/views/common/footer.jsp" %>

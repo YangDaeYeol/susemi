@@ -1,4 +1,4 @@
-package com.jiping.member.controller;
+package com.jiping.lecture.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,19 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.member.model.service.MemberService;
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.jiping.lecture.model.sevice.LectureService;
+import com.jiping.lecture.model.vo.LectureSchedule;
 
 /**
- * Servlet implementation class FindEmailServlet
+ * Servlet implementation class LectureScheduleServlet
  */
-@WebServlet("/findEmail")
-public class FindEmailServlet extends HttpServlet {
+@WebServlet("/lecture/scheduleInfo.do")
+public class LectureScheduleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindEmailServlet() {
+    public LectureScheduleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,8 +34,15 @@ public class FindEmailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/login/findEmail.jsp").forward(request, response);
+
+		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
+		System.out.println("scheduleNo :"+scheduleNo);
+		LectureSchedule sc= new LectureService().scheduleSelectList(scheduleNo);
+		
+		new Gson().toJson(sc,response.getWriter());
+		
+		
+	
 	}
 
 	/**

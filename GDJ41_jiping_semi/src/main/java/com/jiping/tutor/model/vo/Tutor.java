@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Tutor {
 	
-	private String email;
+	private String nickname;
+	private String phone;
 	private String insta;
 	private String facebook;
 	private String blog;

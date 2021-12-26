@@ -1,7 +1,6 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jiping.member.model.service.MemberService;
+import com.jiping.member.model.vo.Member;
 
 /**
  * Servlet implementation class FindEmailServlet
  */
-@WebServlet("/findEmail")
-public class FindEmailServlet extends HttpServlet {
+@WebServlet("/findEmailResult")
+public class FindEmailResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindEmailServlet() {
+    public FindEmailResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +31,16 @@ public class FindEmailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/login/findEmail.jsp").forward(request, response);
+		String userName = request.getParameter("userName");
+		String phone = request.getParameter("phone");
+		
+		System.out.println(userName);
+		System.out.println(phone);
+
+		Member m = new MemberService().findEmail(userName,phone);
+		
+		request.setAttribute("member", m);
+		request.getRequestDispatcher("/views/login/findEmailResult.jsp").forward(request, response);
 	}
 
 	/**
