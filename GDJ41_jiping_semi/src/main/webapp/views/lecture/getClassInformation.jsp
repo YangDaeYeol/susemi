@@ -221,17 +221,17 @@
 
 
 													<div>
-														<input type="radio" id="control_01" name="onedayClassType"
+														<input type="radio" id="control_01" name="classType"
 															value="1"> <label for="control_01"
 															class="selectClass"> 원데이 클래스 </label>
 													</div>
 													<div>
-														<input type="radio" id="control_02" name="multipleClassType"
+														<input type="radio" id="control_02" name="classType"
 															value="2"> <label for="control_02"
 															class="selectClass"> 다회차 클래스 </label>
 													</div>
 													<div>
-														<input type="radio" id="control_03" name="VodClassType"
+														<input type="radio" id="control_03" name="classType"
 															value="3"> <label for="control_03"
 															class="selectClass"> VOD </label>
 													</div>

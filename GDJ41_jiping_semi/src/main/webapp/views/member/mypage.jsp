@@ -49,9 +49,10 @@
 			
 			System.out.println(largeCategories2[i]);
 			System.out.println(smallCategories2[i]);
-	}
+			}
 	
 		
+		}
 	}
 	
 	
