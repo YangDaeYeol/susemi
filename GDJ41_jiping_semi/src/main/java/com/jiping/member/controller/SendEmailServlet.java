@@ -39,8 +39,8 @@ public class SendEmailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String host = "smtp.naver.com";
-		String user = "";
-		String pw = "";
+		String user = "daeyeol9245@naver.com";
+		String pw = "eodufdl1!";
 		
 		String toEmail = request.getParameter("val");
 		Properties props = new Properties();
