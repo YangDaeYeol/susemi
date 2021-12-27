@@ -18,17 +18,15 @@ public class PasswordEncryptorWrapper extends HttpServletRequestWrapper {
 	public String getParameter(String name) {
 		if(name.equals("password")||name.equals("password_new")) {
 			String oriPw = super.getParameter(name);
-			System.out.println(oriPw);
 			String encPw = getSHA512(oriPw);
-			System.out.println(encPw);
 			return encPw;
 		}else {
-			return super.getParameter(name); //원본값을 반환
+			return super.getParameter(name);
 		}
 	}
 	
 	private String getSHA512(String oriPw) {
-		String encPwd = ""; //암호화된 문자열값 저장 변수
+		String encPwd = ""; 
 		MessageDigest md = null;
 		
 		try {

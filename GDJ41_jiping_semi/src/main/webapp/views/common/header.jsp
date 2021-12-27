@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jiping.member.model.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember"); 
+	
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,14 +34,21 @@
         <header>
             <div>
                 <div id="header-top">
-                    <h1><a href=""><img src="<%= request.getContextPath() %>/img/logo.png" width="80px" height="80px"></a></h1>
+                    <h1><a href="<%= request.getContextPath()%>/main"><img src="<%= request.getContextPath() %>/img/logo.png" width="80px" height="80px"></a></h1>
                     <div id="header-search">
                         <img src="<%= request.getContextPath() %>/img/searchicon.png" width="28px" height="28px">
                         <input type="search" id="searchBar" placeholder="검색어를 입력해주세요.">
                     </div>
                     <div id="header-btn">
+                    <%if(loginMember==null){ %>
                         <button id="enrollMemberBtn"><span>회원가입</span></button>
-                        <button id="loginBtn"><span>로그인</span></button>
+                        <button id="loginBtn" 
+                        	onclick="location.assign('<%=request.getContextPath()%>/member/loginPage.do');"><span>로그인</span></button>
+                    <% } %>
+                        	<%if(loginMember!=null){ %>
+                    		<span onclick="location.assign('<%=request.getContextPath() %>/member/mypage.do?email=<%=loginMember.getEmail()%>');">마이페이지</span>
+                    		<span onclick="location.assign('<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>');">로그아웃</span>
+                    		<%} %>
                     </div>
                 </div>
                 <div id="nav-container">
@@ -91,6 +105,9 @@
                 </div>
             </div>
         </header>
+        <form name="searchFrm">
+        	<input type="hidden" name="searchKeyword" />
+        </form>
         <script>
         $(() => {
             for(let i=1; i<5; i++) {
@@ -115,4 +132,17 @@
         $("#searchBar").focusout(e => {
             $(e.target).parent().css({"border":"1px #94D5DE solid"});
         });
+        $("#enrollMemberBtn").click(e=> {
+        	location.assign("<%= request.getContextPath() %>/enrollMember");
+        });
+        $("#searchBar").keydown(e=> {
+        	if(e.keyCode==13) {
+        		const keyword = $(e.target).val();
+	        	const url = "<%= request.getContextPath() %>/searchResult";
+	        	searchFrm.searchKeyword.value = keyword;
+	        	searchFrm.action = url;
+	        	searchFrm.method = "post";
+	        	searchFrm.submit();
+        	}
+        })
     </script>

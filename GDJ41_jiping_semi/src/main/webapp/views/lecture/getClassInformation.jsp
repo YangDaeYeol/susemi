@@ -1,1174 +1,640 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-<style>
-    * {
-        font-family: "서울남산체";
-    }
 
-    input {
-        font-size: 14px;
-    }
-
-    #classDetailHead {
-        font-size: 20px;
-        margin-top: 40px;
-        margin-bottom: 10px;
-    }
-
-    div.first {
-        width: 20%;
-    }
-
-    div.middle {
-        width: 45%;
-        margin: 0 auto;
-    }
-
-    div.last {
-        width: 20%;
-    }
-
-    .mainContents {
-        margin-left: 30px;
-        margin-right: 30px;
-    }
-
-    /* 인풋박스 포커스시 아웃라인 없애기 */
-    input:focus {
-        outline: none;
-    }
-
-    textarea:focus {
-        outline: none;
-    }
-
-    #enrollClass {
-        border-bottom: 1px solid;
-        padding: 20px;
-        width: 90%;
-    }
-
-    #menu {
-        padding: 20px;
-    }
-
-    #tutor {
-        margin-bottom: 15px;
-    }
-
-    #class {
-        margin-bottom: -10px;
-    }
-
-    #tutorIntro {
-        padding: 20px;
-    }
-
-    #tutorTitle {
-        font-size: 20px;
-        margin-bottom: 10px;
-        margin-top: 40px;
-    }
-
-    #profilePic {
-        font-size: 12px;
-        margin-bottom: 20px;
-    }
-
-    #uploadProfile {
-        margin-bottom: 20px;
-    }
-
-    .image-upload {
-        margin-bottom: 20px;
-    }
-
-    .image-upload>input {
-        display: none;
-
-    }
-
-
-    textarea {
-        border-radius: 10px;
-        border: 0px;
-        resize: none;
-    }
-
-    #tutorComment {
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 40px;
-        border: 1px solid black;
-    }
-
-    #introlimit {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    .sugg {
-        font-size: 12px;
-    }
-
-    ::placeholder {
-        color: gray;
-        font-size: 12px;
-    }
-
-    #snsInfo {
-        margin-bottom: 20px;
-    }
-
-    #insta {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #facebook {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #blog {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 40px;
-    }
-
-    .snsInputBox {
-        border: 0px;
-        border-radius: 10px;
-        width: 90%;
-    }
-
-    .socialImg {
-        margin-left: 7px;
-        margin-right: 4px;
-    }
-
-    .career {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .carrerimage {
-        margin-left: 7px;
-        margin-right: 4px;
-    }
-
-    .careerInputBox {
-        border: 0px;
-        border-radius: 10px;
-        margin-left: 10px;
-        width: 88%;
-    }
-
-    .image-career>#file-career {
-        display: none;
-
-    }
-
-    .image-career {
-        border: 1px solid;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #addCareer {
-        margin-bottom: 20px;
-    }
-
-    .fileImg {
-        margin-top: -3px;
-    }
-
-    button {
-        background-color: rgb(196, 196, 196);
-        border: none;
-        border-radius: 10px;
-        color: black;
-        padding: 5px 32px;
-        text-align: center;
-        text-decoration: none;
-        width: 100%;
-        font-size: 13px;
-        margin-bottom: 10px;
-    }
-
-    #chooseCategory {
-        font-size: 20px;
-        margin-top: 40px;
-        padding-bottom: 20px;
-    }
-
-    input[type="radio"] {
-        display: none;
-    }
-
-    section {
-        margin-bottom: 40px;
-    }
-
-    .selectClass {
-        height: 70%;
-        display: block;
-        background: white;
-        border: 1px solid black;
-        border-radius: 20px;
-        padding: 1rem;
-        margin-bottom: 30px;
-
-        text-align: center;
-
-        position: relative;
-    }
-
-    input[type="radio"]:checked+label {
-        background: rgb(162, 221, 220);
-        color: hsla(215, 0%, 100%, 1);
-        border: 1px solid rgb(162, 221, 220);
-    }
-
-    #categoryDiv {
-        margin-bottom: 20px;
-        font-size: 20px;
-    }
-
-    .container {
-        margin-bottom: 20px;
-    }
-
-    select {
-        width: 150px;
-        padding: 8px;
-        margin-right: 2px;
-        font-size: 14px;
-        border-radius: 10px;
-    }
-
-    #classTitle {
-        display: flex;
-        border-radius: 10px;
-        width: 100%;
-        margin-bottom: 40px;
-        border: 1px solid black;
-    }
-
-    #showMeTheLimitOfTitleLength1 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #showMeTheLimitOfTitleLength2 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #showMeTheLimitOfTitleLength3 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #classTitleHead {
-        font-size: 20px;
-        margin-top: 40px;
-        margin-bottom: 10px;
-    }
-
-    #classImgeHead {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    #classImgContent {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    /* 클래스 이미지 등록 css 시작 */
-    input[type="file"] {
-        position: absolute;
-        right: -9999px;
-        visibility: hidden;
-        opacity: 0;
-    }
-
-
-
-    #toUploadClassImg:hover {
-        background-color: rgb(162, 221, 220);
-        color: #fff;
-        transition: 0.2s all;
-
-    }
-
-    #uploadImageBtn {
-        text-align: center;
-    }
-
-    #classImageUpload {
-        position: relative;
-        padding: 10px;
-        background: #eee;
-        display: inline-block;
-        text-align: center;
-        overflow: hidden;
-        border-radius: 10px;
-        height: 40px;
-        width: 100%;
-    }
-
-    #classImageUpload:hover {
-        background: rgb(162, 221, 220);
-        color: #fff;
-        cursor: pointer;
-        transition: 0.2s all;
-
-    }
-
-    div.files {
-        background: #eee;
-        width: 100%;
-        padding: 1rem;
-        text-align: center;
-        margin: 1rem 0;
-        border-radius: 10px;
-    }
-
-    div.files>ul {
-        list-style: none;
-        padding: 0;
-        max-height: 150px;
-        overflow: auto;
-    }
-
-    div.files>ul>li {
-        padding: 0.5rem 0;
-        padding-right: 2rem;
-        position: relative;
-    }
-
-    div.files>ul>li>i {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translatey(-50%);
-    }
-
-    div.files>ul>li>i.container {
-        width: 100%;
-        padding: 0 2rem;
-
-    }
-
-    span.file-size {
-        color: #999;
-        padding-left: 0.5rem;
-    }
-
-
-
-    /* 클래스 이미지 등록 css 끝 */
-
-
-    .pageBtn {
-        background-color: rgb(162, 221, 220);
-        color: white;
-    }
-
-    /* setClassTitle처리하기~! */
-    #setClassTitle1 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    #setClassTitle2 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    #setClassTitle3 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    #setClassTitle4 {
-        border: 0px;
-        border-radius: 10px;
-        width: 370px;
-        margin-left: 3px;
-    }
-
-    /* 클래스 제목및 커버 css 시작 */
-
-
-    #classTitleText {
-        border: 0px;
-        display: flex;
-    }
-
-    /* 클래스 제목및 커버 css 끝 */
-
-    /* 상세설명 css 시작 */
-    #classComment1 {
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    #classComment2 {
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    #classComment3 {
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-
-    #classComment4 {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    #detailInfoLengthLimit1 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #detailInfoLengthLimit2 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #detailInfoLengthLimit3 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    #detailInfoLengthLimit4 {
-        text-align: right;
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    /* 기타 css */
-    #selectedVOD {
-        margin-top: 40px;
-    }
-
-    .vodEachClassInformation {
-        margin-left: 5px;
-        border-radius: 10px;
-        margin-top: 5px;
-    }
-
-    .vodEachClassInformationDiv {
-        margin-top: 20px;
-        border-radius: 10px;
-        border: 1px solid black;
-    }
-
-    .vodEachClassUrlAddressLimit {
-        font-size: 12px;
-        margin-top: 5px;
-    }
-
-    .vodEachClassTitleLimit {
-        font-size: 12px;
-        margin-top: 5px
-    }
-
-    .vodEachClassInfoLimit {
-        text-align: right;
-        font-size: 12px;
-    }
-
-    #urlTextBox {
-        border: 0px;
-        margin-left: 3px;
-        display: flex;
-    }
-
-    .classIntInputBox {
-        border-radius: 10px;
-        border: 0px;
-    }
-
-    .inputVODinfoTxtBox {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-right: 5px;
-        width: 100%;
-        height: 30px;
-    }
-
-    .inputUrlAddress {
-        border-radius: 10px;
-        border: 0px;
-        width: 97%;
-        margin-left: 5px;
-    }
-
-    .inputSmallTitle {
-        margin-left: 5px;
-        border-radius: 10px;
-        border: 0px;
-        width: 97%;
-    }
-
-
-    .classIntBox {
-        border: 1px solid black;
-        border-radius: 10px;
-        height: 30px;
-        margin-top: 3px;
-    }
-
-    .won {
-        margin-right: 5px;
-    }
-
-    .times {
-        margin-left: 4px;
-        margin-right: 4px;
-    }
-
-    .classCetegory {
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
-
-    .classLocationTitle {
-        margin-bottom: 10px;
-    }
-
-    #detailPlace1 {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    #detailPlace2 {
-        border: 1px solid black;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    .pricePerClass1 {
-        font-size: 15px;
-    }
-
-    .totalClass1 {
-        font-size: 14px;
-    }
-
-    .won {
-        font-size: 12px;
-    }
-</style>
 <body>
-<div id="container">
-        <!-- 헤더부분 -->
-        <section>
+	<div id="container">
+		<%@ include file="/views/common/header.jsp"%>
+		<link rel="stylesheet"
+			href="<%=request.getContextPath() %>/css/getClassInformation.css">
+		<section>
 
 
-            <div class="bs-stepper">
-                <div class="mainContents">
-                    <div class="mb-5 p-4 bg-white shadow-sm">
-                        <h3>클래스 등록</h3>
-                        <div id="stepper1" class="bs-stepper">
-                            <div class="bs-stepper-header" role="tablist">
-                                <div class="step" data-target="#test-l-1">
-                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger1"
-                                        aria-controls="test-l-1">
-                                        <span class="bs-stepper-circle">1</span>
-                                        <span class="bs-stepper-label">튜터 소개</span>
-                                    </button>
-                                </div>
-                                <div class="bs-stepper-line"></div>
-                                <div class="step" data-target="#test-l-2">
-                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger2"
-                                        aria-controls="test-l-2">
-                                        <span class="bs-stepper-circle">2</span>
-                                        <span class="bs-stepper-label">클래스 유형</span>
-                                    </button>
-                                </div>
-                                <div class="bs-stepper-line"></div>
-                                <div class="step" data-target="#test-l-3">
-                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger3"
-                                        aria-controls="test-l-3">
-                                        <span class="bs-stepper-circle">3</span>
-                                        <span class="bs-stepper-label">클래스 제목 및 커버</span>
-                                    </button>
-                                </div>
-                                <!-- 클래스 상세 설명 -->
-                                <div class="bs-stepper-line"></div>
-                                <div class="step" data-target="#test-l-4">
-                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger4"
-                                        aria-controls="test-l-4">
-                                        <span class="bs-stepper-circle">4</span>
-                                        <span class="bs-stepper-label">클래스 설명</span>
-                                    </button>
-                                </div>
-                                <!-- 기타 -->
-                                <div class="bs-stepper-line"></div>
-                                <div class="step" data-target="#test-l-5">
-                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger5"
-                                        aria-controls="test-l-5">
-                                        <span class="bs-stepper-circle">5</span>
-                                        <span class="bs-stepper-label">기타</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="bs-stepper-content">
-                                <form onSubmit="return false">
+			<div class="bs-stepper">
+				<div class="mainContents">
+					<div class="mb-5 p-4 bg-white shadow-sm">
+						<h3>클래스 등록</h3>
+						<div id="stepper1" class="bs-stepper">
+							<div class="bs-stepper-header" role="tablist">
+								<div class="step" data-target="#test-l-1">
+									<button type="button" class="step-trigger" role="tab"
+										id="stepper1trigger1" aria-controls="test-l-1">
+										<span class="bs-stepper-circle">1</span> <span
+											class="bs-stepper-label">튜터 소개</span>
+									</button>
+								</div>
+								<div class="bs-stepper-line"></div>
+								<div class="step" data-target="#test-l-2">
+									<button type="button" class="step-trigger" role="tab"
+										id="stepper1trigger2" aria-controls="test-l-2">
+										<span class="bs-stepper-circle">2</span> <span
+											class="bs-stepper-label">클래스 유형</span>
+									</button>
+								</div>
+								<div class="bs-stepper-line"></div>
+								<div class="step" data-target="#test-l-3">
+									<button type="button" class="step-trigger" role="tab"
+										id="stepper1trigger3" aria-controls="test-l-3">
+										<span class="bs-stepper-circle">3</span> <span
+											class="bs-stepper-label">클래스 제목 및 커버</span>
+									</button>
+								</div>
+								<!-- 클래스 상세 설명 -->
+								<div class="bs-stepper-line"></div>
+								<div class="step" data-target="#test-l-4">
+									<button type="button" class="step-trigger" role="tab"
+										id="stepper1trigger4" aria-controls="test-l-4">
+										<span class="bs-stepper-circle">4</span> <span
+											class="bs-stepper-label">클래스 설명</span>
+									</button>
+								</div>
+								<!-- 기타 -->
+								<div class="bs-stepper-line"></div>
+								<div class="step" data-target="#test-l-5">
+									<button type="button" class="step-trigger" role="tab"
+										id="stepper1trigger5" aria-controls="test-l-5">
+										<span class="bs-stepper-circle">5</span> <span
+											class="bs-stepper-label">기타</span>
+									</button>
+								</div>
+							</div>
+							<div class="bs-stepper-content">
+								<form onsubmit="return false"  id="toSendForm">
+                                <!-- 여기가 진짜 폼 시작하는곳이야  -->
 
-                                    <div class="mainContent">
-                                        <div class="first"></div>
-                                        <div class="middle">
-                                            <!-- 폼 내용 START -->
-                                            <div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
-                                                aria-labelledby="stepper1trigger1">
-                                                <div class="form-group">
-                                                    <!-- 1. 튜터 소개 본문 내용 시작 -->
-                                                    <div>
-                                                        <div id="tutorTitle">튜터 소개</div>
+								<div class="mainContent">
+									<div class="first"></div>
+									<div class="middle">
+										<!-- 폼 내용 START -->
+										<div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
+											aria-labelledby="stepper1trigger1">
+											<div class="form-group">
+												<!-- 1. 튜터 소개 본문 내용 시작 -->
+												<div>
+													<div id="tutorTitle">튜터 소개</div>
 
-                                                        <div>프로필 사진</div>
-                                                        <div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png, gif,
-                                                            jpeg, jpg만
-                                                            가능)</div>
+													<div>프로필 사진</div>
+													<div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png,
+														gif, jpeg, jpg만 가능)</div>
 
-                                                        <div class="image-upload">
-                                                            <label for="file-input">
-                                                                <img src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
-                                                                    alt="2021-12-17-18-59-18" width="100px"
-                                                                    height="100px">
-                                                            </label>
-                                                            <input id="file-input" type="file"
-                                                                accept="image/png, image/gif, image/jpeg, image/jpg">
-                                                        </div>
-                                                        <div id="resultTutorImg" style="margin-bottom: 30px;"></div>
-                                                        <div>튜터의 한마디</div>
-                                                        <div id="tutorComment">
-                                                            <textarea cols="58" rows="5"
-                                                                id="tutorIntroduction" onkeyup="limit500(event, 'introlimit')" 
-                                                                onfocus="changeBorderBox(event);"></textarea>
-                                                            <div id="introlimit">
-                                                                (0/500)
-                                                            </div>
-                                                        </div>
-                                                        <div id="snsInfo">
-                                                            <div>소셜미디어
-                                                                <span class="sugg">(권장사항)</span>
-                                                            </div>
-                                                            <div id="insta"><img
-                                                                    src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
-                                                                    alt="instagram" class="socialImg" width="18px"
-                                                                    height="18px"><input type="text"
-                                                                    placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
-                                                            </div>
-                                                            <div id="facebook"><img
-                                                                    src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
-                                                                    alt="facebook" class="socialImg" width="18px"
-                                                                    height="18px"><input type="text"
-                                                                    placeholder="페이스북 주소를 입력해주세요" class="snsInputBox">
-                                                            </div>
-                                                            <div id="blog">
-                                                                <img src="https://www.coolstay.co.kr/img/main/naver.png"
-                                                                    alt="blog" class="socialImg" width="18px"
-                                                                    height="18px"><input type="text"
-                                                                    placeholder="블로그 주소를 입력해주세요" class="snsInputBox">
-                                                            </div>
-                                                        </div>
-                                                        <div>자격증 및 경력
-                                                            <span class="sugg">(권장사항, 최대 5개)</span>
-                                                        </div>
-                                                        <div id="toGetCarrerInformation">
-                                                            <div class="image-career" id="image-career1">
-                                                                <input type="text"
-                                                                    placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-                                                                    class="careerInputBox">
-                                                                <label for="file-career">
+													<div class="image-upload">
+														<label for="file-input"> <img
+															src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
+															alt="2021-12-17-18-59-18" width="100px" height="100px">
+														</label> <input id="file-input" name="tutorImgFile" type="file"
+															accept="image/png, image/gif, image/jpeg, image/jpg">
+													</div>
+													<div id="resultTutorImg" style="margin-bottom: 30px;"></div>
+													<div>튜터의 한마디</div>
+													<div id="tutorComment">
+														<textarea name="tutorComment" cols="58" rows="5"
+														id="tutorIntroduction"
+														onkeyup="limit500(event, 'introlimit')" ></textarea>
+														<div id="introlimit">(0/500)</div>
+													</div>
 
-                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
-                                                                        alt="2021-12-17-18-59-18" width="18px"
-                                                                        height="18px" class="carrerimage" />
-                                                                </label>
+													<div id="snsInfo">
+														<div>
+															소셜미디어 <span class="sugg">(권장사항)</span>
+														</div>
+														<div id="insta">
+															<img
+																src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
+																alt="instagram" class="socialImg" width="18px"
+																height="18px"><input type="text" name="instaAddr"
+																placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
+														</div>
+														<div id="facebook">
+															<img
+																src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
+																alt="facebook" class="socialImg" width="18px"
+																height="18px"><input type="text"
+																name="facebookAddr" placeholder="페이스북 주소를 입력해주세요"
+																class="snsInputBox">
+														</div>
+														<div id="blog">
+															<img src="https://www.coolstay.co.kr/img/main/naver.png"
+																alt="blog" class="socialImg" width="18px" height="18px"><input
+																type="text" name="blogAddr" placeholder="블로그 주소를 입력해주세요"
+																class="snsInputBox">
+														</div>
+													</div>
+													
 
-                                                                <input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
-                                                            </div>
+														<div>
+															자격증 및 경력 <span class="sugg">(권장사항, 최대 5개)</span>
+														</div>
+														<div id="toGetCarrerInformation">
+															<div class="image-career" id="image-career1">
+																<input type="text" name="text-career1"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class='fileCareerFileInputLabel' for="file-career1">
 
-                                                            <div class="image-career" id="image-career2">
-                                                                <input type="text"
-                                                                    placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-                                                                    class="careerInputBox">
-                                                                <label for="file-career">
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage" />
+																</label> <input id="file-career1" name="file-career1"
+																	type="file"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+															</div>
 
-                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
-                                                                        alt="2021-12-17-18-59-18" width="18px"
-                                                                        height="18px" class="carrerimage" accept="image/png, image/gif, image/jpeg, image/jpg"/>
-                                                                </label>
+															<div class="image-career" id="image-career2">
+																<input type="text" name="text-career2"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career2">
 
-                                                                <input id="file-career" type="file" />
-                                                            </div>
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career2" name="file-career2"
+																	type="file" />
+															</div>
+															<div class="image-career" id="image-career3" style="display:none;">
+																<input type="text" name="text-career3"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career3">
 
-                                                        </div>
-                                                        <div id="addCareer"><button onclick="addCareerArea();">+ 이력
-                                                                추가</button></div>
-                                                        <div id="tutorCareerFile"
-                                                            style="margin-bottom: 20px; font-size:12px;"></div>
-                                                        <!-- 튜터 소개 본문 내용 끝 -->
-                                                        <button class="pageBtn" onclick="stepper1.next()">다음</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
-                                                aria-labelledby="stepper1trigger2">
-                                                <div class="form-group">
-                                                    <!-- 2. 클래스 유형 본문 내용 시작 -->
-                                                    <div id="chooseCategory">클래스 유형</div>
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career3" name="file-career3"
+																	type="file" />
+															</div>
+															<div class="image-career" id="image-career4" style="display:none;">
+																<input type="text" name="text-career4"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career4">
 
-                                                    <div id="introBox2">
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career4" name="file-career4"
+																	type="file" />
+															</div>
+															<div class="image-career" id="image-career5" style="display:none;">
+																<input type="text" name="text-career5"
+																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
+																	class="careerInputBox"> <label
+																	class="fileCareerFileInputLabel" for="file-career5">
+
+																	<img
+																	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"
+																	alt="2021-12-17-18-59-18" width="18px" height="18px"
+																	class="carrerimage"
+																	accept="image/png, image/gif, image/jpeg, image/jpg" />
+																</label> <input id="file-career5" name="file-career5"
+																	type="file" />
+															</div>
+
+														</div>
+														<div id="addCareer">
+															<button onclick="addCareerArea();">+ 이력 추가</button>
+														</div>
+
+														<div id="tutorCareerFile"
+															style="margin-bottom: 20px; font-size: 12px;"></div>
+													
+													<!-- kj 소개 본문 내용 끝 -->
+													<button class="pageBtn" onclick="stepper1.next()">다음</button>
+												</div>
+											</div>
+										</div>
+										<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
+											aria-labelledby="stepper1trigger2">
+											
+											<div class="form-group">
+												<!-- 2. 클래스 유형 본문 내용 시작 -->
+												<div id="chooseCategory">클래스 유형</div>
+
+												<div id="introBox2">
 
 
-                                                        <div>
-                                                            <input type="radio" id="control_01" name="select" value="1">
-                                                            <label for="control_01" class="selectClass">
-                                                                원데이 클래스
-                                                            </label>
-                                                        </div>
-                                                        <div>
-                                                            <input type="radio" id="control_02" name="select" value="2">
-                                                            <label for="control_02" class="selectClass">
-                                                                다회차 클래스
-                                                            </label>
-                                                        </div>
-                                                        <div>
-                                                            <input type="radio" id="control_03" name="select" value="3">
-                                                            <label for="control_03" class="selectClass">
-                                                                VOD
-                                                            </label>
-                                                        </div>
-
-
-
-                                                    </div>
-                                                    <!-- 카테고리 선택 -->
-                                                    <div id="categoryDiv">카테고리 선택</div>
-                                                    <div
-                                                        style="display: flex; justify-content: space-between; margin-bottom: 40px;">
-                                                        <select name="bigCategory" id="sido1"
-                                                            style="flex-grow: 1;"></select>
-                                                        <select name="gugun1" id="gugun1"
-                                                            style="flex-grow: 1; margin-right: 0;"></select>
-                                                    </div>
-
-                                                    <!-- 클래스 유형 본문 내용 끝 -->
-                                                    <div style="display: flex;">
-                                                        <button class="pageBtn" style="margin-right: 5px;"
-                                                            onclick="stepper1.previous()">이전</button>
-                                                        <button class="pageBtn" onclick="stepper1.next()">다음</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="test-l-3" role="tabpanel" class="bs-stepper-pane"
-                                                aria-labelledby="stepper1trigger3">
-                                                <div class="form-group">
-                                                    <!-- 3. 클래스 제목 및 커버 본문 내용 시작 -->
-                                                    <div id="classTitleHead">클래스 제목</div>
-                                                    <div id="classTitle">
-                                                        <!-- 텍스트박스 -->
-
-                                                        <div id="classTitleText">
-                                                            <input type="text" placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"
-                                                                id="setClassTitle1" onkeyup="limit30(event, 'showMeTheLimitOfTitleLength1')">
-                                                            <div id="showMeTheLimitOfTitleLength1">
-                                                                (0/30)
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="classImgeHead">클래스 이미지</div>
-                                                    <div id="classImgContent">이미지 파일만 가능합니다. (png, gif, jpeg, jpg)
-                                                        4개의 이미지만
-                                                        사용되므로 4개를 초과하는 이미지들을 업로드 했을경우 이미지는 랜덤으로 사용됩니다.</div>
-                                                    <!-- 인풋파일 업로드 시작 -->
-                                                    <div class="container">
-                                                        <!-- 이미지 업로드 시작 -->
-                                                        <div class="imageUpload">
-
-                                                            <div id="uploadImageBtn">
-                                                                <label for="toUploadClassImg" id="classImageUpload">
-                                                                    이미지를 선택
-                                                                    <input type="file" id="toUploadClassImg" multiple>
-
-                                                                </label>
-                                                            </div>
-                                                            <div class="files">
-                                                                선택된 이미지
-                                                                <table>
-                                                                    <ul id="selectedImg"></ul>
-                                                                </table>
-                                                            </div>
+													<div>
+														<input type="radio" id="control_01" name="classType"
+															value="1"> <label for="control_01"
+															class="selectClass"> 원데이 클래스 </label>
+													</div>
+													<div>
+														<input type="radio" id="control_02" name="classType"
+															value="2"> <label for="control_02"
+															class="selectClass"> 다회차 클래스 </label>
+													</div>
+													<div>
+														<input type="radio" id="control_03" name="classType"
+															value="3"> <label for="control_03"
+															class="selectClass"> VOD </label>
+													</div>
 
 
 
-                                                        </div>
-                                                        <div id="resultImg"
-                                                            style="display: flex; justify-content: center;">
-                                                        </div>
+												</div>
+												<!-- 카테고리 선택 -->
+												<div id="categoryDiv">카테고리 선택</div>
+												<div
+													style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+													<select name="bigCategory" id="bigCategory"
+														class="categoryClass" style="flex-grow: 1;"></select> <select
+														name="smallCategory" id="smallCategory"
+														style="flex-grow: 1; margin-right: 0;"
+														class="categoryClass"></select>
+												</div>
+												
+												<!-- 클래스 유형 본문 내용 끝 -->
+												<div style="display: flex;">
+													<button class="pageBtn" style="margin-right: 5px;"
+														onclick="stepper1.previous()">이전</button>
+													<button class="pageBtn" onclick="stepper1.next()">다음</button>
+												</div>
+											</div>
+										</div>
+										<div id="test-l-3" role="tabpanel" class="bs-stepper-pane"
+											aria-labelledby="stepper1trigger3">
+											<div class="form-group">
+												<!-- 3. 클래스 제목 및 커버 본문 내용 시작 -->
+												<div id="classTitleHead">클래스 제목</div>
+												<div id="classTitle">
+													<!-- 텍스트박스 -->
 
+													<div id="classTitleText">
+														<input type="text"
+															placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"
+															id="setClassTitle1" name="lectureTitle"
+															onkeyup="limit30(event, 'showMeTheLimitOfTitleLength1')">
+														<div id="showMeTheLimitOfTitleLength1">(0/30)</div>
+													</div>
+												</div>
+												
+												<!-- <form onsubmit="return false" id="toSendForm"> -->
+												<div id="classImgeHead">클래스 이미지</div>
+												<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
+													jpeg, jpg)</div>
+												<!-- 인풋파일 업로드 시작 -->
+												
+												<div id="previewImgcontainer">
+													<!-- 이미지 업로드 시작 -->
+													<div class="imageUpload">
 
-                                                        <!-- 이미지 업로드 끝 -->
-                                                    </div>
-                                                    <!-- 인풋파일 업로드 끝 -->
+														<div id="uploadImageBtn">
+															<label for="toUploadClassImg" id="classImageUpload">
+																이미지를 선택 <input type="file" name="classImageFiles" id="toUploadClassImg"
+																multiple>
 
-                                                    <!-- 클래스 제목 및 커버 본문 내용 끝 -->
-                                                </div>
-                                                <div style="display: flex;">
-                                                    <button class="pageBtn" style="margin-right: 5px;"
-                                                        onclick="stepper1.previous()">이전</button>
-                                                    <button class="pageBtn" onclick="stepper1.next()">다음</button>
-                                                </div>
-                                            </div>
-                                            <div id="test-l-4" role="tabpanel" class="bs-stepper-pane"
-                                                aria-labelledby="stepper1trigger4">
-                                                <div class="form-group">
-                                                    <!-- 4. 클래스 상새 소게 페이지 -->
-                                                    <div id="classDetailHead">클래스 상세 소개</div>
-                                                    <div id="classComment1">
-                                                        <textarea cols="58" rows="5" id="classIntroduction1"
-                                                            placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
-                                                            style="margin-top: 5px; margin-left: 5px;"
-                                                            onkeyup="limit500(event, 'detailInfoLengthLimit1')"
-                                                            ></textarea>
-                                                        <div id="detailInfoLengthLimit1">
-                                                            (0/500)
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div id="classDetailHead">강의추천 / 비추천 대상</div>
-                                                    <div id="classComment2">
-                                                        <textarea cols="58" rows="5" id="classIntroduction2"
-                                                            placeholder="ex) 이런 사람들에게 추천합니다"
-                                                            style="margin-top: 5px; margin-left: 5px;"
-                                                            onkeyup="limit500(event, 'detailInfoLengthLimit2')"
-                                                            ></textarea>
-                                                        <div id="detailInfoLengthLimit2">
-                                                            (0/500)
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div id="classDetailHead">클래스 진행 방식 <span id="classProcedure"
-                                                            style="font-size: 14px; display: none;">진행 날짜, 진행 시간을
-                                                            회차별
-                                                            커리큘럼과 함께
-                                                            적어주세요.</span></div>
-                                                    <div id="classComment3">
-                                                        <textarea cols="58" rows="5" id="classIntroduction3"
-                                                            placeholder="ex) 회차별 커리큘럼"
-                                                            style="margin-top: 5px; margin-left: 5px;"
-                                                            onkeyup="limit500(event, 'detailInfoLengthLimit3')"
-                                                            ></textarea>
-                                                        <div id="detailInfoLengthLimit3">
-                                                            (0/500)
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div id="classDetailHead">유의사항</div>
-                                                    <div id="classComment4">
-                                                        <textarea cols="58" rows="5" id="classIntroduction4"
-                                                            placeholder="ex) 유의사항 / 준비물"
-                                                            style="margin-top: 5px; margin-left: 5px;" 
-                                                            onkeyup="limit500(event, 'detailInfoLengthLimit4')"
-                                                            ></textarea>
-                                                        <div id="detailInfoLengthLimit4">
-                                                            (0/500)
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- 클래스 상세 소개 페이지 끝 -->
-                                                </div>
-                                                <div style="display: flex;">
-                                                    <button class="pageBtn" style="margin-right: 5px;"
-                                                        onclick="stepper1.previous()">이전</button>
-                                                    <button class="pageBtn" onclick="stepper1.next()">다음</button>
-                                                </div>
-                                            </div>
-                                            <div id="test-l-5" role="tabpanel" class="bs-stepper-pane"
-                                                aria-labelledby="stepper1trigger5">
-                                                <div class="form-group">
-                                                    <!-- 5. 기타 페이지 시작 -->
-                                                    <!-- 원데이 시작 -->
-                                                    <div id="selectedOnedayClass" style="display: none;">
-
-                                                        <h5 class="classCetegory">원데이 클래스</h5>
-                                                        <div id="multipleClassPrice" style="padding-bottom: 20px;">
-                                                            <div>
-                                                                <div class="pricePerClass1">총 클래스 횟수</div>
-                                                                <div>
-                                                                    <select name="numOfClass1" id="numOfClass1"
-                                                                        style="flex-grow: 1; margin-bottom: 20px;"
-                                                                        onchange="toGetValue(this.value)">
-                                                                        <option value="1">1회</option>
-                                                                        <option value="2">2회</option>
-                                                                        <option value="3">3회</option>
-                                                                        <option value="4">4회</option>
-                                                                        <option value="5">5회</option>
-                                                                        <option value="6">6회</option>
-                                                                        <option value="7">7회</option>
-                                                                        <option value="8">8회</option>
-                                                                        <option value="9">9회</option>
-                                                                        <option value="10">10회</option>
-
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <!-- 회차에 따라서 펼쳐지는 날짜와 시간들 시작  -->
-                                                            <div id="selectMultipleDates0" style="display: block;">
-                                                                <div style="padding-top:20px; margin-bottom: 10px;">
-                                                                    <span>1회 날짜 : </span><input type="date"
-                                                                        style="border-radius: 7px;">
-                                                                </div>
-                                                                <div
-                                                                    style="padding-bottom: 20px; border-bottom: 1px solid black;">
-                                                                    시작 시간 : <input type="time"
-                                                                        style="border-radius: 7px;">&nbsp;&nbsp;
-                                                                    종료 시간 : <input type="time"
-                                                                        style="border-radius: 7px;">
-                                                                </div>
-                                                            </div>
-                                                            <div style="padding-top:20px;">
-                                                                <div class="totalClass1" style="border-bottom: 10px;">
-                                                                    회차당 가격(,없이 숫자만 적어주세요)</div>
-                                                                <div style="border: 1px solid black; border-radius: 10px;height: 34px;padding-top:5px; width:38%;"
-                                                                    class="classIntBox" id="inputBoxOfOneDayTimes">
-                                                                    <input type="text" class="classIntInputBox"
-                                                                        id="classTxtBox2"><span class="won">원</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- 가격받기 끝 -->
-                                                        <div class="classLocationTitle">클래스 위치</div>
-                                                        <div
-                                                            style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="sido1" id="sido1"
-                                                                style="flex-grow: 1"></select>
-                                                            <select name="gugun1" id="gugun1"
-                                                                style="flex-grow: 1"></select>
-                                                        </div>
-                                                        <div id="detailPlace2">
-                                                            <input type="text" placeholder="세부 장소를 입력해주세요"
-                                                                id="setClassTitle4" id="detailTxtBox">
-                                                            <span id="showMeTheLimitOfTitleLength3">
-                                                                (0/50)
-                                                            </span>
-                                                        </div>
-                                                        <div class="classLocationTitle">최대 참여 인원</div>
-                                                        <div
-                                                            style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="peopleNum2" id="peopleNum2"
-                                                                style="flex-grow: 1; margin-bottom: 40px;"></select>
-                                                        </div>
-                                                        <div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.
-                                                        </div>
-                                                    </div>
-                                                    <!-- 원데이 끝 -->
-                                                    <div id="selectedMultipleClass" style="display: none;">
-                                                        <!-- 다회차 시작 -->
-                                                        <h5 class="classCetegory">다회차 클래스</h5>
-                                                        <div id="multipleClassPrice"
-                                                            style=" display: table-cell;vertical-align: middle; padding-bottom: 20px;">
-                                                            <div style="display: inline-block;">
-                                                                <div class="pricePerClass1">총 클래스 횟수</div>
-                                                                <div>
-                                                                    <select name="numOfClass2" id="numOfClass2"
-                                                                        style="flex-grow: 1">
-                                                                        <option value="2">2회</option>
-                                                                        <option value="3">3회</option>
-                                                                        <option value="4">4회</option>
-                                                                        <option value="5">5회</option>
-                                                                        <option value="6">6회</option>
-                                                                        <option value="7">7회</option>
-                                                                        <option value="8">8회</option>
-                                                                        <option value="9">9회</option>
-                                                                        <option value="10">10회</option>
-
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="times" style="display: inline-block;"></div>
-                                                            <div style="display: inline-block;">
-                                                                <div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
-                                                                <div style="display: inline-block; border: 1px solid black; border-radius: 10px;height: 34px;padding-top:5px;"
-                                                                    class="classIntBox" id="inputBoxOfTimes"><input
-                                                                        type="text" class="classIntInputBox"
-                                                                        id="classTxtBox2"><span class="won">원</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- 가격받기 끝 -->
-                                                        <div class="classLocationTitle">클래스 위치</div>
-                                                        <div
-                                                            style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="sido2" id="sido2"
-                                                                style="flex-grow: 1"></select>
-                                                            <select name="gugun1" id="gugun1"
-                                                                style="flex-grow: 1"></select>
-                                                        </div>
-                                                        <div id="detailPlace1">
-                                                            <input type="text" placeholder="세부 장소를 입력해주세요"
-                                                                id="setClassTitle3" id="detailTxtBox">
-                                                            <span id="showMeTheLimitOfTitleLength2">
-                                                                (0/50)
-                                                            </span>
-                                                        </div>
-                                                        <div class="classLocationTitle">최대 참여 인원</div>
-                                                        <div
-                                                            style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                            <select name="peopleNum1" id="sido1"
-                                                                style="flex-grow: 1; margin-bottom: 40px;"></select>
-                                                        </div>
-                                                        <div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.
-                                                        </div>
-                                                    </div>
-                                                    <!-- 다회차 끝 -->
-                                                    <!-- VOD 시작 -->
-                                                    <div id="selectedVOD" style="display: none;">
-                                                        <!-- url주소 / 제목 / 강의내용 입력 디브 -->
-                                                        <h5 class="classCetegory">VOD</h5>
-                                                        <div class="pricePerClass1">총 클래스 횟수</div>
-                                                        <div>
-                                                            <select name="numOfClass3" id="numOfClass3"
-                                                                style="flex-grow: 1; margin-bottom: 20px;"
-                                                                onchange="toGetVodValue(this.value)">
-                                                                <option value="1">1회</option>
-                                                                <option value="2">2회</option>
-                                                                <option value="3">3회</option>
-                                                                <option value="4">4회</option>
-                                                                <option value="5">5회</option>
-                                                                <option value="6">6회</option>
-                                                                <option value="7">7회</option>
-                                                                <option value="8">8회</option>
-                                                                <option value="9">9회</option>
-                                                                <option value="10">10회</option>
-
-                                                            </select>
-                                                        </div>
-                                                        <div id="selectVodDates0"
-                                                            style="padding-bottom: 20px; border-bottom: 1px solid black;">
-                                                            <div id="infoPerClass"
-                                                                style="margin-bottom:10px; margin-top:20px;">1회차 수업
-                                                                정보
-                                                                입력</div>
-                                                            <div style="display: flex;">
-                                                                <div class="inputVODinfoTxtBox" style="display: flex;">
-                                                                    <input type="text" placeholder="url주소 입력"
-                                                                        id="inputUrlAddress1" class="inputUrlAddress">
-                                                                    <span class="vodEachClassUrlAddressLimit"
-                                                                        id="vodEachClassUrlAddressLimitId1">
-                                                                        (0/50)
-                                                                    </span>
-                                                                </div>
-                                                                <div class="inputVODinfoTxtBox" style="display: flex;">
-                                                                    <input type="text" id="inputSmallTitle1"
-                                                                        placeholder="회차당 제목 입력" class="inputSmallTitle">
-                                                                    <span class="vodEachClassTitleLimit">
-                                                                        (0/50)
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="vodEachClassInformationDiv">
-                                                                <textarea name="vodEachClassInformation" id="" cols="58"
-                                                                    rows="5" placeholder="해당 회차 강의 내용에 대해 설명을 적어주세요"
-                                                                    class="vodEachClassInformation"></textarea>
-                                                                <div class="vodEachClassInfoLimit">
-                                                                    (0/200)
-                                                                </div>
-                                                            </div>
-                                                        </div>
+															</label>
+														</div>
+														<div class="files">
+															선택된 이미지
+															<table>
+																<ul id="selectedImg"></ul>
+															</table>
+														</div>
 
 
 
-                                                        <!-- url주소 / 제목 / 강의내용 입력 끝 -->
-                                                        <!-- 클래스 가격 입력 시작 -->
-                                                        <div id="vodClassPrice"
-                                                            style=" display: table-cell;vertical-align: middle; padding-bottom: 20px; padding-top:20px">
-                                                            <div style="display: inline-block;">
-                                                                <div class="pricePerClass1"
-                                                                    style="border-bottom: 10px;">클래스 가격</div>
-                                                                <div id="pricePerClass2" class="classIntBox">
-                                                                    <input type="text" class="classIntInputBox"
-                                                                        id="classTxtBox1"><span class="won">원</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.
-                                                        </div>
-                                                        <!-- 클래스 가격 입력 끝 -->
+													</div>
+													<div id="resultImg"
+														style="display: flex; justify-content: center; margin-bottom:40px;"></div>
 
 
-                                                    </div>
-                                                    <!-- VOD 끝 -->
+													<!-- 이미지 업로드 끝 -->
+												</div>
+												<!-- 인풋파일 업로드 끝 -->
+
+												<!-- 클래스 제목 및 커버 본문 내용 끝 -->
+											</div>
+											<div style="display: flex;">
+												<button class="pageBtn" style="margin-right: 5px;"
+													onclick="stepper1.previous()">이전</button>
+												<button class="pageBtn" onclick="stepper1.next()">다음</button>
+											</div>
+										</div>
+										<div id="test-l-4" role="tabpanel" class="bs-stepper-pane"
+											aria-labelledby="stepper1trigger4">
+											<div class="form-group">
+												<!-- 4. 클래스 상새 소게 페이지 -->
+												<div class="classDetailHead">클래스 상세 소개</div>
+												<div id="classComment1">
+													<textarea cols="58" rows="5" id="classIntroduction1" name="lectureIntroduce"
+														placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
+														style="margin-top: 5px; margin-left: 5px;"
+														onkeyup="limit500(event, 'detailInfoLengthLimit1')"></textarea>
+													<div id="detailInfoLengthLimit1">(0/500)</div>
+												</div>
+
+
+												<div class="classDetailHead">강의추천 / 비추천 대상</div>
+												<div id="classComment2">
+													<textarea cols="58" rows="5" id="classIntroduction2" name="recommend"
+														placeholder="ex) 이런 사람들에게 추천합니다"
+														style="margin-top: 5px; margin-left: 5px;"
+														onkeyup="limit500(event, 'detailInfoLengthLimit2')"></textarea>
+													<div id="detailInfoLengthLimit2">(0/500)</div>
+												</div>
+
+
+												<div class="classDetailHead">
+													클래스 진행 방식
+												</div>
+												<div id="classComment3">
+													<textarea cols="58" rows="5" id="classIntroduction3" name="curriculum"
+														placeholder="ex) 회차별 커리큘럼"
+														style="margin-top: 5px; margin-left: 5px;"
+														onkeyup="limit500(event, 'detailInfoLengthLimit3')"></textarea>
+													<div id="detailInfoLengthLimit3">(0/500)</div>
+												</div>
+
+
+												<div class="classDetailHead">유의사항</div>
+												<div id="classComment4">
+													<textarea cols="58" rows="5" id="classIntroduction4" name="lectureNotice"
+														placeholder="ex) 유의사항 / 준비물"
+														style="margin-top: 5px; margin-left: 5px;"
+														onkeyup="limit500(event, 'detailInfoLengthLimit4')"></textarea>
+													<div id="detailInfoLengthLimit4">(0/500)</div>
+												</div>
+
+												
+												<!-- 클래스 상세 소개 페이지 끝 -->
+											</div>
+											<div style="display: flex;">
+												<button class="pageBtn" style="margin-right: 5px;"
+													onclick="stepper1.previous()">이전</button>
+												<button class="pageBtn" onclick="stepper1.next()">다음</button>
+											</div>
+										</div>
+										<div id="test-l-5" role="tabpanel" class="bs-stepper-pane"
+											aria-labelledby="stepper1trigger5">
+											<div class="form-group">
+												<!-- 5. 기타 페이지 시작 -->
+												<!-- 원데이 시작 -->
+												<div id="selectedOnedayClass" style="display: none;">
+
+													<h5 class="classCetegory">원데이 클래스</h5>
+													<div class="multipleClassPrice"
+														style="padding-bottom: 20px;">
+														<div>
+															<div class="pricePerClass1">총 클래스 횟수</div>
+															<div>
+																<select name="numOfClass1" id="numOfClass1"
+																	class="categoryClass"
+																	style="flex-grow: 1; margin-bottom: 20px;"
+																	onchange="toGetValue(this.value)">
+																	<option value="1">1회</option>
+																	<option value="2">2회</option>
+																	<option value="3">3회</option>
+																	<option value="4">4회</option>
+																	<option value="5">5회</option>
+																	<option value="6">6회</option>
+																	<option value="7">7회</option>
+																	<option value="8">8회</option>
+																	<option value="9">9회</option>
+																	<option value="10">10회</option>
+
+																</select>
+															</div>
+														</div>
+														<!-- 회차에 따라서 펼쳐지는 날짜와 시간들 시작  -->
+														<div id="selectMultipleDates0" style="display: block;">
+															<div style="padding-top: 20px; margin-bottom: 10px;">
+																<span>1회 날짜 : </span><input type="date" name="classDate0"
+																	style="border-radius: 7px;">
+															</div>
+															<div
+																style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																시작 시간 : <input type="time" name="startTime0" style="border-radius: 7px;">&nbsp;&nbsp;
+																종료 시간 : <input type="time" name="endTime0" style="border-radius: 7px;">
+															</div>
+														</div>
+														<div style="padding-top: 20px;">
+															<div class="totalClass1" style="border-bottom: 10px;">
+																회차당 가격(,없이 숫자만 적어주세요)</div>
+															<div
+																style="border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px; width: 38%;"
+																class="classIntBox" id="inputBoxOfOneDayTimes">
+																<input type="text" class="classIntInputBox" name="onedayClassPrice"
+																	id="classTxtBox1"><span class="won">원</span>
+															</div>
+														</div>
+													</div>
+													<!-- 가격받기 끝 -->
+													<div class="classLocationTitle">클래스 위치</div>
+													<div
+														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+														<select name="sido1" id="sido1" class="categoryClass"
+															style="flex-grow: 1"></select> <select name="gugun1"
+															id="gugun1" class="categoryClass" style="flex-grow: 1"></select>
+													</div>
+													<div id="detailPlace2">
+														<input type="text" placeholder="세부 장소를 입력해주세요" name="address1"
+															id="setClassTitle4"> <span
+															id="showMeTheLimitOfTitleLength3"> (0/50) </span>
+													</div>
+													<div class="classLocationTitle">최대 참여 인원</div>
+													<div
+														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+														<select name="peopleNum2" id="peopleNum2"
+															class="categoryClass"
+															style="flex-grow: 1; margin-bottom: 40px;"></select>
+													</div>
+													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
+														등록됩니다.</div>
+														</form>
+												</div>
+												<!-- 원데이 끝 -->
+												<div id="selectedMultipleClass" style="display: none;">
+													<!-- 다회차 시작 -->
+													<h5 class="classCetegory">다회차 클래스</h5>
+													<div class="multipleClassPrice"
+														style="display: table-cell; vertical-align: middle; padding-bottom: 20px;">
+														<div style="display: inline-block;">
+															<div class="pricePerClass1">총 클래스 횟수</div>
+															<div>
+																<select name="numOfClass2" id="numOfClass2"
+																	class="categoryClass" style="flex-grow: 1"
+																	onchange="toGetValue2(this.value)">
+																	<option value="2">2회</option>
+																	<option value="3">3회</option>
+																	<option value="4">4회</option>
+																	<option value="5">5회</option>
+																	<option value="6">6회</option>
+																	<option value="7">7회</option>
+																	<option value="8">8회</option>
+																	<option value="9">9회</option>
+																	<option value="10">10회</option>
+
+																</select>
+															</div>
+														</div>
+														<div class="times" style="display: inline-block;"></div>
+														<div style="display: inline-block;">
+															<div id="selectMultipleDatesTwo0" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>1회 날짜 : </span><input type="date" name="classDateTwo0"
+																		style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTimeTwo0" style="border-radius: 7px;">&nbsp;&nbsp;
+																	종료 시간 : <input type="time" name="endTimeTwo0" style="border-radius: 7px;">
+																</div>
+															</div>
+															<div id="selectMultipleDatesTwo1" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>2회 날짜 : </span><input type="date" name="classDateTwo1"
+																		style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTimeTwo1" style="border-radius: 7px;">&nbsp;&nbsp;
+																	종료 시간 : <input type="time" name="endTimeTwo1" style="border-radius: 7px;">
+																</div>
+															</div>
+															<div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
+															<div
+																style="display: inline-block; border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px;"
+																class="classIntBox" id="inputBoxOfTimes">
+																<input type="text" class="classIntInputBox" name="multipleDayClassPrice"
+																	id="classTxtBox2"><span class="won">원</span>
+															</div>
+														</div>
+													</div>
+													<!-- 가격받기 끝 -->
+													<div class="classLocationTitle">클래스 위치</div>
+													<div
+														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+														<select name="sido2" id="sido2" class="categoryClass"
+															style="flex-grow: 1"></select> <select name="gugun2"
+															id="gugun2" class="categoryClass" style="flex-grow: 1"></select>
+													</div>
+													<div id="detailPlace1">
+														<input type="text" placeholder="세부 장소를 입력해주세요" name="address2"
+															id="setClassTitle3"> <span
+															id="showMeTheLimitOfTitleLength2"> (0/50) </span>
+													</div>
+													<div class="classLocationTitle">최대 참여 인원</div>
+													<div
+														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+														<select name="peopleNum1" id="peopleNum1"
+															class="categoryClass"
+															style="flex-grow: 1; margin-bottom: 40px;"></select>
+													</div>
+													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
+														등록됩니다.</div>
+												</div>
+												<!-- 다회차 끝 -->
+												<!-- VOD 시작 -->
+												<div id="selectedVOD" style="display: none;">
+													<!-- url주소 / 제목 / 강의내용 입력 디브 -->
+													<h5 class="classCetegory">VOD</h5>
+													<div class="pricePerClass1">총 클래스 횟수</div>
+													<div>
+														<select name="numOfClass3" id="numOfClass3"
+															class="categoryClass"
+															style="flex-grow: 1; margin-bottom: 20px;"
+															onchange="toGetVodValue(this.value)">
+															<option value="1">1회</option>
+															<option value="2">2회</option>
+															<option value="3">3회</option>
+															<option value="4">4회</option>
+															<option value="5">5회</option>
+															<option value="6">6회</option>
+															<option value="7">7회</option>
+															<option value="8">8회</option>
+															<option value="9">9회</option>
+															<option value="10">10회</option>
+
+														</select>
+													</div>
+													<div id="selectVodDates0"
+														style="padding-bottom: 20px; border-bottom: 1px solid black;">
+														<div id="infoPerClass"
+															style="margin-bottom: 10px; margin-top: 20px;">1회차
+															수업 정보 입력</div>
+														<div style="display: flex;">
+															<div class="inputVODinfoTxtBox" style="display: flex;">
+																<input type="text" placeholder="url주소 입력" name="VODurlAddress0"
+																	id="inputUrlAddress1" class="inputUrlAddress">
+																<span class="vodEachClassUrlAddressLimit"
+																	id="vodEachClassUrlAddressLimitId1"> (0/50) </span>
+															</div>
+															<div class="inputVODinfoTxtBox" style="display: flex;">
+																<input type="text" id="inputSmallTitle1" name="VODTitlePerClass0"
+																	placeholder="회차당 제목 입력" class="inputSmallTitle">
+																<span class="vodEachClassTitleLimit"> (0/50) </span>
+															</div>
+														</div>
+														
+														<div class="vodEachClassInformationDiv">
+															<textarea id="" cols="58" name="vodEachClassInformation0"
+																rows="5" placeholder="해당 회차 강의 내용에 대해 설명을 적어주세요"
+																class="vodEachClassInformation"></textarea>
+															<div class="vodEachClassInfoLimit">(0/200)</div>
+														</div>
+													</div>
+
+
+
+													<!-- url주소 / 제목 / 강의내용 입력 끝 -->
+													<!-- 클래스 가격 입력 시작 -->
+													<div id="vodClassPrice"
+														style="display: table-cell; vertical-align: middle; padding-bottom: 20px; padding-top: 20px">
+														<div style="display: inline-block;">
+															<div class="pricePerClass1" style="border-bottom: 10px;">클래스
+																가격</div>
+															<div id="pricePerClass2" class="classIntBox">
+																<input type="text" class="classIntInputBox" name="vodTotalClassPrice"
+																	id="classPri"><span class="won">원</span>
+															</div>
+														</div>
+													</div>
+													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
+														등록됩니다.</div>
+													<!-- 클래스 가격 입력 끝 -->
+
+
+												</div>
+												<!-- VOD 끝 -->
 
 
 
 
 
-                                                    <!-- 기타 페이지 끝 -->
-                                                    <div style="display: flex;">
-                                                        <button class="pageBtn" style="margin-right: 5px;"
-                                                            onclick="stepper1.previous()">이전</button>
-                                                        <button type="submit" class="pageBtn">제출</button>
-                                                    </div>
-                                                </div>
-                                                <!-- 폼 내용 END -->
-                                            </div>
-                                            <div class="last"></div>
+												<!-- 기타 페이지 끝 -->
+												<div style="display: flex;">
+													<button class="pageBtn" style="margin-right: 5px;"
+														onclick="stepper1.previous()">이전</button>
+													<button type="submit" class="pageBtn" id="submitAllInfo"
+														onclick="toSubmit()">제출</button>
+												</div>
+											</div>
+											<!-- 폼 내용 END -->
+										</div>
+										<div class="last"></div>
 
-                                        </div>
+									</div>
+								</div>
+								<!-- </form>이게 진짜 폼 끝이야! -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<%@ include file="/views/common/footer.jsp"%>
+	</div>
 
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-  <%@ include file="/views/common/footer.jsp" %>
-    </div>
 
-
-    <script>
+	<script>
 
         const area0 = ["시/도 선택", "서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"];
         const area1 = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];
@@ -1201,9 +667,11 @@
 
         
 
-        // render functions
+     // render functions
         const renderFileList = () => {
             let fileMap = state.filesArr.map((file, index) => {
+            	console.debug('index ' + index, file)
+            	console.debug('index2 ' + index, file.name)
                 let suffix = "bytes";
                 let size = file.size;
                 if (size >= 1024 && size < 1024000) {
@@ -1214,9 +682,10 @@
                     size = Math.round(size / 1024000 * 100) / 100;
                 }
 
-                return `<li key="${index}">${file.name
-                    } <span class="file-size">${size} ${suffix}</span><i class="material-icons md-48">delete</i></li>`;
+                return `<li key=${'${index}'}>${'${file.name}'}<span class="file-size">${'${size}'} ${'${suffix}'}</span><i class="material-icons md-48">delete</i></li>`;
             });
+            
+            console.debug('filemap', fileMap);
             $("#selectedImg").html(fileMap);
         }
 
@@ -1238,8 +707,8 @@
             }
 
         };
-
-        //첨부이미지 파일 이름 보여주기
+        
+      //첨부이미지 파일 이름 보여주기
         const imagesPreview = function (input, placeToInsertImagePreview, id) {
             if (input.files) {
                 var filesAmount = input.files.length;
@@ -1253,12 +722,29 @@
             }
         };
 
-        $("input").on('change', function () {
+        
+        $("input#file-input").on('change', function () {
             imagesPreview(this, '#resultTutorImg', 'file-input');
         });
-
-        $("input").on('change', function () {
-            imagesPreview(this, "#tutorCareerFile", 'file-career');
+        
+        $("input#file-career1").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career1');
+        });
+        
+        $("input#file-career2").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career2');
+        });
+        
+        $("input#file-career3").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career3');
+        });
+        
+        $("input#file-career4").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career4');
+        });
+        
+        $("input#file-career5").on('change', function () {
+        	imagesPreview(this, "#tutorCareerFile", 'file-career5');
         });
 
         // 선택한거대로 페이지 뜨게 하는 스크립트
@@ -1270,8 +756,6 @@
         $("input[id='control_02']").change(function () {
             let multi = document.getElementById("selectedMultipleClass");
             multi.style.display = "block";
-            let multi2 = document.getElementById("classProcedure");
-            multi2.style.display = "block";
         });
 
         $("input[id='control_03']").change(function () {
@@ -1368,7 +852,7 @@
         //미리보기 스크립트 끝
     </script>
 
-    <script>
+	<script>
         toGetValue = (val) => {
             for (let i = 1; i < 10; i++) {
                 let deleteCon = "#selectMultipleDates" + i;
@@ -1377,6 +861,9 @@
             for (let i = 1; i < val; i++) {
                 let dateContainer = $("#selectMultipleDates0").clone();
                 dateContainer.attr({ "id": "selectMultipleDates" + i });
+                dateContainer.find("input[name='classDate0']").attr({ "name" : "classDate" + i});
+                dateContainer.find("input[name='startTime0']").attr({ "name" : "startTime" + i});
+                dateContainer.find("input[name='endTime0']").attr({ "name" : "endTime" + i});
                 dateContainer.find("span").text((i + 1) + "회 날짜 : ");
 
                 if (i == 1) {
@@ -1386,9 +873,29 @@
                 }
             }
         }
+        toGetValue2 = (val) => {
+            for (let i = 1; i < 10; i++) {
+                let deleteCon = "#selectMultipleDatesTwo" + i;
+                $("div").remove(deleteCon);
+            }
+            for (let i = 1; i < val; i++) {
+                let dateContainer = $("#selectMultipleDatesTwo0").clone();
+                dateContainer.attr({ "id": "selectMultipleDatesTwo" + i });
+                dateContainer.find("input[name='classDateTwo0']").attr({ "name" : "classDateTwo" + i});
+                dateContainer.find("input[name='startTimeTwo0']").attr({ "name" : "startTimeTwo" + i});
+                dateContainer.find("input[name='endTimeTwo0']").attr({ "name" : "endTimeTwo" + i});
+                dateContainer.find("span").text((i + 1) + "회 날짜 : ");
+
+                if (i == 1) {
+                    $("#selectMultipleDatesTwo0").after(dateContainer);
+                } else {
+                    $("#selectMultipleDatesTwo" + (i - 1)).after(dateContainer);
+                }
+            }
+        }
     </script>
 
-    <script>
+	<script>
         $('document').ready(function () {
 
             // 시/도 선택 박스 초기화
@@ -1422,7 +929,7 @@
         });
     </script>
 
-    <script>
+	<script>
         $("#setClassTitle3").keyup(e => {
             let inputLength = $(e.target).val().length;
             if (inputLength > 50) {
@@ -1439,7 +946,7 @@
         })
     </script>
 
-    <script>
+	<script>
         $('document').ready(function () {
             // 시/도 선택 박스 초기화
 
@@ -1473,7 +980,7 @@
         });
     </script>
 
-    <script>
+	<script>
         $("#setClassTitle4").keyup(e => {
             let inputLength = $(e.target).val().length;
             if (inputLength > 50) {
@@ -1490,8 +997,8 @@
         })
     </script>
 
-    <script>
-        var chooseNumOfClassStudent = ["인원 선택", "5명", "10명", "15명", "20명", "25명", "30명", "35명", "40명", "45명", "50명"];
+	<script>
+        var chooseNumOfClassStudent = ["5", "10", "15", "20", "25", "30", "35", "40", "45", "50"];
 
         $('document').ready(function () {
            
@@ -1516,7 +1023,7 @@
 
     </script>
 
-    <script>
+	<script>
 
         keyupEvent();
         function keyupEvent() {
@@ -1569,16 +1076,14 @@
             keyupEvent();
         }
     </script>
-    <script>
+	<script>
         var stepper1
         document.addEventListener('DOMContentLoaded', function () {
             stepper1 = new Stepper(document.querySelector('#stepper1'))
         })
-        changeBorderBox = (e) => {
-            $(e.target).parent.css({ "border": "1px rgb(162, 221, 220) solid" });
-        }
-
-
+		$("#tutorComment>textarea").focus(e => {
+            $("#tutorComment").css({ "border": "1px rgb(162, 221, 220) solid" });
+        });
         $("#tutorComment>textarea").blur(e => {
             $("#tutorComment").css({ "border": "1px black solid" });
         });
@@ -1685,9 +1190,31 @@
         $("#detailPlace2>#detailTxtBox").blur(e => {
             $("#detailPlace2").css({ "border": "1px black solid" });
         })
-
+         $("#detailPlace1>#setClassTitle3").focus(e => {
+            $("#detailPlace1").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#detailPlace1>#setClassTitle3").blur(e => {
+            $("#detailPlace1").css({ "border": "1px black solid" });
+        })
+        
+        
+        $("#inputBoxOfOneDayTimes>#classTxtBox1").focus(e => {
+            $("#inputBoxOfOneDayTimes").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#inputBoxOfOneDayTimes>#classTxtBox1").blur(e => {
+            $("#inputBoxOfOneDayTimes").css({ "border": "1px black solid" });
+        })
+         $("#detailPlace2>#setClassTitle4").focus(e => {
+            $("#detailPlace2").css({ "border": "1px rgb(162, 221, 220) solid" });
+        })
+        $("#detailPlace2>#setClassTitle4").blur(e => {
+            $("#detailPlace2").css({ "border": "1px black solid" });
+        })
+        
+		var numItems = 3;
         const addCareerArea = () => {
-            var numItems = ($('.image-career').length) + 1;
+        	
+            
             if (numItems == 6) {
                 Swal.fire({
                     icon: 'error',
@@ -1695,11 +1222,72 @@
                 });
                 return false;
             }
-            $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career" type="file" accept="image/png, image/gif, image/jpeg, image/jpg/></div>');
+            $("#image-career" + numItems).css("display","block");
+            numItems++;
+            /* $("#toGetCarrerInformation").append('<div class="image-career" id="image-career' + numItems + '"><input type="text"name="text-career' + numItems + '"placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"class="careerInputBox"><label for="file-career"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBtr7ihSssh94yDpW4xXAu5LKwD9EL-Mgwpc5ygTkD3IA0Bh4PH8dKGgfdSSw3ts6Lhg&usqp=CAU"alt="2021-12-17-18-59-18" width="18px" height="18px"class="carrerimage" /></label><input id="file-career"name="file-career' + numItems + '"type="file"accept="image/png, image/gif, image/jpeg, image/jpg/></div>'); */
         }
+        
+       const toSubmit = () => {
+    	   //toSendForm
+    	   //testForm
+    	   console.debug('toSubmit');
+    	   var form = $('#toSendForm')[0];
+    	   console.debug('form', form);
+    	   
+    	 /*   var data = new FormData(form);
+    	   console.debug('data', data); */
+    	   
+    	   const frm = new FormData(form);
+	   		const fileInput=$("input[name=classImageFiles]");
+	   		for(let i=0; i<fileInput[0].files.length;i++) {
+	   			frm.append("upfile"+i,fileInput[0].files[i]);
+	   		}
+    	   
+    	   // FormData의 값 확인 
+    	   for (var pair of frm.entries()) { 
+   		   	console.debug(pair[0], pair[1]); 
+   		   }
+    	   
+    	    
+	    	   $.ajax({             
+	    	   	type: "POST",          
+	    	       enctype: 'multipart/form-data',  
+	    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
+	    	       data: frm,          
+	    	       processData: false,    
+	    	       contentType: false,      
+	    	       cache: false,           
+	    	       timeout: 600000,       
+	    	       success: function (frm) { 
+	    	    	   Swal.fire('클래스 등록 승인결과는 마이 페이지에서 확인 가능합니다')         
+	    	       	$("#btnSubmit").prop("disabled", false);      
+	    	       },          
+	    	       error: function (e) {  
+	    	       	console.log("ERROR : ", e);     
+	    	           $("#btnSubmit").prop("disabled", false);    
+	    	           alert("fail");      
+	    	        }     
+	    	});
+    	  
+<%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 
+           function load(url, callback) {
+             var xhr = new XMLHttpRequest();
 
-    </script>  
+             xhr.onreadystatechange = function() {
+               if (xhr.readyState === 4) {
+                 callback(xhr.response);
+               }
+             }
+
+             xhr.open('GET', url, true);
+             xhr.send('');  
+       		} --%>
+       }
+       
+       
+
+    </script>
 
 </body>
 </html>

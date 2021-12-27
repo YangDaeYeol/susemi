@@ -1,11 +1,10 @@
+@charset "UTF-8";
 *{
     font-family: "서울남산체";
 }
 
- section{
+ .container{
     padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
     padding-bottom: 30px;
     /* width: 100%;   */
 } 
@@ -110,7 +109,7 @@
     justify-content: space-between;
 }
 
-.list-group-item>input {
+.list-group-item>#innerboxcheck {
     margin-top: 16px;
 }
 
@@ -130,21 +129,21 @@
 
 
 
-#totutor {
+.msgbox {
     resize: none;
     width: 100%;
-    border: none;
-    outline: none;
+    /* border: none; */
+    outline: none; 
+    border: 1px solid #C4C4C4;
 
 }
 
-#tutor-message {
-    border: 1px solid #C4C4C4;
-} 
-
-
 .apply>div{
     margin-bottom: 10px;
+}
+
+#apply-class>div{
+    margin-bottom: 20px;
 }
 
 #report>a{
@@ -174,7 +173,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
 
 /****** Style Star Rating Widget *****/
 
