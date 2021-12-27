@@ -4,7 +4,7 @@
 <%
 	Member m=(Member)request.getAttribute("loginMember");
 	Member checkM=(Member)request.getAttribute("nickCheckMember");
-	/* System.out.println(m); */
+	System.out.println(m);
 	
 	/* 관심분야 */	
 		String[] categories;

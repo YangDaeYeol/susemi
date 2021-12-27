@@ -37,66 +37,26 @@
                         </div>
                     </div>
                     <div class="line"></div>
+                    
                     <div class="classAll">
                         <div class="flex" id="ing-class">
                             <h5>수강중인 클래스 - 오프라인</h5>
-                            <p class="relative">총 ?개의 클래스</p> 
+                            <p class="relative">총 개의 클래스</p> 
                         </div>
                         <div id="ing-class-list">
+                            <%for(int i=0; i<3; i++){ %>
+                            
+                            <%} %>
                             <div class="col inlineblock class-margin">
                                 <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=5&lectureType=원데이')">
                                     <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
                                         height="150px" width="200px" ><br>
                                     <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
                                     <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"><img src="https://i.ibb.co/0fGxn3t/2021-12-16-21-58-23.png" alt="2021-12-16-21-58-23" width="20px">130<br> 
+                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;">
+                                    
                                 </div>                           
-                            </div>
-                            <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=5&lectureType=원데이')" >
-                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
-                                        height="150px" width="200px" ><br>
-                                    <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
-                                    <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"><img src="https://i.ibb.co/0fGxn3t/2021-12-16-21-58-23.png" alt="2021-12-16-21-58-23" width="20px">130<br> 
-                                </div>                             
-                            </div>
-                            <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
-                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
-                                        height="150px" width="200px" ><br>
-                                    <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
-                                    <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"><img src="https://i.ibb.co/0fGxn3t/2021-12-16-21-58-23.png" alt="2021-12-16-21-58-23" width="20px">130<br> 
-                                </div>                               
-                            </div>
-                            <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
-                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
-                                        height="150px" width="200px" ><br>
-                                    <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
-                                    <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"><img src="https://i.ibb.co/0fGxn3t/2021-12-16-21-58-23.png" alt="2021-12-16-21-58-23" width="20px">130<br> 
-                                </div>                             
-                            </div>
-                            <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
-                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
-                                        height="150px" width="200px" ><br>
-                                    <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
-                                    <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"><img src="https://i.ibb.co/0fGxn3t/2021-12-16-21-58-23.png" alt="2021-12-16-21-58-23" width="20px">130<br> 
-                                </div>                             
-                            </div>
-                            <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="alert('뭐야');" >
-                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
-                                        height="150px" width="200px" ><br>
-                                    <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
-                                    <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"><img src="https://i.ibb.co/0fGxn3t/2021-12-16-21-58-23.png" alt="2021-12-16-21-58-23" width="20px">130<br> 
-                                </div>                             
-                            </div>
+                            </div>                                                                                   
                         </div>
                     </div>                      
                 </div>

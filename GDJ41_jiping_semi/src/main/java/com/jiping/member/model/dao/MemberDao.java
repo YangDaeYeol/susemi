@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.vo.Member;
 
 public class MemberDao {
@@ -227,6 +228,7 @@ public class MemberDao {
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, newNick);
+			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				m=Member.builder()
 						.email(rs.getString("email"))
@@ -242,4 +244,29 @@ public class MemberDao {
 		return m;				
 	}
 	
+	public List<Lecture> lectureList(Connection conn, String email){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Lecture> list=new ArrayList();
+		String sql=prop.getProperty("lectureList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			while(rs.next()) {				
+				Lecture l=new Lecture().builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.
+						.build();
+				list.add(l);			
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+		
+	}
 }

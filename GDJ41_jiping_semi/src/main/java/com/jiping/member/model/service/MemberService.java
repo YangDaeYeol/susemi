@@ -2,14 +2,13 @@ package com.jiping.member.model.service;
 
 import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.commit;
-import static com.jiping.common.JDBCTemplate.rollback;
 import static com.jiping.common.JDBCTemplate.getConnection;
 import static com.jiping.common.JDBCTemplate.rollback;
-import static com.jiping.common.JDBCTemplate.commit;
 
 import java.sql.Connection;
 import java.util.List;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.dao.MemberDao;
 import com.jiping.member.model.vo.Member;
 
@@ -85,6 +84,13 @@ public class MemberService {
 		Member m=dao.nicknameDuplicateCheck(conn, newNick);
 		close(conn);
 		return m;
+	}
+	
+	public List<Lecture> lectureList(String email){
+		Connection conn=getConnection();
+		List<Lecture> list=dao.lectureList(conn, email);
+		close(conn);
+		return list;
 	}
 
 }

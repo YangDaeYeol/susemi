@@ -1,6 +1,7 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.service.MemberService;
 import com.jiping.member.model.vo.Member;
 
@@ -32,6 +34,7 @@ public class MyclassIngOffServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		Member m=new MemberService().selectMember(email);
+		List<Lecture> list=new MemberService().lectureList(email);
 		
 		request.setAttribute("loginMember", m);
 		

@@ -34,13 +34,11 @@ public class NicknameDuplicateServlet extends HttpServlet {
 		System.out.println(newNick);
 		
 		Member m=new MemberService().nicknameDuplicateCheck(newNick);
-		if(m!=null) {
-			request.setAttribute("newNick", newNick);
-			request.setAttribute("nickCheckMember", m);
-			request.getRequestDispatcher("/views/member/nickDipulicate.jsp").forward(request, response);							
-		}else {
-			
-		}
+
+		request.setAttribute("newNick", newNick);
+		request.setAttribute("nickCheckMember", m);
+		request.getRequestDispatcher("/views/member/nickDipulicate.jsp").forward(request, response);							
+		
 		
 		
 	}
