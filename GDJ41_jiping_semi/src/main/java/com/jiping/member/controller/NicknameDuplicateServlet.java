@@ -30,12 +30,17 @@ public class NicknameDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String newNick = request.getParameter("newNick");
+		String newNick = request.getParameter("nickname");
 		System.out.println(newNick);
 		
 		Member m=new MemberService().nicknameDuplicateCheck(newNick);
-		request.setAttribute("nickCheckMember", m);
-		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
+		if(m!=null) {
+			request.setAttribute("newNick", newNick);
+			request.setAttribute("nickCheckMember", m);
+			request.getRequestDispatcher("/views/member/nickDipulicate.jsp").forward(request, response);							
+		}else {
+			
+		}
 		
 		
 	}

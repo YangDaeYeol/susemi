@@ -45,7 +45,8 @@
 
 %>
 <%if(m.getMemberGrade().equals("수강생")){ %>
-<section>
+
+<section id="updateSection">
         <div id="mypage-container" class="flex">
             <div class="inlineblock overflow" id="mypage-menu">          
                     <h3>MY PAGE</h3>
@@ -65,7 +66,6 @@
                         </ul>                  
                     </div>
             </div>   
-           <form id="userUpdateFrm" action="" method="post" action="">
             <div id="mypage-content" class="inlineblock">
                 <div class="">
                     <img id="info-icon" src="<%=request.getContextPath() %>/img/setting.png" width="20px" height="20px" class="inlineblock" style="margin-bottom: 10px;">
@@ -73,12 +73,13 @@
                 </div>
                 <div class="line"></div>
                 <div style="margin-left: 80px;">
+	            <form id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMember.do" method="post">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock"><img id="deleteImg" src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>"></div>
+                        <div class="info-content inlineblock" id="newImg"><img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>"></div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
-                            <input type="button" value="기본이미지">
-                            <input type="file" name="" id="" value="파일 선택" class="" width="">
+                            <input type="button" value="기본이미지" onclick="deleteImg();">
+                            <input type="file" name="profileImg" id="" value="파일 선택" class="" width="">
                         </div>
                     </div>
                     <div class="menu-margin margin-left" id="tutor-email" >
@@ -156,20 +157,45 @@
                                 <span class="margin-right menu-list-name">닉네임</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
+                                <input id="newNick" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
                             </div>
                             <div class="inlineblock">
-                                <button onclick="check" style="margin-left: 10px;">닉네임 중복 확인</button>
+                                <button id="nickDuplicateBtn" style="margin-left: 10px;">닉네임 중복 확인</button>
                             </div>
-                            <script>
-                            	
+                            <%-- <script>
+	                            $(()=>{
+	                        		$("#nickDuplicateBtn").click(e=>{
+	                        			let newNick=$("#newNick").val();
+	                        			const url="<%=request.getContextPath()%>/member/nicknameDuplicate.do?nickname=newNick";
+	                    				const title="nickDuplicate";
+	                    				const style="width=300,height=200";
+	                    				open("",title,style);	                        			
+	                        		});
                             
-                            </script>
+                            </script> --%>
+                            <script>
+                        	$("#nickDuplicateBtn").click(e=>{
+                        		let newNick=$("#newNick").val();
+                        		console.log(newNick);
+                        		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNick=newNick");
+                        		/* if(checkM==null){
+                        			alert('사용 가능한 닉네임입니다.');
+                        			$("#newnickname").focus();                        			
+                        		}else{
+                        			alert('이미 사용중인 닉네임입니다.');	
+                        			$("#newnickname").empty();
+                        		}   */                     		
+                        	});
+                        	
+                        		
+                        	
+                        
+                        </script>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                             <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
+                                <input type="text" id="newPhone" name="newPhone" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
                             </div>
                     </div>
                     <div class="menu-margin margin-left" id="inter-field">
@@ -180,8 +206,8 @@
                              <%if(categories.length==3){%>
 	                  <%for(int i=0; i<3; i++) {%>
 	                  		<div>
-		                       <input type="text" readonly name="" placeholder="<%=largeCategories[i]!=null?largeCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                       <input type="text" readonly name="" placeholder="<%=smallCategories[i]!=null?smallCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                       <input type="text" readonly name="newLCategory+<%=i%>" placeholder="<%=largeCategories[i]!=null?largeCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                       <input type="text" readonly name="newSCategory+<%=i%>" placeholder="<%=smallCategories[i]!=null?smallCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                 	<%if(i==2){ %>	
 		                  		<button style="position:inlineblock;">관심분야 수정하기</button>    
 		                  		<%} %>              
@@ -190,27 +216,27 @@
                   <%}else if(categories.length==2){%>
                   		<%for(int i=0; i<2; i++){ %>
                    			<div>
-		                        <input type="text" readonly name="" placeholder="<%=largeCategories[i]!=null?largeCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                        <input type="text" readonly name="" placeholder="<%=smallCategories[i]!=null?smallCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                        <input type="text" readonly name="newLCategory+<%=i%>" placeholder="<%=largeCategories[i]!=null?largeCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                        <input type="text" readonly name="newSCategory+<%=i%>" placeholder="<%=smallCategories[i]!=null?smallCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 		</div>	                 		
                        	<%} %>
 	                 		<div>
-		                        <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                        <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                        <input type="text" readonly name="newLCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                        <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 			<button>관심분야 수정하기</button>
 	                 		</div>
                   <%}else if(categories.length==1){ %>
                   		<div>
-	                       <input type="text" readonly name="" placeholder="<%=largeCategories[0]!=null?largeCategories[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="" placeholder="<%=smallCategories[0]!=null?smallCategories[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newLCategory0" placeholder="<%=largeCategories[0]!=null?largeCategories[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSCategory0" placeholder="<%=smallCategories[0]!=null?smallCategories[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	</div>
 	                 	<div>
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSCategory1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSCategory1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	</div>
 	                 	<div>
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	   <button>관심분야 수정하기</button>
 	                 	</div>
                   <%} %>                                                                                                                     
@@ -224,8 +250,8 @@
                             <%if(categories2.length==3){%>
 		                  <%for(int i=0; i<3; i++) {%>
 		                  		<div>
-			                       <input type="text" readonly name="" placeholder="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                       <input type="text" readonly name="" placeholder="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newLLocation+<%=i%>" placeholder="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSLocation+<%=i%>" placeholder="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                 		</div>
 					            <button>관심지역 수정하기</button>
 		                  <%}%>
@@ -233,31 +259,32 @@
                   	  <%}else if(categories2.length==2){%>
                   		  <%for(int i=0; i<2; i++){ %>
 	                   			<div>
-			                       <input type="text" readonly name="" placeholder="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                       <input type="text" readonly name="" placeholder="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newLLocation+<%=i%>" placeholder="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSLocation+<%=i%>" placeholder="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                 		</div>	                 		
                        	<%} %>
 	                 		<div>
-		                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 		<button>관심지역 수정하기</button>
+		                       <input type="text" readonly name="newLLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                       <input type="text" readonly name="newSLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                 		<button id="abc">관심지역 수정하기</button>
 	                 		</div>
+	                 	
+	                 		
                   	<%}else if(categories2.length==1){ %>
                   		<div>
-	                       <input type="text" readonly name="" placeholder="<%=largeCategories2[0]!=null?largeCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="" placeholder="<%=smallCategories2[0]!=null?smallCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newLLocation0" placeholder="<%=largeCategories2[0]!=null?largeCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSLocation0" placeholder="<%=smallCategories2[0]!=null?smallCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	</div>
 	                 	<div>
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newLLocation1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSLocation1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	</div>
 	                 	<div>
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newLLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                 	<button>관심지역 수정하기</button>
 	                 	</div>
-                  	<%} %>
-                             
+                  	<%} %>                             
                         </div>
                 </div>  
                     <div class="menu-margin margin-left" id="tutor-gender">
@@ -295,9 +322,10 @@
                 
                 <div class="line"></div>
                 <div id="save-info">
-                    <button onclick="updateMember();" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
+                    <button type="submit" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
                 </div>
                 </form>
+                
             </div>
         </div>
     </section>
@@ -392,25 +420,7 @@
                         <div class="inlineblock">
                             <button id="nicknameDuplicate" style="margin-left: 10px;">닉네임 중복확인</button>
                         </div>
-                        <script>
-                        	$("#nicknameDuplicate").click(e=>{
-                        		const newNick=$(".newNick").val();
-                        		location.assign("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNick=newNick");
-                        		if(checkM==null){
-                        			alert('사용 가능한 닉네임입니다.');
-                        			$("#newnickname").focus();
-                        			
-                        		}else{
-                        			alert('이미 사용중인 닉네임입니다.');	
-                        			$("#newnickname").empty();
-                        		}
-                        		
-                        	});
-                        	
-                        		
-                        	
                         
-                        </script>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
@@ -457,11 +467,12 @@
 <%@ include file="/views/common/footer.jsp"%>
  <script>
  
- 	/* 기본이미지로 변경 */
-	$("#deleteImg").click(e=>{
-		$("#deleteImg").attr("src","<%=request.getContextPath()%>/upload/userimg.png");
+ 	/* 유저 기본이미지로 변경 */
+	const deleteImg=()=>{
+		$("#newImg").find("img").attr("src","<%=request.getContextPath()%>/upload/userimg.png");		
+	}
+	/*  */
 	
-	});
 	
 	
  	
