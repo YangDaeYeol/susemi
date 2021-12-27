@@ -183,7 +183,7 @@
         
   <%@ include file="/views/common/footer.jsp"%>
   <script>
-  	dropMember=()=>{ 		
+  	const dropMember=()=>{ 		
   		if($("#dropNoticeCheck").is(":checked")==true){
 	  		if(confirm('정말 탈퇴하시겠습니까?')==true){
 	  			location.assign('<%=request.getContextPath()%>/member/dropEnd.do?email=<%=m.getEmail()%>');
@@ -194,6 +194,8 @@
   		}else{
   			alert('탈퇴 관련 안내사항을 확인 여부를 체크해주세요!');
   			scrollIntoView($("#dropNoticeCheck"));
+  			$("#dropNoticeCheck").focus();
+  			
   		}
   	}
   	
