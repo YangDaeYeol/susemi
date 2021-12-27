@@ -21,6 +21,7 @@ import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
+import com.jiping.lecture.model.vo.VodLecture;
 import com.jiping.member.model.vo.Member;
 import com.jiping.tutor.model.vo.Certificate;
 import com.jiping.tutor.model.vo.Tutor;
@@ -347,7 +348,40 @@ public class EnrollLectureServlet extends HttpServlet {
 						lecture.put("classEndTime", classEndTime);
 						
 					} else {
-						vod = "VOD";
+						//VOD 선택했을떄 들어오는 곳
+						String[] vodUrlAddrTemp0 = new String[10];
+						String[] vodTitleTemp = new String[10];
+						String[] vodClassinfoTemp = new String[10];
+						
+						String[] vodUrlAddrTemp = new String[10];
+						for (int i = 0; i < 10; i++) {
+							vodUrlAddrTemp0[i] = mr.getParameter("VODurlAddress" + i);
+							vodTitleTemp[i] = mr.getParameter("VODTitlePerClass" + i);
+							vodClassinfoTemp[i] = mr.getParameter("vodEachClassInformation" + i);
+				
+						}
+						//유튜브 주소 = 뒤만 가져오기
+						for (int i = 0; i < 10; i++) {
+							if (vodUrlAddrTemp0[i] != null) {
+								int index = vodUrlAddrTemp0[i].indexOf("=");
+								vodUrlAddrTemp[i] = vodUrlAddrTemp0[i].substring(index + 1);
+							}
+							
+						}
+						
+						int vodClassPrice = Integer.parseInt(mr.getParameter("vodTotalClassPrice"));
+						
+						lecture.put("vodUrlAddr", vodUrlAddrTemp);
+						lecture.put("vodTitle", vodTitleTemp);
+						lecture.put("vodClassinfo", vodClassinfoTemp);
+						
+						VodLecture vl = VodLecture.builder()
+								.vodPrice(vodClassPrice)
+								.build();
+						
+						lecture.put("vodLecture", vl);
+						
+						
 					}
 					
 					
