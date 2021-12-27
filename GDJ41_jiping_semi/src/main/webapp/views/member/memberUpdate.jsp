@@ -336,8 +336,8 @@
                             <nav class="nav-sub">
                                 <li >· 클래스</li>
                	                 <ul id="sub-menu">
-                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=?<%=m.getEmail()%>">- 운영중인 클래스</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=?<%=m.getEmail()%>">- 운영종료 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=<%=m.getEmail()%>">- 운영중인 클래스</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=<%=m.getEmail()%>">- 운영종료 클래스</a></li>
                                 </ul>
                             </nav>
                             <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
