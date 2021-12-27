@@ -99,7 +99,7 @@
     }
     #header-nav>ul>li {
         text-align: center;
-        margin-left: 25px;
+        padding: 0 12.5px 0 12.5px;
         font-weight: bold;
         font-size: 20px;
         width: 150px;
@@ -386,4 +386,7 @@
     }
     #list-container3>a {
         padding-right: 30px;
+    }
+    img {
+    	object-fit: cover;
     }

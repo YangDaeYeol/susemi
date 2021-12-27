@@ -106,13 +106,14 @@ public class LectureDao {
 		return schedule;
 	}
 	
-	public List<LectureSchedule> scheduleList(Connection conn){
+	public List<LectureSchedule> scheduleList(Connection conn,int lectureNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
 		List <LectureSchedule> list= new ArrayList();
 		String sql= prop.getProperty("scheduleList");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				LectureSchedule schedule= LectureSchedule.builder()
@@ -510,5 +511,156 @@ public class LectureDao {
 		} 
 		return result;
 		}
-		
+	
+	public List<Lecture> onedayLectureList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("onedayLectureList"));
+			pstmt.setString(1, "원데이");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l = Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.nickName(rs.getString("nickname"))
+						.lectureType(rs.getString("lecture_type"))
+						.lectureCategory(rs.getString("lecture_category"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.wishCount(rs.getInt("wish_count"))
+						.commentCount(rs.getInt("comment_count"))
+						.price(rs.getInt("price"))
+						.tutorImg(rs.getString("tutor_img"))
+						.thumbnail(rs.getString("thumbnail"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
+	
+	public List<Lecture> everydayLectureList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("everydayLectureList"));
+			pstmt.setString(1, "다회차");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l = Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.nickName(rs.getString("nickname"))
+						.lectureType(rs.getString("lecture_type"))
+						.lectureCategory(rs.getString("lecture_category"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.wishCount(rs.getInt("wish_count"))
+						.commentCount(rs.getInt("comment_count"))
+						.price(rs.getInt("price"))
+						.tutorImg(rs.getString("tutor_img"))
+						.thumbnail(rs.getString("thumbnail"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<Lecture> vodLectureList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("everydayLectureList"));
+			pstmt.setString(1, "VOD");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l = Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.nickName(rs.getString("nickname"))
+						.lectureType(rs.getString("lecture_type"))
+						.lectureCategory(rs.getString("lecture_category"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.wishCount(rs.getInt("wish_count"))
+						.commentCount(rs.getInt("comment_count"))
+						.price(rs.getInt("price"))
+						.tutorImg(rs.getString("tutor_img"))
+						.thumbnail(rs.getString("thumbnail"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<Lecture> searchResult(Connection conn, String keyword, int cPage, int numPerPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("searchResult"));
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, "%" + keyword + "%");
+			pstmt.setString(3, "%" + keyword + "%");
+			pstmt.setInt(4, (cPage-1)*numPerPage+1);
+			pstmt.setInt(5, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l = Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.nickName(rs.getString("nickname"))
+						.lectureType(rs.getString("lecture_type"))
+						.lectureCategory(rs.getString("lecture_category"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.wishCount(rs.getInt("wish_count"))
+						.commentCount(rs.getInt("comment_count"))
+						.price(rs.getInt("price"))
+						.tutorImg(rs.getString("tutor_img"))
+						.thumbnail(rs.getString("thumbnail"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int searchResultCount(Connection conn, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("searchResultCount"));
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, "%" + keyword + "%");
+			pstmt.setString(3, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) result = rs.getInt("count");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+}

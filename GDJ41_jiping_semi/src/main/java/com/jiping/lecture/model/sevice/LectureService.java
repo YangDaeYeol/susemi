@@ -46,9 +46,9 @@ public class LectureService {
 //		return schedule;
 //	}
 	
-	public List<LectureSchedule> scheduleList(){
+	public List<LectureSchedule> scheduleList(int lectureNo){
 		Connection conn=getConnection();
-		List<LectureSchedule> list=dao.scheduleList(conn);
+		List<LectureSchedule> list=dao.scheduleList(conn, lectureNo);
 		close(conn);
 		return list;
 	}
@@ -206,7 +206,38 @@ public class LectureService {
 		return result;
 	}
 	
+	public List<Lecture> onedayLectureList() {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.onedayLectureList(conn);
+		close(conn);
+		return list;
+	}
 	
+	public List<Lecture> everydayLectureList() {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.everydayLectureList(conn);
+		close(conn);
+		return list;
+	}
 	
-
+	public List<Lecture> vodLectureList() {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.vodLectureList(conn);
+		close(conn);
+		return list;
+	}
+	
+	public List<Lecture> searchResult(String keyword, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.searchResult(conn,keyword,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	public int searchResultCount(String keyword) {
+		Connection conn = getConnection();
+		int result = dao.searchResultCount(conn, keyword);
+		close(conn);
+		return result;
+	}
 }

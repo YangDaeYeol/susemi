@@ -48,7 +48,7 @@ public class LectureServlet extends HttpServlet {
 		LectureContent content= new LectureService().lectureContent(lectureNo);
 		
 //		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
-		List<LectureSchedule> scList= new LectureService().scheduleList();
+		List<LectureSchedule> scList= new LectureService().scheduleList(lectureNo);
 		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
 		Tutor tutor= new LectureService().totorInfo(lectureNo);
 		Member m= new LectureService().tutorImg(lectureNo);
