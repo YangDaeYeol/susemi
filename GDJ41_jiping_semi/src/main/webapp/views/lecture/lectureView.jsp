@@ -307,15 +307,17 @@
                             </div>
                         </div>
                         <%} %>
-                        <div class="card">
-	                        <form action="" method="">
-	                            <textarea class="card-body msgbox" id="totutor-review" cols="43" rows="3"
-	                                placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
-		                        <span id="review-count" style="float: right;">(0/100)</span> <br>
-		                        <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
-		                            등록하기</button>
-	                        </form>
-                        </div>
+                        <div>
+		                  <form action="" method="">
+		                      <textarea class=" msgbox" id="totutor-review" cols="43" rows="3"
+		                          placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+		                    <div>
+		                      <span id="review-count" style="float: right;">(0/100)</span> <br>
+		                      <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
+		                          등록하기</button>
+		                    </div>
+		                  </form>
+		                </div>
                     </div>
                 </div>
                 <script>
