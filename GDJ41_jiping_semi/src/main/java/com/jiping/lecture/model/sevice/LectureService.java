@@ -236,8 +236,5 @@ public class LectureService {
 		close(conn);
 		return result;
 	}
-	
-	
-	
 
 }
