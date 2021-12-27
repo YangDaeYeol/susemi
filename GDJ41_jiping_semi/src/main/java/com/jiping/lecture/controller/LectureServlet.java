@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureComment;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
@@ -48,7 +49,7 @@ public class LectureServlet extends HttpServlet {
 		LectureContent content= new LectureService().lectureContent(lectureNo);
 		
 //		LectureSchedule schedule= new LectureService().lectureSchedule(lectureNo);
-		List<LectureSchedule> scList= new LectureService().scheduleList();
+		List<LectureSchedule> scList= new LectureService().scheduleList(lectureNo);
 		List<LectureImg> imgList= new LectureService().imgList(lectureNo);
 		Tutor tutor= new LectureService().totorInfo(lectureNo);
 		Member m= new LectureService().tutorImg(lectureNo);
@@ -58,6 +59,10 @@ public class LectureServlet extends HttpServlet {
 //		vod
 		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
 		List<Payment> p= new LectureService().payment(lectureNo);
+		
+		
+//		리뷰
+		List<LectureComment> lcList= new LectureService().lcList(lectureNo);
 		
 		
 		
@@ -71,6 +76,7 @@ public class LectureServlet extends HttpServlet {
 		request.setAttribute("m", m);
 		request.setAttribute("c", c);
 		request.setAttribute("p", p);
+		request.setAttribute("lcList", lcList);
 		
 		
 		if(lectureType.contains("원데이")) {

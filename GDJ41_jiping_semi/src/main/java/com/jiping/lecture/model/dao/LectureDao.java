@@ -83,37 +83,38 @@ public class LectureDao {
 		return content;
 	}
 	
-	public LectureSchedule lectureSchedule(Connection conn, int num ) {
-		PreparedStatement pstmt=null;
-		ResultSet rs= null; 
-		LectureSchedule schedule=null;
-		String sql=prop.getProperty("lectureSchedule");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				schedule= LectureSchedule.builder()
-						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
-						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
-						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return schedule;
-	}
+//	public LectureSchedule lectureSchedule(Connection conn, int num ) {
+//		PreparedStatement pstmt=null;
+//		ResultSet rs= null; 
+//		LectureSchedule schedule=null;
+//		String sql=prop.getProperty("lectureSchedule");
+//		try {
+//			pstmt=conn.prepareStatement(sql);
+//			pstmt.setInt(1, num);
+//			rs=pstmt.executeQuery();
+//			if(rs.next()) {
+//				schedule= LectureSchedule.builder()
+//						.lectureNo(rs.getInt("lecture_no")).lecturePrice(rs.getInt("lecture_price"))
+//						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
+//						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date")).build();
+//			}
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return schedule;
+//	}
 	
-	public List<LectureSchedule> scheduleList(Connection conn){
+	public List<LectureSchedule> scheduleList(Connection conn, int num){
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
 		List <LectureSchedule> list= new ArrayList();
 		String sql= prop.getProperty("scheduleList");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				LectureSchedule schedule= LectureSchedule.builder()
@@ -349,6 +350,32 @@ public class LectureDao {
 		}
 		System.out.println("comment : "+result);
 		return result;
+	}
+	
+	public List<LectureComment> lcList(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <LectureComment> list= new ArrayList();
+		String sql= prop.getProperty("commentList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				LectureComment lc= LectureComment.builder()
+						.commentNo(rs.getInt("comment_No")).lectureNo(rs.getInt("lecture_no")).writer(rs.getString("writer"))
+						.starRate(rs.getString("star_rate")).commentContent(rs.getString("comment_content"))
+						.commentLevel(rs.getInt("comment_level")).profileImg(rs.getString("profile_img")).build();
+				list.add(lc);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(list);
+		return list;
 	}
 	
 	

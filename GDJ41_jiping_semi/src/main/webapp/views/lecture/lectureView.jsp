@@ -9,6 +9,7 @@
 				com.jiping.member.model.vo.Member,
 				com.jiping.tutor.model.vo.Certificate,
 				com.jiping.payment.model.vo.Payment,
+				com.jiping.lecture.model.vo.LectureComment,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
@@ -20,7 +21,9 @@
 	Member m=(Member)request.getAttribute("m");
 	List<Certificate> cList= (List)request.getAttribute("c");
 	List<Payment> pList= (List)request.getAttribute("p");
- 	System.out.println("jsp:"+ cList); 
+	LectureComment lc= (LectureComment)request.getAttribute("lc");
+	List<LectureComment> lcList= (List)request.getAttribute("lcList");
+ 	System.out.println("jsp:"+ list); 
 
 %>
 
@@ -318,11 +321,13 @@
 			                          placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
 			                <input type="hidden" name="level" value="1">
 			               <%for(Payment p:pList) { 
-	            				if(loginMember==null||!(p.getEmail().contains(loginMember.getEmail()))) { %>
+	            				if(loginMember==null||!(p.getEmail().contains(loginMember.getEmail()))) {%>
 									<input type="hidden" name="writer" value="<%=p.getEmail() %>">
 								<%} else{ %>
 									<input type="hidden" name="writer" value="<%=p.getEmail() %>">
-							<%}%> 
+							<%} 
+							}%>
+							<input type="hidden" name="letureNo" value="5"> 
 							<input type="hidden" name="letureNo" value="<%=le.getLectureNo()%>">
 							<input type="hidden" name="lecutreCommentRef" value="0">
 		                    <div>
@@ -353,24 +358,27 @@
                     <div class="card">
                         <div class="card-body ">
                             <!-- 리뷰시작 -->
+                            <%for(LectureComment co: lcList) { %>
                             <div class="d-flex ">
                                 <div name="review flex-shrink-0">
-                                    <img class="img_basic img_review" src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTMy/MDAxNTc2MTM4NTc5MjAy.d6qoHmyl15AA4MjNVN7uOMbOJplPrhTktLxfMQXze9Ig.Ui8K9n80tzLCRsYmAK1VGmFxcRJ6-fndALhaNI69n9Ug.JPEG/%EC%A4%80%ED%98%81_%284%29.jpg?type=w1200
+                                    <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
                                                  ">
-                                </div>
+                                </div> 
+                                
                                 <div class="flex-grow-1 ms-3">
                                     <div style="float: right;">
-                                        <span>2021.12.14 </span><span id="report"><a href=""> 신고</a></span>
+                                        <span><%=co.getEnrollDate() %> </span><span id="report"><a href=""> 신고</a></span>
                                         <!-- 신고사유팝업 연결 -->
                                     </div>
                                     <span>★★★★★</span><br>
-                                    <span>홍대불주먹</span><br>
+                                    <span><%=co.getWriter() %></span><br>
                                     <p>
                                     	자바를 쉽게 배울 수 있어서 너무 행복하고 좋네요..! 수료일 이후가 기대됩니다~~~~~~~~~~~~~ 프로젝트를 정말 재밌게 해냈어요! 
                         				인생의 값진 경험........ 이 수업 덕에 좋은 곳에 취업하고 갑니다~~~~~~!! 
                                     </p>
                                 </div>
                             </div>
+                            <%} %> 
                             <!-- 리뷰끝 -->
                         </div>
                     </div> 

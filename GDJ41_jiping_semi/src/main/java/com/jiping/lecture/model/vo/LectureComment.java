@@ -22,4 +22,5 @@ public class LectureComment {
 	private Date enrollDate;
 	private int commentLevel;
 	private int commentRef;
+	private String profileImg;
 }

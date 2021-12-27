@@ -47,9 +47,9 @@ public class LectureService {
 //		return schedule;
 //	}
 	
-	public List<LectureSchedule> scheduleList(){
+	public List<LectureSchedule> scheduleList(int lectureNo){
 		Connection conn=getConnection();
-		List<LectureSchedule> list=dao.scheduleList(conn);
+		List<LectureSchedule> list=dao.scheduleList(conn,lectureNo);
 		close(conn);
 		return list;
 	}
@@ -117,6 +117,13 @@ public class LectureService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	public List<LectureComment> lcList(int lectureNo){
+		Connection conn=getConnection();
+		List<LectureComment> lc= dao.lcList(conn, lectureNo);
+		close(conn);
+		return lc;
 	}
 	
 	

@@ -45,12 +45,20 @@ public class ReviewServlet extends HttpServlet {
 		LectureComment lc= LectureComment.builder().writer(writer).starRate(rating).commentContent(content)
 				.lectureNo(lecNo).commentRef(ref).commentLevel(lev).build();
 		
-		int result= new LectureService().insertComment(lc);
-		if(result>0) {
-			System.out.println("성공");
-		}
 		
+		int result= new LectureService().insertComment(lc);
+		String msg="";
+		String loc="/lecture/lecture.do?lectureNo="+lc.getLectureNo();
+		if(result>0) {
+			msg="리뷰를 등록하였습니다.";
+		}else {
+			msg="리뷰등록에 실패하였습니다.";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
 		request.setAttribute("lc", lc);
+		
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		
 	
 	}
