@@ -1,12 +1,15 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.service.MemberService;
 import com.jiping.member.model.vo.Member;
 
@@ -32,6 +35,11 @@ public class MyclassEndServlet extends HttpServlet {
 		String email=request.getParameter("email");
 		Member m=new MemberService().selectMember(email);
 		
+		List<Lecture> list=new MemberService().endLectureList(email);
+		int count=new MemberService().endLectureCount(email);
+		
+		request.setAttribute("count", count);
+		request.setAttribute("lectureList", list);
 		request.setAttribute("loginMember", m);
 		request.getRequestDispatcher("/views/member/myClassEndUser.jsp").forward(request, response);
 	}

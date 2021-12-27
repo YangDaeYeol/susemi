@@ -53,10 +53,10 @@
 		                            <%if(list.get(i).getLectureType().equals("원데이") || list.get(i).getLectureType().equals("다회차")){%>	
 		                            <div class="col inlineblock class-margin">
 		                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=<%=list.get(i).getLectureNo()%>&lectureType=<%=list.get(i).getLectureType()%>')">
-		                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
+		                                    <img src="<%=request.getContextPath()%>/upload/<%=list.get(i).getThumbnail()%>" alt="2021-12-16-21-57-58" 
 		                                        height="150px" width="200px" ><br>
 		                                    <div id="title" style="font-size: 18px;"><%=list.get(i).getLectureTitle() %></div>
-		                                    <div id="price">￦ <%= list.get(i).getPrice() %></div>
+		                                    <div id="price">￦ <%=list.get(i).getPrice() %></div>
 		                                    <!-- <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"> -->		                                    
 		                                </div>                           
 		                            </div>

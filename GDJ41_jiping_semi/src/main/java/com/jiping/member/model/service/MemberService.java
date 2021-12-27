@@ -99,5 +99,19 @@ public class MemberService {
 		close(conn);
 		return count;
 	}
+	
+	public List<Lecture> endLectureList(String email){
+		Connection conn=getConnection();
+		List<Lecture> list=dao.endLectureList(conn, email);
+		close(conn);
+		return list;
+	}
+	
+	public int endLectureCount(String email) {
+		Connection conn=getConnection();
+		int count=dao.lectureCount(conn, email);
+		close(conn);
+		return count;
+	}
 
 }
