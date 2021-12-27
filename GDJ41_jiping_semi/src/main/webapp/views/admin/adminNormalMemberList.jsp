@@ -5,7 +5,6 @@
 <%@ page import="java.util.List,com.jiping.member.model.vo.Member" %>
 <%
 	List<Member> normalMemberList = (List)request.getAttribute("normalMemberList");
-	List<Member> pageBar = (List)request.getAttribute("pagebar");
 %> 
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">

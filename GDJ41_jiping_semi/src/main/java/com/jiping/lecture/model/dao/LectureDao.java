@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureComment;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
@@ -529,6 +530,53 @@ public class LectureDao {
 		} finally {
 			close(pstmt);
 		} 
+		return result;
+	}
+	public List<LectureComment> reportCommentList(Connection conn, int cPage, int numPerPage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <LectureComment> list= new ArrayList();
+		String sql= prop.getProperty("reportCommentList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,  cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				LectureComment reportCommentList = LectureComment.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.writer(rs.getString("writer"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.commentContent(rs.getString("comment_content"))
+						.build();
+
+				list.add(reportCommentList);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	public int selectReportCommetAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectReportCommetAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
 		return result;
 	}
 		

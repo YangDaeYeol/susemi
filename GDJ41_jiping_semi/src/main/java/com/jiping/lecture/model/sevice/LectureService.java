@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureComment;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
@@ -218,6 +219,20 @@ public class LectureService {
 		int result=dao.apprLecture(conn, lectureNo);
 		if(result>0) commit(conn);
 		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public List<LectureComment> reportCommentList(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<LectureComment> reportCommentList= dao.reportCommentList(conn,cPage,numPerPage);
+		close(conn);
+		return reportCommentList;
+	}
+
+	public int selectReportCommetAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectReportCommetAllCount(conn);
 		close(conn);
 		return result;
 	}

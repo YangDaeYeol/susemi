@@ -19,7 +19,7 @@
                               <tr>
                                 <th scope="col">클래스 번호</th>
                                 <th scope="col">클래스명</th>
-                                <th scope="col">강사 이메일</th>
+                                <th scope="col">강사 닉네임</th>
                                 <th scope="col">클래스 승인여부</th>
                               </tr>
                             </thead>

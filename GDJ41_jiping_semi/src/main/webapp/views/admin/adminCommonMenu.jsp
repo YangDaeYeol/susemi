@@ -18,7 +18,7 @@
                                     <li><a href="<%=request.getContextPath()%>/views/admin/adminClassDrop.jsp">- 클래스 삭제</a></li>
                                 </ul>
                             </nav>
-                            <li><a href="<%=request.getContextPath()%>/views/admin/adminComment.jsp">· 댓글 관리</a></li>
+                            <li><a href="<%=request.getContextPath()%>/admin/adminComment">· 댓글 관리</a></li>
                         </ul>                  
                     </div>
                 </div>   

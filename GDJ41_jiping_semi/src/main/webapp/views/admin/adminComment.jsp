@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 <%@ include file="/views/admin/adminCommonMenu.jsp"%> 
+<%@ page import="java.util.List,com.jiping.lecture.model.vo.LectureComment" %>
+<%
+	List<LectureComment> reportCommentList = (List)request.getAttribute("reportCommentList");
+
+%> 
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">
                         <img src="<%=request.getContextPath() %>/img/bad-review.png" alt="" width="30px" height="30px">
@@ -19,30 +24,22 @@
                               </tr>
                             </thead>
                             <tbody>
+                              <%for(int i=0;i<reportCommentList.size();i++){ %>
+                              
                               <tr>
-                                <th scope="row">도**</th>
-                                <td>목요일은 카메라 연기하는 날</td>
-                                <td><a href="" style="color: black;">이거 수업 완전 개똥이네~ 나도 하겠어~~ 개나줘버려~~~</a></td>
+                                <td scope="row"><%=reportCommentList.get(i).getWriter()%></td>
+                                <td><%=reportCommentList.get(i).getLectureTitle()%></td>
+                                <td><%=reportCommentList.get(i).getCommentContent()%></td>
                                 <td>
                                     <button>삭제</button>
                                 </td>
                               </tr>
-                              <tr>
-                                <th scope="row">박**</th>
-                                <td>마음에 파도를 일으키는 그립톡  </td>
-                                <td><a href="" style="color: black;">파도는 무슨 신발*&#$@ ㅡㅡ 개@#$%^&*</a></td>
-                                <td>
-                                    <button>삭제</button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">최**</th>
-                                <td>달콩이의 아이패드 드로잉</td>
-                                <td><a href="" style="color: black;">아이패드 없는 사람은 서러워서 살겠나 개@#$%^&* 아이패드 사주고나 클래스 여쇼 %$&$%^$씨$%3454 </a></td>
-                                <td>
-                                    <button>삭제</button>
-                                </td>
-                              </tr>
+                              <%} %>
+                              <td colspan="4">
+								<div id="pagebar" class="d-block">
+									<%=request.getAttribute("pageBar") %>
+								</div>
+                              </td>
                             </tbody>
                           </table>
                         </div>  
