@@ -33,9 +33,14 @@ public class MyclassIngOffServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
-		Member m=new MemberService().selectMember(email);
-		List<Lecture> list=new MemberService().lectureList(email);
 		
+		Member m=new MemberService().selectMember(email);
+		System.out.println(email);
+		List<Lecture> list=new MemberService().lectureList(email);
+		int count=new MemberService().lectureCount(email);
+		
+		request.setAttribute("count", count);
+		request.setAttribute("lectureList", list);
 		request.setAttribute("loginMember", m);
 		
 		request.getRequestDispatcher("/views/member/myClassIngUserOff.jsp").forward(request, response);

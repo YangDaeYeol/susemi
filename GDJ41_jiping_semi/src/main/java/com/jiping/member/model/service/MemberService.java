@@ -92,5 +92,12 @@ public class MemberService {
 		close(conn);
 		return list;
 	}
+	
+	public int lectureCount(String email) {
+		Connection conn=getConnection();
+		int count=dao.lectureCount(conn, email);
+		close(conn);
+		return count;
+	}
 
 }

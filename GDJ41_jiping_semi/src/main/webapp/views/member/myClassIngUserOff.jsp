@@ -1,9 +1,13 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.jiping.lecture.model.vo.Lecture" %>
 <%
 	
 	Member m=(Member)request.getAttribute("loginMember");
-
+	List<Lecture> list=(List)request.getAttribute("lectureList");
+	int count=(int)request.getAttribute("count");
+	/* DecimalFormat formatter = new DecimalFormat("###,###"); */
 
 %>
 <%@ include file="/views/common/header.jsp"%>
@@ -41,22 +45,26 @@
                     <div class="classAll">
                         <div class="flex" id="ing-class">
                             <h5>수강중인 클래스 - 오프라인</h5>
-                            <p class="relative">총 개의 클래스</p> 
+                            <p class="relative">총 <%=count %>개의 클래스</p> 
                         </div>
                         <div id="ing-class-list">
-                            <%for(int i=0; i<3; i++){ %>
-                            
-                            <%} %>
-                            <div class="col inlineblock class-margin">
-                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=5&lectureType=원데이')">
-                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
-                                        height="150px" width="200px" ><br>
-                                    <div id="title" style="font-size: 18px;">달콩이의 아이패드 드로잉</div>
-                                    <div id="price">198,000원</div>
-                                    <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;">
-                                    
-                                </div>                           
-                            </div>                                                                                   
+                        <%if(!list.isEmpty()){ %>    
+	                            <%for(int i=0; i<list.size(); i++){ %>
+		                            <%if(list.get(i).getLectureType().equals("원데이") || list.get(i).getLectureType().equals("다회차")){%>	
+		                            <div class="col inlineblock class-margin">
+		                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=<%=list.get(i).getLectureNo()%>&lectureType=<%=list.get(i).getLectureType()%>')">
+		                                    <img src="https://i.ibb.co/G09WxGs/2021-12-16-21-57-58.png" alt="2021-12-16-21-57-58" 
+		                                        height="150px" width="200px" ><br>
+		                                    <div id="title" style="font-size: 18px;"><%=list.get(i).getLectureTitle() %></div>
+		                                    <div id="price">￦ <%= list.get(i).getPrice() %></div>
+		                                    <!-- <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"> -->		                                    
+		                                </div>                           
+		                            </div>
+		                            <%} %>                                                                                                              	
+	                            <%} %>
+                        <%}else{ %>
+                        		<p style="margin-top:50px;"><%=m.getNickname() %>님이 현재 수강중인 클래스가 없습니다.</p>
+                       	<%} %>    
                         </div>
                     </div>                      
                 </div>
