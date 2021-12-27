@@ -404,7 +404,7 @@ public class LectureDao {
 			String sql = prop.getProperty("enrollTutorInformation");
 			try {
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, "화이자");
+				pstmt.setString(1, "myNickName");
 				pstmt.setString(2, t.getInsta());
 				pstmt.setString(3, t.getFacebook());
 				pstmt.setString(4, t.getBlog());
@@ -425,7 +425,7 @@ public class LectureDao {
 			String sql=prop.getProperty("enrollCertificateInformation");
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "화이자");
+				pstmt.setString(1, "myNickName");
 				pstmt.setString(2, c.getCertificateText());
 				pstmt.setString(3, c.getCertificateImg());
 				result=pstmt.executeUpdate();
@@ -445,7 +445,7 @@ public class LectureDao {
 		String sql = prop.getProperty("enrollLectureInformation");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "화이자");
+			pstmt.setString(1, "myNickName");
 			pstmt.setString(2, l.getLectureType());
 			pstmt.setString(3, l.getLectureCategory());
 			pstmt.setString(4, l.getLectureTitle());
@@ -464,7 +464,7 @@ public class LectureDao {
 		String sql = prop.getProperty("enrollLectureImg");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "화이자");
+			pstmt.setString(1, "myNickName");
 			pstmt.setString(2, fileNameArray);
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -481,7 +481,7 @@ public class LectureDao {
 		String sql = prop.getProperty("enrollLectureContent");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "화이자");
+			pstmt.setString(1, "myNickName");
 			pstmt.setString(2, lc.getLectureIntroduce());
 			pstmt.setString(3, lc.getRecommend());
 			pstmt.setString(4, lc.getCurriculum());
@@ -543,7 +543,7 @@ public class LectureDao {
 		String sql = prop.getProperty("enrollLectureSchedule");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "화이자");
+			pstmt.setString(1, "myNickName");
 			pstmt.setInt(2, ls.getLecturePrice());
 			pstmt.setInt(3, ls.getLecturePersons());
 			pstmt.setString(4, ls.getLectureLocation());
@@ -558,6 +558,29 @@ public class LectureDao {
 			close(pstmt);
 		} 
 		return result;
-		}
-		
 	}
+	
+	
+	public int enrollVodLecture(Connection conn, String vodUrlAddr, String vodTitle, String vodClassInfo, VodLecture vl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollVodLecture");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "myNickName");
+			pstmt.setString(2, vodUrlAddr);
+			pstmt.setInt(3, vl.getVodPrice());
+			pstmt.setString(4, vodTitle);
+			pstmt.setString(5, vodClassInfo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+		
+}
+
+	

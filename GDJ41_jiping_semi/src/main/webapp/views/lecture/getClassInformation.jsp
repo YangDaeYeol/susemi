@@ -221,17 +221,17 @@
 
 
 													<div>
-														<input type="radio" id="control_01" name="onedayClassType"
+														<input type="radio" id="control_01" name="classType"
 															value="1"> <label for="control_01"
 															class="selectClass"> 원데이 클래스 </label>
 													</div>
 													<div>
-														<input type="radio" id="control_02" name="multipleClassType"
+														<input type="radio" id="control_02" name="classType"
 															value="2"> <label for="control_02"
 															class="selectClass"> 다회차 클래스 </label>
 													</div>
 													<div>
-														<input type="radio" id="control_03" name="VodClassType"
+														<input type="radio" id="control_03" name="classType"
 															value="3"> <label for="control_03"
 															class="selectClass"> VOD </label>
 													</div>
@@ -562,19 +562,20 @@
 															수업 정보 입력</div>
 														<div style="display: flex;">
 															<div class="inputVODinfoTxtBox" style="display: flex;">
-																<input type="text" placeholder="url주소 입력"
+																<input type="text" placeholder="url주소 입력" name="VODurlAddress0"
 																	id="inputUrlAddress1" class="inputUrlAddress">
 																<span class="vodEachClassUrlAddressLimit"
 																	id="vodEachClassUrlAddressLimitId1"> (0/50) </span>
 															</div>
 															<div class="inputVODinfoTxtBox" style="display: flex;">
-																<input type="text" id="inputSmallTitle1"
+																<input type="text" id="inputSmallTitle1" name="VODTitlePerClass0"
 																	placeholder="회차당 제목 입력" class="inputSmallTitle">
 																<span class="vodEachClassTitleLimit"> (0/50) </span>
 															</div>
 														</div>
+														
 														<div class="vodEachClassInformationDiv">
-															<textarea name="vodEachClassInformation" id="" cols="58"
+															<textarea id="" cols="58" name="vodEachClassInformation0"
 																rows="5" placeholder="해당 회차 강의 내용에 대해 설명을 적어주세요"
 																class="vodEachClassInformation"></textarea>
 															<div class="vodEachClassInfoLimit">(0/200)</div>
@@ -591,7 +592,7 @@
 															<div class="pricePerClass1" style="border-bottom: 10px;">클래스
 																가격</div>
 															<div id="pricePerClass2" class="classIntBox">
-																<input type="text" class="classIntInputBox"
+																<input type="text" class="classIntInputBox" name="vodTotalClassPrice"
 																	id="classPri"><span class="won">원</span>
 															</div>
 														</div>
