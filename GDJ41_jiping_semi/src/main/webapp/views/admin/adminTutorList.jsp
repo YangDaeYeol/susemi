@@ -42,6 +42,11 @@
                                 </td>
                               </tr>
                               <%} %>
+                              <td colspan="6">
+								<div id="pagebar" class="d-block">
+									<%=request.getAttribute("pageBar") %>
+								</div>
+                              </td>
                             </tbody>
                           </table>
                         </div>  

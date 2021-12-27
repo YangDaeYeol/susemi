@@ -89,19 +89,35 @@ public class MemberService {
 	}
 
 
-	public List<Member> normalMemberList() {
+	public List<Member> normalMemberList(int cPage, int numPerPage) {
 		Connection conn=getConnection();
-		List<Member> normalMemberList= dao.normalMemberList(conn);
+		List<Member> normalMemberList= dao.normalMemberList(conn,cPage,numPerPage);
 		close(conn);
 		return normalMemberList;
 	}
 
 
-	public List<Member> tutorList() {
+	public List<Member> tutorList(int cPage, int numPerPage) {
 		Connection conn=getConnection();
-		List<Member> tutorList= dao.tutorList(conn);
+		List<Member> tutorList= dao.tutorList(conn,cPage,numPerPage);
 		close(conn);
 		return tutorList;
+	}
+
+
+	public int selectNormalMemberAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectNormalMemberAllCount(conn);
+		close(conn);
+		return result;
+	}
+
+
+	public int selectTutorAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectTutorAllCount(conn);
+		close(conn);
+		return result;
 	}
 
 }

@@ -5,7 +5,7 @@
 <%@ page import="java.util.List,com.jiping.member.model.vo.Member" %>
 <%
 	List<Member> normalMemberList = (List)request.getAttribute("normalMemberList");
-	
+	List<Member> pageBar = (List)request.getAttribute("pagebar");
 %> 
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">
@@ -42,8 +42,14 @@
                                 </td>
                               </tr>
                               <%} %>
+                              <td colspan="6">
+								<div id="pagebar" class="d-block">
+									<%=request.getAttribute("pageBar") %>
+								</div>
+                              </td>
                             </tbody>
                           </table>
+                          
                         </div>  
                     </div>    
             </div>

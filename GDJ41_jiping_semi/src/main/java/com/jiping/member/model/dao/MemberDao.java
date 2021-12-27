@@ -243,13 +243,15 @@ public class MemberDao {
 		return m;				
 	}
 
-	public List<Member> normalMemberList(Connection conn) {
+	public List<Member> normalMemberList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
 		List <Member> list= new ArrayList();
 		String sql= prop.getProperty("normalMemberList");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,  cPage*numPerPage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Member normalMemberList= Member.builder()
@@ -269,13 +271,15 @@ public class MemberDao {
 		return list;
 	}
 
-	public List<Member> tutorList(Connection conn) {
+	public List<Member> tutorList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
 		List <Member> list= new ArrayList();
 		String sql= prop.getProperty("tutorList");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,  cPage*numPerPage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Member normalMemberList= Member.builder()
@@ -293,6 +297,46 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int selectNormalMemberAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectNormalMemberAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectTutorAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectTutorAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }
