@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureComment;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
@@ -102,11 +103,27 @@ public class LectureService {
 		return v;
 	}
 	
-	public List<Payment> payment(int lectureNo){
+	public Payment payment(int lectureNo, String email){
 		Connection conn=getConnection();
-		List<Payment> p= dao.payment(conn, lectureNo);
+		Payment p= dao.payment(conn, lectureNo, email);
 		close(conn);
 		return p;
+	}
+	
+	public int insertComment(LectureComment lc) {
+		Connection conn=getConnection();
+		int result= dao.insertComment(conn,lc);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public List<LectureComment> lcList(int lectureNo){
+		Connection conn=getConnection();
+		List<LectureComment> lc= dao.lcList(conn, lectureNo);
+		close(conn);
+		return lc;
 	}
 	
 	
