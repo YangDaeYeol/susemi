@@ -202,11 +202,11 @@
                     </div>
                 </div>
 	           
-<%-- 	           </div>
+	           </div>
               </div>
 	        	   <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;" 
 	        	   onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=16')">강 의 실 입 장</button>
-            </div> --%>
+            </div>
             
           </div>
           <script>
