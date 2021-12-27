@@ -70,7 +70,7 @@
     		});
     	});
     	$("#enrollNext").click(e=> {
-    		if(flag) {
+    		if(true) {
     			const email = $("#email").val();
     			$.ajax({
     				url : "<%= request.getContextPath() %>/enrollmembertype",

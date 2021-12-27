@@ -19,5 +19,8 @@ public class Lecture {
 	private int wishCount;
 	private int commentCount;
 	private char confirm;
+	private int price;
+	private String tutorImg;
+	private String thumbnail;
 
 }

@@ -155,6 +155,7 @@
 	let categoryNum = 0;
 	$("#categoryinsert").click(e=>{
 		const div=$(".categorydiv").clone();
+		console.log(div.find("#smallCategory").val());
 		categoryNum++;
 		if(categoryNum<2){
 			div.removeClass("categorydiv").addClass("categorydiv"+categoryNum);

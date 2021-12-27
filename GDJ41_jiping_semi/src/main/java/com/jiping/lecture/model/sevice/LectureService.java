@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.jiping.lecture.model.dao.LectureDao;
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureComment;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
@@ -46,9 +47,9 @@ public class LectureService {
 //		return schedule;
 //	}
 	
-	public List<LectureSchedule> scheduleList(){
+	public List<LectureSchedule> scheduleList(int lectureNo){
 		Connection conn=getConnection();
-		List<LectureSchedule> list=dao.scheduleList(conn);
+		List<LectureSchedule> list=dao.scheduleList(conn, lectureNo);
 		close(conn);
 		return list;
 	}
@@ -102,11 +103,27 @@ public class LectureService {
 		return v;
 	}
 	
-	public List<Payment> payment(int lectureNo){
+	public Payment payment(int lectureNo, String email){
 		Connection conn=getConnection();
-		List<Payment> p= dao.payment(conn, lectureNo);
+		Payment p= dao.payment(conn, lectureNo, email);
 		close(conn);
 		return p;
+	}
+	
+	public int insertComment(LectureComment lc) {
+		Connection conn=getConnection();
+		int result= dao.insertComment(conn,lc);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public List<LectureComment> lcList(int lectureNo){
+		Connection conn=getConnection();
+		List<LectureComment> lc= dao.lcList(conn, lectureNo);
+		close(conn);
+		return lc;
 	}
 	
 	
@@ -147,19 +164,35 @@ public class LectureService {
 								Date[] classDate = (Date[])lecture.get("classDate");
 								LectureSchedule ls = (LectureSchedule)lecture.get("LectureSchedule");
 								int result7 = 0;
-								if (classStartTime[0] != null) { //원데이 / 다회차를 선택했을경우에 이쪽에서 처리한다
+								if (classStartTime==null) {  //VOD 를 선택했을떄 들어오는곳이다
+									String[] vodUrlAddr = (String[])lecture.get("vodUrlAddr");
+									String[] vodTitle = (String[])lecture.get("vodTitle");
+									String[] vodClassInfo = (String[])lecture.get("vodClassinfo");
+									VodLecture vl = (VodLecture)lecture.get("vodLecture");
+									int result8 = 0;
+									for (int i = 0 ; i < 10; i++) {
+										if(vodUrlAddr[i] != null) {
+											result8 = dao.enrollVodLecture(conn, vodUrlAddr[i], vodTitle[i], vodClassInfo[i], vl);
+										}
+									}
+									if (result8 > 0) {
+										commit(conn);
+									} else {
+										rollback(conn);
+									}
+									
+								} else  { //원데이 / 다회차를 선택했을경우에 이쪽에서 처리한다
+									
 									for (int i = 0; i < 10; i++) {
 										if (classStartTime[i] != null) {
 											result7 = dao.enrollLectureSchedule(conn, ls, classDate[i], classStartTime[i], classEndTime[i]);
 											}
 										}
-										if (result7 > 0) {
-											commit(conn);
+									if (result7 > 0) {
+										commit(conn);
 									} else {
 										rollback(conn);
 									}
-									
-								} else { //VOD 를 선택했을떄 들어오는곳이다
 									
 									
 								}
@@ -206,7 +239,38 @@ public class LectureService {
 		return result;
 	}
 	
+	public List<Lecture> onedayLectureList() {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.onedayLectureList(conn);
+		close(conn);
+		return list;
+	}
 	
+	public List<Lecture> everydayLectureList() {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.everydayLectureList(conn);
+		close(conn);
+		return list;
+	}
 	
-
+	public List<Lecture> vodLectureList() {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.vodLectureList(conn);
+		close(conn);
+		return list;
+	}
+	
+	public List<Lecture> searchResult(String keyword, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.searchResult(conn,keyword,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	public int searchResultCount(String keyword) {
+		Connection conn = getConnection();
+		int result = dao.searchResultCount(conn, keyword);
+		close(conn);
+		return result;
+	}
 }
