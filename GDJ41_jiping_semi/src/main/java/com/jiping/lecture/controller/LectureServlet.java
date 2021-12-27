@@ -58,7 +58,6 @@ public class LectureServlet extends HttpServlet {
 		
 //		vod
 		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
-		List<Payment> p= new LectureService().payment(lectureNo);
 		
 		
 //		리뷰
@@ -75,7 +74,6 @@ public class LectureServlet extends HttpServlet {
 		request.setAttribute("vodList", vodList);
 		request.setAttribute("m", m);
 		request.setAttribute("c", c);
-		request.setAttribute("p", p);
 		request.setAttribute("lcList", lcList);
 		
 		

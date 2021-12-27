@@ -20,10 +20,10 @@
 	Tutor tutor=(Tutor)request.getAttribute("tutor");
 	Member m=(Member)request.getAttribute("m");
 	List<Certificate> cList= (List)request.getAttribute("c");
-	List<Payment> pList= (List)request.getAttribute("p");
 	LectureComment lc= (LectureComment)request.getAttribute("lc");
 	List<LectureComment> lcList= (List)request.getAttribute("lcList");
  	System.out.println("jsp:"+ list); 
+
 
 %>
 
@@ -176,12 +176,12 @@
                                 </span>
                             </label>
                             <%} %>
-                                <div id="scheduleBtn" class="d-flex justify-content-center">
-                                    <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
-                                        기</button>
-                                    <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신
-                                        청</button>
-                                </div>
+                               <div id="scheduleBtn" class="d-flex justify-content-center">
+                                   <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
+                                       기</button>
+                                   <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신
+                                       청</button>
+                               </div>
                     </div>
                 </div>
                 <div id="class_submit" style="display: none;">
@@ -250,24 +250,29 @@
                         dataType: "json",
                         data: { "scheduleNo": scheduleNo },
                         success: data => {
-                        	$("input[name=lectureDate]").val(data["lectureDate"]);
-                        	$("input[name=lectureAddr]").val(data["lectureAddress"]);
-                            const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
-                            const date = $("#apply-date").html(data["lectureDate"]);
-                            const time = $("#apply-time").html(data["startDate"]+"-"+data["endDate"]);
-                            const address= $("#apply-adr").html(data["lectureAddress"]);
-                            const cost= $("#apply-cost").html(data["lecturePrice"]);
-                            $("#class_submit").show();
+                        	<%if(loginMember.getNickname().contains(tutor.getNickname())) { %>
+                        		alert("해당 강좌의 튜터님은 수강신청이 불가능합니다.");
+                       		<%} else { %>
+	                        	$("input[name=lectureDate]").val(data["lectureDate"]);
+	                        	$("input[name=lectureAddr]").val(data["lectureAddress"]);
+	                            const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
+	                            const date = $("#apply-date").html(data["lectureDate"]);
+	                            const time = $("#apply-time").html(data["startDate"]+"-"+data["endDate"]);
+	                            const address= $("#apply-adr").html(data["lectureAddress"]);
+	                            const cost= $("#apply-cost").html(data["lecturePrice"]);
+	                            $("#class_submit").show();
+                           <%}%>
                         }
                     })
                 });
                 
                 $("#totutor").keyup(e=>{
                 	let length=$(e.target).val().length;
-                	/* if(length>70){
+                	 if(length>70){
                 		alert("입력가능한 글자 수를 초과하였습니다.");
                 		let temp=$(e.target).val().substring(0,length-1);
-                        $(e.target).val(temp);  */
+                        $(e.target).val(temp);  
+                	 }
                 	$("#check-word-count").html("("+length+"/70)");
                 });
 
@@ -317,19 +322,15 @@
 	                            </div>
 	                        </div>
 	                        <%} %>
-		                    <textarea class=" msgbox" id="totutor-review" name="commentContent" cols="43" rows="3"
+		                    <textarea id="input-review" class=" msgbox" id="totutor-review" name="commentContent" cols="43" rows="3"
 			                          placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
 			                <input type="hidden" name="level" value="1">
-			               <%for(Payment p:pList) { 
-	            				if(loginMember==null||!(p.getEmail().contains(loginMember.getEmail()))) {%>
-									<input type="hidden" name="writer" value="<%=p.getEmail() %>">
-								<%} else{ %>
-									<input type="hidden" name="writer" value="<%=p.getEmail() %>">
-							<%} 
-							}%>
-							<input type="hidden" name="letureNo" value="5"> 
+			                <%if(loginMember!=null) {%>
+							<input type="hidden" name="writer" value="<%=loginMember.getNickname()%>">
+							<%} %>
 							<input type="hidden" name="letureNo" value="<%=le.getLectureNo()%>">
 							<input type="hidden" name="lecutreCommentRef" value="0">
+							<input type="hidden" name="lectureType" value="<%=le.getLectureType()%>">
 		                    <div>
 		                      <span id="review-count" style="float: right;">(0/100)</span> <br>
 		                      <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
@@ -340,7 +341,7 @@
                     </div>
                 </div>
                 <script>
- 	                $("#totutor-review").keyup(e=>{
+ 	                $("#input-review").keyup(e=>{
 	                	let length=$(e.target).val().length;
 	                	if(length>100){
 	                		alert("입력가능한 글자 수를 초과하였습니다.");
@@ -349,7 +350,21 @@
 	                	}
 	                	$("#review-count").html("("+length+"/100)");
 	                }); 
-                
+ 	                
+ 	                $("#input-review").keyup(e=>{ //focus안되는거 질문
+ 	                	$.ajax({
+ 	                		url: "<%=request.getContextPath()%>/lecture/lecturePaymentAjax",
+ 	                		dataType:"json",
+ 	                		data: {"lectureNo":"<%=le.getLectureNo()%>", "paymentEmail":"<%=loginMember!=null?loginMember.getEmail():""%>"},
+ 	                		success: data=>{
+ 	                			if(data==null){
+ 	                				alert("리뷰등록은 수강생만 가능합니다.");
+ 	                				$("#input-review").val("");
+ 	                			} 
+ 	                		}
+ 	                	})
+ 	                })
+ 	                
                 </script>
                 
   
@@ -372,10 +387,7 @@
                                     </div>
                                     <span>★★★★★</span><br>
                                     <span><%=co.getWriter() %></span><br>
-                                    <p>
-                                    	자바를 쉽게 배울 수 있어서 너무 행복하고 좋네요..! 수료일 이후가 기대됩니다~~~~~~~~~~~~~ 프로젝트를 정말 재밌게 해냈어요! 
-                        				인생의 값진 경험........ 이 수업 덕에 좋은 곳에 취업하고 갑니다~~~~~~!! 
-                                    </p>
+                                    <p><%=co.getCommentContent() %></p>
                                 </div>
                             </div>
                             <%} %> 

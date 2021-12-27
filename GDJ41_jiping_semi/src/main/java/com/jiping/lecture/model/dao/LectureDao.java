@@ -152,7 +152,6 @@ public class LectureDao {
 						.lecturePersons(rs.getInt("lecture_persons")).lectureLocation(rs.getString("lecture_location"))
 						.lectureAddress(rs.getString("lecture_address")).lectureDate(rs.getDate("lecture_date"))
 						.startDate(rs.getString("start_date")).endDate(rs.getString("end_date")).build();
-				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -160,9 +159,8 @@ public class LectureDao {
 			close(rs);
 			close(pstmt);
 		}
-//		System.out.println("dao list:"+list);
+		System.out.println("dao list:"+sc);
 		return sc;
-		
 	}
 	
 	public List<LectureImg> imgList(Connection conn, int lectureNo){
@@ -306,20 +304,21 @@ public class LectureDao {
 		return v;
 	}
 	
-	public List<Payment> payment(Connection conn, int lectureNo){
+	public Payment payment(Connection conn, int lectureNo, String email){
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
-		List <Payment> list= new ArrayList();
+		Payment p= null;
 		String sql= prop.getProperty("selectPayment");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, lectureNo);
+			pstmt.setString(2, email);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				Payment p= Payment.builder()
+			if(rs.next()) {
+				p= Payment.builder()
 						.lectureNo(rs.getInt("lecture_no"))
 						.email(rs.getString("email")).build();
-				list.add(p);
+				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -327,7 +326,7 @@ public class LectureDao {
 			close(rs);
 			close(pstmt);
 		}
-		return list;
+		return p;
 	}
 	
 	public int insertComment(Connection conn, LectureComment lc) {
@@ -341,7 +340,7 @@ public class LectureDao {
 			pstmt.setString(3, lc.getStarRate());
 			pstmt.setString(4, lc.getCommentContent());
 			pstmt.setInt(5, lc.getCommentLevel());
-//			pstmt.setInt(6, lc.getCommentRef());
+			pstmt.setString(6, lc.getCommentRef()==0?null:String.valueOf(lc.getCommentRef()));
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -364,7 +363,7 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureComment lc= LectureComment.builder()
 						.commentNo(rs.getInt("comment_No")).lectureNo(rs.getInt("lecture_no")).writer(rs.getString("writer"))
-						.starRate(rs.getString("star_rate")).commentContent(rs.getString("comment_content"))
+						.starRate(rs.getString("star_rate")).commentContent(rs.getString("comment_content")).enrollDate(rs.getDate("comment_enroll_date"))
 						.commentLevel(rs.getInt("comment_level")).profileImg(rs.getString("profile_img")).build();
 				list.add(lc);
 			}

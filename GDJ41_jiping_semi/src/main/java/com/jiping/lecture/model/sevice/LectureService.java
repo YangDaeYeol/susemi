@@ -103,9 +103,9 @@ public class LectureService {
 		return v;
 	}
 	
-	public List<Payment> payment(int lectureNo){
+	public Payment payment(int lectureNo, String email){
 		Connection conn=getConnection();
-		List<Payment> p= dao.payment(conn, lectureNo);
+		Payment p= dao.payment(conn, lectureNo, email);
 		close(conn);
 		return p;
 	}
