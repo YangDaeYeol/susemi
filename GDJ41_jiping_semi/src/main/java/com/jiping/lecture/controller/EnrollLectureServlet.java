@@ -1,6 +1,7 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
+
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,8 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.buf.StringUtils;
 
 import com.jiping.common.FileRename;
+import static com.jiping.common.StringCustomUtils.getStringOrNull;
+import static com.jiping.common.StringCustomUtils.getIntOrNull;
 import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.lecture.model.vo.LectureContent;
@@ -31,11 +37,11 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class EnrollLectureServlet
  */
 @WebServlet("/lecture/enrolllecture.do")
-@MultipartConfig(
-		fileSizeThreshold=1024*1024*10, 	// 10 MB 
-		maxFileSize=1024*1024*50,      	// 50 MB
-		maxRequestSize=1024*1024*100
-		)  
+//@MultipartConfig(
+//		fileSizeThreshold=1024*1024*10, 	// 10 MB 
+//		maxFileSize=1024*1024*50,      	// 50 MB
+//		maxRequestSize=1024*1024*100
+//		)  
 public class EnrollLectureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -58,6 +64,8 @@ public class EnrollLectureServlet extends HttpServlet {
 					//String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
 					int maxSize = 1024 * 1024 * 10;
 					String encode = "UTF-8";
+					HttpSession session=request.getSession();
+					Member member = (Member)session.getAttribute("loginMember");
 					
 //					Collection<Part> parts = request.getParts();
 //					Collection<Part> filesParts = new ArrayList<>();
@@ -177,17 +185,7 @@ public class EnrollLectureServlet extends HttpServlet {
 					} else {
 						vod = "VOD";
 					}
-//					String oneday = mr.getParameter("onedayClassType");
-//					String multipleClass = mr.getParameter("multipleClassType");
-//					String vod = mr.getParameter("VodClassType");
 //					
-//					if (oneday != null && oneday.equals("1")) {
-//						oneday = "원데이";
-//					} else if (multipleClass != null && multipleClass.equals("2")) {
-//						multipleClass = "다회차";
-//					} else {
-//						vod = "VOD";
-//					}
 					String typeTemp = oneday + multipleClass + vod;
 					String type = typeTemp.replaceAll("null", "");
 				
@@ -197,20 +195,46 @@ public class EnrollLectureServlet extends HttpServlet {
 
 					String category = bigCategory +" "+ smallCategory;
 					
+					int priceTemp = 0;
+					
+					if (!(mr.getParameter("onedayClassPrice").equals("")) && mr.getParameter("onedayClassPrice") != null) {
+						priceTemp = Integer.parseInt(mr.getParameter("onedayClassPrice"));
+					} else if (!(mr.getParameter("multipleDayClassPrice").equals("")) && mr.getParameter("multipleDayClassPrice") != null) {
+						priceTemp = Integer.parseInt(mr.getParameter("multipleDayClassPrice"));
+					} else {
+						priceTemp = Integer.parseInt(mr.getParameter("vodTotalClassPrice"));
+					}
+					
+					Enumeration<String> e=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
+
+					String classImgFile = "";
+					while(e.hasMoreElements()) {
+						String fileName = e.nextElement(); 
+						for (int i = 0; i < 1; i++) {
+							if(fileName.startsWith("upfile")) {
+								classImgFile += (mr.getFilesystemName(fileName));
+							}
+						}
+					}
+					
+					
 					Lecture l = Lecture.builder()
 							.lectureType(type)
 							.lectureCategory(category)
 							.lectureTitle(lectureTitle)
+							.price(priceTemp)
+							.thumbNail(classImgFile)
+							.tutorImg(mr.getFilesystemName("tutorImgFile"))
+							
 							.build();
 					
 					lecture.put("lecture", l);
 					
-					Enumeration<String> e=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
-//					
-//					List<String> classImgFiles = new ArrayList<>();
+					Enumeration<String> e1=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
+
 					String classImgFiles = "";
-					while(e.hasMoreElements()) {
-						String fileName = e.nextElement(); 
+					while(e1.hasMoreElements()) {
+						String fileName = e1.nextElement(); 
 						if(fileName.startsWith("upfile")) {
 							classImgFiles += (mr.getFilesystemName(fileName)) + ",";
 						}
@@ -254,12 +278,12 @@ public class EnrollLectureServlet extends HttpServlet {
 						if (oneday != null) {
 							//원데이 선택했을경우에 들어오는 곳이다
 						
-						for (int i = 0; i < 10; i++) {
-							classDateTemp[i] = mr.getParameter("classDate" + i);
-							classStartTime[i] = mr.getParameter("startTime" + i);
-							classEndTime[i] = mr.getParameter("endTime" + i);
+						for (int i = 0; i < classEndTime.length; i++) {
+							classDateTemp[i] = getStringOrNull(mr.getParameter("classDate" + i));
+							classStartTime[i] = getStringOrNull(mr.getParameter("startTime" + i));
+							classEndTime[i] = getStringOrNull(mr.getParameter("endTime" + i));
 							}
-						for (int i = 0; i < 10; i++) {
+						for (int i = 0; i < classStartTime.length; i++) {
 							if (classDateTemp[i]!=null) {
 								classDate[i] = Date.valueOf(classDateTemp[i]);
 							}
@@ -268,28 +292,8 @@ public class EnrollLectureServlet extends HttpServlet {
 
 						lecture.put("classDate", classDate);
 						
-						classPrice = Integer.parseInt(mr.getParameter("onedayClassPrice"));
-//						
-////						String배열을 String으로 처리
-//						for (int i = 0; i < 10; i++) {
-//							onedayClassDate += onedayClassDateTemp[i] + ",";
-//							onedayClassStartTime += onedayClassStartTimeTemp[i] + ",";
-//							onedayClassEndTime += onedayClassEndTimeTemp[i] + ",";
-//						}
-//						
-//
-////						null값이 있을경우에 null없애기
-//						if (onedayClassDate.contains("null")) {
-//							onedayClassDate.replaceAll("null", "");
-//							onedayClassStartTime.replaceAll("null", "");
-//						}
-						
-						
-////						마지막 문자열의 , 제거
-//						onedayClassDate = onedayClassDate.substring(0, onedayClassDate.length()-1);
-//						onedayClassStartTime = onedayClassStartTime.substring(0, onedayClassStartTime.length()-1);
-//						onedayClassEndTime = onedayClassEndTime.substring(0, onedayClassEndTime.length()-1);
-//						
+						classPrice = getIntOrNull((mr.getParameter("onedayClassPrice")));
+					
 						String temp1 = mr.getParameter("sido1");
 						String temp2 = mr.getParameter("gugun1");
 						String location = temp1 + " " + temp2;
@@ -389,6 +393,8 @@ public class EnrollLectureServlet extends HttpServlet {
 					
 					
 					int result = new LectureService().enrollLecture(lecture);
+					
+					request.getRequestDispatcher("index.jsp").forward(request, response);
 					
 	}
 

@@ -389,7 +389,7 @@ public class LectureDao {
 		
 		}
 	
-	public int enrollLectureInoformation (Connection conn, Lecture l) {
+	public int enrollLectureInoformation (Connection conn, Lecture l, Member m) {
 		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -400,6 +400,9 @@ public class LectureDao {
 			pstmt.setString(2, l.getLectureType());
 			pstmt.setString(3, l.getLectureCategory());
 			pstmt.setString(4, l.getLectureTitle());
+			pstmt.setInt(5, l.getPrice());
+			pstmt.setString(6, m.getProfileImg());
+			pstmt.setString(7, l.getThumbNail());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

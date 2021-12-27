@@ -109,7 +109,6 @@ public class LectureService {
 		return p;
 	}
 	
-	
 //	-----------------------------------------------------------
 	
 	public int enrollLecture(Map lecture) {
@@ -127,7 +126,8 @@ public class LectureService {
 				if (result3 > 0) {
 					commit(conn);
 					Lecture l = (Lecture)lecture.get("lecture");
-					int result4 = dao.enrollLectureInoformation(conn, l);
+					Member m2 = (Member)lecture.get("member");
+					int result4 = dao.enrollLectureInoformation(conn, l, m2);
 					if (result4 > 0) {
 						commit(conn);
 						LectureImg lImg = (LectureImg)lecture.get("lectureImg");
