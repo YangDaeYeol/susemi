@@ -23,4 +23,5 @@ public class LectureComment {
 	private int commentLevel;
 	private int commentRef;
 	private String profileImg;
+	private String lectureTitle;
 }

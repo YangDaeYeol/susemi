@@ -22,7 +22,7 @@
 	List<Certificate> cList= (List)request.getAttribute("c");
 	LectureComment lc= (LectureComment)request.getAttribute("lc");
 	List<LectureComment> lcList= (List)request.getAttribute("lcList");
- 	System.out.println("jsp:"+ list); 
+ 	/* System.out.println("jsp:"+ list);  */
 
 
 %>
@@ -35,9 +35,14 @@
                 <div id="info_class">
                     <p class="card-text"><small class="text-muted">이 클래스는 <%=le.getLectureType() %>클래스 입니다. </small>
                     </p>
-                    <h5 class="card-title">
-                        <%=le.getLectureTitle() %>
-                    </h5>
+                    <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
+	                    <div class="tutor-btn">
+		                    <h5 class="card-title">
+		                        <%=le.getLectureTitle() %>
+		                    </h5>
+		                    <button type="button" class="btn-tutor btn btn-primary btn-basic">클래스 상세정보 수정</button>
+	                    </div>
+                    <%} %>
                     <!--class="card-title"-->
                      <div class="card">
                         <div class="card-body">
@@ -250,7 +255,7 @@
                         dataType: "json",
                         data: { "scheduleNo": scheduleNo },
                         success: data => {
-                        	<%if(loginMember.getNickname().contains(tutor.getNickname())) { %>
+                        	<%if(loginMember!=null&&loginMember.getNickname().contains(tutor.getNickname())) { %>
                         		alert("해당 강좌의 튜터님은 수강신청이 불가능합니다.");
                        		<%} else { %>
 	                        	$("input[name=lectureDate]").val(data["lectureDate"]);

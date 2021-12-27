@@ -341,13 +341,13 @@ public class LectureDao {
 			pstmt.setString(4, lc.getCommentContent());
 			pstmt.setInt(5, lc.getCommentLevel());
 			pstmt.setString(6, lc.getCommentRef()==0?null:String.valueOf(lc.getCommentRef()));
+			pstmt.setString(7, lc.getLectureTitle());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("comment : "+result);
 		return result;
 	}
 	
@@ -373,7 +373,6 @@ public class LectureDao {
 			close(rs);
 			close(pstmt);
 		}
-		System.out.println(list);
 		return list;
 	}
 	
