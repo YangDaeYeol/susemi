@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.vo.Member;
 
 public class MemberDao {
@@ -240,6 +241,58 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return m;				
+	}
+
+	public List<Member> normalMemberList(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Member> list= new ArrayList();
+		String sql= prop.getProperty("normalMemberList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member normalMemberList= Member.builder()
+						.memberName(rs.getString("member_name"))
+						.nickname(rs.getString("nickname"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.build();
+				list.add(normalMemberList);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public List<Member> tutorList(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Member> list= new ArrayList();
+		String sql= prop.getProperty("tutorList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member normalMemberList= Member.builder()
+						.memberName(rs.getString("member_name"))
+						.nickname(rs.getString("nickname"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.build();
+				list.add(normalMemberList);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 }
