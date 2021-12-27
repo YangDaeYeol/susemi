@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.jiping.lecture.model.vo.Lecture;
+import com.jiping.lecture.model.vo.LectureComment;
 import com.jiping.lecture.model.vo.LectureContent;
 import com.jiping.lecture.model.vo.LectureImg;
 import com.jiping.lecture.model.vo.LectureSchedule;
@@ -327,6 +328,29 @@ public class LectureDao {
 		}
 		return list;
 	}
+	
+	public int insertComment(Connection conn, LectureComment lc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lc.getLectureNo());
+			pstmt.setString(2, lc.getWriter());
+			pstmt.setString(3, lc.getStarRate());
+			pstmt.setString(4, lc.getCommentContent());
+			pstmt.setInt(5, lc.getCommentLevel());
+//			pstmt.setInt(6, lc.getCommentRef());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("comment : "+result);
+		return result;
+	}
+	
 	
 //	----------------------------------------------------------------
 	

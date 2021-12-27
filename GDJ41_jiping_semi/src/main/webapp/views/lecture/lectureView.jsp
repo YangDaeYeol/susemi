@@ -8,6 +8,7 @@
 				com.jiping.tutor.model.vo.Tutor,
 				com.jiping.member.model.vo.Member,
 				com.jiping.tutor.model.vo.Certificate,
+				com.jiping.payment.model.vo.Payment,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
@@ -18,6 +19,7 @@
 	Tutor tutor=(Tutor)request.getAttribute("tutor");
 	Member m=(Member)request.getAttribute("m");
 	List<Certificate> cList= (List)request.getAttribute("c");
+	List<Payment> pList= (List)request.getAttribute("p");
  	System.out.println("jsp:"+ cList); 
 
 %>
@@ -200,15 +202,15 @@
                                 </div>
                                 <div>
                                     <h6>튜터에게 전하는 말</h6>
-                                    <div id="tutor-message">
-                                        <textarea id="totutor" class="card msgbox" cols="43" rows="7"
+                                    <div>
+                                        <textarea id="totutor" class="msgbox" cols="43" rows="7"
                                             placeholder="예) 초보니까 쉽게 가르쳐주세요!"></textarea>
                                         <div id="check-word-count" style="float: right;">(0/70)</div>
                                     </div>
                                 </div>
                                 <div>
                                     <p>총 결제금액</p>
-                                    <p id="apply-cost" style="float: right;"><%=list.get(0).getLecturePrice() %></p>
+                                    <p id="apply-cost" style="float: right;">가격</p>
                                 </div>
                             </div>
 
@@ -259,6 +261,10 @@
                 
                 $("#totutor").keyup(e=>{
                 	let length=$(e.target).val().length;
+                	/* if(length>70){
+                		alert("입력가능한 글자 수를 초과하였습니다.");
+                		let temp=$(e.target).val().substring(0,length-1);
+                        $(e.target).val(temp);  */
                 	$("#check-word-count").html("("+length+"/70)");
                 });
 
@@ -270,52 +276,60 @@
                 <div class="review-enroll card">
                     <div class="card-body">
                         <!-- -------------------------------------------------- -->
-                        <div class="review-head">
-                            <div id="title"><%=le.getLectureTitle() %> </div>
-                            <div id="tutor-review"><%=le.getNickName() %> 튜터 </div>
-                        </div>
-                        <%if(loginMember!=null) { %>
-                        <div id="starrate">
-                            <div>
-                                <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
-                                <span><%=loginMember.getNickname() %></span>
-                            </div>
-                            <div>
-                                <fieldset class="rating">
-                                    <span>평점:</span>
-                                    <input type="radio" id="star5" name="rating" value="5" /><label class="full"
-                                        for="star5" title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half"
-                                        for="star4half" title="Pretty good - 4.5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4" /><label class="full"
-                                        for="star4" title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half"
-                                        for="star3half" title="Meh - 3.5 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3" /><label class="full"
-                                        for="star3" title="Meh - 3 stars"></label>
-                                    <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half"
-                                        for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2" /><label class="full"
-                                        for="star2" title="Kinda bad - 2 stars"></label>
-                                    <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half"
-                                        for="star1half" title="Meh - 1.5 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1" /><label class="full"
-                                        for="star1" title="Sucks big time - 1 star"></label>
-                                    <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half"
-                                        for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                </fieldset>
-                            </div>
-                        </div>
-                        <%} %>
-                        <div>
-		                  <form action="" method="">
-		                      <textarea class=" msgbox" id="totutor-review" cols="43" rows="3"
-		                          placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+                        <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
+	                        <div class="review-head">
+	                            <div id="title"><%=le.getLectureTitle() %> </div>
+	                            <div id="tutor-review"><%=le.getNickName() %> 튜터 </div>
+	                        </div>
+	                        <%if(loginMember!=null) { %>
+	                        <div id="starrate">
+	                            <div>
+	                                <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
+	                                <span><%=loginMember.getNickname() %></span>
+	                            </div>
+	                            <div>
+	                                <fieldset class="rating">
+	                                    <span>평점:</span>
+	                                    <input type="radio" id="star5" name="rating" value="5" /><label class="full"
+	                                        for="star5" title="Awesome - 5 stars"></label>
+	                                    <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half"
+	                                        for="star4half" title="Pretty good - 4.5 stars"></label>
+	                                    <input type="radio" id="star4" name="rating" value="4" /><label class="full"
+	                                        for="star4" title="Pretty good - 4 stars"></label>
+	                                    <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half"
+	                                        for="star3half" title="Meh - 3.5 stars"></label>
+	                                    <input type="radio" id="star3" name="rating" value="3" /><label class="full"
+	                                        for="star3" title="Meh - 3 stars"></label>
+	                                    <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half"
+	                                        for="star2half" title="Kinda bad - 2.5 stars"></label>
+	                                    <input type="radio" id="star2" name="rating" value="2" /><label class="full"
+	                                        for="star2" title="Kinda bad - 2 stars"></label>
+	                                    <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half"
+	                                        for="star1half" title="Meh - 1.5 stars"></label>
+	                                    <input type="radio" id="star1" name="rating" value="1" /><label class="full"
+	                                        for="star1" title="Sucks big time - 1 star"></label>
+	                                    <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half"
+	                                        for="starhalf" title="Sucks big time - 0.5 stars"></label>
+	                                </fieldset>
+	                            </div>
+	                        </div>
+	                        <%} %>
+		                    <textarea class=" msgbox" id="totutor-review" name="commentContent" cols="43" rows="3"
+			                          placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+			                <input type="hidden" name="level" value="1">
+			               <%for(Payment p:pList) { 
+	            				if(loginMember==null||!(p.getEmail().contains(loginMember.getEmail()))) { %>
+									<input type="hidden" name="writer" value="<%=p.getEmail() %>">
+								<%} else{ %>
+									<input type="hidden" name="writer" value="<%=p.getEmail() %>">
+							<%}%> 
+							<input type="hidden" name="letureNo" value="<%=le.getLectureNo()%>">
+							<input type="hidden" name="lecutreCommentRef" value="0">
 		                    <div>
 		                      <span id="review-count" style="float: right;">(0/100)</span> <br>
 		                      <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
 		                          등록하기</button>
-		                    </div>
+		                	</div>
 		                  </form>
 		                </div>
                     </div>
@@ -323,14 +337,17 @@
                 <script>
  	                $("#totutor-review").keyup(e=>{
 	                	let length=$(e.target).val().length;
+	                	if(length>100){
+	                		alert("입력가능한 글자 수를 초과하였습니다.");
+	                		let temp=$(e.target).val().substring(0,length-1);
+	                        $(e.target).val(temp);
+	                	}
 	                	$("#review-count").html("("+length+"/100)");
 	                }); 
                 
                 </script>
                 
-                
-                
-
+  
                 <div id="review-list">
                     <h5 class="card-title ">수강생 리뷰</h5>
                     <div class="card">
