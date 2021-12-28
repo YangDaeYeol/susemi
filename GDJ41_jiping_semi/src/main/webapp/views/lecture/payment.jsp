@@ -60,7 +60,7 @@
 	      IMP.request_pay({
 	        pg : 'kakaopay',
 	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호
+	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호 (임의의 값 설정하기)
 	    name : '<%=lectureTitle %>',
 	    <%-- amount : <%=lecturePrice %>, --%>
 	    amount : 100,	    
@@ -94,7 +94,7 @@
 	      IMP.request_pay({
 	        pg : 'nice',
 	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호
+	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호 (임의의 값 설정하기)
 	    name : '<%=lectureTitle %>',
 	    <%-- amount : <%=lecturePrice %>, --%>
 	    amount : 100,
