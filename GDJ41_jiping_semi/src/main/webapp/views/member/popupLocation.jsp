@@ -26,38 +26,39 @@
                     <span class="margin-right menu-list-name" style="vertical-align: middle; line-height: 150px">관심 지역</span>
                 </div>
                 <div class="inlineblock">
-                    <div class="location-container " style="vertical-align: middle; line-height: 150px">
-                        <div class="locationdiv block">
-                            <form id="nsdiSearchForm" action="#" class="form_data flex" onsubmit="return false;search();">                                        
-                                <select id="sido_code" class="form-select margint-rb-10px"  style="width: 200px;">
-                                    <option>선택</option>
-                                </select>
-                                <select id="sigoon_code" class="form-select margint-rb-10px" style="width: 200px;">
-                                    <option>선택</option>
-                                </select>
-                            </form>
-                            <form id="nsdiSearchForm2" action="#" class="form_data flex" onsubmit="return false;search();">                                        
-                                <select id="sido_code2" class="form-select margint-rb-10px" style="width: 200px;">
-                                    <option>선택</option>
-                                </select>
-                                <select id="sigoon_code2" class="form-select margint-rb-10px" style="width: 200px;">
-                                    <option>선택</option>
-                                </select>
-                            </form>
-                            <form id="nsdiSearchForm3" action="#" class="form_data flex" onsubmit="return false;search();">                                        
-                                <select id="sido_code3" class="form-select margint-rb-10px" style="width: 200px;">
-                                    <option>선택</option>
-                                </select>
-                                <select id="sigoon_code3" class="form-select margint-rb-10px" style="width: 200px;">
-                                    <option>선택</option>
-                                </select>
-                            </form>
-                        </div>
-                    </div>
-                    <button style="background-color: #94d5de; color:white; border: none; width: 120px; height: 30px; border-radius: 3px;"
-                            on>
-                        관심지역 선택
-                    </button>                              
+                   <div class="location-container">						
+					<div class="locationdiv">
+						<div id="nsdiSearchForm" class="form_data pb-1">
+							<select id="sido_code1" class="form-select">
+								<option>선택</option>
+							</select>
+							<select id="sigoon_code1" class="form-select">
+								<option>선택</option>
+							</select>
+						</div>
+						<div id="nsdiSearchForm2" class="form_data pb-1 pt-1">
+							<select id="sido_code2" class="form-select">
+								<option>선택</option>
+							</select>
+							<select id="sigoon_code2" class="form-select">
+								<option>선택</option>
+							</select>
+						</div>
+						<div id="nsdiSearchForm3" class="form_data pb-1">
+							<select id="sido_code3" class="form-select">
+								<option>선택</option>
+							</select>
+							<select id="sigoon_code3" class="form-select">
+								<option>선택</option>
+							</select>
+						</div>
+					</div>
+					
+				</div>					
+                <button style="background-color: #94d5de; color:white; border: none; width: 120px; height: 30px; border-radius: 3px;"
+                        on>
+                    관심지역 수정
+                </button>                              
                 </div>
             </div>                     
         </div>           
@@ -95,195 +96,188 @@
         // 관심지역!!!
 		//주소 api
       $(function(){
-         $.ajax({
-            type: "get",
-            url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
-            async: false,
-            dataType: 'jsonp',
-            success: function(data) {
-               let html = "<option>선택</option>";
+		$.ajax({
+			type: "get",
+			url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
+			async: false,
+			dataType: 'jsonp',
+			success: function(data) {
+				let html = "<option>선택</option>";
 
-               data.response.result.featureCollection.features.forEach(function(f){
-                  console.log(f.properties)
-                  let 행정구역코드 = f.properties.ctprvn_cd;
-                  let 행정구역명 = f.properties.ctp_kor_nm;
-                  
-                  html +="<option value='"+f.properties.ctprvn_cd+"'>"+f.properties.ctp_kor_nm+"</option>"
-                  
-               })
-               
-                  $('#sido_code').html(html);
-               $('#sido_code2').html(html);
-                  $('#sido_code3').html(html);
-               
-            },
-            error: function(xhr, stat, err) {}
-         });
-         
-         
-         $(document).on("change","#sido_code",function(){
-            let thisVal = $(this).val();      
+				data.response.result.featureCollection.features.forEach(function(f){
+					let 행정구역코드 = f.properties.ctprvn_cd;
+					let 행정구역명 = f.properties.ctp_kor_nm;
+					
+					html +="<option value='"+f.properties.ctprvn_cd+"'>"+f.properties.ctp_kor_nm+"</option>"
+					
+				})
+				
+	            $('#sido_code1').html(html);
+				$('#sido_code2').html(html);
+	            $('#sido_code3').html(html);
+				
+			},
+			error: function(xhr, stat, err) {}
+		});
+		
+		
+		$(document).on("change","#sido_code1",function(){
+			let thisVal = $(this).val();		
 
-            $.ajax({
-               type: "get",
-               url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-               data : {attrfilter : 'sig_cd:like:'+thisVal},
-               async: false,
-               dataType: 'jsonp',
-               success: function(data) {
-                  let html = "<option>선택</option>";
+			$.ajax({
+				type: "get",
+				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+				data : {attrfilter : 'sig_cd:like:'+thisVal},
+				async: false,
+				dataType: 'jsonp',
+				success: function(data) {
+					let html = "<option>선택</option>";
 
-                  data.response.result.featureCollection.features.forEach(function(f){
-                     console.log(f.properties)
-                     let 행정구역코드 = f.properties.sig_cd;
-                     let 행정구역명 = f.properties.sig_kor_nm;
-                     
-                     html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
-                     
-                  })
-                     $('#sigoon_code').html(html);
-                  
-               },
-               error: function(xhr, stat, err) {}
-            });
-         });
-         
-         $(document).on("change","#sigoon_code",function(){ 
-            
-            let thisVal = $(this).val();      
+					data.response.result.featureCollection.features.forEach(function(f){
+						let 행정구역코드 = f.properties.sig_cd;
+						let 행정구역명 = f.properties.sig_kor_nm;
+						
+						html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
+						
+					})
+		            $('#sigoon_code1').html(html);
+					
+				},
+				error: function(xhr, stat, err) {}
+			});
+		});
+		
+		$(document).on("change","#sigoon_code1",function(){ 
+			
+			let thisVal = $(this).val();		
 
-            $.ajax({
-               type: "get",
-               url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
-               data : {attrfilter : 'emd_cd:like:'+thisVal},
-               async: false,
-               dataType: 'jsonp',
-               success: function(data) {
-                  let html = "<option>선택</option>";
+			$.ajax({
+				type: "get",
+				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+				data : {attrfilter : 'emd_cd:like:'+thisVal},
+				async: false,
+				dataType: 'jsonp',
+				success: function(data) {
+					let html = "<option>선택</option>";
 
-                  data.response.result.featureCollection.features.forEach(function(f){
-                     console.log(f.properties)
-                     let 행정구역코드 = f.properties.emd_cd;
-                     let 행정구역명 = f.properties.emd_kor_nm;
-                     html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
-                     
-                  })
-                     $('#dong_code').html(html);
-                  
-               },
-               error: function(xhr, stat, err) {}
-            });
+					data.response.result.featureCollection.features.forEach(function(f){
+						let 행정구역코드 = f.properties.emd_cd;
+						let 행정구역명 = f.properties.emd_kor_nm;
+						html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
+						
+					})
+		            $('#dong_code1').html(html);
+					
+				},
+				error: function(xhr, stat, err) {}
+			});
 
-         });
+		});
 
-         $(document).on("change","#sido_code2",function(){
-            let thisVal = $(this).val();      
+		$(document).on("change","#sido_code2",function(){
+			let thisVal = $(this).val();		
 
-            $.ajax({
-               type: "get",
-               url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-               data : {attrfilter : 'sig_cd:like:'+thisVal},
-               async: false,
-               dataType: 'jsonp',
-               success: function(data) {
-                  let html = "<option>선택</option>";
+			$.ajax({
+				type: "get",
+				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+				data : {attrfilter : 'sig_cd:like:'+thisVal},
+				async: false,
+				dataType: 'jsonp',
+				success: function(data) {
+					let html = "<option>선택</option>";
 
-                  data.response.result.featureCollection.features.forEach(function(f){
-                     console.log(f.properties)
-                     let 행정구역코드 = f.properties.sig_cd;
-                     let 행정구역명 = f.properties.sig_kor_nm;
-                     
-                     html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
-                     
-                  })
-                     $('#sigoon_code2').html(html);
-                  
-               },
-               error: function(xhr, stat, err) {}
-            });
-         });
-         
-         $(document).on("change","#sigoon_code2",function(){ 
-            
-            let thisVal = $(this).val();      
+					data.response.result.featureCollection.features.forEach(function(f){
+						let 행정구역코드 = f.properties.sig_cd;
+						let 행정구역명 = f.properties.sig_kor_nm;
+						
+						html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
+						
+					})
+		            $('#sigoon_code2').html(html);
+					
+				},
+				error: function(xhr, stat, err) {}
+			});
+		});
+		
+		$(document).on("change","#sigoon_code2",function(){ 
+			
+			let thisVal = $(this).val();		
 
-            $.ajax({
-               type: "get",
-               url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
-               data : {attrfilter : 'emd_cd:like:'+thisVal},
-               async: false,
-               dataType: 'jsonp',
-               success: function(data) {
-                  let html = "<option>선택</option>";
+			$.ajax({
+				type: "get",
+				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+				data : {attrfilter : 'emd_cd:like:'+thisVal},
+				async: false,
+				dataType: 'jsonp',
+				success: function(data) {
+					let html = "<option>선택</option>";
 
-                  data.response.result.featureCollection.features.forEach(function(f){
-                     console.log(f.properties)
-                     let 행정구역코드 = f.properties.emd_cd;
-                     let 행정구역명 = f.properties.emd_kor_nm;
-                     html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
-                     
-                  })
-                     $('#dong_code2').html(html);
-                  
-               },
-               error: function(xhr, stat, err) {}
-            });
+					data.response.result.featureCollection.features.forEach(function(f){
+						let 행정구역코드 = f.properties.emd_cd;
+						let 행정구역명 = f.properties.emd_kor_nm;
+						html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
+						
+					})
+		            $('#dong_code2').html(html);
+					
+				},
+				error: function(xhr, stat, err) {}
+			});
 
-         });
+		});
 
-         $(document).on("change","#sido_code3",function(){
-            let thisVal = $(this).val();      
+		$(document).on("change","#sido_code3",function(){
+			let thisVal = $(this).val();		
 
-            $.ajax({
-               type: "get",
-               url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-               data : {attrfilter : 'sig_cd:like:'+thisVal},
-               async: false,
-               dataType: 'jsonp',
-               success: function(data) {
-                  let html = "<option>선택</option>";
+			$.ajax({
+				type: "get",
+				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+				data : {attrfilter : 'sig_cd:like:'+thisVal},
+				async: false,
+				dataType: 'jsonp',
+				success: function(data) {
+					let html = "<option>선택</option>";
 
-                  data.response.result.featureCollection.features.forEach(function(f){
-                     console.log(f.properties)
-                     let 행정구역코드 = f.properties.sig_cd;
-                     let 행정구역명 = f.properties.sig_kor_nm;
-                     
-                     html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
-                     
-                  })
-                     $('#sigoon_code3').html(html);
-                  
-               },
-               error: function(xhr, stat, err) {}
-            });
-         });
-         
-         $(document).on("change","#sigoon_code3",function(){ 
-            
-            let thisVal = $(this).val();      
+					data.response.result.featureCollection.features.forEach(function(f){
+						let 행정구역코드 = f.properties.sig_cd;
+						let 행정구역명 = f.properties.sig_kor_nm;
+						
+						html +="<option value='"+f.properties.sig_cd+"'>"+f.properties.sig_kor_nm+"</option>"
+						
+					})
+		            $('#sigoon_code3').html(html);
+					
+				},
+				error: function(xhr, stat, err) {}
+			});
+		});
+		
+		$(document).on("change","#sigoon_code3",function(){ 
+			
+			let thisVal = $(this).val();		
 
-            $.ajax({
-               type: "get",
-               url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
-               data : {attrfilter : 'emd_cd:like:'+thisVal},
-               async: false,
-               dataType: 'jsonp',
-               success: function(data) {
-                  let html = "<option>선택</option>";
+			$.ajax({
+				type: "get",
+				url: "https://api.vworld.kr/req/data?key=CEB52025-E065-364C-9DBA-44880E3B02B8&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADEMD_INFO",
+				data : {attrfilter : 'emd_cd:like:'+thisVal},
+				async: false,
+				dataType: 'jsonp',
+				success: function(data) {
+					let html = "<option>선택</option>";
 
-                  data.response.result.featureCollection.features.forEach(function(f){
-                     console.log(f.properties)
-                     let 행정구역코드 = f.properties.emd_cd;
-                     let 행정구역명 = f.properties.emd_kor_nm;
-                     html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
-                     
-                  })
-                     $('#dong_code3').html(html);
-                  
-               },
-               error: function(xhr, stat, err) {}
-            });
+					data.response.result.featureCollection.features.forEach(function(f){
+						let 행정구역코드 = f.properties.emd_cd;
+						let 행정구역명 = f.properties.emd_kor_nm;
+						html +="<option value='"+f.properties.emd_cd+"'>"+f.properties.emd_kor_nm+"</option>"
+						
+					})
+		            $('#dong_code3').html(html);
+					
+				},
+				error: function(xhr, stat, err) {}
+			});
 
-         });
-      })   
+		});
+	})	
 </script>

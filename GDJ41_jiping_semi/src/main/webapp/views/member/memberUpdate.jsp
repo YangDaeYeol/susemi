@@ -73,7 +73,7 @@
                 </div>
                 <div class="line"></div>
                 <div style="margin-left: 80px;">
-	            <form id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMember.do" method="post">
+	            <form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMember.do" method="post">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
                         <div class="info-content inlineblock" id="newImg"><img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>"></div>
@@ -87,7 +87,7 @@
                                 <span class="margin-right menu-list-name">이메일</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" readonly name="" placeholder="<%=m.getEmail() %>" class="placeholder-center" size="25">
+                                <input type="text" readonly name="" value="<%=m.getEmail() %>" class="placeholder-center" size="25">
                             </div>
                             <div class="inlineblock">
                                 <p class="guide">※ 아이디(이메일)는 변경이 불가능합니다.</p>
@@ -95,14 +95,14 @@
                     </div>
                     <div class="menu-margin margin-left" id="tutor-name">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
+                            <div class="info-content inlineblock"><input type="text"  readonly name="" value="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
                     </div>					                   
                     <div class="menu-margin margin-left" id="tutor-beforePw">
                         <div class="info-title inlineblock">
                             <span class="margin-right menu-list-name">현재 비밀번호</span>
                         </div>
                         <div class="info-content inlineblock">
-                            <input type="password" id="oriPw" name="oriPw"  class="placeholder-center " size="25">
+                            <input type="password" id="oriPw" name="oriPw"  class="placeholder-center " size="25" required>
                         </div>
                     </div>
                     <div class="menu-margin margin-left" id="tutor-afterPw">
@@ -157,45 +157,26 @@
                                 <span class="margin-right menu-list-name">닉네임</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input id="newNick" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
+                                <input id="newNick" type="text" name="newNick" value="<%=m.getNickname() %>" class="placeholder-center " size="25">
                             </div>
                             <div class="inlineblock">
                                 <button id="nickDuplicateBtn" style="margin-left: 10px;">닉네임 중복 확인</button>
                             </div>
-                            <%-- <script>
-	                            $(()=>{
-	                        		$("#nickDuplicateBtn").click(e=>{
-	                        			let newNick=$("#newNick").val();
-	                        			const url="<%=request.getContextPath()%>/member/nicknameDuplicate.do?nickname=newNick";
-	                    				const title="nickDuplicate";
-	                    				const style="width=300,height=200";
-	                    				open("",title,style);	                        			
-	                        		});
-                            
-                            </script> --%>
                             <script>
                         	$("#nickDuplicateBtn").click(e=>{
                         		let newNick=$("#newNick").val();
-                        		console.log(newNick);
-                        		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNick=newNick");
-                        		/* if(checkM==null){
-                        			alert('사용 가능한 닉네임입니다.');
-                        			$("#newnickname").focus();                        			
-                        		}else{
-                        			alert('이미 사용중인 닉네임입니다.');	
-                        			$("#newnickname").empty();
-                        		}   */                     		
-                        	});
-                        	
                         		
-                        	
-                        
-                        </script>
+                        		var _left = Math.ceil(( window.screen.width - 500 )/2);
+                        	    var _top = Math.ceil(( window.screen.height - 150 )/2);
+								
+                        		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
+                        	});                  
+                       		</script>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
                             <div class="info-content inlineblock">
-                                <input type="text" id="newPhone" name="newPhone" placeholder="<%=m.getPhone() %>" class="placeholder-center" size="25">
+                                <input type="text" id="newPhone" name="newPhone" value="<%=m.getPhone() %>" class="placeholder-center" size="25">
                             </div>
                     </div>
                     <div class="menu-margin margin-left" id="inter-field">
@@ -206,8 +187,8 @@
                              <%if(categories.length==3){%>
 	                  <%for(int i=0; i<3; i++) {%>
 	                  		<div>
-		                       <input type="text" readonly name="newLCategory+<%=i%>" placeholder="<%=largeCategories[i]!=null?largeCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                       <input type="text" readonly name="newSCategory+<%=i%>" placeholder="<%=smallCategories[i]!=null?smallCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                       <input type="text" readonly name="newLCategory"+<%=i%>" value="<%=largeCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                       <input type="text" readonly name="newSCategory"+<%=i%>" value="<%=smallCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                 	<%if(i==2){ %>	
 		                  		<button style="position:inlineblock;">관심분야 수정하기</button>    
 		                  		<%} %>              
@@ -216,8 +197,8 @@
                   <%}else if(categories.length==2){%>
                   		<%for(int i=0; i<2; i++){ %>
                    			<div>
-		                        <input type="text" readonly name="newLCategory+<%=i%>" placeholder="<%=largeCategories[i]!=null?largeCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                        <input type="text" readonly name="newSCategory+<%=i%>" placeholder="<%=smallCategories[i]!=null?smallCategories[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                        <input type="text" readonly name="newLCategory"+<%=i%>" value="<%=largeCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                        <input type="text" readonly name="newSCategory"+<%=i%>" value="<%=smallCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 		</div>	                 		
                        	<%} %>
 	                 		<div>
@@ -227,8 +208,8 @@
 	                 		</div>
                   <%}else if(categories.length==1){ %>
                   		<div>
-	                       <input type="text" readonly name="newLCategory0" placeholder="<%=largeCategories[0]!=null?largeCategories[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSCategory0" placeholder="<%=smallCategories[0]!=null?smallCategories[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newLCategory0" value="<%=largeCategories[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSCategory0" value="<%=smallCategories[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	</div>
 	                 	<div>
 	                       <input type="text" readonly name="newSCategory1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
@@ -250,8 +231,8 @@
                             <%if(categories2.length==3){%>
 		                  <%for(int i=0; i<3; i++) {%>
 		                  		<div>
-			                       <input type="text" readonly name="newLLocation+<%=i%>" placeholder="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                       <input type="text" readonly name="newSLocation+<%=i%>" placeholder="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newLLocation+<%=i%>" value="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSLocation+<%=i%>" value="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                 		</div>
 					            <button>관심지역 수정하기</button>
 		                  <%}%>
@@ -259,8 +240,8 @@
                   	  <%}else if(categories2.length==2){%>
                   		  <%for(int i=0; i<2; i++){ %>
 	                   			<div>
-			                       <input type="text" readonly name="newLLocation+<%=i%>" placeholder="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                       <input type="text" readonly name="newSLocation+<%=i%>" placeholder="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newLLocation+<%=i%>" value="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSLocation+<%=i%>" value="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                 		</div>	                 		
                        	<%} %>
 	                 		<div>
@@ -272,8 +253,8 @@
 	                 		
                   	<%}else if(categories2.length==1){ %>
                   		<div>
-	                       <input type="text" readonly name="newLLocation0" placeholder="<%=largeCategories2[0]!=null?largeCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSLocation0" placeholder="<%=smallCategories2[0]!=null?smallCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newLLocation0" value="<%=largeCategories2[0]!=null?largeCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+	                       <input type="text" readonly name="newSLocation0" value="<%=smallCategories2[0]!=null?smallCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                 	</div>
 	                 	<div>
 	                       <input type="text" readonly name="newLLocation1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">

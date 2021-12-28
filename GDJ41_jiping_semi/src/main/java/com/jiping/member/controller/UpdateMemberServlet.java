@@ -30,6 +30,15 @@ public class UpdateMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String profileImg=request.getParameter("profileImg");		
+		String pwCheck=request.getParameter("pwCheck");
+		String oriPw=request.getParameter("oriPw");
+		String newPhone=request.getParameter("newPhone");		
+		String newNick=request.getParameter("newNick");
+		/*
+		 * String[] String[]
+		 */
+		String marketing=request.getParameter("");
 		
 		String email=request.getParameter("email");
 		Member m=new MemberService().selectMember(email);

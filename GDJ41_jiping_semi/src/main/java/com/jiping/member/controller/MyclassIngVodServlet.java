@@ -35,12 +35,14 @@ public class MyclassIngVodServlet extends HttpServlet {
 		String email=request.getParameter("email");		
 		Member m=new MemberService().selectMember(email);
 		
-		List<Lecture> list=new MemberService().lectureList(email);
-		int count=new MemberService().lectureCount(email);
+		List<Lecture> list=new MemberService().lectureVodList(email);
+		int count=new MemberService().lectureVodListCount(email);
 		
 		request.setAttribute("count", count);
 		request.setAttribute("lectureList", list);
 		request.setAttribute("loginMember", m);
+		
+		
 		
 		request.getRequestDispatcher("/views/member/myClassIngUserVod.jsp").forward(request, response);
 	}

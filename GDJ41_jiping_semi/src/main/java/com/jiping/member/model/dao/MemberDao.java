@@ -295,6 +295,56 @@ public class MemberDao {
 		return count;
 	}
 	
+	public List<Lecture> lectureVodList(Connection conn, String email){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Lecture> list=new ArrayList();
+		String sql=prop.getProperty("lectureVodList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {				
+				Lecture l=Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.price(rs.getInt("price"))
+						.thumbnail(rs.getString("thumbnail"))
+						.lectureType(rs.getString("lecture_type"))
+						.build();
+				list.add(l);			
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(list);
+		return list;		
+	}
+	
+	public int lectureVodListCount(Connection conn, String email) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("lectureVodListCount");
+		int count=0;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();		
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
+	
 	public List<Lecture> endLectureList(Connection conn, String email){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
