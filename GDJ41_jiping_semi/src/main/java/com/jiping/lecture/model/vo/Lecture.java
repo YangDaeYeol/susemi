@@ -21,6 +21,6 @@ public class Lecture {
 	private char confirm;
 	private int price;
 	private String tutorImg;
-	private String thumbnail;
+	private String thumbNail;
 
 }

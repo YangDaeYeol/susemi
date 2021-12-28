@@ -11,6 +11,7 @@ import java.util.List;
 import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.dao.MemberDao;
 import com.jiping.member.model.vo.Member;
+import com.jiping.tutor.model.vo.Tutor;
 
 public class MemberService {
 	
@@ -170,4 +171,40 @@ public class MemberService {
 		return count;
 	}
 	
+	public List<Member> normalMemberList(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Member> normalMemberList= dao.normalMemberList(conn,cPage,numPerPage);
+		close(conn);
+		return normalMemberList;
+	}
+
+	public List<Member> tutorList(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Member> tutorList= dao.tutorList(conn,cPage,numPerPage);
+		close(conn);
+		return tutorList;
+	}
+
+	public int selectNormalMemberAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectNormalMemberAllCount(conn);
+		close(conn);
+		return result;
+	}
+
+
+	public int selectTutorAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectTutorAllCount(conn);
+		close(conn);
+		return result;
+	}
+	
+	public Tutor selectTutor(String nickName) {
+		Connection conn = getConnection();
+		Tutor t = dao.selectTutor(conn, nickName);
+		close(conn);
+		return t;
+	}
+
 }

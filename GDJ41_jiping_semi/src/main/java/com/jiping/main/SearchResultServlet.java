@@ -73,12 +73,6 @@ public class SearchResultServlet extends HttpServlet {
 				pageBar += "<a href='" + request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + pageNo + "'>[다음]</a>";
 			}
 		}
-		int a = 0;
-		for(int i=0; i<10; i++) {
-			list.add(list.get(a));
-			if(a==0) a++;
-			else a--;
-		}
 		request.setAttribute("list", list);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("totalData", totalData);

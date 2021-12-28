@@ -387,7 +387,8 @@
                                 
                                 <div class="flex-grow-1 ms-3">
                                     <div style="float: right;">
-                                        <span><%=co.getEnrollDate() %> </span><span id="report"><a href=""> 신고</a></span>
+                                        <span><%=co.getEnrollDate() %> </span><span id="report"><a href="javascript:report(e);"> 신고</a></span>
+                                        <input type="hidden" value="<%= co.getCommentNo() %>">
                                         <!-- 신고사유팝업 연결 -->
                                     </div>
                                     <span>★★★★★</span><br>
@@ -404,5 +405,15 @@
         </div>
     </div>
 </section>
+<script>
+<%-- 	report=(e)=> {
+		const commentNo = $(e.targer)
+		const nickName = 
+		const url = "<%= request.getContextPath() %>/report?nickname=";
+		const title = "신고하기";
+		const style = "width300, height=200";
+		open("",title,style)
+	} --%>
+</script>
 
 <%@ include file="/views/common/footer.jsp" %>
