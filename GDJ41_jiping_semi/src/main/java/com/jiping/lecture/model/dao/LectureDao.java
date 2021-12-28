@@ -758,10 +758,25 @@ public class LectureDao {
 		return list;
 	}
 	
+//	---------------------------------------------------------------------------
 	
+	public int deleteComment(Connection conn, int num) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("Dao:"+result);
+		return result;
 	
-	
-	
+	}
 	
 	
 }		

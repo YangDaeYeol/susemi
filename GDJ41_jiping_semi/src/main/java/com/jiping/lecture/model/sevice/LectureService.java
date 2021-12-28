@@ -279,4 +279,16 @@ public class LectureService {
 		close(conn);
 		return result;
 	}
+	
+//	------------------------------------------------------------
+	public int deleteComment(int num) {
+		Connection conn=getConnection();
+		int result= dao.deleteComment(conn,num);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
 }

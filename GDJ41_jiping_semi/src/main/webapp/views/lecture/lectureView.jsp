@@ -399,77 +399,77 @@ boolean flag = false;
          
      </div>row-1
      <div id="review" class="row-1">
-             <!--보라 2-->
-             <div class="line"></div>
-             <div class="review-enroll card">
-                 <div class="card-body">
-                     <!-- -------------------------------------------------- -->
-                     <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
-                         <div class="review-head">
-                             <div id="title">
-                                 <%=le.getLectureTitle() %>
-                             </div>
-                             <div id="tutor-review">
-                                 <%=le.getNickName() %> 튜터
-                             </div>
-                         </div>
-                         <%if(loginMember!=null) { %>
-                             <div id="starrate">
-                                 <div>
-                                     <img class="img_basic img_review"
-                                         src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
-                                     <span>
-                                         <%=loginMember.getNickname() %>
-                                     </span>
-                                 </div>
-                                 <div>
-                                     <fieldset class="rating">
-                                         <span>평점:</span>
-                                         <input type="radio" id="star5" name="rating" value="5" /><label
-                                             class="full" for="star5" title="Awesome - 5 stars"></label>
-                                         <input type="radio" id="star4half" name="rating" value="4.5" /><label
-                                             class="half" for="star4half"
-                                             title="Pretty good - 4.5 stars"></label>
-                                         <input type="radio" id="star4" name="rating" value="4" /><label
-                                             class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                         <input type="radio" id="star3half" name="rating" value="3.5" /><label
-                                             class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                         <input type="radio" id="star3" name="rating" value="3" /><label
-                                             class="full" for="star3" title="Meh - 3 stars"></label>
-                                         <input type="radio" id="star2half" name="rating" value="2.5" /><label
-                                             class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                         <input type="radio" id="star2" name="rating" value="2" /><label
-                                             class="full" for="star2" title="Kinda bad - 2 stars"></label>
-                                         <input type="radio" id="star1half" name="rating" value="1.5" /><label
-                                             class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                         <input type="radio" id="star1" name="rating" value="1" /><label
-                                             class="full" for="star1" title="Sucks big time - 1 star"></label>
-                                         <input type="radio" id="starhalf" name="rating" value="0.5" /><label
-                                             class="half" for="starhalf"
-                                             title="Sucks big time - 0.5 stars"></label>
-                                     </fieldset>
-                                 </div>
-                             </div>
-                             <%} %>
-                          	<textarea id="input-review" class="card-body msgbox" id="totutor-review"
-                              name="commentContent" cols="43" rows="3"
-                              placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
-                          	<input type="hidden" name="level" value="1">
-                          <%if(loginMember!=null) {%>
-                            <input type="hidden" name="writer" value="<%=loginMember.getNickname()%>">
-                            <%} %>
-                            <input type="hidden" name="letureNo" value="<%=le.getLectureNo()%>">
-                            <input type="hidden" name="lecutreCommentRef" value="0">
-                            <input type="hidden" name="lectureType"
-                                value="<%=le.getLectureType()%>">
-                            <div>
-                                <span id="review-count" style="float: right;">(0/100)</span> <br>
-                                <button type="submit" class="btn btn-primary btn-lg btn-basic"
-                                    style="float: right; ">리뷰
-                                    등록하기</button>
-                            </div>	
-                     </form>
-                 </div>
+          	<!--보라 2-->
+		   <div class="line"></div>
+		   <div class="review-enroll card">
+		       <div class="card-body">
+		           <!-- -------------------------------------------------- -->
+		           <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
+		               <div class="review-head">
+		                   <div id="lecture-title">
+		                       <%=le.getLectureTitle() %>
+		                   </div>
+		                   <div id="tutor-review">
+		                       <%=le.getNickName() %> 튜터
+		                   </div>
+		               </div>
+		               <%if(loginMember!=null) { %>
+		                   <div id="starrate">
+		                       <div>
+		                           <img class="img_basic img_review"
+		                               src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
+		                           <span>
+		                               <%=loginMember.getNickname() %>
+		                           </span>
+		                       </div>
+		                       <div>
+		                           <fieldset class="rating">
+		                               <span>평점:</span>
+		                               <input type="radio" id="star5" name="rating" value="5" /><label
+		                                   class="full" for="star5" title="Awesome - 5 stars"></label>
+		                               <input type="radio" id="star4half" name="rating" value="4.5" /><label
+		                                   class="half" for="star4half"
+		                                   title="Pretty good - 4.5 stars"></label>
+		                               <input type="radio" id="star4" name="rating" value="4" /><label
+		                                   class="full" for="star4" title="Pretty good - 4 stars"></label>
+		                               <input type="radio" id="star3half" name="rating" value="3.5" /><label
+		                                   class="half" for="star3half" title="Meh - 3.5 stars"></label>
+		                               <input type="radio" id="star3" name="rating" value="3" /><label
+		                                   class="full" for="star3" title="Meh - 3 stars"></label>
+		                               <input type="radio" id="star2half" name="rating" value="2.5" /><label
+		                                   class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+		                               <input type="radio" id="star2" name="rating" value="2" /><label
+		                                   class="full" for="star2" title="Kinda bad - 2 stars"></label>
+		                               <input type="radio" id="star1half" name="rating" value="1.5" /><label
+		                                   class="half" for="star1half" title="Meh - 1.5 stars"></label>
+		                               <input type="radio" id="star1" name="rating" value="1" /><label
+		                                   class="full" for="star1" title="Sucks big time - 1 star"></label>
+		                               <input type="radio" id="starhalf" name="rating" value="0.5" /><label
+		                                   class="half" for="starhalf"
+		                                   title="Sucks big time - 0.5 stars"></label>
+		                           </fieldset>
+		                       </div>
+		                   </div>
+		                   <%} %>
+		                	<textarea id="input-review" class="card-body msgbox" id="totutor-review"
+		                    name="commentContent" cols="43" rows="3"
+		                    placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+		                	<input type="hidden" name="level" value="1">
+		                <%if(loginMember!=null) {%>
+		                  <input type="hidden" name="writer" value="<%=loginMember.getNickname()%>">
+		                  <%} %>
+		                  <input type="hidden" name="letureNo" value="<%=le.getLectureNo()%>">
+		                  <input type="hidden" name="lecutreCommentRef" value="0">
+		                  <input type="hidden" name="lectureType"
+		                      value="<%=le.getLectureType()%>">
+		                  <div>
+		                      <span id="review-count" style="float: right;">(0/100)</span> <br>
+		                      <button type="submit" class="btn btn-primary btn-lg btn-basic"
+		                          style="float: right; ">리뷰
+		                          등록하기</button>
+		                  </div>	
+		           </form>
+		       </div>
              </div>
              </div>
              <script>
@@ -501,121 +501,136 @@ boolean flag = false;
              </script>
 
 
+<!-- ------------------------------------리뷰출력 시작 --->
+
              <div id="review-list">
                  <h5 class="card-title ">수강생 리뷰</h5>
                  <div class="card">
-                     <div class="card-body ">
-                         <!-- 리뷰출력 시작 -->
-                         <%for(LectureComment co: lcList) { if(co.getCommentLevel()==1) {%>
-                             <div class="d-flex card-body">
-                                 <div name="review flex-shrink-0">
-                                     <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
-                                                 ">
+                 	<div class="card-body ">
+                 	<%if(lcList.isEmpty()) {%>
+                 		<p>등록된 리뷰가 없습니다. 첫 수강생이 되어 첫 리뷰의 영광을 가져보세요 ^^</p>
+                 		
+               		<%} else {%>
+                 		
+                     <%for(LectureComment co: lcList) { 
+                    	 if(co.getCommentLevel()==1) {%>
+                         <div class="card-body reviewDiv">
+                             <div name="review flex-shrink-0">
+                                 <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
+                                             ">
+                             </div>
+                             <div class="flex-grow-1 ms-3">
+                                 <div style="float: right;">
+                                     <span><%=co.getEnrollDate() %></span><span id="report"><a href=""> 신고</a></span>
+                                     <!-- 신고사유팝업 연결 -->
                                  </div>
+                                 <span class="img-stars">
+                                     <img
+                                         src="<%=request.getContextPath() %>/img/star/star<%=co.getStarRate() %>.png">
+                                 </span><br>
+                                 <span>
+                                     <%=co.getWriter() %>
+                                 </span><br>
+                                 <p>
+                              		<%=co.getCommentContent() %>
+                                 <button class="btn tutorReply btn-enrollReply"
+                                     value="<%=co.getCommentNo() %>" style="float: right;">답글달기</button>
+                                 <%if(loginMember!=null&&loginMember.getNickname().equals(co.getWriter()))
+                                     {%>
+                                    <button type="button" class="btn tutorReply deleteReply"
+                                        style="float: right;" value="<%=co.getCommentNo()%>">삭제</button>
+                                    <%} %>
+                                 </p>
 
-                                 <div class="flex-grow-1 ms-3">
-                                     <div style="float: right;">
-                                         <span>
-                                             <%=co.getEnrollDate() %>
-                                         </span><span id="report"><a href=""> 신고</a></span>
-                                         <!-- 신고사유팝업 연결 -->
-                                     </div>
-                                     <span class="img-stars">
-                                         <img
-                                             src="<%=request.getContextPath() %>/img/star/star<%=co.getStarRate() %>.png">
-                                     </span><br>
-                                     <span>
-                                         <%=co.getWriter() %>
-                                     </span><br>
-                                     <p>
-                                         <%=co.getCommentContent() %>
-                                             <button type="button" class="btn tutorReply enrollReply"
-                                                 value="<%=co.getCommentNo() %>" style="float: right;">답글달기</button>
-                                             <%if(loginMember!=null&&loginMember.getNickname().equals(co.getWriter()))
-                                                 {%>
-                                                 <button type="button" class="btn tutorReply"
-                                                     style="float: right;">삭제</button>
-                                                 <%} %>
-                                     </p>
-                                 </div>
-                             </div> d-flex card-vody
-
-                             <%}else if(co.getCommentLevel()==2) %>
-
-                             <div id="tutorReplyDiv">여기가 등록이 되는 곳</div>
-
-
-
+                             </div>
+                         </div> d-flex card-body
+                             <%}else if(co.getCommentLevel()==2) {%>
+ <!--                             <div id="tutorReplyDiv"> 여기출력ㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ -->
+                             	<div class="card-body reviewDiv">
+                             		<div name="review flex-shrink-0">
+                                 		<img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
+                                             ">
+                             		</div>
+	                            	<div class="flex-grow-1 ms-3">
+	                                	<div style="float: right;">
+	                                    <span><%=co.getEnrollDate() %></span><span id="report"><a hreㅕㅓf=""> 신고</a></span>
+	                                    <!-- 신고사유팝업 연결 -->
+	                                	</div>
+	                                	<span class="img-stars">
+	                                    	<img
+	                                        	src="<%=request.getContextPath() %>/img/star/star<%=co.getStarRate() %>.png">
+	                                	</span><br>
+		                                <span>
+		                                    <%=co.getWriter() %>
+		                                </span><br>
+		                                <p>
+		                             	<%=co.getCommentContent() %>
+		                                
+	                                	</p>
+	                            	</div>			
+	                         	</div>
+	                         <!-- </div> -->
+                             <%} %>
                              <%} %>
                                  <!-- 리뷰끝 -->
                                  <!-- 대댓글 -->
-                                 <div class="review-enroll card enroll-reply" style="display:none">
-                                     <div class="card-body">
-                                         <div id="starrate">
-                                             <div>
-                                                 <img class="img_basic img_review" src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTMy/MDAxNTc2MTM4NTc5MjAy.d6qoHmyl15AA4MjNVN7uOMbOJplPrhTktLxfMQXze9Ig.Ui8K9n80tzLCRsYmAK1VGmFxcRJ6-fndALhaNI69n9Ug.JPEG/%EC%A4%80%ED%98%81_%284%29.jpg?type=w1200
-                                                 ">
-                                                 <span>닉네임</span>
-                                             </div>
-                                         </div>
-                                         <div class="card">
-                                             <textarea class="card-body reply-text msgbox" cols="43"
-                                                 rows="3"></textarea>
-                                         </div>
-                                         <span style="float: right;">0/100</span> <br>
-                                         <button type="button" class="btn btn-primary btn-lg btn-basic btn-rereply"
-                                             style="float: right; ">답글
-                                             등록하기</button>
-                                     </div>
-                                 </div>
-
-                                 <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
-                                     <%if(loginMember!=null) { %>
-                                         <div id="starrate">
-                                             <div>
-                                                 <img class="img_basic img_review"
-                                                     src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
-                                                 <span>
-                                                     <%=loginMember.getNickname() %>
-                                                 </span>
-                                             </div>
-                                         </div>
-                                         <%} %>
-                                             <textarea id="input-review" class="card-body msgbox" id="totutor-review"
-                                                 name="commentContent" cols="43" rows="3"
-                                                 placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
-                                             <input type="hidden" name="level" value="1">
-                                             <%if(loginMember!=null) {%>
-                                                 <input type="hidden" name="writer"
-                                                     value="<%=loginMember.getNickname()%>">
-                                                 <%} %>
-                                                     <input type="hidden" name="letureNo"
-                                                         value="<%=le.getLectureNo()%>">
-                                                     <input type="hidden" name="lecutreCommentRef" value="0">
-                                                     <input type="hidden" name="lectureType"
-                                                         value="<%=le.getLectureType()%>">
-                                                     <div>
-                                                         <span id="review-count" style="float: right;">(0/100)</span>
-                                                         <br>
-                                                         <button type="submit"
-                                                             class="btn btn-primary btn-lg btn-basic"
-                                                             style="float: right; ">답글
-                                                             등록하기</button>
-                                                     </div>
-                                 </form>
-                                 <!-- 대댓글 끝 -->
+				   	 <div class="review-enroll card enroll-reply" style="display:none"> <!-- ------------------------대댓글 창 -->
+				        <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
+				        <%if(loginMember!=null) { %>
+				        <div id="starrate">
+				            <div>
+				                <img class="img_basic img_review"
+				                    src="<%=request.getContextPath()%>/upload/<%=m.getProfileImg()%>">
+				                <span>
+				                    <%=tutor.getNickname() %>
+				                </span>
+				            </div>
+				        </div>
+				        <%} %>
+				        <div class="card">
+				        <textarea id="input-review" class="card-body msgbox" id="totutor-review"
+				            name="commentContent" cols="43" rows="3"
+				            placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+				        </div>
+				        <input type="hidden" name="level" value="1">
+				        <%if(loginMember!=null) {%>
+				        <input type="hidden" name="writer"
+				            value="<%=loginMember.getNickname()%>">
+				        <%} %>
+				        <input type="hidden" name="letureNo"
+				            value="<%=le.getLectureNo()%>">
+				        <input type="hidden" name="lecutreCommentRef" value="0">
+				        <input type="hidden" name="lectureType"
+				            value="<%=le.getLectureType()%>">
+				        <div>
+				            <span id="review-count" style="float: right;">(0/100)</span>
+				            <br>
+				            <button type="submit" 
+				                class="btn btn-primary btn-lg btn-basic"
+				                style="float: right; ">답글 등록하기</button>
+				        </div>
+				    </form>
+				    </div>
+				<%} %> 
+				    <!-- 대댓글 끝 -->
                 	<script>
-                    $(".enrollReply").click(e => {
-                        $(".enroll-reply").show();
-                        const form = $(".enroll-reply")
+                   $(".btn-enrollReply").click(e => { //답글달기를 누르면 
+                    	const form = $(".enroll-reply>form").clone(); //새로 만든 폼태그를 보여줘, 여기서 버튼을 누르면 레벨2로 등록됨
+                        console.log(form);
                         form.find("input[name=level]").val("2");
                         form.find("input[name=lecutreCommentRef]").val($(e.target).val());
-                        $("#tutorReplyDiv").html(form);
-                        const text = $(".reply-text").val();
-                        console.log(text);
-                        $(".btn-rereply").click(e => {
-                        })
-                    })
+                        console.log(form);
+                        let div = $("<div>");
+                        div.append(form);
+                        $(e.target).parents(".reviewDiv").append(div);
+                    }) 
+                    
+                    $(".deleteReply").click(e=>{
+                    	alert("adaf");
+                     	console.log($(e.target));
+                    	let num=$(e.target).val();
+                     	location.assign("<%=request.getContextPath()%>/deleteLeview?commentNo="+num+"&lectureNo=<%=le.getLectureNo()%>");
+                      })
                 </script>								
                 </div> card-body
             </div> card
