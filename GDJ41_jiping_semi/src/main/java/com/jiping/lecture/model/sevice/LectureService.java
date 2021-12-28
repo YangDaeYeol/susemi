@@ -312,7 +312,10 @@ public class LectureService {
 	public int deleteComment(int num) {
 		Connection conn=getConnection();
 		int result= dao.deleteComment(conn,num);
-		if(result>0) commit(conn);
+		if(result>0) { 
+			commit(conn);
+//			int result2 = dao.deleteCommentCount(conn);
+		}
 		else rollback(conn);
 		close(conn);
 		return result;
