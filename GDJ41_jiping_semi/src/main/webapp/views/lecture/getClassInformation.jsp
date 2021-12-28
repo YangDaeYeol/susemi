@@ -85,7 +85,7 @@
 														<div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png,
 															gif, jpeg, jpg만 가능)</div>
 
-<<<<<<< HEAD
+
 														<div class="image-upload">
 															<label for="file-input"> <img
 																src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
@@ -123,7 +123,6 @@
 														onkeyup="limit500(event, 'introlimit')" ><%= t!=null?t.getTutorMsg():"" %></textarea>
 														<div id="introlimit">(0/500)</div>
 													</div>
->>>>>>> branch 'master' of https://github.com/YangDaeYeol/susemi.git
 
 														<div id="snsInfo">
 															<div>
@@ -151,9 +150,7 @@
 																	placeholder="블로그 주소를 입력해주세요" class="snsInputBox">
 															</div>
 														</div>
-<<<<<<< HEAD
 
-=======
 														<div id="insta">
 															<img
 																src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
@@ -177,7 +174,6 @@
 														</div>
 													</div>
 													
->>>>>>> branch 'master' of https://github.com/YangDaeYeol/susemi.git
 
 														<div>
 															자격증 및 경력 <span class="sugg">(권장사항, 최대 5개)</span>
@@ -1364,22 +1360,7 @@
     	       }   
     	      
 	    	});
-   		   //return false;
-    	  
-<%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 
-           function load(url, callback) {
-             var xhr = new XMLHttpRequest();
-
-             xhr.onreadystatechange = function() {
-               if (xhr.readyState === 4) {
-                 callback(xhr.response);
-               }
-             }
-
-             xhr.open('GET', url, true);
-             xhr.send('');  
-       		} --%>
        }
        
        
