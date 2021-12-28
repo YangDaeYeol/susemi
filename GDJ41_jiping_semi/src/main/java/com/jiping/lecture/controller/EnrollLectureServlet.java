@@ -1,24 +1,17 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
-
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.tomcat.util.buf.StringUtils;
-
 import com.jiping.common.FileRename;
 import static com.jiping.common.StringCustomUtils.getStringOrNull;
 import static com.jiping.common.StringCustomUtils.getIntOrNull;
@@ -90,10 +83,14 @@ public class EnrollLectureServlet extends HttpServlet {
 					Map<String, Object> lecture = new HashMap<>();
 					
 					Member m = Member.builder()
+							.email(member.getEmail())
+							.phone(member.getPhone())
+							.nickname(member.getNickname())
 							.profileImg(mr.getFilesystemName("tutorImgFile"))
 							.build();
 					
 					lecture.put("member",m);
+					
 	
 					String tutorComment = mr.getParameter("tutorComment");
 					String tutorInsta = mr.getParameter("instaAddr");

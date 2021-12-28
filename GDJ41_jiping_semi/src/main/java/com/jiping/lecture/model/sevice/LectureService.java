@@ -118,28 +118,27 @@ public class LectureService {
 		if (result > 0) {
 			commit(conn);
 			Tutor t = (Tutor)lecture.get("tutor");
-			int result2 = dao.enrollTutorInformation(conn, t);
+			int result2 = dao.enrollTutorInformation(conn, t, m);
 			if (result2 > 0) {
 				commit(conn);
 				Certificate c = (Certificate)lecture.get("certificate");
-				int result3 = dao.enrollCertificateInformation(conn, c);
+				int result3 = dao.enrollCertificateInformation(conn, c, m);
 				if (result3 > 0) {
 					commit(conn);
 					Lecture l = (Lecture)lecture.get("lecture");
-					Member m2 = (Member)lecture.get("member");
-					int result4 = dao.enrollLectureInoformation(conn, l, m2);
+					int result4 = dao.enrollLectureInoformation(conn, l, m);
 					if (result4 > 0) {
 						commit(conn);
 						LectureImg lImg = (LectureImg)lecture.get("lectureImg");
 						int result5 = 0;
 						String[] fileNameArray = lImg.getLectureFileName().split(",");
 						for (int i = 0; i < fileNameArray.length; i++) {
-							result5 = dao.enrollLectureImg(conn, lImg, fileNameArray[i]);
+							result5 = dao.enrollLectureImg(conn, m, fileNameArray[i]);
 						}
 						if (result5 > 0) {
 							commit(conn);
 							LectureContent lc = (LectureContent)lecture.get("lectureContent");
-							int result6 = dao.enrollLectureContent(conn, lc);
+							int result6 = dao.enrollLectureContent(conn, lc, m);
 							if (result6 > 0) {
 								commit(conn);
 								String[] classStartTime = (String[])lecture.get("classStartTime");
@@ -155,7 +154,7 @@ public class LectureService {
 									int result8 = 0;
 									for (int i = 0 ; i < 10; i++) {
 										if(vodUrlAddr[i] != null) {
-											result8 = dao.enrollVodLecture(conn, vodUrlAddr[i], vodTitle[i], vodClassInfo[i], vl);
+											result8 = dao.enrollVodLecture(conn, m, vodUrlAddr[i], vodTitle[i], vodClassInfo[i], vl);
 										}
 									}
 									if (result8 > 0) {
@@ -168,7 +167,7 @@ public class LectureService {
 									
 									for (int i = 0; i < 10; i++) {
 										if (classStartTime[i] != null) {
-											result7 = dao.enrollLectureSchedule(conn, ls, classDate[i], classStartTime[i], classEndTime[i]);
+											result7 = dao.enrollLectureSchedule(conn, m, ls, classDate[i], classStartTime[i], classEndTime[i]);
 											}
 										}
 									if (result7 > 0) {
