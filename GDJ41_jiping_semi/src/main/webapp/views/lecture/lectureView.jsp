@@ -129,7 +129,9 @@ boolean flag = false;
              <div id="tutor" style="margin-top: 39px;">
                 <div class="tutor-btn">
 	                <h5 class="card-title">튜터를 소개합니다! </h5>
+	                <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
 	                <button type="button" class="btn-tutor btn btn-primary btn-basic">튜터소개 수정</button>
+	                <%} %>
               	</div>
                 <div class="card">
                      <div class="card-body">
@@ -179,8 +181,10 @@ boolean flag = false;
               <div id="class_schedule">
               <div class="tutor-btn">
                 <h5 class="card-title">수업일정 </h5>
+                <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
                 <button type="button" class="btn-tutor btn btn-primary btn-basic">일정 및 장소
                   수정</button>
+                <%} %>
               </div>
 <!-- ----------------------------------------------------------------------------   수업일정 -->
 <!-- ----------------------------------------------------------------------------   원데이일때 -->
@@ -207,14 +211,14 @@ boolean flag = false;
                                  </span>
                              </label>
                              <%} %>
+                         <%if(!(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname()))) { %>
                          <div id="scheduleBtn" class="d-flex justify-content-center">
                              <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜
                                  하
                                  기</button>
-                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수
-                                 강 신
-                                 청</button>
+                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
                          </div>
+                         <%} %>
                      </div>
                  </div>
                  <div id="class_submit" style="display: none;">
@@ -375,14 +379,12 @@ boolean flag = false;
 				                flag=true; }%>
 				                <%} %>
 				                <% if(flag==false) { %>
-			                        <div id="scheduleBtn" class="d-flex justify-content-center">
-			                            <button id="wish" type="button"
-			                                class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
-			                                기</button>
-			                            <button id="apply" type="button"
-			                                class="btn btn-primary btn-lg btn-basic">수 강 신
-			                                청</button>
-			                        </div>
+			                        <%if(!(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname()))) { %>
+			                         <div id="scheduleBtn" class="d-flex justify-content-center">
+			                             <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜하기</button>
+			                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
+			                         </div>
+                         				<%} %>
 			                        <%} else if(flag==true) {%>
                              </div>
                          </div>
