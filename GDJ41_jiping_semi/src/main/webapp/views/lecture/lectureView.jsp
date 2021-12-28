@@ -47,38 +47,38 @@ boolean flag = false;
                          <button type="button" class="btn-tutor btn btn-primary btn-basic">클래스 상세정보 수정</button>
                      </div>
                      <%} %>
-                         <!--class="card-title"-->
-                         <div class="card">
-                             <div class="card-body">
-                                 <div id="carouselExampleControls" class="carousel slide"
-                                     data-bs-ride="carousel">
-                                     <div class="carousel-inner">
-                                         <div class="carousel-item active">
-                                             <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>"
-                                                 class="d-block w-100" alt="...">
-                                         </div>
-                                         <div class="carousel-item">
-                                             <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>"
-                                                 class="d-block w-100" alt="...">
-                                         </div>
-                                         <div class="carousel-item">
-                                             <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>"
-                                                 class="d-block w-100" alt="...">
-                                         </div>
+                     <!--class="card-title"-->
+                     <div class="card">
+                         <div class="card-body">
+                             <div id="carouselExampleControls" class="carousel slide"
+                                 data-bs-ride="carousel">
+                                 <div class="carousel-inner">
+                                     <div class="carousel-item active">
+                                         <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(0).getLectureFileName()%>"
+                                             class="d-block w-100" alt="...">
                                      </div>
-                                     <button class="carousel-control-prev" type="button"
-                                         data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                         <span class="visually-hidden">Previous</span>
-                                     </button>
-                                     <button class="carousel-control-next" type="button"
-                                         data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                         <span class="visually-hidden">Next</span>
-                                     </button>
+                                     <div class="carousel-item">
+                                         <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(1).getLectureFileName()%>"
+                                             class="d-block w-100" alt="...">
+                                     </div>
+                                     <div class="carousel-item">
+                                         <img src="<%=request.getContextPath()%>/upload/<%=imgList.get(2).getLectureFileName()%>"
+                                             class="d-block w-100" alt="...">
+                                     </div>
                                  </div>
+                                 <button class="carousel-control-prev" type="button"
+                                     data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                     <span class="visually-hidden">Previous</span>
+                                 </button>
+                                 <button class="carousel-control-next" type="button"
+                                     data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                     <span class="visually-hidden">Next</span>
+                                 </button>
                              </div>
                          </div>
+                     </div>
              </div>
 
              <div id="info_notice">
@@ -123,7 +123,7 @@ boolean flag = false;
                  </div>
              </div>
          </div>col-7
-         <!-- -------------- -->
+         <!-- --------------------------------------------------------------------------오른쪽 -->
 
          <div id="right" class="col">
              <div id="tutor" style="margin-top: 39px;">
@@ -172,7 +172,9 @@ boolean flag = false;
                      </div>
                  </div>
              </div>
-
+             
+<!-- ----------------------------------------------------------------------------   수업일정 -->
+<!-- ----------------------------------------------------------------------------   원데이일때 -->
              <%if(le.getLectureType().equals("원데이")) {%>
                  <div id="class_schedule">
                      <h5 class="card-title">수업일정</h5>
@@ -262,7 +264,8 @@ boolean flag = false;
                  </div>submit
                  <%} %>
 
-                     <!-- vod lecture view -------------------------------------------------->
+                     
+<!-- ----------------------------------------------------------------------------   vod일때 -->
                      <%if(le.getLectureType().equals("VOD")) { %>
                          <div id="class_schedule">
                              <h5 class="card-title">수업일정</h5>
@@ -301,7 +304,8 @@ boolean flag = false;
                              onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>')">강
                              의 실 입 장</button>
                          <% } %>
-                             <!-- ------------------------------------vod 끝 -->
+<!-- -------------------------------------------------------------------------  vod 끝 -->
+
                              <div id="class_submit" style="display: none;">
                                  <h5 class="card-title">수강신청</h5>
                                  <div class="card">
@@ -338,7 +342,8 @@ boolean flag = false;
                                      </form>
                                  </div>
                              </div>
-         </div>col               <!-- ------------------- 수강신청 끝 -->
+         </div>col              
+          <!-- ------------------- 수강신청 끝 -->
          
      </div> row
      <script>
