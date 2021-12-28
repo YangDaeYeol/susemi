@@ -85,24 +85,6 @@
 														<div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png,
 															gif, jpeg, jpg만 가능)</div>
 
-
-														<div class="image-upload">
-															<label for="file-input"> <img
-																src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
-																id="imgTest" alt="2021-12-17-18-59-18" width="100px"
-																height="100px" style="border-radius: 50%;">
-															</label> <input id="file-input" name="tutorImgFile" type="file"
-																accept="image/png, image/gif, image/jpeg, image/jpg">
-														</div>
-														<div id="resultTutorImg" style="margin-bottom: 30px;"></div>
-														<div>튜터의 한마디</div>
-														<div id="tutorComment">
-															<textarea name="tutorComment" cols="58" rows="5"
-																id="tutorIntroduction"
-																onkeyup="limit500(event, 'introlimit')"></textarea>
-															<div id="introlimit">(0/500)</div>
-														</div>
-=======
 													<div class="image-upload">
 														<label for="file-input">
 														<% if(!loginMember.getProfileImg().equals("userimg.png")) {%>
@@ -121,36 +103,13 @@
 														<textarea name="tutorComment" cols="58" rows="5"
 														id="tutorIntroduction"
 														onkeyup="limit500(event, 'introlimit')" ><%= t!=null?t.getTutorMsg():"" %></textarea>
-														<div id="introlimit">(0/500)</div>
+														<div id="introlimit">(<%= t!=null?t.getTutorMsg().length():0 %>/500)</div>
 													</div>
 
-														<div id="snsInfo">
-															<div>
-																소셜미디어 <span class="sugg">(권장사항)</span>
-															</div>
-															<div id="insta">
-																<img
-																	src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
-																	alt="instagram" class="socialImg" width="18px"
-																	height="18px"><input type="text" name="instaAddr"
-																	placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
-															</div>
-															<div id="facebook">
-																<img
-																	src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
-																	alt="facebook" class="socialImg" width="18px"
-																	height="18px"><input type="text"
-																	name="facebookAddr" placeholder="페이스북 주소를 입력해주세요"
-																	class="snsInputBox">
-															</div>
-															<div id="blog">
-																<img src="https://www.coolstay.co.kr/img/main/naver.png"
-																	alt="blog" class="socialImg" width="18px" height="18px"><input
-																	type="text" name="blogAddr"
-																	placeholder="블로그 주소를 입력해주세요" class="snsInputBox">
-															</div>
+													<div id="snsInfo">
+														<div>
+															소셜미디어 <span class="sugg">(권장사항)</span>
 														</div>
-
 														<div id="insta">
 															<img
 																src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
