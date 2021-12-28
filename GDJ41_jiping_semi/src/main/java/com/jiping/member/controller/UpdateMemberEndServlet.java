@@ -42,7 +42,7 @@ public class UpdateMemberEndServlet extends HttpServlet {
 		
 		String newPhone=request.getParameter("newPhone");		
 		String newNick=request.getParameter("newNick");
-		
+		 
 //	 	멤버 카테고리, 멤버 지역 추가해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 		 
 		String marketing=request.getParameter("marketing");

@@ -46,7 +46,7 @@
 						<option value="댄스/무용" class="sc2">댄스/무용</option>
 						<option value="연기" class="sc2">연기</option>
 						<option value="스포츠/레저" class="sc2">스포츠/레저</option>
-						<option value="이색 액티비티" class="sc2">이색 액티비티</option>
+						<option value="이색 액티비티" class="sc2">이색액티비티</option>
 						<!-- 커리어 -->
 						<option value="업무역량" class="sc3">업무역량</option>
 						<option value="마케팅" class="sc3">마케팅</option>

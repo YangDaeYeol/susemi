@@ -124,12 +124,9 @@ public class MemberDao {
 						.marketing(rs.getString("marketing").charAt(0))
 						.profileImg(rs.getString("profile_img"))
 						.nickname(rs.getString("nickname"))
+						.memberLocation(rs.getString("member_location"))
+						.memberCategory(rs.getString("member_category"))
 						.build();
-				if(m.getMemberGrade().equals("수강생")) {										
-					m.setMemberLocation(rs.getString("member_location")==null?"":rs.getString("member_location"));
-					m.setMemberCategory(rs.getString("member_category")==null?"":rs.getString("member_category"));
-					
-				}
 			}
 					
 		}catch(SQLException e) {
@@ -362,6 +359,7 @@ public class MemberDao {
 						.thumbnail(rs.getString("thumbnail"))
 						.lectureType(rs.getString("lecture_type"))
 						.build();
+				list.add(l);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -416,6 +414,102 @@ public class MemberDao {
 		return result;
 	}
 	
+	public List<Lecture> lectureTutorList(Connection conn, String nickname){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Lecture> list=new ArrayList();
+		String sql=prop.getProperty("lectureTutorList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l=Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.price(rs.getInt("price"))
+						.thumbnail(rs.getString("thumbnail"))
+						.lectureType(rs.getString("lecture_type"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 	
+	public int lectureTutorListCount(Connection conn, String nickname) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("lectureTutorListCount");
+		int count=0;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs=pstmt.executeQuery();		
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public List<Lecture> lectureTutorEndList(Connection conn, String nickname){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Lecture> list=new ArrayList();
+		String sql=prop.getProperty("lectureTutorEndList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l=Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.price(rs.getInt("price"))
+						.thumbnail(rs.getString("thumbnail"))
+						.lectureType(rs.getString("lecture_type"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int lectureTutorEndListCount(Connection conn, String nickname) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("lectureTutorEndListCount");
+		int count=0;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs=pstmt.executeQuery();		
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
 	
 }

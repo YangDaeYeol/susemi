@@ -32,10 +32,9 @@ public class MyclassIngOffServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email=request.getParameter("email");
-		
+		String email=request.getParameter("email");		
 		Member m=new MemberService().selectMember(email);
-		System.out.println(email);
+		
 		List<Lecture> list=new MemberService().lectureList(email);
 		int count=new MemberService().lectureCount(email);
 		

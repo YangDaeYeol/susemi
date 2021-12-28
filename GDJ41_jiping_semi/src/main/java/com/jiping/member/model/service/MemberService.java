@@ -137,6 +137,37 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	
+	public List<Lecture> lectureTutorList(String nickname){
+		Connection conn=getConnection();
+		List<Lecture> list=dao.lectureTutorList(conn, nickname);
+		close(conn);
+		System.out.println(list);
+		return list;
+	}
+	
+	public int lectureTutorListCount(String nickname) {
+		Connection conn=getConnection();
+		System.out.println(nickname);
+		int count=dao.lectureTutorListCount(conn, nickname);
+		close(conn);
+		return count;
+	}
 
+	public List<Lecture> lectureTutorEndList(String nickname){
+		Connection conn=getConnection();
+		List<Lecture> list=dao.lectureTutorEndList(conn, nickname);
+		close(conn);
+		System.out.println(list);
+		return list;
+	}
+	
+	public int lectureTutorEndListCount(String nickname) {
+		Connection conn=getConnection();
+		System.out.println(nickname);
+		int count=dao.lectureTutorEndListCount(conn, nickname);
+		close(conn);
+		return count;
+	}
 	
 }

@@ -104,6 +104,9 @@
                         <div class="info-content inlineblock">
                             <input type="password" id="oriPw" name="oriPw"  class="placeholder-center " size="25" required>
                         </div>
+                        <div class="inlineblock">
+                            <p class="guide">※ 현재 비밀번호를 꼭 입력한 뒤 정보수정이 가능합니다.</p>
+                        </div>
                     </div>
                     <div class="menu-margin margin-left" id="tutor-afterPw">
                         <div class="info-title inlineblock">
@@ -138,8 +141,6 @@
                         			
                         		}
                         	});
-                        	
-                        	
                         	$("#newPwCheck").blur(e=>{
                         		if($("#newPw").val()==$("#newPwCheck").val()){
                         			$("#pwCheckMsg").html("새로운 비밀번호 일치").css('color','green');
@@ -149,7 +150,6 @@
                         		
                         		}
                         	});
-                        	                                               
                         </script>                                               
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-nick">
@@ -162,16 +162,6 @@
                             <div class="inlineblock">
                                 <button id="nickDuplicateBtn" style="margin-left: 10px;">닉네임 중복 확인</button>
                             </div>
-                            <script>
-                        	$("#nickDuplicateBtn").click(e=>{
-                        		let newNick=$("#newNick").val();
-                        		
-                        		var _left = Math.ceil(( window.screen.width - 500 )/2);
-                        	    var _top = Math.ceil(( window.screen.height - 150 )/2);
-								
-                        		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
-                        	});                  
-                       		</script>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
                             <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
@@ -223,16 +213,6 @@
                   <%} %>                                                                                                                     
                         </div>
                     </div> 
-                    <script>
-                       	$("#updateCategory").click(e=>{
-                       		var _left = Math.ceil(( window.screen.width - 450 )/2);
-                    	    var _top = Math.ceil(( window.screen.height - 500 )/2);
-                       	
-                       		open("<%=request.getContextPath()%>/member/popupCategory.do","_blank","width=450, height=500, left="+_left+", top="+_top);
-                       	});
-                       	
-                       
-                    </script>
                     <div class="menu-margin margin-left" id="tutor-area">
                         <div class="info-title inlineblock" style="vertical-align: top; line-height: 150px">
                             <span class="margin-right menu-list-name">관심 지역</span>
@@ -276,17 +256,7 @@
 		                 	<button id="updateLocation">관심지역 수정하기</button>
 	                 	</div>
                   	<%} %>                             
-                        </div>
-                        <script>
-                        	$("#updateLocation").click(e=>{
-                        		var _left = Math.ceil(( window.screen.width - 450 )/2);
-                        	    var _top = Math.ceil(( window.screen.height - 500 )/2);
-                        	
-                        		open("<%=request.getContextPath()%>/member/popupLocation.do","_blank","width=450, height=500, left="+_left+", top="+_top);
-                        	});
-                        	
-                        
-                        </script>
+                        </div>                        
                 </div>  
                     <div class="menu-margin margin-left" id="tutor-gender">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
@@ -349,139 +319,175 @@
     </script>
 <!-- 튜터	정보수정페이지 -->
 <%}else{ %>
-	<section id="sectionMargin">
-        <div id="mypage-container" class="flex">
-            <div class="inlineblock overflow" id="mypage-menu">          
-                    <h3>MY PAGE</h3>
-                    <div class="" id="my-menu" >
-                        <ul id="menu-list">
-                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
-                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
-                            <nav class="nav-sub">
-                                <li >· 클래스</li>
-               	                 <ul id="sub-menu">
-                                    <li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=<%=m.getEmail()%>">- 운영중인 클래스</a></li>
+<section id="sectionMargin">
+    <div id="mypage-container" class="flex">
+		<div class="inlineblock overflow" id="mypage-menu">          
+			<h3>MY PAGE</h3>
+			<div class="" id="my-menu" >
+				<ul id="menu-list">
+					<li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+					<li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
+						<nav class="nav-sub">
+                             <li>· 클래스</li>
+              	                <ul id="sub-menu">
+                                	<li><a href="<%=request.getContextPath()%>/member/tutorRunClass.do?email=<%=m.getEmail()%>">- 운영중인 클래스</a></li>
                                     <li><a href="<%=request.getContextPath()%>/member/tutorEndClass.do?email=<%=m.getEmail()%>">- 운영종료 클래스</a></li>
-                                </ul>
-                            </nav>
-                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
-                        </ul>                  
+                               </ul>
+                        </nav>
+                    <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
+				</ul>                  
+			</div>
+		</div>   
+		<div id="mypage-content" class="inlineblock">
+			<div class="">
+				<img id="info-icon" src="<%=request.getContextPath() %>/img/setting.png" width="20px" height="20px" class="inlineblock" style="margin-bottom: 10px;">
+				<h4 class="inlineblock" style="margin-bottom: 0;">정보수정</h4> 
+            </div>
+            <div class="line"></div>
+            <div style="margin-left: 80px;">
+            	<form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMemberEnd.do" method="post"></form>	
+            	<div class="menu-margin margin-left" id="tutor-img" >
+                	<div class="info-title inlineblock">
+                		<span class="margin-right menu-list-name">사진</span>
+                	</div>
+                	<div id="newTutorImg" class="info-content inlineblock">
+                		<img src=" <%=request.getContextPath() %>/upload/<%=m.getProfileImg() %>">
+                	</div>
+                	<div class="inlineblock" style="margin-left: 10px;" id="uploadBtn-tutor">
+                        <input type="button" value="기본이미지" onclick="deleteTutorImg();">
+                        <input type="file" name="" id="" value="파일 선택" class="" width="">
                     </div>
-            </div>   
-            <div id="mypage-content" class="inlineblock">
-                <div class="">
-                    <img id="info-icon" src="<%=request.getContextPath() %>/img/setting.png" width="20px" height="20px" class="inlineblock" style="margin-bottom: 10px;">
-                    <h4 class="inlineblock" style="margin-bottom: 0;">정보수정</h4> 
                 </div>
-                <div class="line"></div>
-                <div style="margin-left: 80px;">
-                <div class="menu-margin margin-left" id="tutor-img" >
-                        <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock"><img id="deleteImg" src=" <%=request.getContextPath() %>/upload/<%=m.getProfileImg() %>"></div>
-                        <div class="inlineblock" style="margin-left: 10px;" id="uploadBtn-tutor">
-                            <input type="button" value="기본이미지" onclick="deleteImg();">
-                            <input type="file" name="" id="" value="파일 선택" class="" width="">
-                        </div>
+				<div class="menu-margin margin-left" id="tutor-email" >
+                    <div class="info-title inlineblock">
+                        <span class="margin-right menu-list-name">이메일</span>
                     </div>
-                    <div class="menu-margin margin-left" id="tutor-email" >
-                            <div class="info-title inlineblock">
-                                <span class="margin-right menu-list-name">이메일</span>
-                            </div>
-                            <div class="info-content inlineblock">
-                                <input type="text" readonly name="" placeholder="<%=m.getEmail()%>" class="placeholder-center" size="25">
-                            </div>
-                            <div class="inlineblock">
-                                <p class="guide">※ 아이디는 변경이 불가능합니다.</p>
-                            </div>
+                    <div class="info-content inlineblock">
+                        <input type="text" readonly name="" placeholder="<%=m.getEmail()%>" class="placeholder-center" size="25">
                     </div>
-                    <div class="menu-margin margin-left" id="tutor-name">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                            <div class="info-content inlineblock"><input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
+                    <div class="inlineblock">
+                        <p class="guide">※ 아이디는 변경이 불가능합니다.</p>
                     </div>
-                    <div class="menu-margin margin-left" id="tutor-beforePw">
-                        <div class="info-title inlineblock">
-                            <span class="margin-right menu-list-name">현재 비밀번호</span>
-                        </div>
-                        <div class="info-content inlineblock">
-                            <input type="password" name=""  class="placeholder-center " size="25">
-                        </div>
+                </div>
+                <div class="menu-margin margin-left" id="tutor-name">
+                    <div class="info-title inlineblock">
+                    	<span class="margin-right menu-list-name">이름</span>
                     </div>
-                    <div class="menu-margin margin-left" id="tutor-afterPw">
-                        <div class="info-title inlineblock">
-                            <span class="margin-right menu-list-name">새로운 비밀번호</span>
-                        </div>
-                        <div class="info-content inlineblock">
-                            <input type="password" name=""  class="placeholder-center " size="25">
-                        </div>
-                        <div class="inlineblock">
-                            <p class="guide">※ 대/소문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.</p>
-                        </div>
+                    <div class="info-content inlineblock">
+                    	<input type="text"  readonly name="" placeholder="<%=m.getMemberName() %>" class="placeholder-center" size="25">
                     </div>
-                    <div class="menu-margin margin-left" id="tutor-pwCheck">
-                        <div class="info-title inlineblock">
-                            <span class="margin-right menu-list-name">새로운 비밀번호 확인</span>
-                        </div>
-                        <div class="info-content inlineblock">
-                            <input type="password" name=""  class="placeholder-center " size="25">
-                        </div>
-                        <div class="inlineblock">
-                            <button onclick="" style="margin-left: 10px;">비밀번호 확인</button>
-                        </div>
-                    </div> 
-                    <div class="menu-margin margin-left" id="tutor-nick">
-                        <div class="info-title inlineblock">
-                            <span class="margin-right menu-list-name">닉네임</span>
-                        </div>
-                        <div class="info-content inlineblock">
-                            <input id="newnickname" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
-                        </div>
-                        <div class="inlineblock">
-                            <button id="nicknameDuplicate" style="margin-left: 10px;">닉네임 중복확인</button>
-                        </div>
-                        
-                    </div> 
-                    <div class="menu-margin margin-left" id="tutor-phone">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
-                            <div class="info-content inlineblock">
-                                <input type="text" name="" placeholder="<%=m.getPhone()%>" class="placeholder-center" size="25">
-                            </div>
-                    </div> 
-                    <div class="menu-margin margin-left" id="tutor-gender">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
-                            <div class="info-content inlineblock">
-                                <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
-                                <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
-                                <!--DB에서 남자면 여자 disabled 여자면 남자 disabled -->
-                            </div>
-                    </div> 
-                    <div class="menu-margin margin-left" id="tutor-marketing" >
-                          <div class="info-title inlineblock">
-                          		<span class="margin-right menu-list-name">마케팅 정보수신</span>
-                          </div>
-                          <div class="info-content inlineblock"></div>
-                          <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
-                          <%if(m.getMarketing()=='Y'){ %>
-                              <input type="checkbox" name="toggle1" id="toggle1" value="on"  checked>
-                              <label for="toggle1"></label>
-                          </div>
-                          <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
-                          <%}else{ %>
-                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" >
-                              <label for="toggle1"></label>
-	                       </div>
-	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
-                          <%} %>
-                    </div>  
+                </div>
+                <div class="menu-margin margin-left" id="tutor-beforePw">
+                    <div class="info-title inlineblock">
+                        <span class="margin-right menu-list-name">현재 비밀번호</span>
+                    </div>
+                    <div class="info-content inlineblock">
+                        <input type="password" name=""  class="placeholder-center " size="25" required>
+                    </div>
+                    <div class="inlineblock">
+                        <p class="guide">※ 현재 비밀번호를 꼭 입력한 뒤 정보수정이 가능합니다.</p>
+                    </div>
+                </div>
+                <div class="menu-margin margin-left" id="tutor-afterPw">
+                    <div class="info-title inlineblock">
+                        <span class="margin-right menu-list-name">새로운 비밀번호</span>
+                    </div>
+                    <div class="info-content inlineblock">
+                        <input type="password" name="" class="placeholder-center " size="25">
+                    </div>
+                    <div class="inlineblock">
+                        <p class="guide">※ 대/소문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.</p>
+                    </div>
+                </div>
+                <div class="menu-margin margin-left" id="tutor-pwCheck">
+                    <div class="info-title inlineblock">
+                        <span class="margin-right menu-list-name">새로운 비밀번호 확인</span>
+                    </div>
+                    <div class="info-content inlineblock">
+                        <input type="password" name="" class="placeholder-center " size="25">
+                    </div>
+                    <span id="pwCheckMsg"></span>
+                        <script>
+                        	$("#newPw").blur(e=>{
+                        		const str=/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{8,}$/;
+                        		let password=$("#newPw").val();
+                        		
+                        		if(!str.test(password)){                       				                       		
+                        			alert("영문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.");
+                        			$("#newPw").val('');
+                        			/* $("#newPw").focus(); */
+                        			
+                        		}else{
+                        			
+                        		}
+                        	});
+                        	$("#newPwCheck").blur(e=>{
+                        		if($("#newPw").val()==$("#newPwCheck").val()){
+                        			$("#pwCheckMsg").html("새로운 비밀번호 일치").css('color','green');
+                        		
+                        		}else{
+                        			$("#pwCheckMsg").html("새로운 비밀번호 불일치").css('color','red');
+                        		
+                        		}
+                        	});
+                        </script>  
+                </div> 
+                <div class="menu-margin margin-left" id="tutor-nick">
+                    <div class="info-title inlineblock">
+                        <span class="margin-right menu-list-name">닉네임</span>
+                    </div>
+                    <div class="info-content inlineblock">
+                        <input id="newnickname" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
+                    </div>
+                    <div class="inlineblock">
+                        <button id="nicknameDuplicate" style="margin-left: 10px;">닉네임 중복확인</button>
+                    </div>                        
+                </div> 
+                <div class="menu-margin margin-left" id="tutor-phone">
+                    <div class="info-title inlineblock">
+                    	<span class="margin-right menu-list-name">전화번호</span>
+                    </div>
+                    <div class="info-content inlineblock">
+                        <input type="text" name="" placeholder="<%=m.getPhone()%>" class="placeholder-center" size="25">
+                    </div>
+                </div> 
+                <div class="menu-margin margin-left" id="tutor-gender">
+                    <div class="info-title inlineblock">
+                    	<span class="margin-right menu-list-name ">성별</span>
+                    </div>
+                    <div class="info-content inlineblock">
+                        <label>남자<input value="man" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled checked></label>
+                        <label>여자<input value="woman" type="checkbox" name="gender" class="checkbox1" onclick="checkOnlyOne(this)" disabled></label>
+                        <!--DB에서 남자면 여자 disabled 여자면 남자 disabled -->
+                    </div>
+                </div> 
+                <div class="menu-margin margin-left" id="tutor-marketing" >
+                    <div class="info-title inlineblock">
+                     	<span class="margin-right menu-list-name">마케팅 정보수신</span>
+                    </div>
+                    <div class="info-content inlineblock"></div>
+                    <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+                    <%if(m.getMarketing()=='Y'){ %>
+                         <input type="checkbox" name="toggle1" id="toggle1" value="on"  checked>
+                         <label for="toggle1"></label>
+                    </div>
+                    <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                    <%}else{ %>
+                      	 <input type="checkbox" name="toggle1" id="toggle1" value="off" >
+                         <label for="toggle1"></label>
+	                </div>
+	                <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                    <%} %>
                 </div>
                 <div class="line"></div>
                 <div id="save-info">
                     <button onclick="updateMember();" id="saveBtn">저장하기</button>
-                </div>
-            </div>
-        </div>
-    </section>
+                </div>    
+			</div>
+		</div>
+	</div>
+</section>
 <%} %>
-
 <%@ include file="/views/common/footer.jsp"%>
  <script>
  
@@ -489,11 +495,47 @@
 	const deleteImg=()=>{
 		$("#newImg").find("img").attr("src","<%=request.getContextPath()%>/upload/userimg.png");		
 	}
-	/*  */
+	/* 튜터 기본이미지로 변경 */
+	const deleteTutorImg=()=>{
+		$("#newTutorImg").find("img").attr("src","<%=request.getContextPath()%>/upload/userimg.png");		
+	}
 	
+	/* 닉네임 중복확인 팝업창 - 유저 */
+   	$("#nickDuplicateBtn").click(e=>{
+   		let newNick=$("#newNick").val();
+   		
+   		var _left = Math.ceil(( window.screen.width - 500 )/2);
+   	    var _top = Math.ceil(( window.screen.height - 150 )/2);
+
+   		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
+   	});
 	
+   	/* 닉네임 중복확인 팝업창 - 튜터 */
+   	$("#nickDuplicateBtn").click(e=>{
+   		let newNick=$("#newNick").val();
+   		
+   		var _left = Math.ceil(( window.screen.width - 500 )/2);
+   	    var _top = Math.ceil(( window.screen.height - 150 )/2);
+
+   		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
+   	});
 	
- 	
+	/* 로케이션 팝업창 */
+   	$("#updateLocation").click(e=>{
+   		var _left = Math.ceil(( window.screen.width - 500 )/2);
+   	    var _top = Math.ceil(( window.screen.height - 500 )/2);
+   	
+   		open("<%=request.getContextPath()%>/member/popupLocation.do","_blank","width=500, height=500, left="+_left+", top="+_top);
+   	});
+
+   	/* 카테고리 팝업창 */
+  	$("#updateCategory").click(e=>{
+  		var _left = Math.ceil(( window.screen.width - 500 )/2);
+    	var _top = Math.ceil(( window.screen.height - 500 )/2);
+  	
+  		open("<%=request.getContextPath()%>/member/popupCategory.do","_blank","width=500, height=500, left="+_left+", top="+_top);
+  	});
+                       	
 	// 마이클래스 서브메뉴!!
    $("#sub-menu").hide();
    $(".nav-sub").mouseenter(e=>{
@@ -503,6 +545,7 @@
        $("#sub-menu").hide();
    });
    
+   /* 마케팅정보수신 글씨 띄우기 */
    const check=document.getElementById("toggle1");
 	if(check.checked){
 	        $("#onOff").html("on").css({"color":"#94D5DE","font-size":"15px", "font-weight":"bold"});
