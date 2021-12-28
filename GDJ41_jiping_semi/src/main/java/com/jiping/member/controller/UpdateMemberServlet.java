@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class UpdateMemberServlet
  */
-@WebServlet("/member/updateMember.do")
+@WebServlet(name="updateMember", urlPatterns={"/member/updateMember.do"})
 public class UpdateMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

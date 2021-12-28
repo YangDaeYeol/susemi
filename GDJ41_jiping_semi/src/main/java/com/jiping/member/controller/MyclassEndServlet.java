@@ -16,7 +16,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class MyclassEndServlet
  */
-@WebServlet("/member/myclassEnd.do")
+@WebServlet(name="endClassUser", urlPatterns={"/member/myclassEnd.do"})
 public class MyclassEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

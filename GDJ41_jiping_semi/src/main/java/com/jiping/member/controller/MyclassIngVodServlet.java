@@ -16,7 +16,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class MyclassIngVodServlet
  */
-@WebServlet("/member/myclassIngVod.do")
+@WebServlet(name="IngVod", urlPatterns={"/member/myclassIngVod.do"})
 public class MyclassIngVodServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

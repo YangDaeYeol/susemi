@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class NicknameDuplicateServlet
  */
-@WebServlet("/member/nicknameDuplicate.do")
+@WebServlet(name="nicknameDuplicate", urlPatterns={"/member/nicknameDuplicate.do"})
 public class NicknameDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

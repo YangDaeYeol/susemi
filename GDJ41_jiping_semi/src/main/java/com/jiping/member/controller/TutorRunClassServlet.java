@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class TutorRunClassServlet
  */
-@WebServlet("/member/tutorRunClass.do")
+@WebServlet(name="tutorRunClass", urlPatterns={"/member/tutorRunClass.do"})
 public class TutorRunClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

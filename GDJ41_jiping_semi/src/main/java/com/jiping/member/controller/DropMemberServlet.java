@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class DropMemberServlet
  */
-@WebServlet("/member/dropMember.do")
+@WebServlet(name="dromPage", urlPatterns={"/member/dropMember.do"})
 public class DropMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
