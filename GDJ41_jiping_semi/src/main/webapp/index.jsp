@@ -45,7 +45,7 @@
         		if(grade=="수강생" || grade=="") {
         			alert("튜터만 등록 할 수 있습니다.");
         		}else if(grade=="튜터") {
-        			 location.assign('<%= request.getContextPath() %>/enrolllecture');
+        			 location.assign('<%= request.getContextPath() %>/enrolllecture?nickName=<%= loginMember!=null?loginMember.getNickname():""%>');
         		}
         	}
         	$(()=> {
@@ -55,14 +55,15 @@
         			success : data => {
         				for(let i=0; i<data.length; i++) {
         					let con = data[i]
+        					console.log(con);
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
-	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] + "&lectureType="+ con["lectureType"]);
+	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] );
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
-	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbnail"]);
+	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbNail"]);
 	        				let div2 = $("<div>");
 	        				let div3 = $("<div>");
 	        				div3.attr("id","content-left");
@@ -82,7 +83,8 @@
 	        				let imgRate = $("<img>");
 	        				imgRate.attr({"src":"https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png","width":"80px","height":"20px"});
 	        				let span = $("<span>");
-	        				span.text(con["commentCount"]==0?"":con["commentCount"]);
+	        				span.text(con["commentCount"]==0?"":" (" + con["commentCount"] + ")");
+	        				span.css({"color":"orange","font-weight":"bold"});
 	        				div6.append(imgRate).append(span);
 	        				div3.append(div4).append(div5).append(div6)
 	        				let div7 = $("<div>");
@@ -112,14 +114,15 @@
         			success : data => {
         				for(let i=0; i<data.length; i++) {
         					let con = data[i]
+        					console.log(con);
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
-	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] + "&lectureType="+ con["lectureType"]);
+	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] );
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
-	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbnail"]);
+	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbNail"]);
 	        				let div2 = $("<div>");
 	        				let div3 = $("<div>");
 	        				div3.attr("id","content-left");
@@ -172,11 +175,12 @@
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
-	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] + "&lectureType="+ con["lectureType"]);
+<%-- 	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] + "&lectureType="+ con["lectureType"] );
+ --%>	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] );
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
-	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbnail"]);
+	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbNail"]);
 	        				let div2 = $("<div>");
 	        				let div3 = $("<div>");
 	        				div3.attr("id","content-left");

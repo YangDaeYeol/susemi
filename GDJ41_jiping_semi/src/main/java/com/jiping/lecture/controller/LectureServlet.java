@@ -58,6 +58,7 @@ public class LectureServlet extends HttpServlet {
 		
 //		vod
 		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
+		List<Payment> payList= new LectureService().payList(lectureNo);
 		
 		
 //		리뷰
@@ -75,13 +76,14 @@ public class LectureServlet extends HttpServlet {
 		request.setAttribute("m", m);
 		request.setAttribute("c", c);
 		request.setAttribute("lcList", lcList);
+		request.setAttribute("payList", payList);
 		
 		
-		if(lectureType.contains("원데이")) {
-			request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);			
-		} else if(lectureType.contains("VOD")) {
-			request.getRequestDispatcher("/views/lecture/vodLectureView.jsp").forward(request, response);
-		} 
+		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);			
+//		if(lectureType.contains("원데이")) {
+//		} else if(lectureType.contains("VOD")) {
+//			request.getRequestDispatcher("/views/lecture/vodLectureView.jsp").forward(request, response);
+//		} 
 
 		
 	}

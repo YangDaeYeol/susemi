@@ -67,7 +67,7 @@
 							<li>  
 	                           <a href="<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=<%= list.get(i).getLectureNo() %>&lectureType=<%= list.get(i).getLectureType() %>">
 	                               <div id="list-content">
-	                                   <img src="<%= request.getContextPath() %>/upload/<%= list.get(i).getThumbnail()%>">
+	                                   <img src="<%= request.getContextPath() %>/upload/<%= list.get(i).getThumbNail()%>">
 	                                   <div>
 	                                       <div id="content-left">
 	                                           <div id="title">
@@ -96,7 +96,7 @@
 						<li>  
                            <a href="<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=<%= list.get(i).getLectureNo() %>&lectureType=<%= list.get(i).getLectureType() %>">
                                <div id="list-content">
-                                   <img src="<%= request.getContextPath() %>/upload/<%= list.get(i).getThumbnail()%>">
+                                   <img src="<%= request.getContextPath() %>/upload/<%= list.get(i).getThumbNail()%>">
                                    <div>
                                        <div id="content-left">
                                            <div id="title">

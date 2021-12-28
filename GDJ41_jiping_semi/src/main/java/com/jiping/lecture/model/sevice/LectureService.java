@@ -110,10 +110,14 @@ public class LectureService {
 		return p;
 	}
 	
+
 	public int insertComment(LectureComment lc) {
 		Connection conn=getConnection();
 		int result= dao.insertComment(conn,lc);
-		if(result>0) commit(conn);
+		if(result>0) {
+			commit(conn);
+			int result2 =dao.addCommentCount(conn, lc.getLectureNo());
+		}
 		else rollback(conn);
 		close(conn);
 		return result;
@@ -126,7 +130,14 @@ public class LectureService {
 		return lc;
 	}
 	
+	public List<Payment> payList(int lectureNo){
+		Connection conn=getConnection();
+		List<Payment> p= dao.payList(conn, lectureNo);
+		close(conn);
+		return p;
+	}
 	
+
 //	-----------------------------------------------------------
 	
 	public int enrollLecture(Map lecture) {
@@ -134,31 +145,27 @@ public class LectureService {
 		Member m = (Member)lecture.get("member");
 		int result = dao.enrollTutorImage(conn, m);
 		if (result > 0) {
-			commit(conn);
 			Tutor t = (Tutor)lecture.get("tutor");
-			int result2 = dao.enrollTutorInformation(conn, t);
+			int result2 = dao.enrollTutorInformation(conn, t, m);
 			if (result2 > 0) {
-				commit(conn);
 				Certificate c = (Certificate)lecture.get("certificate");
-				int result3 = dao.enrollCertificateInformation(conn, c);
+				int result3 = dao.enrollCertificateInformation(conn, c, m);
 				if (result3 > 0) {
-					commit(conn);
 					Lecture l = (Lecture)lecture.get("lecture");
-					int result4 = dao.enrollLectureInoformation(conn, l);
+					int result4 = dao.enrollLectureInoformation(conn, l, m);
+					int seqNum=dao.selectLectureSeq(conn);
+					
 					if (result4 > 0) {
-						commit(conn);
 						LectureImg lImg = (LectureImg)lecture.get("lectureImg");
 						int result5 = 0;
 						String[] fileNameArray = lImg.getLectureFileName().split(",");
 						for (int i = 0; i < fileNameArray.length; i++) {
-							result5 = dao.enrollLectureImg(conn, lImg, fileNameArray[i]);
+							result5 = dao.enrollLectureImg(conn, seqNum, fileNameArray[i]);
 						}
 						if (result5 > 0) {
-							commit(conn);
 							LectureContent lc = (LectureContent)lecture.get("lectureContent");
-							int result6 = dao.enrollLectureContent(conn, lc);
+							int result6 = dao.enrollLectureContent(conn, lc, seqNum);
 							if (result6 > 0) {
-								commit(conn);
 								String[] classStartTime = (String[])lecture.get("classStartTime");
 								String[] classEndTime = (String[])lecture.get("classEndTime");
 								Date[] classDate = (Date[])lecture.get("classDate");
@@ -169,10 +176,11 @@ public class LectureService {
 									String[] vodTitle = (String[])lecture.get("vodTitle");
 									String[] vodClassInfo = (String[])lecture.get("vodClassinfo");
 									VodLecture vl = (VodLecture)lecture.get("vodLecture");
+									vl.setLectureNo(seqNum);
 									int result8 = 0;
 									for (int i = 0 ; i < 10; i++) {
 										if(vodUrlAddr[i] != null) {
-											result8 = dao.enrollVodLecture(conn, vodUrlAddr[i], vodTitle[i], vodClassInfo[i], vl);
+											result8 = dao.enrollVodLecture(conn, m, vodUrlAddr[i], vodTitle[i], vodClassInfo[i], vl);
 										}
 									}
 									if (result8 > 0) {
@@ -182,10 +190,10 @@ public class LectureService {
 									}
 									
 								} else  { //원데이 / 다회차를 선택했을경우에 이쪽에서 처리한다
-									
+									ls.setLectureNo(seqNum);
 									for (int i = 0; i < 10; i++) {
 										if (classStartTime[i] != null) {
-											result7 = dao.enrollLectureSchedule(conn, ls, classDate[i], classStartTime[i], classEndTime[i]);
+											result7 = dao.enrollLectureSchedule(conn, m, ls, classDate[i], classStartTime[i], classEndTime[i]);
 											}
 										}
 									if (result7 > 0) {
@@ -298,6 +306,23 @@ public class LectureService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+//	------------------------------------------------------------
+	public int deleteComment(int num) {
+		Connection conn=getConnection();
+		int result= dao.deleteComment(conn,num);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public List<Certificate> selectCertificate(String nickName) {
+		Connection conn = getConnection();
+		List<Certificate> list = dao.selectCertificate(conn, nickName);
+		close(conn);
+		return list;
 	}
 	
 }

@@ -182,7 +182,7 @@
 		const div=$($(".categorydiv")[0]).clone(true);
 		//$(div).change()
 		const addDiv=$(e.target).prev();
-		console.log(div.children()[2].style.display);
+		//console.log(div.children()[2].style.display);
 		
 		if(addDiv.children().length<2){
 			addDiv.append(div);

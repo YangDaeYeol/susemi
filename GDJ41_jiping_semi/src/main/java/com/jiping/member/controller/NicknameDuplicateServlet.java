@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class NicknameDuplicateServlet
  */
-@WebServlet("/member/nicknameDuplicate.do")
+@WebServlet(name="nicknameDuplicate", urlPatterns={"/member/nicknameDuplicate.do"})
 public class NicknameDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,12 +30,14 @@ public class NicknameDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String newNick = request.getParameter("newNick");
-		System.out.println(newNick);
-		
+		String newNick = request.getParameter("newNickname");
+		System.out.println("newNick : " + newNick);		
 		Member m=new MemberService().nicknameDuplicateCheck(newNick);
+		System.out.println(m);
+		request.setAttribute("newNick", newNick);
 		request.setAttribute("nickCheckMember", m);
-		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/nickDipulicate.jsp").forward(request, response);							
+		
 		
 		
 	}

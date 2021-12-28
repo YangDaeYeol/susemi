@@ -43,18 +43,24 @@ public class ReviewServlet extends HttpServlet {
 		int lev=Integer.parseInt(request.getParameter("level"));
 		String type=request.getParameter("lectureType");
 		
+		
+		//리뷰등록
 		LectureComment lc= LectureComment.builder().writer(writer).starRate(rating).commentContent(content)
 				.lectureNo(lecNo).commentRef(ref).commentLevel(lev).build();
 		
 		
 		int result= new LectureService().insertComment(lc);
+		
+		
 		String msg="";
-		String loc="/lecture/lecture.do?lectureNo="+lc.getLectureNo()+"&lectureType="+type;
+		String loc="/lecture/lecture.do?lectureNo="+lc.getLectureNo();
 		if(result>0) {
 			msg="리뷰를 등록하였습니다.";
 		}else {
 			msg="리뷰등록에 실패하였습니다.";
 		}
+		
+		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.setAttribute("lc", lc);

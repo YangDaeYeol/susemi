@@ -380,14 +380,13 @@ public class LectureDao {
 //	----------------------------------------------------------------
 	
 	public int enrollTutorImage (Connection conn, Member m) {
-		//to-do:이메일은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollTutorImg");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, m.getProfileImg());
-			//여기에 추가해야함
+			pstmt.setString(2, m.getEmail());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -397,18 +396,19 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollTutorInformation (Connection conn, Tutor t) {
-			//to-do:1. 닉네임받아오기. 2. 핸드폰 번호 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+	public int enrollTutorInformation (Connection conn, Tutor t, Member m) {
+
 			PreparedStatement pstmt = null;
 			int result = 0;
 			String sql = prop.getProperty("enrollTutorInformation");
 			try {
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, "myNickName");
-				pstmt.setString(2, t.getInsta());
-				pstmt.setString(3, t.getFacebook());
-				pstmt.setString(4, t.getBlog());
-				pstmt.setString(5, t.getTutorMsg());
+				pstmt.setString(1, m.getEmail());
+				pstmt.setString(2, m.getEmail());
+				pstmt.setString(3, t.getInsta());
+				pstmt.setString(4, t.getFacebook());
+				pstmt.setString(5, t.getBlog());
+				pstmt.setString(6, t.getTutorMsg());
 				result=pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -418,14 +418,14 @@ public class LectureDao {
 			return result;
 			
 		}
-	public int enrollCertificateInformation (Connection conn, Certificate c) {
-			//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 추가 필요 
+	public int enrollCertificateInformation (Connection conn, Certificate c, Member m) {
+			 
 			PreparedStatement pstmt=null;
 			int result = 0;
 			String sql=prop.getProperty("enrollCertificateInformation");
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "myNickName");
+				pstmt.setString(1, m.getNickname());
 				pstmt.setString(2, c.getCertificateText());
 				pstmt.setString(3, c.getCertificateImg());
 				result=pstmt.executeUpdate();
@@ -438,17 +438,20 @@ public class LectureDao {
 		
 		}
 	
-	public int enrollLectureInoformation (Connection conn, Lecture l) {
-		//to-do:닉네임은 세션에서 받아온 값으로 설정해야함. 추후 try문 setString.1 수정 필요 
+	public int enrollLectureInoformation (Connection conn, Lecture l, Member m) {
+		
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollLectureInformation");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "myNickName");
+			pstmt.setString(1, m.getNickname());
 			pstmt.setString(2, l.getLectureType());
 			pstmt.setString(3, l.getLectureCategory());
 			pstmt.setString(4, l.getLectureTitle());
+			pstmt.setInt(5, l.getPrice());
+			pstmt.setString(6, m.getProfileImg());
+			pstmt.setString(7, l.getThumbNail());
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -458,13 +461,13 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollLectureImg(Connection conn, LectureImg lImg, String fileNameArray) {
+	public int enrollLectureImg(Connection conn, int seqNum, String fileNameArray) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollLectureImg");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "myNickName");
+			pstmt.setInt(1, seqNum);
 			pstmt.setString(2, fileNameArray);
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -475,13 +478,13 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollLectureContent(Connection conn, LectureContent lc) {
+	public int enrollLectureContent(Connection conn, LectureContent lc, int seqNum) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollLectureContent");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "myNickName");
+			pstmt.setInt(1, seqNum);
 			pstmt.setString(2, lc.getLectureIntroduce());
 			pstmt.setString(3, lc.getRecommend());
 			pstmt.setString(4, lc.getCurriculum());
@@ -537,13 +540,13 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollLectureSchedule(Connection conn, LectureSchedule ls, Date onedayClassDate, String onedayClassStartTime, String onedayClassEndTime) {
+	public int enrollLectureSchedule(Connection conn, Member m, LectureSchedule ls, Date onedayClassDate, String onedayClassStartTime, String onedayClassEndTime) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollLectureSchedule");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "myNickName");
+			pstmt.setInt(1, ls.getLectureNo());
 			pstmt.setInt(2, ls.getLecturePrice());
 			pstmt.setInt(3, ls.getLecturePersons());
 			pstmt.setString(4, ls.getLectureLocation());
@@ -579,7 +582,7 @@ public class LectureDao {
 						.commentCount(rs.getInt("comment_count"))
 						.price(rs.getInt("price"))
 						.tutorImg(rs.getString("tutor_img"))
-						.thumbnail(rs.getString("thumbnail"))
+						.thumbNail(rs.getString("thumbnail"))
 						.build();
 				list.add(l);
 			}
@@ -611,7 +614,7 @@ public class LectureDao {
 						.commentCount(rs.getInt("comment_count"))
 						.price(rs.getInt("price"))
 						.tutorImg(rs.getString("tutor_img"))
-						.thumbnail(rs.getString("thumbnail"))
+						.thumbNail(rs.getString("thumbnail"))
 						.build();
 				list.add(l);
 			}
@@ -629,7 +632,7 @@ public class LectureDao {
 		ResultSet rs = null;
 		List<Lecture> list = new ArrayList<Lecture>();
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("everydayLectureList"));
+			pstmt = conn.prepareStatement(prop.getProperty("vodLectureList"));
 			pstmt.setString(1, "VOD");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -643,7 +646,7 @@ public class LectureDao {
 						.commentCount(rs.getInt("comment_count"))
 						.price(rs.getInt("price"))
 						.tutorImg(rs.getString("tutor_img"))
-						.thumbnail(rs.getString("thumbnail"))
+						.thumbNail(rs.getString("thumbnail"))
 						.build();
 				list.add(l);
 			}
@@ -679,7 +682,7 @@ public class LectureDao {
 						.commentCount(rs.getInt("comment_count"))
 						.price(rs.getInt("price"))
 						.tutorImg(rs.getString("tutor_img"))
-						.thumbnail(rs.getString("thumbnail"))
+						.thumbNail(rs.getString("thumbnail"))
 						.build();
 				list.add(l);
 			}
@@ -712,13 +715,13 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollVodLecture(Connection conn, String vodUrlAddr, String vodTitle, String vodClassInfo, VodLecture vl) {
+	public int enrollVodLecture(Connection conn, Member m, String vodUrlAddr, String vodTitle, String vodClassInfo, VodLecture vl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollVodLecture");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "myNickName");
+			pstmt.setInt(1, vl.getLectureNo());
 			pstmt.setString(2, vodUrlAddr);
 			pstmt.setInt(3, vl.getVodPrice());
 			pstmt.setString(4, vodTitle);
@@ -779,6 +782,7 @@ public class LectureDao {
 		}
 		return result;
 	}
+	
 	public int commentDelete(Connection conn, int commentNo) {
 		PreparedStatement pstmt = null;
 		int result=0;
@@ -796,6 +800,107 @@ public class LectureDao {
 		}
 		return result;
 	}
-		
+
+//	----------------------------------------------------------------
+	
+	public List<Payment> payList(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Payment> list= new ArrayList();
+		String sql= prop.getProperty("payList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Payment p= Payment.builder()
+						.lectureNo(rs.getInt("lecture_No")).email(rs.getString("email")).build();
+				list.add(p);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("dao:"+list);
+		return list;
+	}
+	
+//	---------------------------------------------------------------------------
+	
+	public int deleteComment(Connection conn, int num) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("Dao:"+result);
+		return result;
+	
+	}
+
+	public int addCommentCount(Connection conn, int lectureNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("addCommentCount"));
+			pstmt.setInt(1, lectureNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectLectureSeq(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("selectLectureSeq");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	public List<Certificate> selectCertificate(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Certificate> list = new ArrayList<Certificate>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectCertificate"));
+			pstmt.setString(1, nickName);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Certificate c = Certificate.builder()
+						.certificateText(rs.getString("certificate_text"))
+						.certificateImg("certificate_img")
+						.build();
+				list.add(c);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 }
 		

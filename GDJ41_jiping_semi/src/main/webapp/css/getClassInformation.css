@@ -246,10 +246,9 @@
         border-radius: 20px;
         padding: 1rem;
         margin-bottom: 30px;
-
         text-align: center;
-
         position: relative;
+        height: 60px;
     }
 
     input[type="radio"]:checked+label {

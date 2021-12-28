@@ -235,3 +235,8 @@ float: right;
     display: flex;
     justify-content: space-between;
 }
+
+.img-stars>img {
+    /* width: 90px; */
+    height: 15px;
+}
