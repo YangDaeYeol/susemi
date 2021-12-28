@@ -50,9 +50,8 @@
                         <div id="ing-class-list">
                         <%if(!list.isEmpty()){ %>    
 	                            <%for(int i=0; i<list.size(); i++){ %>
-		                            <%if(list.get(i).getLectureType().equals("원데이") || list.get(i).getLectureType().equals("다회차")){%>	
 		                            <div class="col inlineblock class-margin">
-		                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=<%=list.get(i).getLectureNo()%>&lectureType=<%=list.get(i).getLectureType()%>')">
+		                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=<%=list.get(i).getLectureNo()%>')">
 		                                    <img src="<%=request.getContextPath()%>/upload/<%=list.get(i).getThumbnail()%>" alt="2021-12-16-21-57-58" 
 		                                        height="150px" width="200px" ><br>
 		                                    <div id="title" style="font-size: 18px;"><%=list.get(i).getLectureTitle() %></div>
@@ -60,7 +59,6 @@
 		                                    <!-- <img src="https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png" alt="2021-12-16-21-58-12" width="80px" style="margin-right: 70px;"> -->		                                    
 		                                </div>                           
 		                            </div>
-		                            <%} %>                                                                                                              	
 	                            <%} %>
                         <%}else{ %>
                         		<p style="margin-top:50px;"><%=m.getNickname() %>님이 현재 수강중인 클래스가 없습니다.</p>

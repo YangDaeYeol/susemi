@@ -125,10 +125,15 @@
                     </div>                       
                 </div>
                 <button style="background-color: #94d5de; color:white; border: none; width: 120px; height: 30px; border-radius: 3px;"
-                                on>
-                    관심지역 선택
+                                onclick="saveCategoryBtn();">
+                    관심분야 저장
                 </button> 
+               <script>
+               		const saveCategoryBtn=()=>{
+               			
+               		}
                
+               </script>
             </div>                                   
         </div>           
     </div>

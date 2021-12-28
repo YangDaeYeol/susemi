@@ -3,8 +3,8 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	Member m=(Member)request.getAttribute("loginMember");
-	Member checkM=(Member)request.getAttribute("nickCheckMember");
-	System.out.println(m);
+	/* Member checkM=(Member)request.getAttribute("nickCheckMember");
+	System.out.println(m); */
 	
 	/* 관심분야 */	
 		String[] categories;
@@ -73,7 +73,7 @@
                 </div>
                 <div class="line"></div>
                 <div style="margin-left: 80px;">
-	            <form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMember.do" method="post">
+	            <form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMemberEnd.do" method="post">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
                         <div class="info-content inlineblock" id="newImg"><img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>"></div>
@@ -87,7 +87,7 @@
                                 <span class="margin-right menu-list-name">이메일</span>
                             </div>
                             <div class="info-content inlineblock">
-                                <input type="text" readonly name="" value="<%=m.getEmail() %>" class="placeholder-center" size="25">
+                                <input type="text" readonly name="email" value="<%=m.getEmail() %>" class="placeholder-center" size="25">
                             </div>
                             <div class="inlineblock">
                                 <p class="guide">※ 아이디(이메일)는 변경이 불가능합니다.</p>
@@ -190,7 +190,7 @@
 		                       <input type="text" readonly name="newLCategory"+<%=i%>" value="<%=largeCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                       <input type="text" readonly name="newSCategory"+<%=i%>" value="<%=smallCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                 	<%if(i==2){ %>	
-		                  		<button style="position:inlineblock;">관심분야 수정하기</button>    
+		                  		<button style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>    
 		                  		<%} %>              
 	                 		</div>
 	                  <%}%>	
@@ -204,7 +204,7 @@
 	                 		<div>
 		                        <input type="text" readonly name="newLCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                        <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 			<button>관심분야 수정하기</button>
+	                 			<button id="updateCategory">관심분야 수정하기</button>
 	                 		</div>
                   <%}else if(categories.length==1){ %>
                   		<div>
@@ -218,11 +218,21 @@
 	                 	<div>
 	                       <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                       <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 	   <button>관심분야 수정하기</button>
+	                 	   <button id="updateCategory">관심분야 수정하기</button>
 	                 	</div>
                   <%} %>                                                                                                                     
                         </div>
                     </div> 
+                    <script>
+                       	$("#updateCategory").click(e=>{
+                       		var _left = Math.ceil(( window.screen.width - 450 )/2);
+                    	    var _top = Math.ceil(( window.screen.height - 500 )/2);
+                       	
+                       		open("<%=request.getContextPath()%>/member/popupCategory.do","_blank","width=450, height=500, left="+_left+", top="+_top);
+                       	});
+                       	
+                       
+                    </script>
                     <div class="menu-margin margin-left" id="tutor-area">
                         <div class="info-title inlineblock" style="vertical-align: top; line-height: 150px">
                             <span class="margin-right menu-list-name">관심 지역</span>
@@ -234,7 +244,7 @@
 			                       <input type="text" readonly name="newLLocation+<%=i%>" value="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                       <input type="text" readonly name="newSLocation+<%=i%>" value="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                 		</div>
-					            <button>관심지역 수정하기</button>
+					            <button id="updateLocation">관심지역 수정하기</button>
 		                  <%}%>
 	                  
                   	  <%}else if(categories2.length==2){%>
@@ -247,7 +257,7 @@
 	                 		<div>
 		                       <input type="text" readonly name="newLLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                       <input type="text" readonly name="newSLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 		<button id="abc">관심지역 수정하기</button>
+		                 		<button id="updateLocation">관심지역 수정하기</button>
 	                 		</div>
 	                 	
 	                 		
@@ -263,10 +273,20 @@
 	                 	<div>
 	                       <input type="text" readonly name="newLLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 	                       <input type="text" readonly name="newSLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 	<button>관심지역 수정하기</button>
+		                 	<button id="updateLocation">관심지역 수정하기</button>
 	                 	</div>
                   	<%} %>                             
                         </div>
+                        <script>
+                        	$("#updateLocation").click(e=>{
+                        		var _left = Math.ceil(( window.screen.width - 450 )/2);
+                        	    var _top = Math.ceil(( window.screen.height - 500 )/2);
+                        	
+                        		open("<%=request.getContextPath()%>/member/popupLocation.do","_blank","width=450, height=500, left="+_left+", top="+_top);
+                        	});
+                        	
+                        
+                        </script>
                 </div>  
                     <div class="menu-margin margin-left" id="tutor-gender">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
@@ -287,7 +307,7 @@
                           <div class="info-content inlineblock"></div>
                           <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
                           <%if(m.getMarketing()=='Y'){ %>
-                              <input type="checkbox" name="toggle1" id="toggle1" value="on"  checked>
+                              <input type="checkbox" name="toggle1" id="toggle1" value="on" checked>                              
                               <label for="toggle1"></label>
                           </div>
                           <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
@@ -297,19 +317,36 @@
 	                       </div>
 	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
                           <%} %>
+                          <input type="hidden" id="marketing" name="marketing" value="<%=m.getMarketing() %>">
                     </div>
+                     <script>
+                     	$("input[type=checkbox]").change(e=>{                    		
+                     		let marketing=$(e.target);
+                     		if(marketing.is(':checked')){
+                     			/* console.log("확인용Y") */
+                     			$("#marketing").val('Y');
+                     		}else{
+                     			/* console.log("확인용N") */
+                     			$("#marketing").val('N');
+                     		}                    		
+                     	})
+                     	
                      
+                     </script>
                 </div>
                 
                 <div class="line"></div>
                 <div id="save-info">
                     <button type="submit" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
                 </div>
-                </form>
-                
+                </form>               
             </div>
         </div>
     </section>
+    <script>
+    	
+    
+    </script>
 <!-- 튜터	정보수정페이지 -->
 <%}else{ %>
 	<section id="sectionMargin">

@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.jiping.lecture.model.vo.Lecture" %>    
-<%
-	
+<%	
 	Member m=(Member)request.getAttribute("loginMember");
 	List<Lecture> list=(List)request.getAttribute("lectureList");
 	int count=(int)request.getAttribute("count");
-
 
 %>
 <%@ include file="/views/common/header.jsp"%>
@@ -48,9 +46,8 @@
                         <div id="ing-class-list">
                         <%if(!list.isEmpty()){ %> 
                         	 <%for(int i=0; i<list.size(); i++){ %>
-                        	  	  <%if(list.get(i).getLectureType().equals("VOD")){%>	
 			                            <div class="col inlineblock class-margin">
-			                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=<%=list.get(i).getLectureNo()%>&lectureType=<%=list.get(i).getLectureType()%>')" >
+			                                <div class="class-hover" onclick="location.assign('<%=request.getContextPath()%>/lecture/lecture.do?lectureNo=<%=list.get(i).getLectureNo()%>')" >
 			                                    <img src="<%=request.getContextPath()%>/upload/<%=list.get(i).getThumbnail()%>" alt="2021-12-16-21-57-58" 
 			                                        height="150px" width="200px" ><br>
 			                                    <div id="title" style="font-size: 18px;"><%=list.get(i).getLectureTitle() %></div>
@@ -59,10 +56,8 @@
 			                                </div>    
 			                                <button class="class-infoBtn" onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=16')">강의실 입장</button>                               
 			                            </div>
-                            	  <%} %>                                                                                                              	
 	                         <%} %>
-                        <%}else{ %>
-                        		
+                        <%}else{ %>                       		
                         	   <p style="margin-top:50px;"><%=m.getNickname() %>님이 현재 수강중인 클래스가 없습니다.</p>
                        	<%} %>                                                                                 
                         </div>

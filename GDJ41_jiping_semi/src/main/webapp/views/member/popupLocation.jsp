@@ -29,26 +29,26 @@
                    <div class="location-container">						
 					<div class="locationdiv">
 						<div id="nsdiSearchForm" class="form_data pb-1">
-							<select id="sido_code1" class="form-select">
+							<select id="sido_code1" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
-							<select id="sigoon_code1" class="form-select">
+							<select id="sigoon_code1" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
 						</div>
-						<div id="nsdiSearchForm2" class="form_data pb-1 pt-1">
-							<select id="sido_code2" class="form-select">
+						<div id="nsdiSearchForm2" class="form_data pb-1 pt-1" >
+							<select id="sido_code2" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
-							<select id="sigoon_code2" class="form-select">
+							<select id="sigoon_code2" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
 						</div>
 						<div id="nsdiSearchForm3" class="form_data pb-1">
-							<select id="sido_code3" class="form-select">
+							<select id="sido_code3" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
-							<select id="sigoon_code3" class="form-select">
+							<select id="sigoon_code3" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
 						</div>

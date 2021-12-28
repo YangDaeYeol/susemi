@@ -392,5 +392,30 @@ public class MemberDao {
 		}
 		return count;
 	}
+
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updateMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, m.getProfileImg());
+			pstmt.setString(2, m.getPassword());
+			pstmt.setString(3, m.getNickname());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getMemberLocation());
+			pstmt.setString(6, m.getMemberCategory());
+			pstmt.setString(7, String.valueOf(m.getMarketing()));
+			pstmt.setString(8, m.getEmail());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	
 }

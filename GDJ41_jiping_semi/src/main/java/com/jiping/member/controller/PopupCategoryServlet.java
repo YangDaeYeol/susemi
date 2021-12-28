@@ -1,27 +1,23 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.member.model.service.MemberService;
-import com.jiping.member.model.vo.Member;
-
 /**
- * Servlet implementation class UpdateMemberServlet
+ * Servlet implementation class PopupCategoryServlet
  */
-@WebServlet(name="updateMember", urlPatterns={"/member/updateMember.do"})
-public class UpdateMemberServlet extends HttpServlet {
+@WebServlet("/member/popupCategory.do")
+public class PopupCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateMemberServlet() {
+    public PopupCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +26,7 @@ public class UpdateMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email=request.getParameter("email");
-		Member m=new MemberService().selectMember(email);
-		
-		request.setAttribute("loginMember", m);
-		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/popupCategory.jsp").forward(request, response);
 	}
 
 	/**
