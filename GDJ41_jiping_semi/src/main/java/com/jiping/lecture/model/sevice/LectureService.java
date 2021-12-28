@@ -113,7 +113,10 @@ public class LectureService {
 	public int insertComment(LectureComment lc) {
 		Connection conn=getConnection();
 		int result= dao.insertComment(conn,lc);
-		if(result>0) commit(conn);
+		if(result>0) {
+			commit(conn);
+			int result2 =dao.addCommentCount(conn, lc.getLectureNo());
+		}
 		else rollback(conn);
 		close(conn);
 		return result;

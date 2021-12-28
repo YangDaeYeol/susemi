@@ -778,6 +778,20 @@ public class LectureDao {
 		}
 		return result;
 	}
-		
+	
+	public int addCommentCount(Connection conn, int lectureNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("addCommentCount"));
+			pstmt.setInt(1, lectureNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
 		
