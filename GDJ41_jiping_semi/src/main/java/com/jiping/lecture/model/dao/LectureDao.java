@@ -744,6 +744,7 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureComment reportCommentList = LectureComment.builder()
 						.lectureNo(rs.getInt("lecture_no"))
+						.commentNo(rs.getInt("comment_no"))
 						.writer(rs.getString("writer"))
 						.lectureTitle(rs.getString("lecture_title"))
 						.commentContent(rs.getString("comment_content"))
@@ -774,6 +775,23 @@ public class LectureDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	public int commentDelete(Connection conn, int commentNo) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("commentDelete");
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		return result;

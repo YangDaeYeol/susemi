@@ -20,7 +20,7 @@
                                 <th scope="col">닉네임</th>
                                 <th scope="col">클래스명</th>
                                 <th scope="col">신고댓글내용</th>
-                                <th scope="col">처리</th>
+                                <th scope="col" colspan="2">처리</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -31,7 +31,10 @@
                                 <td><a href="<%=request.getContextPath()%>/admin/lecture.do?lectureNo=<%=reportCommentList.get(i).getLectureNo()%>" style="color:black"><%=reportCommentList.get(i).getLectureTitle()%></a></td>
                                 <td><%=reportCommentList.get(i).getCommentContent()%></td>
                                 <td>
-                                    <button>삭제</button>
+                                    <button onclick="open_win('<%=request.getContextPath() %>/admin/adminCommentDetail?comment_no=<%=reportCommentList.get(i).getCommentNo() %>')">신고 사유</button>
+                                </td>
+                                <td>
+                                    <button onclick="location.assign('<%=request.getContextPath()%>/admin/adminCommentDelete?comment_no=<%=reportCommentList.get(i).getCommentNo() %>')">삭제</button>
                                 </td>
                               </tr>
                               <%} %>
@@ -46,6 +49,13 @@
                     </div>    
             </div>
         </section>
+<script>
+function open_win(url) {
+
+	window.open(url,"_blank", "width=500, height=230");
+
+}   //url로 가서 창만들어라
+</script>        
 <%@ include file="/views/common/footer.jsp"%>
 <!-- <script>
 	//마이클래스 서브메뉴!!

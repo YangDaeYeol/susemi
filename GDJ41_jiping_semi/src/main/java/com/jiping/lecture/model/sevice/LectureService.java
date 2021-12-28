@@ -285,6 +285,17 @@ public class LectureService {
 	public int searchResultCount(String keyword) {
 		Connection conn = getConnection();
 		int result = dao.searchResultCount(conn, keyword);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int commentDelete(int commentNo) {
+		Connection conn = getConnection();
+		int result= dao.commentDelete(conn, commentNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}
