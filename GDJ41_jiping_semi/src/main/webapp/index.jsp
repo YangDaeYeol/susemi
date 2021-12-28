@@ -45,7 +45,7 @@
         		if(grade=="수강생" || grade=="") {
         			alert("튜터만 등록 할 수 있습니다.");
         		}else if(grade=="튜터") {
-        			 location.assign('<%= request.getContextPath() %>/enrolllecture');
+        			 location.assign('<%= request.getContextPath() %>/enrolllecture?nickName=<%= loginMember!=null?loginMember.getNickname():""%>');
         		}
         	}
         	$(()=> {
@@ -55,6 +55,7 @@
         			success : data => {
         				for(let i=0; i<data.length; i++) {
         					let con = data[i]
+        					console.log(con);
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
@@ -62,7 +63,7 @@
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
-	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbnail"]);
+	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbNail"]);
 	        				let div2 = $("<div>");
 	        				let div3 = $("<div>");
 	        				div3.attr("id","content-left");
@@ -113,6 +114,7 @@
         			success : data => {
         				for(let i=0; i<data.length; i++) {
         					let con = data[i]
+        					console.log(con);
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
@@ -120,7 +122,7 @@
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
-	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbnail"]);
+	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbNail"]);
 	        				let div2 = $("<div>");
 	        				let div3 = $("<div>");
 	        				div3.attr("id","content-left");
@@ -177,7 +179,7 @@
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
-	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbnail"]);
+	        				imgSum.attr("src","<%= request.getContextPath() %>/upload/" + con["thumbNail"]);
 	        				let div2 = $("<div>");
 	        				let div3 = $("<div>");
 	        				div3.attr("id","content-left");

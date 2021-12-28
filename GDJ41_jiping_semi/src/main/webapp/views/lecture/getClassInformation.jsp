@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
+<%@ page import="com.jiping.tutor.model.vo.*" %>
+<%
+	Tutor t = (Tutor)request.getAttribute("tutor"); 
+	List<Certificate> list = (List)request.getAttribute("certificate");
+	Certificate[] cerArray = new Certificate[5];
+	for(int i=0; i<list.size(); i++) {
+		cerArray[i] = list.get(i);
+	}
+%>
 <body>
 	<div id="container">
 		<%@ include file="/views/common/header.jsp"%>
@@ -78,9 +85,14 @@
 														gif, jpeg, jpg만 가능)</div>
 
 													<div class="image-upload">
-														<label for="file-input"> <img
-															src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png" id="imgTest"
+														<label for="file-input">
+														<% if(!loginMember.getProfileImg().equals("userimg.png")) {%>
+														 <img src="<%= request.getContextPath() %>/upload/<%= loginMember.getProfileImg() %>" id="imgTest"
 															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
+														<% }else { %>
+														<img src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png" id="imgTest"
+															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
+														<% } %>
 														</label> <input id="file-input" name="tutorImgFile" type="file"
 															accept="image/png, image/gif, image/jpeg, image/jpg">
 													</div>
@@ -89,7 +101,7 @@
 													<div id="tutorComment">
 														<textarea name="tutorComment" cols="58" rows="5"
 														id="tutorIntroduction"
-														onkeyup="limit500(event, 'introlimit')" ></textarea>
+														onkeyup="limit500(event, 'introlimit')" ><%= t!=null?t.getTutorMsg():"" %></textarea>
 														<div id="introlimit">(0/500)</div>
 													</div>
 
@@ -102,7 +114,7 @@
 																src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
 																alt="instagram" class="socialImg" width="18px"
 																height="18px"><input type="text" name="instaAddr"
-																placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
+																placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox" value="<%= t!=null?t.getInsta():"" %>">
 														</div>
 														<div id="facebook">
 															<img
@@ -110,13 +122,13 @@
 																alt="facebook" class="socialImg" width="18px"
 																height="18px"><input type="text"
 																name="facebookAddr" placeholder="페이스북 주소를 입력해주세요"
-																class="snsInputBox">
+																class="snsInputBox" value="<%= t!=null?t.getFacebook():"" %>">
 														</div>
 														<div id="blog">
 															<img src="https://www.coolstay.co.kr/img/main/naver.png"
 																alt="blog" class="socialImg" width="18px" height="18px"><input
 																type="text" name="blogAddr" placeholder="블로그 주소를 입력해주세요"
-																class="snsInputBox">
+																class="snsInputBox" value="<%= t!=null?t.getBlog():"" %>">
 														</div>
 													</div>
 													
@@ -128,7 +140,7 @@
 															<div class="image-career" id="image-career1">
 																<input type="text" name="text-career1"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[0]!=null?cerArray[0].getCertificateText():"" %>"> <label
 																	class='fileCareerFileInputLabel' for="file-career1">
 
 																	<img
@@ -136,14 +148,14 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage" />
 																</label> <input id="file-career1" name="file-career1"
-																	type="file"
+																	type="file" value="<%= cerArray[0]!=null?cerArray[0].getCertificateImg():"" %>"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
 															</div>
 
 															<div class="image-career" id="image-career2">
 																<input type="text" name="text-career2"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[1]!=null?cerArray[1].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career2">
 
 																	<img
@@ -151,13 +163,13 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career2" name="file-career2"
+																</label> <input id="file-career2" name="file-career2" value="<%= cerArray[1]!=null?cerArray[1].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 															<div class="image-career" id="image-career3" style="display:none;">
 																<input type="text" name="text-career3"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[2]!=null?cerArray[2].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career3">
 
 																	<img
@@ -165,13 +177,13 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career3" name="file-career3"
+																</label> <input id="file-career3" name="file-career3" value="<%= cerArray[2]!=null?cerArray[2].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 															<div class="image-career" id="image-career4" style="display:none;">
 																<input type="text" name="text-career4"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[3]!=null?cerArray[3].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career4">
 
 																	<img
@@ -179,13 +191,13 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career4" name="file-career4"
+																</label> <input id="file-career4" name="file-career4" value="<%= cerArray[3]!=null?cerArray[3].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 															<div class="image-career" id="image-career5" style="display:none;">
 																<input type="text" name="text-career5"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[4]!=null?cerArray[4].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career5">
 
 																	<img
@@ -193,7 +205,7 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career5" name="file-career5"
+																</label> <input id="file-career5" name="file-career5" value="<%= cerArray[4]!=null?cerArray[4].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 

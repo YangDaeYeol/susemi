@@ -814,5 +814,28 @@ public class LectureDao {
 		}return result;
 	}
 	
+	public List<Certificate> selectCertificate(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Certificate> list = new ArrayList<Certificate>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectCertificate"));
+			pstmt.setString(1, nickName);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Certificate c = Certificate.builder()
+						.certificateText(rs.getString("certificate_text"))
+						.certificateImg("certificate_img")
+						.build();
+				list.add(c);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 }
 		

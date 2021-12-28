@@ -291,4 +291,11 @@ public class LectureService {
 		return result;
 	}
 	
+	public List<Certificate> selectCertificate(String nickName) {
+		Connection conn = getConnection();
+		List<Certificate> list = dao.selectCertificate(conn, nickName);
+		close(conn);
+		return list;
+	}
+	
 }
