@@ -902,5 +902,6 @@ public class LectureDao {
 		}
 		return list;
 	}
+	
 }
 		

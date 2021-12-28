@@ -35,15 +35,8 @@ public class AdminGoToLecture extends HttpServlet {
 		int lectureNo = Integer.parseInt(request.getParameter("lectureNo"));
 		System.out.println(lectureNo);
 		Lecture lecture= new LectureService().lectureInfo(lectureNo);
-		String lectureType="";
-		switch(lecture.getLectureType()) {
-			case "원데이": lectureType="원데이"; break;
-			case "다회차": lectureType="다회차"; break;
-			case "VOD": lectureType="VOD"; break;
-		}
-		request.setAttribute("lectureType",lectureType);
-		System.out.println(lectureType);
-		request.getRequestDispatcher("/lecture/lecture.do?lectureNo="+lectureNo+"&lectureType="+lectureType).forward(request, response);
+		
+		request.getRequestDispatcher("/lecture/lecture.do?lectureNo="+lectureNo).forward(request, response);
 	}
 
 	/**
