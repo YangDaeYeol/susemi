@@ -10,6 +10,7 @@ import static com.jiping.common.JDBCTemplate.commit;
 import java.sql.Connection;
 import java.util.List;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.dao.MemberDao;
 import com.jiping.member.model.vo.Member;
 
@@ -85,6 +86,38 @@ public class MemberService {
 		Member m=dao.nicknameDuplicateCheck(conn, newNick);
 		close(conn);
 		return m;
+	}
+
+
+	public List<Member> normalMemberList(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Member> normalMemberList= dao.normalMemberList(conn,cPage,numPerPage);
+		close(conn);
+		return normalMemberList;
+	}
+
+
+	public List<Member> tutorList(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<Member> tutorList= dao.tutorList(conn,cPage,numPerPage);
+		close(conn);
+		return tutorList;
+	}
+
+
+	public int selectNormalMemberAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectNormalMemberAllCount(conn);
+		close(conn);
+		return result;
+	}
+
+
+	public int selectTutorAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectTutorAllCount(conn);
+		close(conn);
+		return result;
 	}
 
 }

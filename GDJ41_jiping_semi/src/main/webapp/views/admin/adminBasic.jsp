@@ -1,23 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
-	<section id="sectionMargin">
-            <div id="mypage-container" class="flex">
-                <div class=" inlineblock overflow" id="mypage-menu">          
-                    <h3>MANAGER</h3>                           
-                    <div class="" id="my-menu" >
-                        <ul id="menu-list">
-                            <nav class="nav-sub">
-                                <li ><a href="">· 클래스관리</a></li>
-                                <ul id="sub-menu">
-                                    <li><a href="<%=request.getContextPath()%>/admin/adminClassAppr">- 클래스 승인</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/views/admin/adminClassDrop.jsp">- 클래스 삭제</a></li>
-                                </ul>
-                            </nav>
-                            <li><a href="<%=request.getContextPath()%>/views/admin/adminComment.jsp">· 댓글 관리</a></li>
-                        </ul>                  
-                    </div>
-                </div>   
+<%@ include file="/views/admin/adminCommonMenu.jsp"%>
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">
                         <img src="<%=request.getContextPath() %>/img/management.png" alt="" width="30px" height="30px">
@@ -38,7 +22,7 @@
 
 
 <%@ include file="/views/common/footer.jsp"%>
-<script>
+<!-- <script>
  	// 마이클래스 서브메뉴!!
     $("#sub-menu").hide();
     $(".nav-sub").mouseenter(e=>{
@@ -47,4 +31,4 @@
     $(".nav-sub").mouseleave(e=>{
         $("#sub-menu").hide();
     });        
-</script>
+</script> -->

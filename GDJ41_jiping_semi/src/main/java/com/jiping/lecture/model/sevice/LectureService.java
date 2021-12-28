@@ -238,6 +238,21 @@ public class LectureService {
 		close(conn);
 		return result;
 	}
+
+	public List<LectureComment> reportCommentList(int cPage, int numPerPage) {
+		Connection conn=getConnection();
+		List<LectureComment> reportCommentList= dao.reportCommentList(conn,cPage,numPerPage);
+		close(conn);
+		return reportCommentList;
+	}
+
+	public int selectReportCommetAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectReportCommetAllCount(conn);
+		close(conn);
+		return result;
+	}
+
 	
 	public List<Lecture> onedayLectureList() {
 		Connection conn = getConnection();
@@ -273,4 +288,5 @@ public class LectureService {
 		close(conn);
 		return result;
 	}
+	
 }
