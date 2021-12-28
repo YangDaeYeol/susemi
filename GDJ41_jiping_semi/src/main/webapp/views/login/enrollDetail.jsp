@@ -65,6 +65,32 @@
 				<button class="w-100 btn btn-lg btn_mint mt-2" id="categoryinsert" type="button">추가</button>
 				<% } %>
 			</div>
+			<div id="hiddenOption" style="display:none">
+				<select>
+					<option value="0" selected="selected">소분류</option>
+					<!-- 취미/공예 -->
+					<option value="picture" class="sc1">사진/미술</option>
+					<option value="drawing" class="sc1">드로잉</option>
+					<option value="cooking" class="sc1">요리/베이킹</option>
+					<option value="music" class="sc1">음악</option>
+					<!-- 액티비티 -->
+					<option value="dance" class="sc2">댄스/무용</option>
+					<option value="act" class="sc2">연기</option>
+					<option value="sports" class="sc2">스포츠/레저</option>
+					<option value="exotic_sports" class="sc2">이색 액티비티</option>
+					<!-- 커리어 -->
+					<option value="competency" class="sc3">업무 역량</option>
+					<option value="marketing" class="sc3">마케팅</option>
+					<option value="programming" class="sc3">프로그래밍</option>
+					<option value="certificate" class="sc3">자격증/시험</option>
+					<option value="employment" class="sc3">취업/이직/진로</option>
+					<!-- 디자인 -->
+					<option value="architecturalD" class="sc4">건축</option>
+					<option value="graphicD" class="sc4">그래픽 디자인</option>
+					<option value="productD" class="sc4">제품 디자인</option>
+					<option value="videoD" class="sc4">영상 편집/제작</option>
+				</select>
+			</div>	
 			<!-- 지역 -->
 			<!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
 			<div class="location-container">
@@ -151,24 +177,38 @@
 		}
 	});
 
-	//관심 분야 선택 스크립트
-	let categoryNum = 0;
+	//관심지역 버튼 누를떄 복사 되는 기능
 	$("#categoryinsert").click(e=>{
-		const div=$(".categorydiv").clone();
-		console.log(div.find("#smallCategory").val());
-		categoryNum++;
-		if(categoryNum<2){
-			div.removeClass("categorydiv").addClass("categorydiv"+categoryNum);
-			div.find("select[name=largeCategory]").attr("name","largeCategory" + categoryNum)
-			div.find("select[name=smallCategory]").attr("name","smallCategory" + categoryNum)
-			$(".categoryAddDiv").append(div);
+		const div=$($(".categorydiv")[0]).clone(true);
+		//$(div).change()
+		const addDiv=$(e.target).prev();
+		console.log(div.children()[2].style.display);
+		
+		if(addDiv.children().length<2){
+			addDiv.append(div);
+			div.children()[2].style.display="inline";
 		}else{
-			div.removeClass("categorydiv").addClass("categorydiv"+categoryNum);
-			div.find("select[name=largeCategory]").attr("name","largeCategory" + categoryNum)
-			div.find("select[name=smallCategory]").attr("name","smallCategory" + categoryNum)
-			$(".categoryAddDiv").append(div);
-			$("#categoryinsert").addClass("d-none");
+			alert("3개까지만 작성이 가능합니다");
 		}
+	})
+	//카테고리 대분류 소분류 가동 스크립트
+
+	function update_selected(e) {
+		const smallCategory=$("#hiddenOption>select>option").clone();
+		//console.log(smallCategory);
+		//console.log($(e.target));//대분류
+		$(e.target).next().html(smallCategory[0]);
+		smallCategory.each((i,v)=>{
+			v.className.includes(e.target.value)&&$(e.target).next().append(v);
+		});
+	}
+	$(function() {
+		$("#largeCategory").change(update_selected);
+		$("#largeCategory").change();
+	});	
+
+	$("#delete_btn").click(e=>{
+		$(e.target).parent().detach();
 	})
 
 	//관심 지역 선택 스크립트
@@ -182,24 +222,6 @@
 			$("#locationinsert").addClass("d-none");
 		}
 	})
-
-	//카테고리 대분류 소분류 가동 스크립트
-	var categories = false;
-
-	function update_selected() {
-	$("#smallCategory").val(0);
-	$("#smallCategory").find("option[value!=0]").detach();
-
-	$("#smallCategory").append(categories.filter(".sc" + $(this).val()));
-	}
-
-	$(function() {
-	categories = $("#smallCategory").find("option[value!=0]");
-	categories.detach();
-
-	$("#largeCategory").change(update_selected);
-	$("#largeCategory").trigger("change");
-	});
 
 	//주소 api
 	$(function(){
