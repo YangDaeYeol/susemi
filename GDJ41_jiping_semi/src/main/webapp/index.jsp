@@ -175,8 +175,7 @@
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
-<%-- 	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] + "&lectureType="+ con["lectureType"] );
- --%>	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] );
+	        				a.attr("href","<%= request.getContextPath() %>/lecture/lecture.do?lectureNo=" + con["lectureNo"] );
 	        				let div = $("<div>");
 	        				div.attr("id","list-content");
 	        				let imgSum = $("<img>");
