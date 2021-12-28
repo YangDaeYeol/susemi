@@ -461,13 +461,13 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollLectureImg(Connection conn, Member m, String fileNameArray) {
+	public int enrollLectureImg(Connection conn, int seqNum, String fileNameArray) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollLectureImg");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getNickname());
+			pstmt.setInt(1, seqNum);
 			pstmt.setString(2, fileNameArray);
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -478,13 +478,13 @@ public class LectureDao {
 		return result;
 	}
 	
-	public int enrollLectureContent(Connection conn, LectureContent lc, Member m) {
+	public int enrollLectureContent(Connection conn, LectureContent lc, int seqNum) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("enrollLectureContent");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getNickname());
+			pstmt.setInt(1, seqNum);
 			pstmt.setString(2, lc.getLectureIntroduce());
 			pstmt.setString(3, lc.getRecommend());
 			pstmt.setString(4, lc.getCurriculum());
@@ -546,7 +546,7 @@ public class LectureDao {
 		String sql = prop.getProperty("enrollLectureSchedule");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getNickname());
+			pstmt.setInt(1, ls.getLectureNo());
 			pstmt.setInt(2, ls.getLecturePrice());
 			pstmt.setInt(3, ls.getLecturePersons());
 			pstmt.setString(4, ls.getLectureLocation());
@@ -721,11 +721,11 @@ public class LectureDao {
 		String sql = prop.getProperty("enrollVodLecture");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, m.getNickname());
-			pstmt.setString(2, vodUrlAddr);
-			pstmt.setInt(3, vl.getVodPrice());
-			pstmt.setString(4, vodTitle);
-			pstmt.setString(5, vodClassInfo);
+			pstmt.setInt(1, vl.getLectureNo());
+			pstmt.setString(1, vodUrlAddr);
+			pstmt.setInt(2, vl.getVodPrice());
+			pstmt.setString(3, vodTitle);
+			pstmt.setString(4, vodClassInfo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -781,6 +781,24 @@ public class LectureDao {
 		}
 		return result;
 	}
-		
+	public int selectLectureSeq(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("selectLectureSeq");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
 }
 		

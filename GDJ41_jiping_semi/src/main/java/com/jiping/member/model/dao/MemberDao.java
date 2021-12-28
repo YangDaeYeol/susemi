@@ -339,4 +339,29 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	public Member findPhoneNumber(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql=prop.getProperty("findPhoneNumber");
+		Member m2 = null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, m.getEmail());
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m2 =Member.builder()
+						.phone(rs.getString("phone"))
+						.build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m2;			
+	}
+	
+	
 }

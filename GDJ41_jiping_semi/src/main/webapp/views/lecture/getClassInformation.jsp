@@ -8,7 +8,7 @@
 		<link rel="stylesheet"
 			href="<%=request.getContextPath() %>/css/getClassInformation.css">
 		<section> 
-
+<%if (!(loginMember==null)) {%>
 
 			<div class="bs-stepper">
 				<div class="mainContents">
@@ -614,7 +614,7 @@
 												<div style="display: flex;">
 													<button class="pageBtn" style="margin-right: 5px;"
 														onclick="stepper1.previous()">이전</button>
-													<button type="submit" class="pageBtn" id="submitAllInfo"
+													<button type="button" class="pageBtn" id="submitAllInfo"
 														onclick="toSubmit()">제출</button>
 												</div>
 											</div>
@@ -630,6 +630,9 @@
 					</div>
 				</div>
 			</div>
+			<%} else { %>
+		 	튜터로 로그인 한 후 이용 가능합니다.
+		 	<%} %>
 		</section>
 		<%@ include file="/views/common/footer.jsp"%>
 	</div>
@@ -1265,26 +1268,27 @@
    		   }
     	   
     	    
-	    	   $.ajax({             
-	    	   	type: "POST",          
-	    	       enctype: 'multipart/form-data',  
-	    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
-	    	       data: frm,          
-	    	       processData: false,    
-	    	       contentType: false,      
-	    	       cache: false,           
-	    	       timeout: 600000,       
-	    	       success: function (frm) { 
-	    	    	   Swal.fire('클래스 등록 승인결과는 마이 페이지에서 확인 가능합니다')         
-	    	       	$("#btnSubmit").prop("disabled", false);      
-	    	       },          
-	    	       error: function (e) {  
-	    	       	console.log("ERROR : ", e);     
-	    	           $("#btnSubmit").prop("disabled", false);    
-	    	           alert("fail");      
-	    	        }     
+    	   $.ajax({             
+    	   	   type: "POST",          
+    	       enctype: 'multipart/form-data',  
+    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
+    	       data: frm,          
+    	       processData: false,    
+    	       contentType: false,      
+    	       cache: false,           
+    	       timeout: 600000,       
+    	       success:data=>{
+    	    		console.log(data);   
+    	    	   alert(data>0?"등록성공":"등록실패");
+    	    	   window.location.href = "<%=request.getContextPath()%>";
+    	       },error:e=>{
+    	    	   console.log(e);
+    	    	   console.log(e.responseText);
+    	    	   
+    	       }   
+    	      
 	    	});
-   		   return false;
+   		   //return false;
     	  
 <%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 
