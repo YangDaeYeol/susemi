@@ -263,48 +263,129 @@ boolean flag = false;
                      </div>card
                  </div>submit
                  <%} %>
+                 
+                 
+<!-- ----------------------------------------------------------------------------   다회차일때 -->
+				<%if(le.getLectureType().equals("다회차")) {%>
+				<h1>adfad</h1>
+                 <%-- <div id="class_schedule">
+                     <h5 class="card-title">수업일정</h5>
+                     <div class="list-group">
+                         <%for(LectureSchedule lesc: list) { %>
+                             <div class="list-group-item">
+                                 <div class="list-group-item">
+				                  <span id="innerboxcheck"> 1 회</span>
+				                  <div class="schedule-text">
+				                    <span class="class-date">2021.12.14(토) </span> <span> 19:30-21:00</span>
+				                    <br>
+				                    <span>대륭테크노타운 3차 509호</span>
+				                  </div>
+				                  <span class="class-region">서울시 금천구</span>
+				                </div>
+                             </div>
+                             <%} %>
+                         <div id="scheduleBtn" class="d-flex justify-content-center">
+                             <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜
+                                 하
+                                 기</button>
+                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수
+                                 강 신
+                                 청</button>
+                         </div>
+                     </div>
+                 </div>
+                 <div id="class_submit" style="display: none;">
+                     <h5 class="card-title">수강신청</h5>
+                     <div class="card">
+                         <div class="card-body apply">
+                             <div id="apply-class">
+                                 <div class="card">
+                                     <div class="card-body">
+                                         <div class="schedule-text">
+                                             <span id="apply-title" class="class-date">타이틀</span><br>
+                                             <span id="apply-date" class="class-date">날짜 </span>
+                                             <span id="apply-time" style="padding-left:30px"> 시작시간-끝시간</span><br>
+                                             <span id="apply-adr">주소</span>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div id="applycount">
+                                     <h6>수강신청 현황</h6>
+                                     <span>14/15</span>
+                                 </div>
+                                 <div>
+                                     <h6>튜터에게 전하는 말</h6>
+                                     <div>
+                                         <textarea id="totutor" class="msgbox" cols="43" rows="7"
+                                             placeholder="예) 초보니까 쉽게 가르쳐주세요!"></textarea>
+                                         <div id="check-word-count" style="float: right;">(0/70)</div>
+                                     </div>
+                                 </div>
+                                 <div>
+                                     <p>총 결제금액</p>
+                                     <p id="apply-cost" style="float: right;">가격</p>
+                                 </div>
+                             </div>apply-class
 
+                         </div> apply
+
+                         <div>
+                             <form action="<%=request.getContextPath()%>/lecture/lecturePayment">
+                                 <input type="hidden" name="thumbnail"
+                                     value="<%=imgList.get(0).getLectureFileName()%>">
+                                 <input type="hidden" name="lectureType" value="<%=le.getLectureType() %>">
+                                 <input type="hidden" name="lectureTitle" value="<%=le.getLectureTitle() %>">
+                                 <input type="hidden" name="tutorImg" value="<%=m.getProfileImg() %>">
+                                 <input type="hidden" name="tutorNickName" value="<%=tutor.getNickname() %>">
+                                 <input type="hidden" name="lecturePrice" value="<%=le.getPrice() %>">
+                                 <input type="hidden" name="lectureDate" value="">
+                                 <input type="hidden" name="lectureAddr" value="">
+                                 <button type="submit" class="btn btn-primary btn-lg btn-basic"
+                                     style="float: right;">결 제 하 기</button>
+                                 </form>
+                         </div>
+                     </div>card
+                 </div>submit
+ --%>            <%} %>
                      
 <!-- ----------------------------------------------------------------------------   vod일때 -->
                      <%if(le.getLectureType().equals("VOD")) { %>
                          <div id="class_schedule">
                              <h5 class="card-title">수업일정</h5>
                              <div class="list-group">
-                                 <%for(int i=0; i<vodList.size(); i++) { %>
-                                     <div class="list-group-item">
-                                         <span id="innerboxcheck">
-                                             <%=i+1 %>강.
-                                         </span>
-                                         <div class="schedule-text">
-                                             <span class="class-date">
-                                                 <%=vodList.get(i).getVodTitle() %>
-                                             </span> <!-- <span> 19:30-21:00</span> -->
-                                         </div>
-                                     </div>
-                                     <!-- </div> -->
-                                     <%} %>
-                                         <%for(Payment p: payList) {
-                                             if(loginMember!=null&&loginMember.getEmail().equals(p.getEmail())) {
-                                             flag=true; }%>
-                                             <%} %>
-                                                 <% if(flag==false) { %>
-                                                     <div id="scheduleBtn" class="d-flex justify-content-center">
-                                                         <button id="wish" type="button"
-                                                             class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
-                                                             기</button>
-                                                         <button id="apply" type="button"
-                                                             class="btn btn-primary btn-lg btn-basic">수 강 신
-                                                             청</button>
-                                                     </div>
-
-                                                     <%} else if(flag==true) {%>
+                           <%for(int i=0; i<vodList.size(); i++) { %>
+                              <div class="list-group-item">
+                                  <span id="innerboxcheck">
+                                      <%=i+1 %>강.
+                                  </span>
+                                  <div class="schedule-text">
+                                      <span class="class-date">
+                                          <%=vodList.get(i).getVodTitle() %>
+                                      </span> <!-- <span> 19:30-21:00</span> -->
+                                  </div>
+                              </div>
+				        <!-- </div> -->
+				        <%} %>
+				            <%for(Payment p: payList) {
+				                if(loginMember!=null&&loginMember.getEmail().equals(p.getEmail())) {
+				                flag=true; }%>
+				                <%} %>
+				                <% if(flag==false) { %>
+			                        <div id="scheduleBtn" class="d-flex justify-content-center">
+			                            <button id="wish" type="button"
+			                                class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
+			                                기</button>
+			                            <button id="apply" type="button"
+			                                class="btn btn-primary btn-lg btn-basic">수 강 신
+			                                청</button>
+			                        </div>
+			                        <%} else if(flag==true) {%>
                              </div>
                          </div>
                          <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
                              onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>')">강
                              의 실 입 장</button>
                          <% } %>
-<!-- -------------------------------------------------------------------------  vod 끝 -->
 
                              <div id="class_submit" style="display: none;">
                                  <h5 class="card-title">수강신청</h5>
@@ -342,10 +423,12 @@ boolean flag = false;
                                      </form>
                                  </div>
                              </div>
-         </div>col              
-          <!-- ------------------- 수강신청 끝 -->
-         
+                          </div>
+     <%} %>
      </div> row
+<!-- -------------------------------------------------------------------------  vod 끝 -->
+          <!-- ------------------- 수강신청 끝 -->
+
      <script>
          $("#totutor").keyup(e => {
              let length = $(e.target).val().length;
@@ -357,8 +440,7 @@ boolean flag = false;
          });
 
      </script>
-     <%} %>
-         <!-- ----------------------------------------------- -->
+         <!-- ----------------------------------------------- 공통 스크립트 -->
          <script>
              let scheduleNo;
              $("input[type=checkbox]").change(e => {
@@ -400,9 +482,9 @@ boolean flag = false;
              });
 
          </script>
-
-         
      </div>row-1
+     
+     <!-- -------------------------------------------------------------------------  리뷰등록 시작 -->
      <div id="review" class="row-1">
           	<!--보라 2-->
 		   <div class="line"></div>
@@ -506,7 +588,7 @@ boolean flag = false;
              </script>
 
 
-<!-- ------------------------------------리뷰출력 시작 --->
+<!-- ------------------------------------------------------------------------ 리뷰출력 시작 --->
 
              <div id="review-list">
                  <h5 class="card-title ">수강생 리뷰</h5>
@@ -538,13 +620,14 @@ boolean flag = false;
                                  </span><br>
                                  <p>
                               		<%=co.getCommentContent() %>
-                                 <button class="btn tutorReply btn-enrollReply"
+                         		<%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())){ %>
+                                 	<button class="btn tutorReply btn-enrollReply"
                                      value="<%=co.getCommentNo() %>" style="float: right;">답글달기</button>
-                                 <%if(loginMember!=null&&loginMember.getNickname().equals(co.getWriter()))
-                                     {%>
+                                 <%} %>
+                                 <%if(loginMember!=null&&loginMember.getNickname().equals(co.getWriter())){%>
                                     <button type="button" class="btn tutorReply deleteReply"
                                         style="float: right;" value="<%=co.getCommentNo()%>">삭제</button>
-                                    <%} %>
+                                  <%} %>
                                  </p>
 
                              </div>
@@ -558,7 +641,7 @@ boolean flag = false;
                              		</div>
 	                            	<div class="flex-grow-1 ms-3">
 	                                	<div style="float: right;">
-	                                    <span><%=co.getEnrollDate() %></span><span id="report"><a hreㅕㅓf=""> 신고</a></span>
+	                                    <span><%=co.getEnrollDate() %></span><span id="report"><a href=""> 신고</a></span>
 	                                    <!-- 신고사유팝업 연결 -->
 	                                	</div>
 	                                	<span class="img-stars">
