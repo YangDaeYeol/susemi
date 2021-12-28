@@ -7,8 +7,8 @@
 		<%@ include file="/views/common/header.jsp"%>
 		<link rel="stylesheet"
 			href="<%=request.getContextPath() %>/css/getClassInformation.css">
-		<section>
-
+		<section> 
+<%if (!(loginMember==null)) {%>
 
 			<div class="bs-stepper">
 				<div class="mainContents">
@@ -59,7 +59,7 @@
 								</div>
 							</div>
 							<div class="bs-stepper-content">
-								<form onsubmit="return false"  id="toSendForm">
+								<form enctype="multipart/form-data" method="post" onsubmit="return false"  id="toSendForm">
                                 <!-- 여기가 진짜 폼 시작하는곳이야  -->
 
 								<div class="mainContent">
@@ -79,8 +79,8 @@
 
 													<div class="image-upload">
 														<label for="file-input"> <img
-															src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
-															alt="2021-12-17-18-59-18" width="100px" height="100px">
+															src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png" id="imgTest"
+															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
 														</label> <input id="file-input" name="tutorImgFile" type="file"
 															accept="image/png, image/gif, image/jpeg, image/jpg">
 													</div>
@@ -424,6 +424,7 @@
 																<input type="text" class="classIntInputBox" name="onedayClassPrice"
 																	id="classTxtBox1"><span class="won">원</span>
 															</div>
+								
 														</div>
 													</div>
 													<!-- 가격받기 끝 -->
@@ -613,7 +614,7 @@
 												<div style="display: flex;">
 													<button class="pageBtn" style="margin-right: 5px;"
 														onclick="stepper1.previous()">이전</button>
-													<button type="submit" class="pageBtn" id="submitAllInfo"
+													<button type="button" class="pageBtn" id="submitAllInfo"
 														onclick="toSubmit()">제출</button>
 												</div>
 											</div>
@@ -629,6 +630,9 @@
 					</div>
 				</div>
 			</div>
+			<%} else { %>
+		 	튜터로 로그인 한 후 이용 가능합니다.
+		 	<%} %>
 		</section>
 		<%@ include file="/views/common/footer.jsp"%>
 	</div>
@@ -724,6 +728,11 @@
 
         
         $("input#file-input").on('change', function () {
+        	let output = document.getElementById('imgTest');
+        	output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+              URL.revokeObjectURL(output.src) // free memory
+            }
             imagesPreview(this, '#resultTutorImg', 'file-input');
         });
         
@@ -747,19 +756,25 @@
         	imagesPreview(this, "#tutorCareerFile", 'file-career5');
         });
 
+        let oneday = document.getElementById("selectedOnedayClass");
+        let multi = document.getElementById("selectedMultipleClass");
+        let vod = document.getElementById("selectedVOD");
         // 선택한거대로 페이지 뜨게 하는 스크립트
-        $("input[id='control_01']").change(function () {
-            let oneday = document.getElementById("selectedOnedayClass");
+        $("input[id='control_01']").click(function () {
             oneday.style.display = "block";
+            multi.style.display = "none";
+            vod.style.display = "none";
         });
 
-        $("input[id='control_02']").change(function () {
-            let multi = document.getElementById("selectedMultipleClass");
+        $("input[id='control_02']").click(function () {
+        	oneday.style.display = "none";
             multi.style.display = "block";
+            vod.style.display = "none";
         });
 
-        $("input[id='control_03']").change(function () {
-            let vod = document.getElementById("selectedVOD");
+        $("input[id='control_03']").click(function () {
+        	oneday.style.display = "none";
+            multi.style.display = "none";
             vod.style.display = "block";
         });
         
@@ -1065,6 +1080,10 @@
             for (let i = 1; i < val; i++) {
                 let dateContainer = $("#selectVodDates0").clone();
                 dateContainer.attr({ "id": "selectVodDates" + i });
+                dateContainer.find("input[name='VODurlAddress0']").attr({ "name" : "VODurlAddress" + i});
+                dateContainer.find("input[name='VODTitlePerClass0']").attr({ "name" : "VODTitlePerClass" + i});
+                dateContainer.find("textarea[name='vodEachClassInformation0']").attr({ "name" : "vodEachClassInformation" + i});
+                
                 dateContainer.find("#infoPerClass").text((i + 1) + "회차 수업 정보 입력");
 
                 if (i == 1) {
@@ -1234,10 +1253,10 @@
     	   var form = $('#toSendForm')[0];
     	   console.debug('form', form);
     	   
-    	 /*   var data = new FormData(form);
-    	   console.debug('data', data); */
+    	 var data = new FormData(form);
+    	   console.debug('data', data);
     	   
-    	   const frm = new FormData(form);
+    	    const frm = new FormData(form);
 	   		const fileInput=$("input[name=classImageFiles]");
 	   		for(let i=0; i<fileInput[0].files.length;i++) {
 	   			frm.append("upfile"+i,fileInput[0].files[i]);
@@ -1249,25 +1268,27 @@
    		   }
     	   
     	    
-	    	   $.ajax({             
-	    	   	type: "POST",          
-	    	       enctype: 'multipart/form-data',  
-	    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
-	    	       data: frm,          
-	    	       processData: false,    
-	    	       contentType: false,      
-	    	       cache: false,           
-	    	       timeout: 600000,       
-	    	       success: function (frm) { 
-	    	    	   Swal.fire('클래스 등록 승인결과는 마이 페이지에서 확인 가능합니다')         
-	    	       	$("#btnSubmit").prop("disabled", false);      
-	    	       },          
-	    	       error: function (e) {  
-	    	       	console.log("ERROR : ", e);     
-	    	           $("#btnSubmit").prop("disabled", false);    
-	    	           alert("fail");      
-	    	        }     
+    	   $.ajax({             
+    	   	   type: "POST",          
+    	       enctype: 'multipart/form-data',  
+    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
+    	       data: frm,          
+    	       processData: false,    
+    	       contentType: false,      
+    	       cache: false,           
+    	       timeout: 600000,       
+    	       success:data=>{
+    	    		console.log(data);   
+    	    	   alert(data>0?"등록성공":"등록실패");
+    	    	   window.location.href = "<%=request.getContextPath()%>";
+    	       },error:e=>{
+    	    	   console.log(e);
+    	    	   console.log(e.responseText);
+    	    	   
+    	       }   
+    	      
 	    	});
+   		   //return false;
     	  
 <%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 
