@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>  
 <%@ page import="com.jiping.lecture.model.vo.VodLecture,
@@ -160,10 +160,7 @@
                   <span id="innerboxcheck"> <%=i+1 %>강.</span>
                   <div class="schedule-text">
                     <span class="class-date"> <%=vodList.get(i).getVodTitle() %> </span> <!-- <span> 19:30-21:00</span> -->
-                    <!-- <br>
-                    <span>대륭테크노타운 3차 509호</span> -->
                   </div>
-                  <!-- <span class="class-region">서울시 금천구</span> -->
                 </div>
                 <%} %>
                 
@@ -189,7 +186,7 @@
 
                         </div>
                     </div>
-                    <div>
+                    <div> 
                     	<form action="<%=request.getContextPath()%>/lecture/lecturePayment">
                     		<input type="hidden" name="thumbnail" value="<%=imgList.get(0).getLectureFileName()%>">
 	                    	<input type="hidden" name="lectureType" value="<%=le.getLectureType() %>">
@@ -202,11 +199,11 @@
                     </div>
                 </div>
 	           
-<%-- 	           </div>
+	           </div>
               </div>
 	        	   <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;" 
 	        	   onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=16')">강 의 실 입 장</button>
-            </div> --%>
+            </div>
             
           </div>
           <script>
@@ -326,4 +323,4 @@
           <br><br><br><br><br>
     </section>
 
-<%@ include file="/views/common/footer.jsp" %>
+<%@ include file="/views/common/footer.jsp" %> --%>

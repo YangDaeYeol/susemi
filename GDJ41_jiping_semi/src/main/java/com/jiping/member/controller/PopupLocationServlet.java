@@ -1,27 +1,23 @@
 package com.jiping.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.member.model.service.MemberService;
-import com.jiping.member.model.vo.Member;
-
 /**
- * Servlet implementation class DropMemberServlet
+ * Servlet implementation class PopupLocationServlet
  */
-@WebServlet(name="dromPage", urlPatterns={"/member/dropMember.do"})
-public class DropMemberServlet extends HttpServlet {
+@WebServlet("/member/popupLocation.do")
+public class PopupLocationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DropMemberServlet() {
+    public PopupLocationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +26,9 @@ public class DropMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email=request.getParameter("email");
-		Member m=new MemberService().selectMember(email);
-		request.setAttribute("loginMember", m);
-		request.getRequestDispatcher("/views/member/memberDrop.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/popupLocation.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

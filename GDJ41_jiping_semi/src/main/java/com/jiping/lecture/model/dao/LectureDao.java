@@ -782,6 +782,53 @@ public class LectureDao {
 		return result;
 	}
 	
+
+//	----------------------------------------------------------------
+	
+	public List<Payment> payList(Connection conn, int lectureNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Payment> list= new ArrayList();
+		String sql= prop.getProperty("payList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Payment p= Payment.builder()
+						.lectureNo(rs.getInt("lecture_No")).email(rs.getString("email")).build();
+				list.add(p);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("dao:"+list);
+		return list;
+	}
+	
+//	---------------------------------------------------------------------------
+	
+	public int deleteComment(Connection conn, int num) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("Dao:"+result);
+		return result;
+	
+	}
+
 	public int addCommentCount(Connection conn, int lectureNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;

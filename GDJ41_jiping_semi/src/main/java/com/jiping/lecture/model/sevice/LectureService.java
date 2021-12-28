@@ -130,6 +130,12 @@ public class LectureService {
 		return lc;
 	}
 	
+	public List<Payment> payList(int lectureNo){
+		Connection conn=getConnection();
+		List<Payment> p= dao.payList(conn, lectureNo);
+		close(conn);
+		return p;
+	}
 	
 
 //	-----------------------------------------------------------
@@ -287,6 +293,16 @@ public class LectureService {
 	public int searchResultCount(String keyword) {
 		Connection conn = getConnection();
 		int result = dao.searchResultCount(conn, keyword);
+		close(conn);
+		return result;
+	}
+	
+//	------------------------------------------------------------
+	public int deleteComment(int num) {
+		Connection conn=getConnection();
+		int result= dao.deleteComment(conn,num);
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}

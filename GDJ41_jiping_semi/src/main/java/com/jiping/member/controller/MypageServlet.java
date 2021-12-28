@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class MypageServlet
  */
-@WebServlet("/member/mypage.do")
+@WebServlet(name="mypage", urlPatterns={"/member/mypage.do"})
 public class MypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
