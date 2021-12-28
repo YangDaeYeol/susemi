@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.vo.Member;
+import com.jiping.tutor.model.vo.Tutor;
 
 public class MemberDao {
 	
@@ -363,5 +363,30 @@ public class MemberDao {
 		return m2;			
 	}
 	
-	
+	public Tutor selectTutor(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Tutor t = null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectTutor"));
+			pstmt.setString(1, nickName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				t = Tutor.builder()
+						.nickname(rs.getString("nickname"))
+						.phone(rs.getString("phone"))
+						.insta(rs.getString("insta"))
+						.facebook(rs.getString("facebook"))
+						.blog(rs.getString("blog"))
+						.tutorMsg(rs.getString("tutor_msg"))
+						.build();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return t;
+	}
 }

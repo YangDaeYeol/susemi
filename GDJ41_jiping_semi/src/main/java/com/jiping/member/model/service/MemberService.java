@@ -2,17 +2,15 @@ package com.jiping.member.model.service;
 
 import static com.jiping.common.JDBCTemplate.close;
 import static com.jiping.common.JDBCTemplate.commit;
-import static com.jiping.common.JDBCTemplate.rollback;
 import static com.jiping.common.JDBCTemplate.getConnection;
 import static com.jiping.common.JDBCTemplate.rollback;
-import static com.jiping.common.JDBCTemplate.commit;
 
 import java.sql.Connection;
 import java.util.List;
 
-import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.dao.MemberDao;
 import com.jiping.member.model.vo.Member;
+import com.jiping.tutor.model.vo.Tutor;
 
 public class MemberService {
 	
@@ -118,6 +116,13 @@ public class MemberService {
 		int result = dao.selectTutorAllCount(conn);
 		close(conn);
 		return result;
+	}
+	
+	public Tutor selectTutor(String nickName) {
+		Connection conn = getConnection();
+		Tutor t = dao.selectTutor(conn, nickName);
+		close(conn);
+		return t;
 	}
 
 }

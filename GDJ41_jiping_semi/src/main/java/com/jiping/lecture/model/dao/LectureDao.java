@@ -632,7 +632,7 @@ public class LectureDao {
 		ResultSet rs = null;
 		List<Lecture> list = new ArrayList<Lecture>();
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("everydayLectureList"));
+			pstmt = conn.prepareStatement(prop.getProperty("vodLectureList"));
 			pstmt.setString(1, "VOD");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -781,6 +781,22 @@ public class LectureDao {
 		}
 		return result;
 	}
+	
+	public int addCommentCount(Connection conn, int lectureNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("addCommentCount"));
+			pstmt.setInt(1, lectureNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int selectLectureSeq(Connection conn) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -798,7 +814,28 @@ public class LectureDao {
 		}return result;
 	}
 	
-	
-	
+	public List<Certificate> selectCertificate(Connection conn, String nickName) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Certificate> list = new ArrayList<Certificate>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectCertificate"));
+			pstmt.setString(1, nickName);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Certificate c = Certificate.builder()
+						.certificateText(rs.getString("certificate_text"))
+						.certificateImg("certificate_img")
+						.build();
+				list.add(c);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 }
 		
