@@ -46,7 +46,7 @@
 						<option value="댄스/무용" class="sc2">댄스/무용</option>
 						<option value="연기" class="sc2">연기</option>
 						<option value="스포츠/레저" class="sc2">스포츠/레저</option>
-						<option value="이색 액티비티" class="sc2">이색 액티비티</option>
+						<option value="이색 액티비티" class="sc2">이색액티비티</option>
 						<!-- 커리어 -->
 						<option value="업무역량" class="sc3">업무역량</option>
 						<option value="마케팅" class="sc3">마케팅</option>
@@ -77,18 +77,18 @@
 					<option value="dance" class="sc2">댄스/무용</option>
 					<option value="act" class="sc2">연기</option>
 					<option value="sports" class="sc2">스포츠/레저</option>
-					<option value="exotic_sports" class="sc2">이색 액티비티</option>
+					<option value="exotic_sports" class="sc2">이색액티비티</option>
 					<!-- 커리어 -->
-					<option value="competency" class="sc3">업무 역량</option>
+					<option value="competency" class="sc3">업무역량</option>
 					<option value="marketing" class="sc3">마케팅</option>
 					<option value="programming" class="sc3">프로그래밍</option>
 					<option value="certificate" class="sc3">자격증/시험</option>
 					<option value="employment" class="sc3">취업/이직/진로</option>
 					<!-- 디자인 -->
 					<option value="architecturalD" class="sc4">건축</option>
-					<option value="graphicD" class="sc4">그래픽 디자인</option>
-					<option value="productD" class="sc4">제품 디자인</option>
-					<option value="videoD" class="sc4">영상 편집/제작</option>
+					<option value="graphicD" class="sc4">그래픽디자인</option>
+					<option value="productD" class="sc4">제품디자인</option>
+					<option value="videoD" class="sc4">영상편집/제작</option>
 				</select>
 			</div>	
 			<!-- 지역 -->
