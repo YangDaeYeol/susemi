@@ -8,6 +8,8 @@
 				com.jiping.tutor.model.vo.Tutor,
 				com.jiping.member.model.vo.Member,
 				com.jiping.tutor.model.vo.Certificate,
+				com.jiping.payment.model.vo.Payment,
+				com.jiping.lecture.model.vo.LectureComment,
 				java.util.List " %>
 <%
 	Lecture le= (Lecture)request.getAttribute("le");
@@ -18,7 +20,10 @@
 	Tutor tutor=(Tutor)request.getAttribute("tutor");
 	Member m=(Member)request.getAttribute("m");
 	List<Certificate> cList= (List)request.getAttribute("c");
- 	System.out.println("jsp:"+ cList); 
+	LectureComment lc= (LectureComment)request.getAttribute("lc");
+	List<LectureComment> lcList= (List)request.getAttribute("lcList");
+ 	/* System.out.println("jsp:"+ list);  */
+
 
 %>
 
@@ -30,9 +35,14 @@
                 <div id="info_class">
                     <p class="card-text"><small class="text-muted">이 클래스는 <%=le.getLectureType() %>클래스 입니다. </small>
                     </p>
-                    <h5 class="card-title">
-                        <%=le.getLectureTitle() %>
-                    </h5>
+                    <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
+	                    <div class="tutor-btn">
+		                    <h5 class="card-title">
+		                        <%=le.getLectureTitle() %>
+		                    </h5>
+		                    <button type="button" class="btn-tutor btn btn-primary btn-basic">클래스 상세정보 수정</button>
+	                    </div>
+                    <%} %>
                     <!--class="card-title"-->
                      <div class="card">
                         <div class="card-body">
@@ -171,12 +181,12 @@
                                 </span>
                             </label>
                             <%} %>
-                                <div id="scheduleBtn" class="d-flex justify-content-center">
-                                    <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
-                                        기</button>
-                                    <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신
-                                        청</button>
-                                </div>
+                               <div id="scheduleBtn" class="d-flex justify-content-center">
+                                   <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜 하
+                                       기</button>
+                                   <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수 강 신
+                                       청</button>
+                               </div>
                     </div>
                 </div>
                 <div id="class_submit" style="display: none;">
@@ -200,15 +210,15 @@
                                 </div>
                                 <div>
                                     <h6>튜터에게 전하는 말</h6>
-                                    <div id="tutor-message">
-                                        <textarea id="totutor" class="card msgbox" cols="43" rows="7"
+                                    <div>
+                                        <textarea id="totutor" class="msgbox" cols="43" rows="7"
                                             placeholder="예) 초보니까 쉽게 가르쳐주세요!"></textarea>
                                         <div id="check-word-count" style="float: right;">(0/70)</div>
                                     </div>
                                 </div>
                                 <div>
                                     <p>총 결제금액</p>
-                                    <p id="apply-cost" style="float: right;"><%=list.get(0).getLecturePrice() %></p>
+                                    <p id="apply-cost" style="float: right;">가격</p>
                                 </div>
                             </div>
 
@@ -245,20 +255,29 @@
                         dataType: "json",
                         data: { "scheduleNo": scheduleNo },
                         success: data => {
-                        	$("input[name=lectureDate]").val(data["lectureDate"]);
-                        	$("input[name=lectureAddr]").val(data["lectureAddress"]);
-                            const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
-                            const date = $("#apply-date").html(data["lectureDate"]);
-                            const time = $("#apply-time").html(data["startDate"]+"-"+data["endDate"]);
-                            const address= $("#apply-adr").html(data["lectureAddress"]);
-                            const cost= $("#apply-cost").html(data["lecturePrice"]);
-                            $("#class_submit").show();
+                        	<%if(loginMember!=null&&loginMember.getNickname().contains(tutor.getNickname())) { %>
+                        		alert("해당 강좌의 튜터님은 수강신청이 불가능합니다.");
+                       		<%} else { %>
+	                        	$("input[name=lectureDate]").val(data["lectureDate"]);
+	                        	$("input[name=lectureAddr]").val(data["lectureAddress"]);
+	                            const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
+	                            const date = $("#apply-date").html(data["lectureDate"]);
+	                            const time = $("#apply-time").html(data["startDate"]+"-"+data["endDate"]);
+	                            const address= $("#apply-adr").html(data["lectureAddress"]);
+	                            const cost= $("#apply-cost").html(data["lecturePrice"]);
+	                            $("#class_submit").show();
+                           <%}%>
                         }
                     })
                 });
                 
                 $("#totutor").keyup(e=>{
                 	let length=$(e.target).val().length;
+                	 if(length>70){
+                		alert("입력가능한 글자 수를 초과하였습니다.");
+                		let temp=$(e.target).val().substring(0,length-1);
+                        $(e.target).val(temp);  
+                	 }
                 	$("#check-word-count").html("("+length+"/70)");
                 });
 
@@ -270,88 +289,113 @@
                 <div class="review-enroll card">
                     <div class="card-body">
                         <!-- -------------------------------------------------- -->
-                        <div class="review-head">
-                            <div id="title"><%=le.getLectureTitle() %> </div>
-                            <div id="tutor-review"><%=le.getNickName() %> 튜터 </div>
-                        </div>
-                        <%if(loginMember!=null) { %>
-                        <div id="starrate">
-                            <div>
-                                <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
-                                <span><%=loginMember.getNickname() %></span>
-                            </div>
-                            <div>
-                                <fieldset class="rating">
-                                    <span>평점:</span>
-                                    <input type="radio" id="star5" name="rating" value="5" /><label class="full"
-                                        for="star5" title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half"
-                                        for="star4half" title="Pretty good - 4.5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4" /><label class="full"
-                                        for="star4" title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half"
-                                        for="star3half" title="Meh - 3.5 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3" /><label class="full"
-                                        for="star3" title="Meh - 3 stars"></label>
-                                    <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half"
-                                        for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2" /><label class="full"
-                                        for="star2" title="Kinda bad - 2 stars"></label>
-                                    <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half"
-                                        for="star1half" title="Meh - 1.5 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1" /><label class="full"
-                                        for="star1" title="Sucks big time - 1 star"></label>
-                                    <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half"
-                                        for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                </fieldset>
-                            </div>
-                        </div>
-                        <%} %>
-                        <div class="card">
-	                        <form action="" method="">
-	                            <textarea class="card-body msgbox" id="totutor-review" cols="43" rows="3"
-	                                placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
-		                        <span id="review-count" style="float: right;">(0/100)</span> <br>
-		                        <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
-		                            등록하기</button>
-	                        </form>
-                        </div>
+                        <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
+	                        <div class="review-head">
+	                            <div id="title"><%=le.getLectureTitle() %> </div>
+	                            <div id="tutor-review"><%=le.getNickName() %> 튜터 </div>
+	                        </div>
+	                        <%if(loginMember!=null) { %>
+	                        <div id="starrate">
+	                            <div>
+	                                <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=loginMember.getProfileImg()%>">
+	                                <span><%=loginMember.getNickname() %></span>
+	                            </div>
+	                            <div>
+	                                <fieldset class="rating">
+	                                    <span>평점:</span>
+	                                    <input type="radio" id="star5" name="rating" value="5" /><label class="full"
+	                                        for="star5" title="Awesome - 5 stars"></label>
+	                                    <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half"
+	                                        for="star4half" title="Pretty good - 4.5 stars"></label>
+	                                    <input type="radio" id="star4" name="rating" value="4" /><label class="full"
+	                                        for="star4" title="Pretty good - 4 stars"></label>
+	                                    <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half"
+	                                        for="star3half" title="Meh - 3.5 stars"></label>
+	                                    <input type="radio" id="star3" name="rating" value="3" /><label class="full"
+	                                        for="star3" title="Meh - 3 stars"></label>
+	                                    <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half"
+	                                        for="star2half" title="Kinda bad - 2.5 stars"></label>
+	                                    <input type="radio" id="star2" name="rating" value="2" /><label class="full"
+	                                        for="star2" title="Kinda bad - 2 stars"></label>
+	                                    <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half"
+	                                        for="star1half" title="Meh - 1.5 stars"></label>
+	                                    <input type="radio" id="star1" name="rating" value="1" /><label class="full"
+	                                        for="star1" title="Sucks big time - 1 star"></label>
+	                                    <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half"
+	                                        for="starhalf" title="Sucks big time - 0.5 stars"></label>
+	                                </fieldset>
+	                            </div>
+	                        </div>
+	                        <%} %>
+		                    <textarea id="input-review" class=" msgbox" id="totutor-review" name="commentContent" cols="43" rows="3"
+			                          placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+			                <input type="hidden" name="level" value="1">
+			                <%if(loginMember!=null) {%>
+							<input type="hidden" name="writer" value="<%=loginMember.getNickname()%>">
+							<%} %>
+							<input type="hidden" name="letureNo" value="<%=le.getLectureNo()%>">
+							<input type="hidden" name="lecutreCommentRef" value="0">
+							<input type="hidden" name="lectureType" value="<%=le.getLectureType()%>">
+		                    <div>
+		                      <span id="review-count" style="float: right;">(0/100)</span> <br>
+		                      <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right; ">리뷰
+		                          등록하기</button>
+		                	</div>
+		                  </form>
+		                </div>
                     </div>
                 </div>
                 <script>
- 	                $("#totutor-review").keyup(e=>{
+ 	                $("#input-review").keyup(e=>{
 	                	let length=$(e.target).val().length;
+	                	if(length>100){
+	                		alert("입력가능한 글자 수를 초과하였습니다.");
+	                		let temp=$(e.target).val().substring(0,length-1);
+	                        $(e.target).val(temp);
+	                	}
 	                	$("#review-count").html("("+length+"/100)");
 	                }); 
-                
+ 	                
+ 	                $("#input-review").keyup(e=>{ //focus안되는거 질문
+ 	                	$.ajax({
+ 	                		url: "<%=request.getContextPath()%>/lecture/lecturePaymentAjax",
+ 	                		dataType:"json",
+ 	                		data: {"lectureNo":"<%=le.getLectureNo()%>", "paymentEmail":"<%=loginMember!=null?loginMember.getEmail():""%>"},
+ 	                		success: data=>{
+ 	                			if(data==null){
+ 	                				alert("리뷰등록은 수강생만 가능합니다.");
+ 	                				$("#input-review").val("");
+ 	                			} 
+ 	                		}
+ 	                	})
+ 	                })
+ 	                
                 </script>
                 
-                
-                
-
+  
                 <div id="review-list">
                     <h5 class="card-title ">수강생 리뷰</h5>
                     <div class="card">
                         <div class="card-body ">
                             <!-- 리뷰시작 -->
+                            <%for(LectureComment co: lcList) { %>
                             <div class="d-flex ">
                                 <div name="review flex-shrink-0">
-                                    <img class="img_basic img_review" src="https://post-phinf.pstatic.net/MjAxOTEyMTJfMTMy/MDAxNTc2MTM4NTc5MjAy.d6qoHmyl15AA4MjNVN7uOMbOJplPrhTktLxfMQXze9Ig.Ui8K9n80tzLCRsYmAK1VGmFxcRJ6-fndALhaNI69n9Ug.JPEG/%EC%A4%80%ED%98%81_%284%29.jpg?type=w1200
+                                    <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
                                                  ">
-                                </div>
+                                </div> 
+                                
                                 <div class="flex-grow-1 ms-3">
                                     <div style="float: right;">
-                                        <span>2021.12.14 </span><span id="report"><a href=""> 신고</a></span>
+                                        <span><%=co.getEnrollDate() %> </span><span id="report"><a href=""> 신고</a></span>
                                         <!-- 신고사유팝업 연결 -->
                                     </div>
                                     <span>★★★★★</span><br>
-                                    <span>홍대불주먹</span><br>
-                                    <p>
-                                    	자바를 쉽게 배울 수 있어서 너무 행복하고 좋네요..! 수료일 이후가 기대됩니다~~~~~~~~~~~~~ 프로젝트를 정말 재밌게 해냈어요! 
-                        				인생의 값진 경험........ 이 수업 덕에 좋은 곳에 취업하고 갑니다~~~~~~!! 
-                                    </p>
+                                    <span><%=co.getWriter() %></span><br>
+                                    <p><%=co.getCommentContent() %></p>
                                 </div>
                             </div>
+                            <%} %> 
                             <!-- 리뷰끝 -->
                         </div>
                     </div> 

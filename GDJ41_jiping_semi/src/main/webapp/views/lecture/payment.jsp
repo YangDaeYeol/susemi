@@ -60,10 +60,10 @@
 	      IMP.request_pay({
 	        pg : 'kakaopay',
 	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0007", // 상점에서 관리하는 주문 번호
+	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호
 	    name : '<%=lectureTitle %>',
 	    <%-- amount : <%=lecturePrice %>, --%>
-	    amount : 10,	    
+	    amount : 100,	    
 	    buyer_email : '<%=loginMember.getEmail() %>',
 	    buyer_name : '<%=loginMember.getMemberName() %>',
 	    buyer_tel : '<%=loginMember.getPhone() %>'
@@ -94,10 +94,10 @@
 	      IMP.request_pay({
 	        pg : 'nice',
 	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0007", // 상점에서 관리하는 주문 번호
+	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호
 	    name : '<%=lectureTitle %>',
 	    <%-- amount : <%=lecturePrice %>, --%>
-	    amount : 10,
+	    amount : 100,
 	    buyer_email : '<%=loginMember.getEmail() %>',
 	    buyer_name : '<%=loginMember.getMemberName() %>',
 	    buyer_tel : '<%=loginMember.getPhone() %>'

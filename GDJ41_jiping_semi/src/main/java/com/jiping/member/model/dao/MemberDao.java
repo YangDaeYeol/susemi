@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.vo.Member;
 
 public class MemberDao {
@@ -240,6 +241,102 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return m;				
+	}
+
+	public List<Member> normalMemberList(Connection conn, int cPage, int numPerPage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Member> list= new ArrayList();
+		String sql= prop.getProperty("normalMemberList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,  cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member normalMemberList= Member.builder()
+						.memberName(rs.getString("member_name"))
+						.nickname(rs.getString("nickname"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.build();
+				list.add(normalMemberList);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public List<Member> tutorList(Connection conn, int cPage, int numPerPage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		List <Member> list= new ArrayList();
+		String sql= prop.getProperty("tutorList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,  cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Member normalMemberList= Member.builder()
+						.memberName(rs.getString("member_name"))
+						.nickname(rs.getString("nickname"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.build();
+				list.add(normalMemberList);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int selectNormalMemberAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectNormalMemberAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectTutorAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectTutorAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

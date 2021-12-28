@@ -23,9 +23,9 @@
 <section>
 <div class="container">
     <div id="mainInfo" class=row> 
+                <span id="vod-title"><%=le.getLectureTitle() %></span>
         <div id="left" class="col-9"> <!--숫자로 조정-->
             <div>
-                <span id="vod-title"><%=le.getLectureTitle() %></span>
             </div>
             <div id="player">
                 <!-- <iframe width="100%" height="600px" src="https://www.youtube.com/embed/ltaDbuOl29E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
@@ -45,7 +45,7 @@
 	                    <img src="<%=request.getContextPath() %>/img/js_unchecked.png" alt="" class="checkicon"> 
 		                <span class="vod-content" style="display:none"><%=list.get(i).getVodContent() %></span>
 	                    <span class="vod-name"> <%=i+1%>강. <%=list.get(i).getVodTitle() %></span>
-	                    <input type="hidden" id="vod-url" value="<%=list.get(i).getVodUrl() %>">
+	                    <input type="hidden" id="vod-url<%= i %>" name="vod-url" value="<%=list.get(i).getVodUrl() %>">
                     </div>
                 </div>
                <%} %> 
@@ -73,12 +73,12 @@
 	$(".list-group-item").click(e => {
 		vodTitle=$(e.target).find("span[class=vod-name]").clone();
 		content=$(e.target).find("span[class=vod-content]").clone();
-		temp=$("#vod-url").val();
-		
+		temp=$(e.target).find("input[type=hidden]").val();
 		content.css("display","block");
  		$("#vodlist-title").html(vodTitle);
 		$("#vodlist-content").html(content);
-		$("#left").find("iframe").attr("src","https://www.youtube.com/embed/"+temp);
+		let cloneVod = $("#left").find("iframe").attr("src","https://www.youtube.com/embed/" + temp);
+		$("#left").html(cloneVod);
 	});
        var tag = document.createElement('script');
        

@@ -132,15 +132,11 @@
 .msgbox {
     resize: none;
     width: 100%;
-    border: none;
-    outline: none;
+    /* border: none; */
+    outline: none; 
+    border: 1px solid #C4C4C4;
 
 }
-
-#tutor-message {
-    border: 1px solid #C4C4C4;
-} 
-
 
 .apply>div{
     margin-bottom: 10px;

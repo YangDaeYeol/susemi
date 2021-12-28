@@ -99,7 +99,7 @@
     }
     #header-nav>ul>li {
         text-align: center;
-        margin-left: 25px;
+        padding: 0 12.5px 0 12.5px;
         font-weight: bold;
         font-size: 20px;
         width: 150px;
@@ -352,4 +352,41 @@
         width: 804px;
         height: 237px;
         object-fit: cover;
+    }
+    #list-container2 {
+        display: flex;
+    }
+    #list-container2>ul {
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    #list-container2>ul {
+        padding: 0;
+        display: flex;
+    }
+    #list-container2>ul>li {
+        padding-right: 30px;
+    }
+    #list-container2>a {
+        padding-right: 30px;
+    }
+    #list-container3 {
+        display: flex;
+    }
+    #list-container3>ul {
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    #list-container3>ul {
+        padding: 0;
+        display: flex;
+    }
+    #list-container3>ul>li {
+        padding-right: 30px;
+    }
+    #list-container3>a {
+        padding-right: 30px;
+    }
+    img {
+    	object-fit: cover;
     }
