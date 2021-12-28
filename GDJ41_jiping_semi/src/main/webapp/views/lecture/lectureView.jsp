@@ -39,14 +39,14 @@ boolean flag = false;
              <div id="info_class">
                  <p class="card-text"><small class="text-muted">이 클래스는 <%=le.getLectureType() %>클래스 입니다. </small>
                  </p>
-                 <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
                      <div class="tutor-btn">
                          <h5 class="card-title">
                              <%=le.getLectureTitle() %>
                          </h5>
+                 <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
                          <button type="button" class="btn-tutor btn btn-primary btn-basic">클래스 상세정보 수정</button>
-                     </div>
                      <%} %>
+                     </div>
                      <!--class="card-title"-->
                      <div class="card">
                          <div class="card-body">
@@ -127,8 +127,11 @@ boolean flag = false;
 
          <div id="right" class="col">
              <div id="tutor" style="margin-top: 39px;">
-                 <h5 class="card-title">튜터를 소개합니다!</h5>
-                 <div class="card">
+                <div class="tutor-btn">
+	                <h5 class="card-title">튜터를 소개합니다! </h5>
+	                <button type="button" class="btn-tutor btn btn-primary btn-basic">튜터소개 수정</button>
+              	</div>
+                <div class="card">
                      <div class="card-body">
                          <div class="d-flex align-items-center">
                              <div name="flex-shrink-0">
@@ -173,11 +176,15 @@ boolean flag = false;
                  </div>
              </div>
              
+              <div id="class_schedule">
+              <div class="tutor-btn">
+                <h5 class="card-title">수업일정 </h5>
+                <button type="button" class="btn-tutor btn btn-primary btn-basic">일정 및 장소
+                  수정</button>
+              </div>
 <!-- ----------------------------------------------------------------------------   수업일정 -->
 <!-- ----------------------------------------------------------------------------   원데이일때 -->
              <%if(le.getLectureType().equals("원데이")) {%>
-                 <div id="class_schedule">
-                     <h5 class="card-title">수업일정</h5>
                      <div class="list-group">
                          <%for(LectureSchedule lesc: list) { %>
                              <label class="list-group-item">
@@ -268,8 +275,7 @@ boolean flag = false;
 <!-- ----------------------------------------------------------------------------   다회차일때 -->
 				<%if(le.getLectureType().equals("다회차")) {%>
 				<h1>adfad</h1>
-                 <%-- <div id="class_schedule">
-                     <h5 class="card-title">수업일정</h5>
+                 <%-- 
                      <div class="list-group">
                          <%for(LectureSchedule lesc: list) { %>
                              <div class="list-group-item">
@@ -350,8 +356,6 @@ boolean flag = false;
                      
 <!-- ----------------------------------------------------------------------------   vod일때 -->
                      <%if(le.getLectureType().equals("VOD")) { %>
-                         <div id="class_schedule">
-                             <h5 class="card-title">수업일정</h5>
                              <div class="list-group">
                            <%for(int i=0; i<vodList.size(); i++) { %>
                               <div class="list-group-item">
