@@ -629,7 +629,7 @@ public class LectureDao {
 		ResultSet rs = null;
 		List<Lecture> list = new ArrayList<Lecture>();
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("everydayLectureList"));
+			pstmt = conn.prepareStatement(prop.getProperty("vodLectureList"));
 			pstmt.setString(1, "VOD");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
