@@ -58,7 +58,7 @@
 			                            </div>
 	                         <%} %>
                         <%}else{ %>                       		
-                        	   <p style="margin-top:50px;"><%=m.getNickname() %>님이 현재 수강중인 클래스가 없습니다.</p>
+                        	   <p style="margin-top:50px;"><strong><%=m.getNickname() %></strong>님이 현재 수강중인 클래스가 없습니다.</p>
                        	<%} %>                                                                                 
                         </div>
                     </div> 

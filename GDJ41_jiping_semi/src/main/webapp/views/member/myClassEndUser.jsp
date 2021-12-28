@@ -7,6 +7,7 @@
 	Member m=(Member)request.getAttribute("loginMember");
 	List<Lecture> list=(List)request.getAttribute("lectureList");
 	int count=(int)request.getAttribute("count");
+	System.out.println(list);
 
 %>
     <section id="sectionMargin">
@@ -55,7 +56,7 @@
 		                    <%} %>
 		                                                                                                                                  		                          
                         <%}else{ %>
-                        		<p style="margin-top:50px;"><%=m.getNickname() %>님이 현재 수강중인 클래스가 없습니다.</p>
+                        		<p style="margin-top:50px;"><strong><%=m.getNickname() %></strong>님이 현재 수강중인 클래스가 없습니다.</p>
                        	<%} %>    
                         
                         
