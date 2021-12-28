@@ -126,6 +126,12 @@ public class LectureService {
 		return lc;
 	}
 	
+	public List<Payment> payList(int lectureNo){
+		Connection conn=getConnection();
+		List<Payment> p= dao.payList(conn, lectureNo);
+		close(conn);
+		return p;
+	}
 	
 //	-----------------------------------------------------------
 	

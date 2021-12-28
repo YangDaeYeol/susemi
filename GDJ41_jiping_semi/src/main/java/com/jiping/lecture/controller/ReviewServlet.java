@@ -43,6 +43,7 @@ public class ReviewServlet extends HttpServlet {
 		int lev=Integer.parseInt(request.getParameter("level"));
 		String type=request.getParameter("lectureType");
 		
+		
 		LectureComment lc= LectureComment.builder().writer(writer).starRate(rating).commentContent(content)
 				.lectureNo(lecNo).commentRef(ref).commentLevel(lev).build();
 		
