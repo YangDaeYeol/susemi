@@ -7,8 +7,8 @@
 		<%@ include file="/views/common/header.jsp"%>
 		<link rel="stylesheet"
 			href="<%=request.getContextPath() %>/css/getClassInformation.css">
-		<section> 
-<%if (!(loginMember==null)) {%>
+		<section>
+			<%if (!(loginMember==null)) {%>
 
 			<div class="bs-stepper">
 				<div class="mainContents">
@@ -59,67 +59,69 @@
 								</div>
 							</div>
 							<div class="bs-stepper-content">
-								<form enctype="multipart/form-data" method="post" onsubmit="return false"  id="toSendForm">
-                                <!-- 여기가 진짜 폼 시작하는곳이야  -->
+								<form enctype="multipart/form-data" method="post"
+									onsubmit="return false" id="toSendForm">
+									<!-- 여기가 진짜 폼 시작하는곳이야  -->
 
-								<div class="mainContent">
-									<div class="first"></div>
-									<div class="middle">
-										<!-- 폼 내용 START -->
-										<div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
-											aria-labelledby="stepper1trigger1">
-											<div class="form-group">
-												<!-- 1. 튜터 소개 본문 내용 시작 -->
-												<div>
-													<div id="tutorTitle">튜터 소개</div>
+									<div class="mainContent">
+										<div class="first"></div>
+										<div class="middle">
+											<!-- 폼 내용 START -->
+											<div id="test-l-1" role="tabpanel" class="bs-stepper-pane"
+												aria-labelledby="stepper1trigger1">
+												<div class="form-group">
+													<!-- 1. 튜터 소개 본문 내용 시작 -->
+													<div>
+														<div id="tutorTitle">튜터 소개</div>
 
-													<div>프로필 사진</div>
-													<div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png,
-														gif, jpeg, jpg만 가능)</div>
+														<div>프로필 사진</div>
+														<div id="profilePic">얼굴이 나온 튜터님의 사진을 등록해주세요. (png,
+															gif, jpeg, jpg만 가능)</div>
 
-													<div class="image-upload">
-														<label for="file-input"> <img
-															src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png" id="imgTest"
-															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
-														</label> <input id="file-input" name="tutorImgFile" type="file"
-															accept="image/png, image/gif, image/jpeg, image/jpg">
-													</div>
-													<div id="resultTutorImg" style="margin-bottom: 30px;"></div>
-													<div>튜터의 한마디</div>
-													<div id="tutorComment">
-														<textarea name="tutorComment" cols="58" rows="5"
-														id="tutorIntroduction"
-														onkeyup="limit500(event, 'introlimit')" ></textarea>
-														<div id="introlimit">(0/500)</div>
-													</div>
+														<div class="image-upload">
+															<label for="file-input"> <img
+																src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
+																id="imgTest" alt="2021-12-17-18-59-18" width="100px"
+																height="100px" style="border-radius: 50%;">
+															</label> <input id="file-input" name="tutorImgFile" type="file"
+																accept="image/png, image/gif, image/jpeg, image/jpg">
+														</div>
+														<div id="resultTutorImg" style="margin-bottom: 30px;"></div>
+														<div>튜터의 한마디</div>
+														<div id="tutorComment">
+															<textarea name="tutorComment" cols="58" rows="5"
+																id="tutorIntroduction"
+																onkeyup="limit500(event, 'introlimit')"></textarea>
+															<div id="introlimit">(0/500)</div>
+														</div>
 
-													<div id="snsInfo">
-														<div>
-															소셜미디어 <span class="sugg">(권장사항)</span>
+														<div id="snsInfo">
+															<div>
+																소셜미디어 <span class="sugg">(권장사항)</span>
+															</div>
+															<div id="insta">
+																<img
+																	src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
+																	alt="instagram" class="socialImg" width="18px"
+																	height="18px"><input type="text" name="instaAddr"
+																	placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
+															</div>
+															<div id="facebook">
+																<img
+																	src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
+																	alt="facebook" class="socialImg" width="18px"
+																	height="18px"><input type="text"
+																	name="facebookAddr" placeholder="페이스북 주소를 입력해주세요"
+																	class="snsInputBox">
+															</div>
+															<div id="blog">
+																<img src="https://www.coolstay.co.kr/img/main/naver.png"
+																	alt="blog" class="socialImg" width="18px" height="18px"><input
+																	type="text" name="blogAddr"
+																	placeholder="블로그 주소를 입력해주세요" class="snsInputBox">
+															</div>
 														</div>
-														<div id="insta">
-															<img
-																src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
-																alt="instagram" class="socialImg" width="18px"
-																height="18px"><input type="text" name="instaAddr"
-																placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
-														</div>
-														<div id="facebook">
-															<img
-																src="https://cdn.worldvectorlogo.com/logos/facebook-icon-1.svg"
-																alt="facebook" class="socialImg" width="18px"
-																height="18px"><input type="text"
-																name="facebookAddr" placeholder="페이스북 주소를 입력해주세요"
-																class="snsInputBox">
-														</div>
-														<div id="blog">
-															<img src="https://www.coolstay.co.kr/img/main/naver.png"
-																alt="blog" class="socialImg" width="18px" height="18px"><input
-																type="text" name="blogAddr" placeholder="블로그 주소를 입력해주세요"
-																class="snsInputBox">
-														</div>
-													</div>
-													
+
 
 														<div>
 															자격증 및 경력 <span class="sugg">(권장사항, 최대 5개)</span>
@@ -154,7 +156,8 @@
 																</label> <input id="file-career2" name="file-career2"
 																	type="file" />
 															</div>
-															<div class="image-career" id="image-career3" style="display:none;">
+															<div class="image-career" id="image-career3"
+																style="display: none;">
 																<input type="text" name="text-career3"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox"> <label
@@ -168,7 +171,8 @@
 																</label> <input id="file-career3" name="file-career3"
 																	type="file" />
 															</div>
-															<div class="image-career" id="image-career4" style="display:none;">
+															<div class="image-career" id="image-career4"
+																style="display: none;">
 																<input type="text" name="text-career4"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox"> <label
@@ -182,7 +186,8 @@
 																</label> <input id="file-career4" name="file-career4"
 																	type="file" />
 															</div>
-															<div class="image-career" id="image-career5" style="display:none;">
+															<div class="image-career" id="image-career5"
+																style="display: none;">
 																<input type="text" name="text-career5"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox"> <label
@@ -204,437 +209,452 @@
 
 														<div id="tutorCareerFile"
 															style="margin-bottom: 20px; font-size: 12px;"></div>
-													
-													<!-- kj 소개 본문 내용 끝 -->
-													<button class="pageBtn" onclick="stepper1.next()">다음</button>
-												</div>
-											</div>
-										</div>
-										<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
-											aria-labelledby="stepper1trigger2">
-											
-											<div class="form-group">
-												<!-- 2. 클래스 유형 본문 내용 시작 -->
-												<div id="chooseCategory">클래스 유형</div>
 
-												<div id="introBox2">
-
-
-													<div>
-														<input type="radio" id="control_01" name="classType"
-															value="1"> <label for="control_01"
-															class="selectClass"> 원데이 클래스 </label>
-													</div>
-													<div>
-														<input type="radio" id="control_02" name="classType"
-															value="2"> <label for="control_02"
-															class="selectClass"> 다회차 클래스 </label>
-													</div>
-													<div>
-														<input type="radio" id="control_03" name="classType"
-															value="3"> <label for="control_03"
-															class="selectClass"> VOD </label>
-													</div>
-
-
-
-												</div>
-												<!-- 카테고리 선택 -->
-												<div id="categoryDiv">카테고리 선택</div>
-												<div
-													style="display: flex; justify-content: space-between; margin-bottom: 40px;">
-													<select name="bigCategory" id="bigCategory"
-														class="categoryClass" style="flex-grow: 1;"></select> <select
-														name="smallCategory" id="smallCategory"
-														style="flex-grow: 1; margin-right: 0;"
-														class="categoryClass"></select>
-												</div>
-												
-												<!-- 클래스 유형 본문 내용 끝 -->
-												<div style="display: flex;">
-													<button class="pageBtn" style="margin-right: 5px;"
-														onclick="stepper1.previous()">이전</button>
-													<button class="pageBtn" onclick="stepper1.next()">다음</button>
-												</div>
-											</div>
-										</div>
-										<div id="test-l-3" role="tabpanel" class="bs-stepper-pane"
-											aria-labelledby="stepper1trigger3">
-											<div class="form-group">
-												<!-- 3. 클래스 제목 및 커버 본문 내용 시작 -->
-												<div id="classTitleHead">클래스 제목</div>
-												<div id="classTitle">
-													<!-- 텍스트박스 -->
-
-													<div id="classTitleText">
-														<input type="text"
-															placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"
-															id="setClassTitle1" name="lectureTitle"
-															onkeyup="limit30(event, 'showMeTheLimitOfTitleLength1')">
-														<div id="showMeTheLimitOfTitleLength1">(0/30)</div>
+														<!-- kj 소개 본문 내용 끝 -->
+														<button class="pageBtn" onclick="stepper1.next()">다음</button>
 													</div>
 												</div>
-												
-												<!-- <form onsubmit="return false" id="toSendForm"> -->
-												<div id="classImgeHead">클래스 이미지</div>
-												<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
-													jpeg, jpg)</div>
-												<!-- 인풋파일 업로드 시작 -->
-												
-												<div id="previewImgcontainer">
-													<!-- 이미지 업로드 시작 -->
-													<div class="imageUpload">
-
-														<div id="uploadImageBtn">
-															<label for="toUploadClassImg" id="classImageUpload">
-																이미지를 선택 <input type="file" name="classImageFiles" id="toUploadClassImg"
-																multiple>
-
-															</label>
-														</div>
-														<div class="files">
-															선택된 이미지
-															<table>
-																<ul id="selectedImg"></ul>
-															</table>
-														</div>
-
-
-
-													</div>
-													<div id="resultImg"
-														style="display: flex; justify-content: center; margin-bottom:40px;"></div>
-
-
-													<!-- 이미지 업로드 끝 -->
-												</div>
-												<!-- 인풋파일 업로드 끝 -->
-
-												<!-- 클래스 제목 및 커버 본문 내용 끝 -->
 											</div>
-											<div style="display: flex;">
-												<button class="pageBtn" style="margin-right: 5px;"
-													onclick="stepper1.previous()">이전</button>
-												<button class="pageBtn" onclick="stepper1.next()">다음</button>
-											</div>
-										</div>
-										<div id="test-l-4" role="tabpanel" class="bs-stepper-pane"
-											aria-labelledby="stepper1trigger4">
-											<div class="form-group">
-												<!-- 4. 클래스 상새 소게 페이지 -->
-												<div class="classDetailHead">클래스 상세 소개</div>
-												<div id="classComment1">
-													<textarea cols="58" rows="5" id="classIntroduction1" name="lectureIntroduce"
-														placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
-														style="margin-top: 5px; margin-left: 5px;"
-														onkeyup="limit500(event, 'detailInfoLengthLimit1')"></textarea>
-													<div id="detailInfoLengthLimit1">(0/500)</div>
-												</div>
+											<div id="test-l-2" role="tabpanel" class="bs-stepper-pane"
+												aria-labelledby="stepper1trigger2">
+
+												<div class="form-group">
+													<!-- 2. 클래스 유형 본문 내용 시작 -->
+													<div id="chooseCategory">클래스 유형</div>
+
+													<div id="introBox2">
 
 
-												<div class="classDetailHead">강의추천 / 비추천 대상</div>
-												<div id="classComment2">
-													<textarea cols="58" rows="5" id="classIntroduction2" name="recommend"
-														placeholder="ex) 이런 사람들에게 추천합니다"
-														style="margin-top: 5px; margin-left: 5px;"
-														onkeyup="limit500(event, 'detailInfoLengthLimit2')"></textarea>
-													<div id="detailInfoLengthLimit2">(0/500)</div>
-												</div>
-
-
-												<div class="classDetailHead">
-													클래스 진행 방식
-												</div>
-												<div id="classComment3">
-													<textarea cols="58" rows="5" id="classIntroduction3" name="curriculum"
-														placeholder="ex) 회차별 커리큘럼"
-														style="margin-top: 5px; margin-left: 5px;"
-														onkeyup="limit500(event, 'detailInfoLengthLimit3')"></textarea>
-													<div id="detailInfoLengthLimit3">(0/500)</div>
-												</div>
-
-
-												<div class="classDetailHead">유의사항</div>
-												<div id="classComment4">
-													<textarea cols="58" rows="5" id="classIntroduction4" name="lectureNotice"
-														placeholder="ex) 유의사항 / 준비물"
-														style="margin-top: 5px; margin-left: 5px;"
-														onkeyup="limit500(event, 'detailInfoLengthLimit4')"></textarea>
-													<div id="detailInfoLengthLimit4">(0/500)</div>
-												</div>
-
-												
-												<!-- 클래스 상세 소개 페이지 끝 -->
-											</div>
-											<div style="display: flex;">
-												<button class="pageBtn" style="margin-right: 5px;"
-													onclick="stepper1.previous()">이전</button>
-												<button class="pageBtn" onclick="stepper1.next()">다음</button>
-											</div>
-										</div>
-										<div id="test-l-5" role="tabpanel" class="bs-stepper-pane"
-											aria-labelledby="stepper1trigger5">
-											<div class="form-group">
-												<!-- 5. 기타 페이지 시작 -->
-												<!-- 원데이 시작 -->
-												<div id="selectedOnedayClass" style="display: none;">
-
-													<h5 class="classCetegory">원데이 클래스</h5>
-													<div class="multipleClassPrice"
-														style="padding-bottom: 20px;">
 														<div>
-															<div class="pricePerClass1">총 클래스 횟수</div>
-															<div>
-																<select name="numOfClass1" id="numOfClass1"
-																	class="categoryClass"
-																	style="flex-grow: 1; margin-bottom: 20px;"
-																	onchange="toGetValue(this.value)">
-																	<option value="1">1회</option>
-																	<option value="2">2회</option>
-																	<option value="3">3회</option>
-																	<option value="4">4회</option>
-																	<option value="5">5회</option>
-																	<option value="6">6회</option>
-																	<option value="7">7회</option>
-																	<option value="8">8회</option>
-																	<option value="9">9회</option>
-																	<option value="10">10회</option>
+															<input type="radio" id="control_01" name="classType"
+																value="1"> <label for="control_01"
+																class="selectClass"> 원데이 클래스 </label>
+														</div>
+														<div>
+															<input type="radio" id="control_02" name="classType"
+																value="2"> <label for="control_02"
+																class="selectClass"> 다회차 클래스 </label>
+														</div>
+														<div>
+															<input type="radio" id="control_03" name="classType"
+																value="3"> <label for="control_03"
+																class="selectClass"> VOD </label>
+														</div>
 
-																</select>
-															</div>
-														</div>
-														<!-- 회차에 따라서 펼쳐지는 날짜와 시간들 시작  -->
-														<div id="selectMultipleDates0" style="display: block;">
-															<div style="padding-top: 20px; margin-bottom: 10px;">
-																<span>1회 날짜 : </span><input type="date" name="classDate0"
-																	style="border-radius: 7px;">
-															</div>
-															<div
-																style="padding-bottom: 20px; border-bottom: 1px solid black;">
-																시작 시간 : <input type="time" name="startTime0" style="border-radius: 7px;">&nbsp;&nbsp;
-																종료 시간 : <input type="time" name="endTime0" style="border-radius: 7px;">
-															</div>
-														</div>
-														<div style="padding-top: 20px;">
-															<div class="totalClass1" style="border-bottom: 10px;">
-																회차당 가격(,없이 숫자만 적어주세요)</div>
-															<div
-																style="border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px; width: 38%;"
-																class="classIntBox" id="inputBoxOfOneDayTimes">
-																<input type="text" class="classIntInputBox" name="onedayClassPrice"
-																	id="classTxtBox1"><span class="won">원</span>
-															</div>
-								
-														</div>
+
+
 													</div>
-													<!-- 가격받기 끝 -->
-													<div class="classLocationTitle">클래스 위치</div>
+													<!-- 카테고리 선택 -->
+													<div id="categoryDiv">카테고리 선택</div>
 													<div
-														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-														<select name="sido1" id="sido1" class="categoryClass"
-															style="flex-grow: 1"></select> <select name="gugun1"
-															id="gugun1" class="categoryClass" style="flex-grow: 1"></select>
+														style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+														<select name="bigCategory" id="bigCategory"
+															class="categoryClass" style="flex-grow: 1;"></select> <select
+															name="smallCategory" id="smallCategory"
+															style="flex-grow: 1; margin-right: 0;"
+															class="categoryClass"></select>
 													</div>
-													<div id="detailPlace2">
-														<input type="text" placeholder="세부 장소를 입력해주세요" name="address1"
-															id="setClassTitle4"> <span
-															id="showMeTheLimitOfTitleLength3"> (0/50) </span>
+
+													<!-- 클래스 유형 본문 내용 끝 -->
+													<div style="display: flex;">
+														<button class="pageBtn" style="margin-right: 5px;"
+															onclick="stepper1.previous()">이전</button>
+														<button class="pageBtn" onclick="stepper1.next()">다음</button>
 													</div>
-													<div class="classLocationTitle">최대 참여 인원</div>
-													<div
-														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-														<select name="peopleNum2" id="peopleNum2"
-															class="categoryClass"
-															style="flex-grow: 1; margin-bottom: 40px;"></select>
-													</div>
-													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
-														등록됩니다.</div>
-														</form>
 												</div>
-												<!-- 원데이 끝 -->
-												<div id="selectedMultipleClass" style="display: none;">
-													<!-- 다회차 시작 -->
-													<h5 class="classCetegory">다회차 클래스</h5>
-													<div class="multipleClassPrice"
-														style="display: table-cell; vertical-align: middle; padding-bottom: 20px;">
-														<div style="display: inline-block;">
-															<div class="pricePerClass1">총 클래스 횟수</div>
-															<div>
-																<select name="numOfClass2" id="numOfClass2"
-																	class="categoryClass" style="flex-grow: 1"
-																	onchange="toGetValue2(this.value)">
-																	<option value="2">2회</option>
-																	<option value="3">3회</option>
-																	<option value="4">4회</option>
-																	<option value="5">5회</option>
-																	<option value="6">6회</option>
-																	<option value="7">7회</option>
-																	<option value="8">8회</option>
-																	<option value="9">9회</option>
-																	<option value="10">10회</option>
+											</div>
+											<div id="test-l-3" role="tabpanel" class="bs-stepper-pane"
+												aria-labelledby="stepper1trigger3">
+												<div class="form-group">
+													<!-- 3. 클래스 제목 및 커버 본문 내용 시작 -->
+													<div id="classTitleHead">클래스 제목</div>
+													<div id="classTitle">
+														<!-- 텍스트박스 -->
 
-																</select>
-															</div>
-														</div>
-														<div class="times" style="display: inline-block;"></div>
-														<div style="display: inline-block;">
-															<div id="selectMultipleDatesTwo0" style="display: block;">
-																<div style="padding-top: 20px; margin-bottom: 10px;">
-																	<span>1회 날짜 : </span><input type="date" name="classDateTwo0"
-																		style="border-radius: 7px;">
-																</div>
-																<div
-																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
-																	시작 시간 : <input type="time" name="startTimeTwo0" style="border-radius: 7px;">&nbsp;&nbsp;
-																	종료 시간 : <input type="time" name="endTimeTwo0" style="border-radius: 7px;">
-																</div>
-															</div>
-															<div id="selectMultipleDatesTwo1" style="display: block;">
-																<div style="padding-top: 20px; margin-bottom: 10px;">
-																	<span>2회 날짜 : </span><input type="date" name="classDateTwo1"
-																		style="border-radius: 7px;">
-																</div>
-																<div
-																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
-																	시작 시간 : <input type="time" name="startTimeTwo1" style="border-radius: 7px;">&nbsp;&nbsp;
-																	종료 시간 : <input type="time" name="endTimeTwo1" style="border-radius: 7px;">
-																</div>
-															</div>
-															<div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
-															<div
-																style="display: inline-block; border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px;"
-																class="classIntBox" id="inputBoxOfTimes">
-																<input type="text" class="classIntInputBox" name="multipleDayClassPrice"
-																	id="classTxtBox2"><span class="won">원</span>
-															</div>
+														<div id="classTitleText">
+															<input type="text"
+																placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"
+																id="setClassTitle1" name="lectureTitle"
+																onkeyup="limit30(event, 'showMeTheLimitOfTitleLength1')">
+															<div id="showMeTheLimitOfTitleLength1">(0/30)</div>
 														</div>
 													</div>
-													<!-- 가격받기 끝 -->
-													<div class="classLocationTitle">클래스 위치</div>
-													<div
-														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-														<select name="sido2" id="sido2" class="categoryClass"
-															style="flex-grow: 1"></select> <select name="gugun2"
-															id="gugun2" class="categoryClass" style="flex-grow: 1"></select>
+
+													<!-- <form onsubmit="return false" id="toSendForm"> -->
+													<div id="classImgeHead">클래스 이미지</div>
+													<div id="classImgContent">이미지 파일만 가능합니다. (png, gif,
+														jpeg, jpg)</div>
+													<!-- 인풋파일 업로드 시작 -->
+
+													<div id="previewImgcontainer">
+														<!-- 이미지 업로드 시작 -->
+														<div class="imageUpload">
+
+															<div id="uploadImageBtn">
+																<label for="toUploadClassImg" id="classImageUpload">
+																	이미지를 선택 <input type="file" name="classImageFiles"
+																	id="toUploadClassImg" multiple>
+
+																</label>
+															</div>
+															<div class="files">
+																선택된 이미지
+																<table>
+																	<ul id="selectedImg"></ul>
+																</table>
+															</div>
+
+
+
+														</div>
+														<div id="resultImg"
+															style="display: flex; justify-content: center; margin-bottom: 40px;"></div>
+
+
+														<!-- 이미지 업로드 끝 -->
 													</div>
-													<div id="detailPlace1">
-														<input type="text" placeholder="세부 장소를 입력해주세요" name="address2"
-															id="setClassTitle3"> <span
-															id="showMeTheLimitOfTitleLength2"> (0/50) </span>
-													</div>
-													<div class="classLocationTitle">최대 참여 인원</div>
-													<div
-														style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-														<select name="peopleNum1" id="peopleNum1"
-															class="categoryClass"
-															style="flex-grow: 1; margin-bottom: 40px;"></select>
-													</div>
-													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
-														등록됩니다.</div>
+													<!-- 인풋파일 업로드 끝 -->
+
+													<!-- 클래스 제목 및 커버 본문 내용 끝 -->
 												</div>
-												<!-- 다회차 끝 -->
-												<!-- VOD 시작 -->
-												<div id="selectedVOD" style="display: none;">
-													<!-- url주소 / 제목 / 강의내용 입력 디브 -->
-													<h5 class="classCetegory">VOD</h5>
-													<div class="pricePerClass1">총 클래스 횟수</div>
-													<div>
-														<select name="numOfClass3" id="numOfClass3"
-															class="categoryClass"
-															style="flex-grow: 1; margin-bottom: 20px;"
-															onchange="toGetVodValue(this.value)">
-															<option value="1">1회</option>
-															<option value="2">2회</option>
-															<option value="3">3회</option>
-															<option value="4">4회</option>
-															<option value="5">5회</option>
-															<option value="6">6회</option>
-															<option value="7">7회</option>
-															<option value="8">8회</option>
-															<option value="9">9회</option>
-															<option value="10">10회</option>
-
-														</select>
-													</div>
-													<div id="selectVodDates0"
-														style="padding-bottom: 20px; border-bottom: 1px solid black;">
-														<div id="infoPerClass"
-															style="margin-bottom: 10px; margin-top: 20px;">1회차
-															수업 정보 입력</div>
-														<div style="display: flex;">
-															<div class="inputVODinfoTxtBox" style="display: flex;">
-																<input type="text" placeholder="url주소 입력" name="VODurlAddress0"
-																	id="inputUrlAddress1" class="inputUrlAddress">
-																<span class="vodEachClassUrlAddressLimit"
-																	id="vodEachClassUrlAddressLimitId1"> (0/50) </span>
-															</div>
-															<div class="inputVODinfoTxtBox" style="display: flex;">
-																<input type="text" id="inputSmallTitle1" name="VODTitlePerClass0"
-																	placeholder="회차당 제목 입력" class="inputSmallTitle">
-																<span class="vodEachClassTitleLimit"> (0/50) </span>
-															</div>
-														</div>
-														
-														<div class="vodEachClassInformationDiv">
-															<textarea id="" cols="58" name="vodEachClassInformation0"
-																rows="5" placeholder="해당 회차 강의 내용에 대해 설명을 적어주세요"
-																class="vodEachClassInformation"></textarea>
-															<div class="vodEachClassInfoLimit">(0/200)</div>
-														</div>
-													</div>
-
-
-
-													<!-- url주소 / 제목 / 강의내용 입력 끝 -->
-													<!-- 클래스 가격 입력 시작 -->
-													<div id="vodClassPrice"
-														style="display: table-cell; vertical-align: middle; padding-bottom: 20px; padding-top: 20px">
-														<div style="display: inline-block;">
-															<div class="pricePerClass1" style="border-bottom: 10px;">클래스
-																가격</div>
-															<div id="pricePerClass2" class="classIntBox">
-																<input type="text" class="classIntInputBox" name="vodTotalClassPrice"
-																	id="classPri"><span class="won">원</span>
-															</div>
-														</div>
-													</div>
-													<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
-														등록됩니다.</div>
-													<!-- 클래스 가격 입력 끝 -->
-
-
-												</div>
-												<!-- VOD 끝 -->
-
-
-
-
-
-												<!-- 기타 페이지 끝 -->
 												<div style="display: flex;">
 													<button class="pageBtn" style="margin-right: 5px;"
 														onclick="stepper1.previous()">이전</button>
-													<button type="button" class="pageBtn" id="submitAllInfo"
-														onclick="toSubmit()">제출</button>
+													<button class="pageBtn" onclick="stepper1.next()">다음</button>
 												</div>
 											</div>
-											<!-- 폼 내용 END -->
-										</div>
-										<div class="last"></div>
+											<div id="test-l-4" role="tabpanel" class="bs-stepper-pane"
+												aria-labelledby="stepper1trigger4">
+												<div class="form-group">
+													<!-- 4. 클래스 상새 소게 페이지 -->
+													<div class="classDetailHead">클래스 상세 소개</div>
+													<div id="classComment1">
+														<textarea cols="58" rows="5" id="classIntroduction1"
+															name="lectureIntroduce"
+															placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
+															style="margin-top: 5px; margin-left: 5px;"
+															onkeyup="limit500(event, 'detailInfoLengthLimit1')"></textarea>
+														<div id="detailInfoLengthLimit1">(0/500)</div>
+													</div>
 
+
+													<div class="classDetailHead">강의추천 / 비추천 대상</div>
+													<div id="classComment2">
+														<textarea cols="58" rows="5" id="classIntroduction2"
+															name="recommend" placeholder="ex) 이런 사람들에게 추천합니다"
+															style="margin-top: 5px; margin-left: 5px;"
+															onkeyup="limit500(event, 'detailInfoLengthLimit2')"></textarea>
+														<div id="detailInfoLengthLimit2">(0/500)</div>
+													</div>
+
+
+													<div class="classDetailHead">클래스 진행 방식</div>
+													<div id="classComment3">
+														<textarea cols="58" rows="5" id="classIntroduction3"
+															name="curriculum" placeholder="ex) 회차별 커리큘럼"
+															style="margin-top: 5px; margin-left: 5px;"
+															onkeyup="limit500(event, 'detailInfoLengthLimit3')"></textarea>
+														<div id="detailInfoLengthLimit3">(0/500)</div>
+													</div>
+
+
+													<div class="classDetailHead">유의사항</div>
+													<div id="classComment4">
+														<textarea cols="58" rows="5" id="classIntroduction4"
+															name="lectureNotice" placeholder="ex) 유의사항 / 준비물"
+															style="margin-top: 5px; margin-left: 5px;"
+															onkeyup="limit500(event, 'detailInfoLengthLimit4')"></textarea>
+														<div id="detailInfoLengthLimit4">(0/500)</div>
+													</div>
+
+
+													<!-- 클래스 상세 소개 페이지 끝 -->
+												</div>
+												<div style="display: flex;">
+													<button class="pageBtn" style="margin-right: 5px;"
+														onclick="stepper1.previous()">이전</button>
+													<button class="pageBtn" onclick="stepper1.next()">다음</button>
+												</div>
+											</div>
+											<div id="test-l-5" role="tabpanel" class="bs-stepper-pane"
+												aria-labelledby="stepper1trigger5">
+												<div class="form-group">
+													<!-- 5. 기타 페이지 시작 -->
+													<!-- 원데이 시작 -->
+													<div id="selectedOnedayClass" style="display: none;">
+
+														<h5 class="classCetegory">원데이 클래스</h5>
+														<div class="multipleClassPrice"
+															style="padding-bottom: 20px;">
+															<div>
+																<div class="pricePerClass1">총 클래스 횟수</div>
+																<div>
+																	<select name="numOfClass1" id="numOfClass1"
+																		class="categoryClass"
+																		style="flex-grow: 1; margin-bottom: 20px;"
+																		onchange="toGetValue(this.value)">
+																		<option value="1">1회</option>
+																		<option value="2">2회</option>
+																		<option value="3">3회</option>
+																		<option value="4">4회</option>
+																		<option value="5">5회</option>
+																		<option value="6">6회</option>
+																		<option value="7">7회</option>
+																		<option value="8">8회</option>
+																		<option value="9">9회</option>
+																		<option value="10">10회</option>
+
+																	</select>
+																</div>
+															</div>
+															<!-- 회차에 따라서 펼쳐지는 날짜와 시간들 시작  -->
+															<div id="selectMultipleDates0" style="display: block;">
+																<div style="padding-top: 20px; margin-bottom: 10px;">
+																	<span>1회 날짜 : </span><input type="date"
+																		name="classDate0" style="border-radius: 7px;">
+																</div>
+																<div
+																	style="padding-bottom: 20px; border-bottom: 1px solid black;">
+																	시작 시간 : <input type="time" name="startTime0"
+																		style="border-radius: 7px;">&nbsp;&nbsp; 종료 시간
+																	: <input type="time" name="endTime0"
+																		style="border-radius: 7px;">
+																</div>
+															</div>
+															<div style="padding-top: 20px;">
+																<div class="totalClass1" style="border-bottom: 10px;">
+																	회차당 가격(,없이 숫자만 적어주세요)</div>
+																<div
+																	style="border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px; width: 38%;"
+																	class="classIntBox" id="inputBoxOfOneDayTimes">
+																	<input type="text" class="classIntInputBox"
+																		name="onedayClassPrice" id="classTxtBox1"><span
+																		class="won">원</span>
+																</div>
+
+															</div>
+														</div>
+														<!-- 가격받기 끝 -->
+														<div class="classLocationTitle">클래스 위치</div>
+														<div
+															style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+															<select name="sido1" id="sido1" class="categoryClass"
+																style="flex-grow: 1"></select> <select name="gugun1"
+																id="gugun1" class="categoryClass" style="flex-grow: 1"></select>
+														</div>
+														<div id="detailPlace2">
+															<input type="text" placeholder="세부 장소를 입력해주세요"
+																name="address1" id="setClassTitle4"> <span
+																id="showMeTheLimitOfTitleLength3"> (0/50) </span>
+														</div>
+														<div class="classLocationTitle">최대 참여 인원</div>
+														<div
+															style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+															<select name="peopleNum2" id="peopleNum2"
+																class="categoryClass"
+																style="flex-grow: 1; margin-bottom: 40px;"></select>
+														</div>
+														<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가
+															등록됩니다.</div>
+								</form>
+							</div>
+							<!-- 원데이 끝 -->
+							<div id="selectedMultipleClass" style="display: none;">
+								<!-- 다회차 시작 -->
+								<h5 class="classCetegory">다회차 클래스</h5>
+								<div class="multipleClassPrice"
+									style="display: table-cell; vertical-align: middle; padding-bottom: 20px;">
+									<div style="display: inline-block;">
+										<div class="pricePerClass1">총 클래스 횟수</div>
+										<div>
+											<select name="numOfClass2" id="numOfClass2"
+												class="categoryClass" style="flex-grow: 1"
+												onchange="toGetValue2(this.value)">
+												<option value="2">2회</option>
+												<option value="3">3회</option>
+												<option value="4">4회</option>
+												<option value="5">5회</option>
+												<option value="6">6회</option>
+												<option value="7">7회</option>
+												<option value="8">8회</option>
+												<option value="9">9회</option>
+												<option value="10">10회</option>
+
+											</select>
+										</div>
+									</div>
+									<div class="times" style="display: inline-block;"></div>
+									<div style="display: inline-block;">
+										<div id="selectMultipleDatesTwo0" style="display: block;">
+											<div style="padding-top: 20px; margin-bottom: 10px;">
+												<span>1회 날짜 : </span><input type="date" name="classDateTwo0"
+													style="border-radius: 7px;">
+											</div>
+											<div
+												style="padding-bottom: 20px; border-bottom: 1px solid black;">
+												시작 시간 : <input type="time" name="startTimeTwo0"
+													style="border-radius: 7px;">&nbsp;&nbsp; 종료 시간 : <input
+													type="time" name="endTimeTwo0" style="border-radius: 7px;">
+											</div>
+										</div>
+										<div id="selectMultipleDatesTwo1" style="display: block;">
+											<div style="padding-top: 20px; margin-bottom: 10px;">
+												<span>2회 날짜 : </span><input type="date" name="classDateTwo1"
+													style="border-radius: 7px;">
+											</div>
+											<div
+												style="padding-bottom: 20px; border-bottom: 1px solid black;">
+												시작 시간 : <input type="time" name="startTimeTwo1"
+													style="border-radius: 7px;">&nbsp;&nbsp; 종료 시간 : <input
+													type="time" name="endTimeTwo1" style="border-radius: 7px;">
+											</div>
+										</div>
+										<div class="totalClass1">회차당 가격(,없이 숫자만 적어주세요)</div>
+										<div
+											style="display: inline-block; border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px;"
+											class="classIntBox" id="inputBoxOfTimes">
+											<input type="text" class="classIntInputBox"
+												name="multipleDayClassPrice" id="classTxtBox2" onchange="checkString(e);"><span
+												class="won">원</span>
+												<script>
+												const checkString=(e)=>{
+													let inputBox = document.getElementById("classTxtBox2");
+													let eng = /[a-zA-Z]/;
+													let etc = /[~!@#$%^&*()_+|<>?:{}]/;
+													let kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+													alert("???");
+
+												}
+												</script>
+										</div>
 									</div>
 								</div>
-								<!-- </form>이게 진짜 폼 끝이야! -->
+								<!-- 가격받기 끝 -->
+								<div class="classLocationTitle">클래스 위치</div>
+								<div
+									style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+									<select name="sido2" id="sido2" class="categoryClass"
+										style="flex-grow: 1"></select> <select name="gugun2"
+										id="gugun2" class="categoryClass" style="flex-grow: 1"></select>
+								</div>
+								<div id="detailPlace1">
+									<input type="text" placeholder="세부 장소를 입력해주세요" name="address2"
+										id="setClassTitle3"> <span
+										id="showMeTheLimitOfTitleLength2"> (0/50) </span>
+								</div>
+								<div class="classLocationTitle">최대 참여 인원</div>
+								<div
+									style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+									<select name="peopleNum1" id="peopleNum1" class="categoryClass"
+										style="flex-grow: 1; margin-bottom: 40px;"></select>
+								</div>
+								<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.</div>
+							</div>
+							<!-- 다회차 끝 -->
+							<!-- VOD 시작 -->
+							<div id="selectedVOD" style="display: none;">
+								<!-- url주소 / 제목 / 강의내용 입력 디브 -->
+								<h5 class="classCetegory">VOD</h5>
+								<div class="pricePerClass1">총 클래스 횟수</div>
+								<div>
+									<select name="numOfClass3" id="numOfClass3"
+										class="categoryClass"
+										style="flex-grow: 1; margin-bottom: 20px;"
+										onchange="toGetVodValue(this.value)">
+										<option value="1">1회</option>
+										<option value="2">2회</option>
+										<option value="3">3회</option>
+										<option value="4">4회</option>
+										<option value="5">5회</option>
+										<option value="6">6회</option>
+										<option value="7">7회</option>
+										<option value="8">8회</option>
+										<option value="9">9회</option>
+										<option value="10">10회</option>
+
+									</select>
+								</div>
+								<div id="selectVodDates0"
+									style="padding-bottom: 20px; border-bottom: 1px solid black;">
+									<div id="infoPerClass"
+										style="margin-bottom: 10px; margin-top: 20px;">1회차 수업 정보
+										입력</div>
+									<div style="display: flex;">
+										<div class="inputVODinfoTxtBox" style="display: flex;">
+											<input type="text" placeholder="url주소 입력"
+												name="VODurlAddress0" id="inputUrlAddress1"
+												class="inputUrlAddress"> <span
+												class="vodEachClassUrlAddressLimit"
+												id="vodEachClassUrlAddressLimitId1"> (0/50) </span>
+										</div>
+										<div class="inputVODinfoTxtBox" style="display: flex;">
+											<input type="text" id="inputSmallTitle1"
+												name="VODTitlePerClass0" placeholder="회차당 제목 입력"
+												class="inputSmallTitle"> <span
+												class="vodEachClassTitleLimit"> (0/50) </span>
+										</div>
+									</div>
+
+									<div class="vodEachClassInformationDiv">
+										<textarea id="" cols="58" name="vodEachClassInformation0"
+											rows="5" placeholder="해당 회차 강의 내용에 대해 설명을 적어주세요"
+											class="vodEachClassInformation"></textarea>
+										<div class="vodEachClassInfoLimit">(0/200)</div>
+									</div>
+								</div>
+
+
+
+								<!-- url주소 / 제목 / 강의내용 입력 끝 -->
+								<!-- 클래스 가격 입력 시작 -->
+								<div id="vodClassPrice"
+									style="display: table-cell; vertical-align: middle; padding-bottom: 20px; padding-top: 20px">
+									<div style="display: inline-block;">
+										<div class="pricePerClass1" style="border-bottom: 10px;">클래스
+											가격</div>
+										<div id="pricePerClass2" class="classIntBox">
+											<input type="text" class="classIntInputBox"
+												name="vodTotalClassPrice" id="classPri"><span
+												class="won">원</span>
+										</div>
+									</div>
+								</div>
+								<div style="margin-bottom: 40px;">관리자의 승인 후 클래스가 등록됩니다.</div>
+								<!-- 클래스 가격 입력 끝 -->
+
+
+							</div>
+							<!-- VOD 끝 -->
+
+
+
+
+
+							<!-- 기타 페이지 끝 -->
+							<div style="display: flex;">
+								<button class="pageBtn" style="margin-right: 5px;"
+									onclick="stepper1.previous()">이전</button>
+								<button type="button" class="pageBtn" id="submitAllInfo"
+									onclick="toSubmit()">제출</button>
 							</div>
 						</div>
+						<!-- 폼 내용 END -->
 					</div>
+					<div class="last"></div>
+
 				</div>
 			</div>
-			<%} else { %>
-		 	튜터로 로그인 한 후 이용 가능합니다.
-		 	<%} %>
-		</section>
-		<%@ include file="/views/common/footer.jsp"%>
+			<!-- </form>이게 진짜 폼 끝이야! -->
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<%} else { %>
+	튜터로 로그인 한 후 이용 가능합니다.
+	<%} %>
+	</section>
+	<%@ include file="/views/common/footer.jsp"%>
 	</div>
 
 
@@ -1279,8 +1299,8 @@
     	       timeout: 600000,       
     	       success:data=>{
     	    		console.log(data);   
-    	    	   alert(data>0?"등록성공":"등록실패");
-    	    	   window.location.href = "<%=request.getContextPath()%>";
+    	    	  /*  alert(data>0?"등록성공":"등록실패"); */
+    	    	   <%-- window.location.href = "<%=request.getContextPath()%>"; --%>
     	       },error:e=>{
     	    	   console.log(e);
     	    	   console.log(e.responseText);

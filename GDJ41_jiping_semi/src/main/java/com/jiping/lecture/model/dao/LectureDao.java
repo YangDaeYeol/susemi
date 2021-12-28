@@ -403,8 +403,8 @@ public class LectureDao {
 			String sql = prop.getProperty("enrollTutorInformation");
 			try {
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, m.getNickname());
-				pstmt.setString(2, m.getPhone());
+				pstmt.setString(1, m.getEmail());
+				pstmt.setString(2, m.getEmail());
 				pstmt.setString(3, t.getInsta());
 				pstmt.setString(4, t.getFacebook());
 				pstmt.setString(5, t.getBlog());
@@ -722,10 +722,10 @@ public class LectureDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, vl.getLectureNo());
-			pstmt.setString(1, vodUrlAddr);
-			pstmt.setInt(2, vl.getVodPrice());
-			pstmt.setString(3, vodTitle);
-			pstmt.setString(4, vodClassInfo);
+			pstmt.setString(2, vodUrlAddr);
+			pstmt.setInt(3, vl.getVodPrice());
+			pstmt.setString(4, vodTitle);
+			pstmt.setString(5, vodClassInfo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
