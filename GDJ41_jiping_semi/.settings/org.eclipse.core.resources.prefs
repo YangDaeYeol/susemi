@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/resources/driver.properties=UTF-8
 encoding//src/main/resources/sql/lecture/lecturesql.properties=UTF-8
+=======
+encoding//src/main/resources/sql/lecture/lecturesql.properties=UTF-8
+encoding//src/main/resources/sql/member/member.properties=UTF-8
+>>>>>>> branch 'master' of https://github.com/YangDaeYeol/susemi.git

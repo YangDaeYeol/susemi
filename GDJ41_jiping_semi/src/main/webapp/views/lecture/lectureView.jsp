@@ -642,5 +642,15 @@ boolean flag = false;
         </div> review-list
     </div>container
 </section>
+<script>
+<%-- 	report=(e)=> {
+		const commentNo = $(e.targer)
+		const nickName = 
+		const url = "<%= request.getContextPath() %>/report?nickname=";
+		const title = "신고하기";
+		const style = "width300, height=200";
+		open("",title,style)
+	} --%>
+</script>
 
 <%@ include file="/views/common/footer.jsp" %>

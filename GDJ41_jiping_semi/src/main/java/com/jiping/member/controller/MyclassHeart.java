@@ -13,7 +13,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class MyclassHeart
  */
-@WebServlet("/member/myclassHeart.do")
+@WebServlet(name="heart", urlPatterns={"/member/myclassHeart.do"})
 public class MyclassHeart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

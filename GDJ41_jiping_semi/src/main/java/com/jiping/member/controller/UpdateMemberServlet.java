@@ -14,7 +14,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class UpdateMemberServlet
  */
-@WebServlet("/member/updateMember.do")
+@WebServlet(name="updateMember", urlPatterns={"/member/updateMember.do"})
 public class UpdateMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,6 +32,7 @@ public class UpdateMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		Member m=new MemberService().selectMember(email);
+		
 		request.setAttribute("loginMember", m);
 		request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request, response);
 	}

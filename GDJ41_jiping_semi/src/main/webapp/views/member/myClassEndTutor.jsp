@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
+<%@ page import="com.jiping.lecture.model.vo.Lecture" %>
 <%
 	Member m=(Member)request.getAttribute("loginMember");
+	List<Lecture> list=(List)request.getAttribute("lectureList");
+	int count=(int)request.getAttribute("count");
 %>
 	<section id="sectionMargin">
             <div id="mypage-container" class="flex">

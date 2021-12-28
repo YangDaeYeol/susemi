@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
+<%@ page import="com.jiping.tutor.model.vo.*" %>
+<%
+	Tutor t = (Tutor)request.getAttribute("tutor"); 
+	List<Certificate> list = (List)request.getAttribute("certificate");
+	Certificate[] cerArray = new Certificate[5];
+	for(int i=0; i<list.size(); i++) {
+		cerArray[i] = list.get(i);
+	}
+%>
 <body>
 	<div id="container">
 		<%@ include file="/views/common/header.jsp"%>
 		<link rel="stylesheet"
 			href="<%=request.getContextPath() %>/css/getClassInformation.css">
-		<section>
-
+		<section> 
+<%if (!(loginMember==null)) {%>
 
 			<div class="bs-stepper">
 				<div class="mainContents">
@@ -59,7 +66,7 @@
 								</div>
 							</div>
 							<div class="bs-stepper-content">
-								<form onsubmit="return false"  id="toSendForm">
+								<form enctype="multipart/form-data" method="post" onsubmit="return false"  id="toSendForm">
                                 <!-- 여기가 진짜 폼 시작하는곳이야  -->
 
 								<div class="mainContent">
@@ -78,9 +85,14 @@
 														gif, jpeg, jpg만 가능)</div>
 
 													<div class="image-upload">
-														<label for="file-input"> <img
-															src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png"
-															alt="2021-12-17-18-59-18" width="100px" height="100px">
+														<label for="file-input">
+														<% if(!loginMember.getProfileImg().equals("userimg.png")) {%>
+														 <img src="<%= request.getContextPath() %>/upload/<%= loginMember.getProfileImg() %>" id="imgTest"
+															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
+														<% }else { %>
+														<img src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png" id="imgTest"
+															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
+														<% } %>
 														</label> <input id="file-input" name="tutorImgFile" type="file"
 															accept="image/png, image/gif, image/jpeg, image/jpg">
 													</div>
@@ -89,7 +101,7 @@
 													<div id="tutorComment">
 														<textarea name="tutorComment" cols="58" rows="5"
 														id="tutorIntroduction"
-														onkeyup="limit500(event, 'introlimit')" ></textarea>
+														onkeyup="limit500(event, 'introlimit')" ><%= t!=null?t.getTutorMsg():"" %></textarea>
 														<div id="introlimit">(0/500)</div>
 													</div>
 
@@ -102,7 +114,7 @@
 																src="https://thedaylightaward.com/wp-content/uploads/2019/12/instagram-icon.png"
 																alt="instagram" class="socialImg" width="18px"
 																height="18px"><input type="text" name="instaAddr"
-																placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox">
+																placeholder="인스타그램 주소를 입력해주세요" class="snsInputBox" value="<%= t!=null?t.getInsta():"" %>">
 														</div>
 														<div id="facebook">
 															<img
@@ -110,13 +122,13 @@
 																alt="facebook" class="socialImg" width="18px"
 																height="18px"><input type="text"
 																name="facebookAddr" placeholder="페이스북 주소를 입력해주세요"
-																class="snsInputBox">
+																class="snsInputBox" value="<%= t!=null?t.getFacebook():"" %>">
 														</div>
 														<div id="blog">
 															<img src="https://www.coolstay.co.kr/img/main/naver.png"
 																alt="blog" class="socialImg" width="18px" height="18px"><input
 																type="text" name="blogAddr" placeholder="블로그 주소를 입력해주세요"
-																class="snsInputBox">
+																class="snsInputBox" value="<%= t!=null?t.getBlog():"" %>">
 														</div>
 													</div>
 													
@@ -128,7 +140,7 @@
 															<div class="image-career" id="image-career1">
 																<input type="text" name="text-career1"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[0]!=null?cerArray[0].getCertificateText():"" %>"> <label
 																	class='fileCareerFileInputLabel' for="file-career1">
 
 																	<img
@@ -136,14 +148,14 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage" />
 																</label> <input id="file-career1" name="file-career1"
-																	type="file"
+																	type="file" value="<%= cerArray[0]!=null?cerArray[0].getCertificateImg():"" %>"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
 															</div>
 
 															<div class="image-career" id="image-career2">
 																<input type="text" name="text-career2"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[1]!=null?cerArray[1].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career2">
 
 																	<img
@@ -151,13 +163,13 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career2" name="file-career2"
+																</label> <input id="file-career2" name="file-career2" value="<%= cerArray[1]!=null?cerArray[1].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 															<div class="image-career" id="image-career3" style="display:none;">
 																<input type="text" name="text-career3"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[2]!=null?cerArray[2].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career3">
 
 																	<img
@@ -165,13 +177,13 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career3" name="file-career3"
+																</label> <input id="file-career3" name="file-career3" value="<%= cerArray[2]!=null?cerArray[2].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 															<div class="image-career" id="image-career4" style="display:none;">
 																<input type="text" name="text-career4"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[3]!=null?cerArray[3].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career4">
 
 																	<img
@@ -179,13 +191,13 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career4" name="file-career4"
+																</label> <input id="file-career4" name="file-career4" value="<%= cerArray[3]!=null?cerArray[3].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 															<div class="image-career" id="image-career5" style="display:none;">
 																<input type="text" name="text-career5"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
-																	class="careerInputBox"> <label
+																	class="careerInputBox" value="<%= cerArray[4]!=null?cerArray[4].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career5">
 
 																	<img
@@ -193,7 +205,7 @@
 																	alt="2021-12-17-18-59-18" width="18px" height="18px"
 																	class="carrerimage"
 																	accept="image/png, image/gif, image/jpeg, image/jpg" />
-																</label> <input id="file-career5" name="file-career5"
+																</label> <input id="file-career5" name="file-career5" value="<%= cerArray[4]!=null?cerArray[4].getCertificateImg():"" %>"
 																	type="file" />
 															</div>
 
@@ -424,6 +436,7 @@
 																<input type="text" class="classIntInputBox" name="onedayClassPrice"
 																	id="classTxtBox1"><span class="won">원</span>
 															</div>
+								
 														</div>
 													</div>
 													<!-- 가격받기 끝 -->
@@ -613,7 +626,7 @@
 												<div style="display: flex;">
 													<button class="pageBtn" style="margin-right: 5px;"
 														onclick="stepper1.previous()">이전</button>
-													<button type="submit" class="pageBtn" id="submitAllInfo"
+													<button type="button" class="pageBtn" id="submitAllInfo"
 														onclick="toSubmit()">제출</button>
 												</div>
 											</div>
@@ -629,6 +642,9 @@
 					</div>
 				</div>
 			</div>
+			<%} else { %>
+		 	튜터로 로그인 한 후 이용 가능합니다.
+		 	<%} %>
 		</section>
 		<%@ include file="/views/common/footer.jsp"%>
 	</div>
@@ -724,6 +740,11 @@
 
         
         $("input#file-input").on('change', function () {
+        	let output = document.getElementById('imgTest');
+        	output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+              URL.revokeObjectURL(output.src) // free memory
+            }
             imagesPreview(this, '#resultTutorImg', 'file-input');
         });
         
@@ -747,19 +768,25 @@
         	imagesPreview(this, "#tutorCareerFile", 'file-career5');
         });
 
+        let oneday = document.getElementById("selectedOnedayClass");
+        let multi = document.getElementById("selectedMultipleClass");
+        let vod = document.getElementById("selectedVOD");
         // 선택한거대로 페이지 뜨게 하는 스크립트
-        $("input[id='control_01']").change(function () {
-            let oneday = document.getElementById("selectedOnedayClass");
+        $("input[id='control_01']").click(function () {
             oneday.style.display = "block";
+            multi.style.display = "none";
+            vod.style.display = "none";
         });
 
-        $("input[id='control_02']").change(function () {
-            let multi = document.getElementById("selectedMultipleClass");
+        $("input[id='control_02']").click(function () {
+        	oneday.style.display = "none";
             multi.style.display = "block";
+            vod.style.display = "none";
         });
 
-        $("input[id='control_03']").change(function () {
-            let vod = document.getElementById("selectedVOD");
+        $("input[id='control_03']").click(function () {
+        	oneday.style.display = "none";
+            multi.style.display = "none";
             vod.style.display = "block";
         });
         
@@ -1065,6 +1092,10 @@
             for (let i = 1; i < val; i++) {
                 let dateContainer = $("#selectVodDates0").clone();
                 dateContainer.attr({ "id": "selectVodDates" + i });
+                dateContainer.find("input[name='VODurlAddress0']").attr({ "name" : "VODurlAddress" + i});
+                dateContainer.find("input[name='VODTitlePerClass0']").attr({ "name" : "VODTitlePerClass" + i});
+                dateContainer.find("textarea[name='vodEachClassInformation0']").attr({ "name" : "vodEachClassInformation" + i});
+                
                 dateContainer.find("#infoPerClass").text((i + 1) + "회차 수업 정보 입력");
 
                 if (i == 1) {
@@ -1234,10 +1265,10 @@
     	   var form = $('#toSendForm')[0];
     	   console.debug('form', form);
     	   
-    	 /*   var data = new FormData(form);
-    	   console.debug('data', data); */
+    	 var data = new FormData(form);
+    	   console.debug('data', data);
     	   
-    	   const frm = new FormData(form);
+    	    const frm = new FormData(form);
 	   		const fileInput=$("input[name=classImageFiles]");
 	   		for(let i=0; i<fileInput[0].files.length;i++) {
 	   			frm.append("upfile"+i,fileInput[0].files[i]);
@@ -1249,25 +1280,27 @@
    		   }
     	   
     	    
-	    	   $.ajax({             
-	    	   	type: "POST",          
-	    	       enctype: 'multipart/form-data',  
-	    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
-	    	       data: frm,          
-	    	       processData: false,    
-	    	       contentType: false,      
-	    	       cache: false,           
-	    	       timeout: 600000,       
-	    	       success: function (frm) { 
-	    	    	   Swal.fire('클래스 등록 승인결과는 마이 페이지에서 확인 가능합니다')         
-	    	       	$("#btnSubmit").prop("disabled", false);      
-	    	       },          
-	    	       error: function (e) {  
-	    	       	console.log("ERROR : ", e);     
-	    	           $("#btnSubmit").prop("disabled", false);    
-	    	           alert("fail");      
-	    	        }     
+    	   $.ajax({             
+    	   	   type: "POST",          
+    	       enctype: 'multipart/form-data',  
+    	       url: "<%=request.getContextPath()%>/lecture/enrolllecture.do",        
+    	       data: frm,          
+    	       processData: false,    
+    	       contentType: false,      
+    	       cache: false,           
+    	       timeout: 600000,       
+    	       success:data=>{
+    	    		console.log(data);   
+    	    	   alert(data>0?"등록성공":"등록실패");
+    	    	   window.location.href = "<%=request.getContextPath()%>";
+    	       },error:e=>{
+    	    	   console.log(e);
+    	    	   console.log(e.responseText);
+    	    	   
+    	       }   
+    	      
 	    	});
+   		   //return false;
     	  
 <%--     	   var url = '<%=request.getContextPath()%>/index.jsp'; //A local page
 

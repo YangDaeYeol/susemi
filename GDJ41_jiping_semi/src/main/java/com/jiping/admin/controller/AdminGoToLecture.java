@@ -1,4 +1,4 @@
-package com.jiping.lecture.controller;
+package com.jiping.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,21 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.member.model.service.MemberService;
-import com.jiping.tutor.model.vo.Certificate;
-import com.jiping.tutor.model.vo.Tutor;
+import com.jiping.lecture.model.vo.Lecture;
 
 /**
- * Servlet implementation class EnrollLectureMoveServlet
+ * Servlet implementation class AdminGoToLecture
  */
-@WebServlet("/enrolllecture")
-public class EnrollLectureMoveServlet extends HttpServlet {
+@WebServlet("/admin/lecture.do")
+public class AdminGoToLecture extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnrollLectureMoveServlet() {
+    public AdminGoToLecture() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +32,18 @@ public class EnrollLectureMoveServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nickName = request.getParameter("nickName");
-		Tutor t = new MemberService().selectTutor(nickName);
-		List<Certificate> list = new LectureService().selectCertificate(nickName);
-		request.setAttribute("tutor", t);
-		request.setAttribute("certificate", list);
-		request.getRequestDispatcher("/views/lecture/getClassInformation.jsp").forward(request, response);
+		int lectureNo = Integer.parseInt(request.getParameter("lectureNo"));
+		System.out.println(lectureNo);
+		Lecture lecture= new LectureService().lectureInfo(lectureNo);
+		String lectureType="";
+		switch(lecture.getLectureType()) {
+			case "원데이": lectureType="원데이"; break;
+			case "다회차": lectureType="다회차"; break;
+			case "VOD": lectureType="VOD"; break;
+		}
+		request.setAttribute("lectureType",lectureType);
+		System.out.println(lectureType);
+		request.getRequestDispatcher("/lecture/lecture.do?lectureNo="+lectureNo+"&lectureType="+lectureType).forward(request, response);
 	}
 
 	/**
