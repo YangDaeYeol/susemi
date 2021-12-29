@@ -320,9 +320,9 @@ LectureImg[] arr= new LectureImg[4];
                                          <div class="schedule-text">
                                              <span id="apply-title" class="class-date"><%=le.getLectureTitle() %></span><br>
                                             
-                                             <span id="apply-date" class="class-date"><%=list.get(0).getLectureDate() %> </span>
-                                             <!-- <span id="apply-time" style="padding-left:30px"> 시작시간-끝시간</span><br> -->
-                                             <span id="apply-adr"><%=list.get(0).getLectureAddress() %></span>
+                                             <%-- ¿<span id="apply-date" class="class-date"><%=list.get(0).getLectureDate() %> </span>
+                                              --%><!-- <span id="apply-time" style="padding-left:30px"> 시작시간-끝시간</span><br> -->
+                                             <span id="apply-adr">상세주소 : <%=list.get(0).getLectureAddress() %></span>
                                              
                                          </div>
                                      </div>
