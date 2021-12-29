@@ -11,7 +11,8 @@
 				com.jiping.payment.model.vo.Payment,
 				com.jiping.lecture.model.vo.LectureComment,
 				com.jiping.lecture.model.vo.VodLecture,
-				java.util.List " %>
+				java.util.List,
+				java.time.LocalDate " %>
 <%
 Lecture le= (Lecture)request.getAttribute("le");
 LectureContent content= (LectureContent)request.getAttribute("content");
@@ -32,6 +33,7 @@ LectureImg[] arr= new LectureImg[4];
 	}
 	System.out.println("arr"+ arr[0]);
 	 System.out.println("jsp:"+ lcList); 
+	 	 
 %>
 
 <section>
@@ -62,13 +64,13 @@ LectureImg[] arr= new LectureImg[4];
                                              class="d-block w-100" alt="...">
                                       <%} %>
                                      </div>
-                                     <div class="carousel-item active">
+                                     <div class="carousel-item ">
                                      <% if(arr[1]!=null) { %>
                                          <img src="<%=request.getContextPath()%>/upload/<%=arr[1].getLectureFileName()%>"
                                              class="d-block w-100" alt="...">
                                       <%} %>
                                      </div>
-                                     <div class="carousel-item active">
+                                     <div class="carousel-item ">
                                      <% if(arr[2]!=null) { %>
                                          <img src="<%=request.getContextPath()%>/upload/<%=arr[2].getLectureFileName()%>"
                                              class="d-block w-100" alt="...">
@@ -131,7 +133,7 @@ LectureImg[] arr= new LectureImg[4];
                      </div>
                  </div>
              </div>
-         </div>col-7
+         </div>
          <!-- --------------------------------------------------------------------------오른쪽 -->
 
          <div id="right" class="col">
@@ -225,7 +227,7 @@ LectureImg[] arr= new LectureImg[4];
                              <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜
                                  하
                                  기</button>
-                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
+                             <button id="apply-oneday" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
                          </div>
                          <%} %>
                      </div>
@@ -261,9 +263,9 @@ LectureImg[] arr= new LectureImg[4];
                                      <p>총 결제금액</p>
                                      <p id="apply-cost" style="float: right;">가격</p>
                                  </div>
-                             </div>apply-class
+                             </div>
 
-                         </div> apply
+                         </div> 
 
                          <div>
                              <form action="<%=request.getContextPath()%>/lecture/lecturePayment">
@@ -282,8 +284,8 @@ LectureImg[] arr= new LectureImg[4];
                                      style="float: right;">결 제 하 기</button>
                               </form>
                          </div>
-                     </div>card
-                 </div>submit
+                     </div>
+                 </div>
                  <%} %>
                  
                  
@@ -318,9 +320,9 @@ LectureImg[] arr= new LectureImg[4];
                                          <div class="schedule-text">
                                              <span id="apply-title" class="class-date"><%=le.getLectureTitle() %></span><br>
                                             
-                                             <span id="apply-date" class="class-date"><%=list.get(0).getLectureDate() %> </span>
-                                             <!-- <span id="apply-time" style="padding-left:30px"> 시작시간-끝시간</span><br> -->
-                                             <span id="apply-adr"><%=list.get(0).getLectureAddress() %></span>
+                                             <%-- ¿<span id="apply-date" class="class-date"><%=list.get(0).getLectureDate() %> </span>
+                                              --%><!-- <span id="apply-time" style="padding-left:30px"> 시작시간-끝시간</span><br> -->
+                                             <span id="apply-adr">상세주소 : <%=list.get(0).getLectureAddress() %></span>
                                              
                                          </div>
                                      </div>
@@ -341,10 +343,10 @@ LectureImg[] arr= new LectureImg[4];
                                      <p>총 결제금액</p>
                                      <p id="apply-cost" style="float: right;"><%=le.getPrice() %></p>
                                  </div>
-                             </div>apply-class
+                             </div>
                             
 
-                         </div> apply
+                         </div> 
 
                          <div>
                              <form action="<%=request.getContextPath()%>/lecture/lecturePayment">
@@ -361,8 +363,8 @@ LectureImg[] arr= new LectureImg[4];
                                      style="float: right;">결 제 하 기</button>
                                  </form>
                          </div>
-                     </div>card
-                 </div>submit
+                     </div>
+                 </div>
             <%} %>
                      
 <!-- ----------------------------------------------------------------------------   vod일때 -->
@@ -395,8 +397,12 @@ LectureImg[] arr= new LectureImg[4];
 			                        <%} else if(flag==true) {%>
                              </div>
                          </div>
-                         <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
+<%--                          <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
                              onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>')">강
+                             의 실 입 장</button>
+                         <% } %> --%>
+                         <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
+                             onclick="goToRoom();">강
                              의 실 입 장</button>
                          <% } %>
 
@@ -448,7 +454,7 @@ LectureImg[] arr= new LectureImg[4];
                 <div class="card-body apply">
                   <div id="applycount">
                     <span>현재 수강인원(신청) 현황</span>
-                    <span>14/15</span>
+                    <span></span>
                   </div>
                   <div class="tutor-btn">
                     <span>수강생 목록</span>
@@ -458,7 +464,7 @@ LectureImg[] arr= new LectureImg[4];
               </div>
             </div>
      <%} %>
-     </div> row
+     </div> 
 <!-- -------------------------------------------------------------------------  vod 끝 -->
           <!-- ------------------- 수강신청 끝 -->
 
@@ -468,12 +474,13 @@ LectureImg[] arr= new LectureImg[4];
              $("#check-word-count").html("(" + length + "/70)");
          });
 
-         $("#apply").click(e => {
-        	 if(<%=loginMember%>!=null){
+         $("#apply").click(e => { //다회차, vod
+        	if("<%=loginMember!=null?loginMember.getEmail():""%>"!=""){ 
              $("#class_submit").show();
-        	 }else{
+        	  }else{
         		 alert("로그인 후 수강이 가능합니다.");
-        	 }
+        		 $("#loginBtn").click();
+        	 } 
          });
 
      </script>
@@ -483,20 +490,17 @@ LectureImg[] arr= new LectureImg[4];
              $("input[type=checkbox]").change(e => {
                  scheduleNo = $(e.target).val();
                  $("#paymentScheduleNo").val(scheduleNo);
-                 console.log(scheduleNo);
-             })
+                 $("#class_checkTutor").show();
+             });
 
-             $("#apply").click(e => {
-            	 if(scheduleNo!=0) {
+             $("#apply-oneday").click(e => {
+            	 if("<%=loginMember!=null?loginMember.getEmail():""%>"!=""){
                  $.ajax({
                      url: "<%=request.getContextPath()%>/lecture/scheduleInfo.do",
                      type: "get",
                      dataType: "json",
                      data: { "scheduleNo": scheduleNo },
                      success: data => {
-                     <%if (loginMember != null && loginMember.getNickname().equals(tutor.getNickname())) { %>
-                             alert("해당 강좌의 튜터님은 수강신청이 불가능합니다.");
-                         <%} else { %>
                              $("input[name=lectureDate]").val(data["lectureDate"]);
                              $("input[name=lectureAddr]").val(data["lectureAddress"]);
                              const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
@@ -506,20 +510,22 @@ LectureImg[] arr= new LectureImg[4];
                              const cost = $("#apply-cost").html(data["lecturePrice"]);
                              $("#applycount").find("span").html(data["lecturePersons"]);
                              $("#class_submit").show();
-                             console.log(data);
                              studentCount(data["scheduleNo"]);
-                     <%}%>
-                 }
-                 })
-             }
+                          }  
+                 	})
+            	 }else {
+            		 alert("로그인 후 수강이 가능합니다.");
+            		 $("#loginBtn").click();
+            	 }
              });
-             
+          
              function studentCount(sendData) {
             	 $.ajax({
             		url : "<%= request.getContextPath() %>/checkStudentCount",
             		data : {"scheduleNo":sendData},
             		dataType : "json",
             		success : data => {
+            			console.log(data);
             			let text = $("#applycount").find("span").text();
             			$("#applycount").find("span").html(data["count"] + "/" + text);
             		}
@@ -537,7 +543,7 @@ LectureImg[] arr= new LectureImg[4];
              });
 
          </script>
-     </div>row-1
+     </div>
      
      <!-- -------------------------------------------------------------------------  리뷰등록 시작 -->
      <div id="review" class="row-1">
@@ -639,6 +645,12 @@ LectureImg[] arr= new LectureImg[4];
                          }
                      })
                  })
+                 
+                 const goToRoom =()=>{
+                	 const url="<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>"; 
+                	 const style="width=1260, height=880, left=250, top=50";
+         			open(url,"_blank",style);
+                 }
 
              </script>
 
@@ -666,7 +678,7 @@ LectureImg[] arr= new LectureImg[4];
 	                            	<div style="float: right;">
 	                                    <span><%=co.getEnrollDate() %></span><span id="report">
 	                                    <%if(loginMember!=null) { %>
-	                                    <a href="<%=request.getContextPath()%>/adminReport"> 신고</a></span>
+ 											<a href="javascript: reportReview('<%=co.getCommentNo()%>','<%=co.getWriter()%>','<%=le.getLectureTitle()%>');"> 신고</a></span>
 	                                    <%} %>
 	                                    <!-- 신고사유팝업 연결 -->
 	                                </div>
@@ -690,7 +702,7 @@ LectureImg[] arr= new LectureImg[4];
 	                                 </p>
 								</div>
                              </div>
-                         </div> d-flex card-body
+                         </div> 
                          <div class="tutorReplyDiv" ></div>
                              <%}else if(co.getCommentLevel()==2) {%>
                             <!--  <div class="tutorReplyDiv"> 여기출력ㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ  -->
@@ -703,7 +715,8 @@ LectureImg[] arr= new LectureImg[4];
 	                                	<div style="float: right;">
 	                                    <span><%=co.getEnrollDate() %></span><span id="report">
 	                                    <%if(loginMember!=null) { %>
-	                                    <a href="<%=request.getContextPath()%>/adminReport"> 신고</a></span>
+	                                    <a href="javascript: reportReview('<%=co.getCommentNo()%>','<%=co.getWriter()%>','<%=le.getLectureTitle()%>');"> 신고</a></span>
+	                                    <input type="hidden" class="enrollReport" value="<%=co.getCommentNo() %>">
 	                                    <%} %>
 	                                    <!-- 신고사유팝업 연결 -->
 	                                	</div>
@@ -798,11 +811,19 @@ LectureImg[] arr= new LectureImg[4];
                      }
                      $("#review-count").html("(" + length + "/100)");
                  });
+                   
+                   const reportReview=(commentNum,writer,title)=>{
+                	  /*  const num =$(e.target).next(".enrollReport").val();
+                	   console.log(num); */
+                	   const url="<%=request.getContextPath()%>/adminReport?commentNo="+commentNum+"&commentWriter="+writer+"&lectureTitle="+title;
+                	   const style="width=565, height=400, left=250, top=50";
+            			open(url,"_blank",style);
+                   }
                 </script>								
-                </div> card-body
-            </div> card
-        </div> review-list
-    </div>container
+                </div> 
+            </div> 
+        </div> 
+    </div>
 </section>
 <script>
 <%-- 	report=(e)=> {

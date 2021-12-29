@@ -10,7 +10,7 @@
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">
                         <img src="<%=request.getContextPath() %>/img/management.png" alt="" width="30px" height="30px">
-                        <h4 class="inlineblock" style="margin-bottom: 0; margin-left: 5px;" >수강생 목록</h4>
+                        <h4 class="inlineblock" style="margin-bottom: 0; margin-left: 5px;" >튜터 목록</h4>
                     </div>
                     <div class="line"></div>
                         <div class="flex" id="admin-class-appr">
@@ -21,8 +21,8 @@
                                 <th scope="col">닉네임</th>
                                 <th scope="col">이메일</th>
                                 <th scope="col">전화번호</th>
+                                <th scope="col">튜터 정보</th>
                                 <th scope="col">운영 중인 클래스</th>
-                                <th scope="col">운영 종료 클래스</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -35,15 +35,15 @@
                                 <td><%=tutorList.get(i).getEmail()%></td>
                                 <td><%=tutorList.get(i).getPhone()%></td>
                                 <td>
-                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/tutorRunClass.do?email=<%=tutorList.get(i).getEmail()%>')">상세보기</button>
+                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/mypage.do?email=<%=tutorList.get(i).getEmail()%>')">정보보기</button>
                                 </td>
                                 <td>
-                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/tutorEndClass.do?email=<%=tutorList.get(i).getEmail()%>')">상세보기</button>
+                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/tutorRunClass.do?email=<%=tutorList.get(i).getEmail()%>')">상세보기</button>
                                 </td>
                               </tr>
                               <%} %>
                               <td colspan="6">
-								<div id="pagebar" class="d-block">
+								<div id="pageBar" class="d-block">
 									<%=request.getAttribute("pageBar") %>
 								</div>
                               </td>

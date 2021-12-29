@@ -46,7 +46,7 @@
 					<div class="menu-margin margin-left" id="tutor-img" >
 						<div class="info-title inlineblock">
 							<span class="margin-right menu-list-name">사진</span>
-						</div>
+						</div>              
                         <div class="info-content inlineblock" id="newImg">
                         	<img id="memberImg"  src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>">
                         	<input type="file" name="upFile" accept="upload/*" style="display:none">
@@ -54,6 +54,7 @@
                         </div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
                             <input type="button" value="기본이미지" onclick="deleteImg();">                            
+
                         </div>
                     </div>
                     <script>
@@ -78,8 +79,7 @@
                     	})
                     	
                     	
-                    </script>
-                    
+                    </script>                    
                     <div class="menu-margin margin-left" id="tutor-email" >
                             <div class="info-title inlineblock">
                                 <span class="margin-right menu-list-name">이메일</span>

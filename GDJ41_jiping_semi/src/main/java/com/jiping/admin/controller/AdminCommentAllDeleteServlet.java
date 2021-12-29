@@ -16,14 +16,14 @@ import com.jiping.lecture.model.vo.LectureComment;
 /**
  * Servlet implementation class AdminCommentDelete
  */
-@WebServlet("/admin/adminCommentDelete")
-public class AdminCommentDelete extends HttpServlet {
+@WebServlet(name="adminCommentAllDelete", urlPatterns={"/admin/adminCommentAllDelete"})
+public class AdminCommentAllDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCommentDelete() {
+    public AdminCommentAllDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

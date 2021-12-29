@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session=request.getSession();
 			session.setAttribute("loginMember", m);
 //			System.out.println(m);
-			if(!m.getEmail().equals("admin@naver.com")) {
+			if(!m.getMemberGrade().equals("관리자")) {
 				System.out.println("일반로그인");
 				request.getRequestDispatcher("/").forward(request, response);
 			}else {

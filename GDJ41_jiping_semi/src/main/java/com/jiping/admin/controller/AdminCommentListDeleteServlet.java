@@ -1,7 +1,6 @@
 package com.jiping.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jiping.admin.model.service.AdminService;
-import com.jiping.admin.model.vo.Report;
+import com.jiping.lecture.model.sevice.LectureService;
 
 /**
- * Servlet implementation class AdminCommentDetail
+ * Servlet implementation class AdminCommentListDeleteServlet
  */
-@WebServlet(name="adminCommentDetail", urlPatterns={"/admin/adminCommentDetail"})
-public class AdminCommentDetailServlet extends HttpServlet {
+@WebServlet(name="adminCommentListDelete", urlPatterns={"/admin/adminCommentListDelete"})
+public class AdminCommentListDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCommentDetailServlet() {
+    public AdminCommentListDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +31,15 @@ public class AdminCommentDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int commentNo = Integer.parseInt(request.getParameter("comment_no"));
-		System.out.println("commentNo : "+commentNo);
-		Report reportDetail = new AdminService().reprtDetail(commentNo);
-		System.out.println("reportDetail : "+reportDetail);
-		request.setAttribute("reportDetail",reportDetail);
-		request.getRequestDispatcher("/views/admin/commentDetail.jsp").forward(request, response);
+		System.out.println(commentNo);
+		int reportCommentResult = new AdminService().reportDelete(commentNo);
 		
-		
+		if(reportCommentResult!=0) {
+			System.out.println("성공");
+		}else {
+			System.out.println("실패");
+		}
+		request.getRequestDispatcher("/admin/adminComment").forward(request,response);
 	}
 
 	/**

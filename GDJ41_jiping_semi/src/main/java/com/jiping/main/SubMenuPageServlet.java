@@ -13,16 +13,16 @@ import com.jiping.lecture.model.sevice.LectureService;
 import com.jiping.lecture.model.vo.Lecture;
 
 /**
- * Servlet implementation class SearchResultServlet
+ * Servlet implementation class SubMenuPageServlet
  */
-@WebServlet("/searchResult")
-public class SearchResultServlet extends HttpServlet {
+@WebServlet("/submenupage")
+public class SubMenuPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchResultServlet() {
+    public SubMenuPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,9 +45,16 @@ public class SearchResultServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			numPerPage = 12;
 		}
-		String keyword = request.getParameter("searchKeyword");
-		List<Lecture> list = new LectureService().searchResult(keyword,cPage,numPerPage);
-		int totalData = new LectureService().searchResultCount(keyword);
+		String category = "";
+		String largecategory = request.getParameter("largecategory");
+		String smallcategory = request.getParameter("smallcategory");
+		if(smallcategory!=null) {
+			category = largecategory + " " + smallcategory;
+		}else {
+			category = largecategory;
+		}
+		List<Lecture> list = new LectureService().categoryList(category,cPage,numPerPage);
+		int totalData = new LectureService().categoryListCount(category);
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
 		int pageBarSize = 5;
 		int pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -57,27 +64,25 @@ public class SearchResultServlet extends HttpServlet {
 			if(pageNo==1) {
 				pageBar = "<span>&laquo;</span>";
 			}else {
-				pageBar = "<a href='"+ request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + (pageNo-1) + "'>&laquo;</a>";	
+				pageBar = "<a href='"+ request.getContextPath() + "/submenupage?largecategory=" + largecategory + "&smallcategory=" + smallcategory + "&cPage=" + (pageNo-1) + "'>&laquo;</a>";	
 			}
 			while(!(pageNo>pageEnd||pageNo>totalPage)) {
 				if(cPage==pageNo) {
 					pageBar += "<span class='cpage'>" + pageNo + "</span>";
 				}else {
-					pageBar += "<a href='" + request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + pageNo + "'>" + pageNo + "</a>";
+					pageBar += "<a href='" + request.getContextPath() + "/submenupage?largecategory=" + largecategory + "&smallcategory=" + smallcategory + "&cPage=" + pageNo + "'>" + pageNo + "</a>";
 				}
 				pageNo++;
 			}
 			if(pageNo>totalPage) {
 				pageBar += "<span>&raquo;</span>";
 			}else {
-				pageBar += "<a href='" + request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + pageNo + "'>&raquo;</a>";
+				pageBar += "<a href='" + request.getContextPath() + "/submenupage?largecategory=" + largecategory + "&smallcategory=" + smallcategory + "&cPage=" + pageNo + "'>&raquo;</a>";
 			}
 		}
 		request.setAttribute("list", list);
-		request.setAttribute("keyword", keyword);
-		request.setAttribute("totalData", totalData);
 		request.setAttribute("pageBar", pageBar);
-		request.getRequestDispatcher("/views/lecture/searchLecture.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/lecture/submentpage.jsp").forward(request, response);
 	}
 
 	/**

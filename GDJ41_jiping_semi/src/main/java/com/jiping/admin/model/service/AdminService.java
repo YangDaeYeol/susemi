@@ -9,6 +9,7 @@ import java.sql.Connection;
 
 import com.jiping.admin.model.dao.AdminDao;
 import com.jiping.admin.model.vo.Report;
+import com.jiping.lecture.model.vo.LectureComment;
 
 public class AdminService {
 	
@@ -24,6 +25,15 @@ public class AdminService {
 	public int reportDelete(int commentNo) {
 		Connection conn = getConnection();
 		int result= dao.reportDelete(conn, commentNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public int insertReport(Report r) {
+		Connection conn = getConnection();
+		int result= dao.insertReport(conn, r);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

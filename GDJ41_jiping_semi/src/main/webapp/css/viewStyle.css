@@ -9,6 +9,12 @@
     /* width: 100%;   */
 } 
 
+/*강의실*/
+.container1{ 
+	padding: 30px;
+    
+}
+
 .card-title{
     margin-left: 10px;
 }

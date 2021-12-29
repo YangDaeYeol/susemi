@@ -13,11 +13,16 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styleGr.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+<%
+	int commentNo = (int)(request.getAttribute("commentNo"));
+	String title= (String)request.getAttribute("lectureTitle");
+	String writer= (String)request.getAttribute("commentWriter");
+%>
 <body>
  <section style="text-align: center;">
         <div>
             <h4 style="margin-top: 10px;">댓글 신고하기</h4>
-            <form action="" >
+            <form action="<%=request.getContextPath()%>/adminEndReport" >
                 <div class="">
                     <select name="comment-reason" style="margin-bottom: 15px; margin-right: 235px; margin-top: 15px;">
                         <option>신고유형 선택</option>
@@ -29,10 +34,14 @@
                     </select> 
                 </div>
                 <div style="">
-                    <textarea id="drop-reason" cols="40px" rows="5px" placeholder="" style="border-radius: 8px;"></textarea>
+                    <textarea id="drop-reason" name="reportContent" cols="40px" rows="5px" placeholder="" style="border-radius: 8px;"></textarea>
                     <!-- <div id="word-count" style="float:right;"></div> -->
+                    <input type="hidden" name="writer" value="<%=writer%>">
+                    <input type="hidden" name="title" value="<%=title%>">
+                    <input type="hidden" name="commentNo" value="<%=commentNo%>">
                 </div>
-                <button class="btn btn-primary btn-basic" style="width:350px;">신고하기</button>    
+                <button class="btn btn-primary btn-basic" style="width:350px;"
+                >신고하기</button>    
                     
                 </div>
             </form>

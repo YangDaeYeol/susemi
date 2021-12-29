@@ -140,10 +140,7 @@ public class LectureService {
 
 //	-----------------------------------------------------------
 	
-	/**
-	 * @param lecture
-	 * @return
-	 */
+	
 	public int enrollLecture(Map lecture) {
 		Connection conn = getConnection();
 		Member m = (Member)lecture.get("member");
@@ -152,7 +149,6 @@ public class LectureService {
 			Tutor t = (Tutor)lecture.get("tutor");
 			int result2 = dao.enrollTutorInformation(conn, t, m);
 			if (result2 > 0) {
-				
 				List<String> certificateText = (List<String>)lecture.get("certificateText");
 				List<String> certificateImage = (List<String>)lecture.get("certificateImage");
 				int result3 = 0;
@@ -162,14 +158,11 @@ public class LectureService {
 					} else {
 						result3 = dao.enrollCertificateInformation(conn, certificateText.get(i), certificateImage.get(i), m);
 					}
-					
 				}
-				
 				if (result3 > 0) {
 					Lecture l = (Lecture)lecture.get("lecture");
 					int result4 = dao.enrollLectureInoformation(conn, l, m);
-					int seqNum=dao.selectLectureSeq(conn);
-					
+					int seqNum = dao.selectLectureSeq(conn);
 					if (result4 > 0) {
 						LectureImg lImg = (LectureImg)lecture.get("lectureImg");
 						int result5 = 0;
@@ -186,7 +179,7 @@ public class LectureService {
 								Date[] classDate = (Date[])lecture.get("classDate");
 								LectureSchedule ls = (LectureSchedule)lecture.get("LectureSchedule");
 								int result7 = 0;
-								if (classStartTime==null) {  //VOD 를 선택했을떄 들어오는곳이다
+								if (classStartTime == null) {  //VOD 를 선택했을 때
 									String[] vodUrlAddr = (String[])lecture.get("vodUrlAddr");
 									String[] vodTitle = (String[])lecture.get("vodTitle");
 									String[] vodClassInfo = (String[])lecture.get("vodClassinfo");
@@ -203,25 +196,20 @@ public class LectureService {
 									} else {
 										rollback(conn);
 									}
-									
-								} else  { //원데이 / 다회차를 선택했을경우에 이쪽에서 처리한다
+								} else  { //원데이 / 다회차를 선택했을 때
 									ls.setLectureNo(seqNum);
 									for (int i = 0; i < 10; i++) {
 										if (classStartTime[i] != null) {
 											result7 = dao.enrollLectureSchedule(conn, m, ls, classDate[i], classStartTime[i], classEndTime[i]);
-											}
 										}
+									}
+									
 									if (result7 > 0) {
 										commit(conn);
 									} else {
 										rollback(conn);
 									}
-									
-									
 								}
-								
-								
-								
 							} else {
 								rollback(conn);
 							}
@@ -237,7 +225,6 @@ public class LectureService {
 			} else {
 				rollback(conn);
 			}
-			
 		} else {
 			rollback(conn);	
 		}
@@ -246,9 +233,9 @@ public class LectureService {
 		
 	}
 
-	public List<Lecture> apprLectureList() {
+	public List<Lecture> apprLectureList(int cPage, int numPerPage) {
 		Connection conn=getConnection();
-		List<Lecture> apprLectureList= dao.apprLectureList(conn);
+		List<Lecture> apprLectureList= dao.apprLectureList(conn,cPage,numPerPage);
 		close(conn);
 		return apprLectureList;
 	}
@@ -324,12 +311,14 @@ public class LectureService {
 	}
 	
 //	------------------------------------------------------------
-	public int deleteComment(int num) {
+	public int deleteComment(int num,int lectureNo) {
 		Connection conn=getConnection();
 		int result= dao.deleteComment(conn,num);
 		if(result>0) { 
 			commit(conn);
-//			int result2 = dao.deleteCommentCount(conn);
+			int result2 = dao.deleteCommentCount(conn,lectureNo);
+			if(result2>0) commit(conn);
+			else rollback(conn);
 		}
 		else rollback(conn);
 		close(conn);
@@ -365,6 +354,57 @@ public class LectureService {
 			commit(conn);
 		}
 		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public double starrateAvg(int lectureNo) {
+		Connection conn = getConnection();
+		double starAvg = dao.starrateAvg(conn,lectureNo);
+		close(conn);
+		return starAvg;
+	}
+	
+	public List<Lecture> categoryList(String category, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.categoryList(conn, category, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	public int categoryListCount(String category) {
+		Connection conn = getConnection();
+		int result = dao.categoryListCount(conn, category);
+		close(conn);
+		return result;
+	}
+
+	public List<Lecture> lectureAllList(int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.lectureAllList(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+
+	public int selectLectureAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectLectureAllCount(conn);
+		close(conn);
+		return result;
+	}
+
+	public int dropLecture(int lectureNo) {
+		Connection conn=getConnection();
+		int result=dao.dropLecture(conn, lectureNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectApprLectureAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectApprLectureAllCount(conn);
 		close(conn);
 		return result;
 	}

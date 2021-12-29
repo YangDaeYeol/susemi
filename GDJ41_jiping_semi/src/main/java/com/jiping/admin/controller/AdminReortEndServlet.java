@@ -12,16 +12,16 @@ import com.jiping.admin.model.service.AdminService;
 import com.jiping.admin.model.vo.Report;
 
 /**
- * Servlet implementation class AdminCommentDetail
+ * Servlet implementation class AdminReortEndServlet
  */
-@WebServlet(name="adminCommentDetail", urlPatterns={"/admin/adminCommentDetail"})
-public class AdminCommentDetailServlet extends HttpServlet {
+@WebServlet("/adminEndReport")
+public class AdminReortEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCommentDetailServlet() {
+    public AdminReortEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +30,29 @@ public class AdminCommentDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int commentNo = Integer.parseInt(request.getParameter("comment_no"));
-		System.out.println("commentNo : "+commentNo);
-		Report reportDetail = new AdminService().reprtDetail(commentNo);
-		System.out.println("reportDetail : "+reportDetail);
-		request.setAttribute("reportDetail",reportDetail);
-		request.getRequestDispatcher("/views/admin/commentDetail.jsp").forward(request, response);
+		String content=request.getParameter("reportContent");
+		String title=request.getParameter("title");
+		String writer=request.getParameter("writer");
+		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		String type=request.getParameter("type");
 		
+		Report r= new Report(commentNo,writer,type,content,null);
 		
+		int result= new AdminService().insertReport(r);
+		
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="신고처리가 완료되었습니다.";
+			loc="/";
+		}
+		else {
+			msg="신고처리에 실패하였습니다.";
+			loc="/";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**

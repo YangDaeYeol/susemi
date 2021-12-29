@@ -33,8 +33,10 @@ public class LectureStudentCount extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
+		System.out.println(scheduleNo);
 		int result = new LectureService().checkStudentCount(scheduleNo);
 		JSONObject jo = new JSONObject();
+		System.out.println(result);
 		jo.put("count", result);
 		response.getWriter().print(jo);
 	}

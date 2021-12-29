@@ -1,27 +1,23 @@
 package com.jiping.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.admin.model.service.AdminService;
-import com.jiping.admin.model.vo.Report;
-
 /**
- * Servlet implementation class AdminCommentDetail
+ * Servlet implementation class AdminBasicServlet
  */
-@WebServlet(name="adminCommentDetail", urlPatterns={"/admin/adminCommentDetail"})
-public class AdminCommentDetailServlet extends HttpServlet {
+@WebServlet(name="adminBasic", urlPatterns={"/admin/adminBasic.do"})
+public class AdminBasicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCommentDetailServlet() {
+    public AdminBasicServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +27,7 @@ public class AdminCommentDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int commentNo = Integer.parseInt(request.getParameter("comment_no"));
-		System.out.println("commentNo : "+commentNo);
-		Report reportDetail = new AdminService().reprtDetail(commentNo);
-		System.out.println("reportDetail : "+reportDetail);
-		request.setAttribute("reportDetail",reportDetail);
-		request.getRequestDispatcher("/views/admin/commentDetail.jsp").forward(request, response);
-		
-		
+		request.getRequestDispatcher("/views/admin/adminBasic.jsp").forward(request, response);
 	}
 
 	/**

@@ -33,15 +33,15 @@ public class DeleteLeviewServlet extends HttpServlet {
 		int lectureNo=Integer.parseInt(request.getParameter("lectureNo"));
 		
 		System.out.println(commentNo);
-		int deresult= new LectureService().deleteComment(commentNo);
+		int deresult= new LectureService().deleteComment(commentNo,lectureNo);
 		
 		String msg="";
 		String loc="/lecture/lecture.do?lectureNo="+lectureNo;
 		
 		if(deresult>0) {
-			msg="삭제에 성공";
+			msg="리뷰삭제에 성공하였습니다.";
 		} else {
-			msg="실패 관리자에 문의해라";
+			msg="리뷰삭제에 실패하였습니다. 관리자에 문의하세요!";
 		}
 		
 		request.setAttribute("msg", msg);

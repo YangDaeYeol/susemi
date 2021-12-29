@@ -26,6 +26,15 @@ public class AdminReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int commentNo =Integer.parseInt(request.getParameter("commentNo"));
+		String commentWriter= request.getParameter("commentWriter");
+		String lectureTitle= request.getParameter("lectureTitle");
+		System.out.println(commentWriter);
+		
+		request.setAttribute("commentNo", commentNo);
+		request.setAttribute("commentWriter", commentWriter);
+		request.setAttribute("lectureTitle", lectureTitle);
+		
 		request.getRequestDispatcher("/views/admin/reportComment.jsp").forward(request, response);
 	}
 
