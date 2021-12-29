@@ -363,8 +363,11 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureComment lc= LectureComment.builder()
 						.commentNo(rs.getInt("comment_No")).lectureNo(rs.getInt("lecture_no")).writer(rs.getString("writer"))
-						.starRate(rs.getString("star_rate")).commentContent(rs.getString("comment_content")).enrollDate(rs.getDate("comment_enroll_date"))
-						.commentLevel(rs.getInt("comment_level")).profileImg(rs.getString("profile_img")).build();
+						.starRate(rs.getString("star_rate"))
+						.commentContent(rs.getString("comment_content"))
+						.enrollDate(rs.getDate("comment_enroll_date"))
+						.commentLevel(rs.getInt("comment_level"))
+						.profileImg(rs.getString("profile_img")).build();
 				list.add(lc);
 			}
 		}catch(SQLException e) {
@@ -901,6 +904,24 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int countPayMember(Connection conn, int num) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("countPayMember");
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

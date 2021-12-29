@@ -343,4 +343,15 @@ public class LectureService {
 		return list;
 	}
 	
+	public int countPayMember(int num) {
+		Connection conn=getConnection();
+		int result= dao.countPayMember(conn,num);
+		if(result>0) { 
+			commit(conn);
+		}
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
 }
