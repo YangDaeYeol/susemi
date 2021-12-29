@@ -14,7 +14,7 @@ import com.jiping.lecture.model.sevice.LectureService;
 /**
  * Servlet implementation class ClassApprServlet
  */
-@WebServlet("/admin/classAppr")
+@WebServlet(name="classAppr", urlPatterns={"/admin/classAppr"})
 public class ClassApprServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

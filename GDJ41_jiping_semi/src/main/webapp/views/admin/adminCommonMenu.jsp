@@ -7,12 +7,12 @@
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
                             <nav class="nav-sub">
-                            	<li><a href="">· 회원 관리</a></li>
+                            	<li>· 회원 관리</li>
                             	<ul id="sub-menu">
                                     <li><a href="<%=request.getContextPath()%>/admin/adminNormalMemberList">- 수강생 목록</a></li>
                                     <li><a href="<%=request.getContextPath()%>/admin/adminTutorList">- 튜터 목록</a></li>
                                 </ul>	
-                                <li ><a href="">· 클래스관리</a></li>
+                                <li >· 클래스관리</li>
                                 <ul id="sub-menu">
                                     <li><a href="<%=request.getContextPath()%>/admin/adminClassAppr">- 클래스 승인</a></li>
                                     <li><a href="<%=request.getContextPath()%>/admin/adminClassDrop">- 클래스 삭제</a></li>

@@ -55,7 +55,6 @@
         			success : data => {
         				for(let i=0; i<data.length; i++) {
         					let con = data[i]
-        					console.log(con);
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
@@ -114,7 +113,6 @@
         			success : data => {
         				for(let i=0; i<data.length; i++) {
         					let con = data[i]
-        					console.log(con);
         					let br = $("<br>");
 	        				let li = $("<li>");
 	        				let a = $("<a>");
@@ -142,7 +140,8 @@
 	        				let imgRate = $("<img>");
 	        				imgRate.attr({"src":"https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png","width":"80px","height":"20px"});
 	        				let span = $("<span>");
-	        				span.text(con["commentCount"]==0?"":con["commentCount"]);
+	        				span.text(con["commentCount"]==0?"":" (" + con["commentCount"] + ")");
+	        				span.css({"color":"orange","font-weight":"bold"});
 	        				div6.append(imgRate).append(span);
 	        				div3.append(div4).append(div5).append(div6)
 	        				let div7 = $("<div>");
@@ -199,7 +198,8 @@
 	        				let imgRate = $("<img>");
 	        				imgRate.attr({"src":"https://i.ibb.co/2kKfzGb/2021-12-16-21-58-12.png","width":"80px","height":"20px"});
 	        				let span = $("<span>");
-	        				span.text(con["commentCount"]==0?"":con["commentCount"]);
+	        				span.text(con["commentCount"]==0?"":" (" + con["commentCount"] + ")");
+	        				span.css({"color":"orange","font-weight":"bold"});
 	        				div6.append(imgRate).append(span);
 	        				div3.append(div4).append(div5).append(div6)
 	        				let div7 = $("<div>");

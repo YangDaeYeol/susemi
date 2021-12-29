@@ -454,7 +454,7 @@ LectureImg[] arr= new LectureImg[4];
                 <div class="card-body apply">
                   <div id="applycount">
                     <span>현재 수강인원(신청) 현황</span>
-                    <span>14/15</span>
+                    <span></span>
                   </div>
                   <div class="tutor-btn">
                     <span>수강생 목록</span>
@@ -490,8 +490,8 @@ LectureImg[] arr= new LectureImg[4];
              $("input[type=checkbox]").change(e => {
                  scheduleNo = $(e.target).val();
                  $("#paymentScheduleNo").val(scheduleNo);
-                 console.log(scheduleNo);
-             })
+                 $("#class_checkTutor").show();
+             });
 
              $("#apply-oneday").click(e => {
             	 if("<%=loginMember!=null?loginMember.getEmail():""%>"!=""){
@@ -525,6 +525,7 @@ LectureImg[] arr= new LectureImg[4];
             		data : {"scheduleNo":sendData},
             		dataType : "json",
             		success : data => {
+            			console.log(data);
             			let text = $("#applycount").find("span").text();
             			$("#applycount").find("span").html(data["count"] + "/" + text);
             		}
