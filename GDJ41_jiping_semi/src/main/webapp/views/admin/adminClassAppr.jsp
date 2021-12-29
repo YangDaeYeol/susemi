@@ -33,7 +33,7 @@
                                 <td>
                                     <%-- <button onclick="location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo=<%=apprList.get(i).getLectureNo()%>')">클래스 승인</button> --%>                                    
                                     <button class="apprBtn" value="<%=apprList.get(i).getLectureNo()%>">클래스 승인</button>
-                                    <button class="refuBtn">클래스 거부</button>
+                                    <button class="refuBtn" value="<%=apprList.get(i).getLectureNo()%>">클래스 거부</button>
                                 </td>
                               </tr>
                               <%} %>
