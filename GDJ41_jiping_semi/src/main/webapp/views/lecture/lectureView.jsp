@@ -279,28 +279,24 @@ boolean flag = false;
 <!-- ----------------------------------------------------------------------------   다회차일때 -->
 				<%if(le.getLectureType().equals("다회차")) {%>
 				<h1>adfad</h1>
-                 <%-- 
                      <div class="list-group">
                          <%for(LectureSchedule lesc: list) { %>
                              <div class="list-group-item">
                                  <div class="list-group-item">
 				                  <span id="innerboxcheck"> 1 회</span>
 				                  <div class="schedule-text">
-				                    <span class="class-date">2021.12.14(토) </span> <span> 19:30-21:00</span>
+				                    <span class="class-date"><%=lesc.getLectureDate() %> </span> 
+				                    <span> <%=lesc.getStartDate()+"-"+lesc.getEndDate() %></span>
 				                    <br>
-				                    <span>대륭테크노타운 3차 509호</span>
+				                    <span><%=lesc.getLectureAddress() %></span>
 				                  </div>
-				                  <span class="class-region">서울시 금천구</span>
+				                  <span class="class-region"><%=lesc.getLectureLocation() %></span>
 				                </div>
                              </div>
                              <%} %>
                          <div id="scheduleBtn" class="d-flex justify-content-center">
-                             <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜
-                                 하
-                                 기</button>
-                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수
-                                 강 신
-                                 청</button>
+                             <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜하기</button>
+                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
                          </div>
                      </div>
                  </div>
@@ -356,7 +352,7 @@ boolean flag = false;
                          </div>
                      </div>card
                  </div>submit
- --%>            <%} %>
+            <%} %>
                      
 <!-- ----------------------------------------------------------------------------   vod일때 -->
                      <%if(le.getLectureType().equals("VOD")) { %>
@@ -430,6 +426,25 @@ boolean flag = false;
                                  </div>
                              </div>
                           </div>
+     <%} %>
+   
+     <%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())) { %>
+     <div id="class_checkTutor">
+              <!-- <h5 class="card-title">수강신청11111</h5> -->
+              <div class="card">
+                <div class="card-body apply">
+                  <div id="applycount">
+                    <span>현재 수강인원(신청) 현황</span>
+                    <span>14/15</span>
+                  </div>
+                  <div class="tutor-btn">
+                    <span>수강생 목록</span>
+                    <button type="button" class="btn btn-primary btn-basic">확 인 하 기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+     
      <%} %>
      </div> row
 <!-- -------------------------------------------------------------------------  vod 끝 -->
@@ -607,40 +622,42 @@ boolean flag = false;
                  		
                      <%for(LectureComment co: lcList) { 
                     	 if(co.getCommentLevel()==1) {%>
-                         <div class="card-body reviewDiv">
-                             <div name="review flex-shrink-0">
+                         <div class="d-flex mainreview">
+                             <div name=" review flex-shrink-0">
                                  <img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
                                              ">
                              </div>
-                             <div class="flex-grow-1 ms-3">
-                                 <div style="float: right;">
-                                     <span><%=co.getEnrollDate() %></span><span id="report"><a href=""> 신고</a></span>
-                                     <!-- 신고사유팝업 연결 -->
-                                 </div>
-                                 <span class="img-stars">
-                                     <img
-                                         src="<%=request.getContextPath() %>/img/star/star<%=co.getStarRate() %>.png">
-                                 </span><br>
-                                 <span>
-                                     <%=co.getWriter() %>
-                                 </span><br>
-                                 <p>
-                              		<%=co.getCommentContent() %>
-                         		<%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())){ %>
-                                 	<button class="btn tutorReply btn-enrollReply"
-                                     value="<%=co.getCommentNo() %>" style="float: right;">답글달기</button>
-                                 <%} %>
-                                 <%if(loginMember!=null&&loginMember.getNickname().equals(co.getWriter())){%>
-                                    <button type="button" class="btn tutorReply deleteReply"
-                                        style="float: right;" value="<%=co.getCommentNo()%>">삭제</button>
-                                  <%} %>
-                                 </p>
-
+                             <div class=" flex-grow-1 ms-3">
+                             	<div>
+	                            	<div style="float: right;">
+	                                    <span><%=co.getEnrollDate() %></span><span id="report"><a href=""> 신고</a></span>
+	                                    <!-- 신고사유팝업 연결 -->
+	                                </div>
+	                                <span class="img-stars">
+	                                    <img src="<%=request.getContextPath() %>/img/star/star<%=co.getStarRate() %>.png">
+	                                </span><br>
+	                                <span>
+	                                   <%=co.getWriter() %>
+	                                </span><br>
+                                 
+	                                 <p>
+	                              		<%=co.getCommentContent() %>
+	                         		<%if(loginMember!=null&&loginMember.getNickname().equals(tutor.getNickname())){ %>
+	                                 	<button class="btn tutorReply btn-enrollReply"
+	                                     value="<%=co.getCommentNo() %>" style="float: right;">답글달기</button>
+	                                 <%} %>
+	                                 <%if(loginMember!=null&&loginMember.getNickname().equals(co.getWriter())){%>
+	                                    <button type="button" class="btn tutorReply deleteReply"
+	                                        style="float: right;" value="<%=co.getCommentNo()%>">삭제</button>
+	                                  <%} %>
+	                                 </p>
+								</div>
                              </div>
                          </div> d-flex card-body
+                         <div class="tutorReplyDiv"></div>
                              <%}else if(co.getCommentLevel()==2) {%>
- <!--                             <div id="tutorReplyDiv"> 여기출력ㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ -->
-                             	<div class="card-body reviewDiv">
+                            <!--  <div class="tutorReplyDiv"> 여기출력ㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ  -->
+                             	<div class="d-flex card-body ">
                              		<div name="review flex-shrink-0">
                                  		<img class="img_basic img_review" src="<%=request.getContextPath()%>/upload/<%=co.getProfileImg()%>
                                              ">
@@ -668,10 +685,10 @@ boolean flag = false;
                              <%} %>
                                  <!-- 리뷰끝 -->
                                  <!-- 대댓글 -->
-				   	 <div class="review-enroll card enroll-reply" style="display:none"> <!-- ------------------------대댓글 창 -->
+				   	 <div class="review-enroll  enroll-reply" style="display:none"> <!-- ------------------------대댓글 창 -->
 				        <form action="<%=request.getContextPath() %>/lecture/review.do" method="post">
 				        <%if(loginMember!=null) { %>
-				        <div id="starrate">
+				        	<div id="starrate">
 				            <div>
 				                <img class="img_basic img_review"
 				                    src="<%=request.getContextPath()%>/upload/<%=m.getProfileImg()%>">
@@ -684,7 +701,7 @@ boolean flag = false;
 				        <div class="card">
 				        <textarea id="input-review" class="card-body msgbox" id="totutor-review"
 				            name="commentContent" cols="43" rows="3"
-				            placeholder="강의에대한 솔직한 평가를 남겨주세요! &#13;&#10;*악의적인 비방은 무통보 삭제가 될 수 있습니다."></textarea>
+				            placeholder="수강생에게 따뜻한 인사를 보내주세요! &#13;&#10;"></textarea>
 				        </div>
 				        <input type="hidden" name="level" value="1">
 				        <%if(loginMember!=null) {%>
@@ -702,6 +719,7 @@ boolean flag = false;
 				            <button type="submit" 
 				                class="btn btn-primary btn-lg btn-basic"
 				                style="float: right; ">답글 등록하기</button>
+				                
 				        </div>
 				    </form>
 				    </div>
@@ -710,13 +728,14 @@ boolean flag = false;
                 	<script>
                    $(".btn-enrollReply").click(e => { //답글달기를 누르면 
                     	const form = $(".enroll-reply>form").clone(); //새로 만든 폼태그를 보여줘, 여기서 버튼을 누르면 레벨2로 등록됨
-                        console.log(form);
-                        form.find("input[name=level]").val("2");
-                        form.find("input[name=lecutreCommentRef]").val($(e.target).val());
-                        console.log(form);
+                        form.find("input[name=level]").val("2"); //레벨 2로 
+                        form.find("input[name=lecutreCommentRef]").val($(e.target).val()); //누른값의 밸류를 ref로 
+                        console.log(form); //답글 내용 전부
                         let div = $("<div>");
-                        div.append(form);
-                        $(e.target).parents(".reviewDiv").append(div);
+                        div.append(form); //내용 전부를 div에 넣어주고 
+                        console.log("div:"+div);
+                        $(e.target).parent().after(div); //눌렀던 값의 부모중에 이 클래스이름에 div를 넣어줘
+//						$(.tutorReplyDiv).html(div);
                     }) 
                     
                     $(".deleteReply").click(e=>{
