@@ -393,8 +393,12 @@ LectureImg[] arr= new LectureImg[4];
 			                        <%} else if(flag==true) {%>
                              </div>
                          </div>
-                         <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
+<%--                          <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
                              onclick="location.assign('<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>')">강
+                             의 실 입 장</button>
+                         <% } %> --%>
+                         <button type="submit" class="btn btn-primary btn-lg btn-basic" style="float: right;"
+                             onclick="goToRoom();">강
                              의 실 입 장</button>
                          <% } %>
 
@@ -482,7 +486,6 @@ LectureImg[] arr= new LectureImg[4];
              })
 
              $("#apply").click(e => {
-            	 if(scheduleNo!=0) {
                  $.ajax({
                      url: "<%=request.getContextPath()%>/lecture/scheduleInfo.do",
                      type: "get",
@@ -503,7 +506,6 @@ LectureImg[] arr= new LectureImg[4];
                      <%}%>
                  }
                  })
-             }
              });
 
              $("#totutor").keyup(e => {
@@ -619,6 +621,12 @@ LectureImg[] arr= new LectureImg[4];
                          }
                      })
                  })
+                 
+                 const goToRoom =()=>{
+                	 const url="<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>"; 
+                	 const style="width=400, height=210, left=500, top=200";
+         			open(url,"_blank",style);
+                 }
 
              </script>
 
