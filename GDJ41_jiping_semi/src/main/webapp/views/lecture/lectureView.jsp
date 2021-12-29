@@ -11,7 +11,8 @@
 				com.jiping.payment.model.vo.Payment,
 				com.jiping.lecture.model.vo.LectureComment,
 				com.jiping.lecture.model.vo.VodLecture,
-				java.util.List " %>
+				java.util.List,
+				java.time.LocalDate " %>
 <%
 Lecture le= (Lecture)request.getAttribute("le");
 LectureContent content= (LectureContent)request.getAttribute("content");
@@ -32,6 +33,7 @@ LectureImg[] arr= new LectureImg[4];
 	}
 	System.out.println("arr"+ arr[0]);
 	 System.out.println("jsp:"+ lcList); 
+	 	 
 %>
 
 <section>
@@ -225,7 +227,7 @@ LectureImg[] arr= new LectureImg[4];
                              <button id="wish" type="button" class="btn btn-primary btn-lg btn-pink ">♥ 찜
                                  하
                                  기</button>
-                             <button id="apply" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
+                             <button id="apply-oneday" type="button" class="btn btn-primary btn-lg btn-basic">수강 신청</button>
                          </div>
                          <%} %>
                      </div>
@@ -472,12 +474,13 @@ LectureImg[] arr= new LectureImg[4];
              $("#check-word-count").html("(" + length + "/70)");
          });
 
-         $("#apply").click(e => {
-        	 if(<%=loginMember%>!=null){
+         $("#apply").click(e => { //다회차, vod
+        	if("<%=loginMember!=null?loginMember.getEmail():""%>"!=""){ 
              $("#class_submit").show();
-        	 }else{
+        	  }else{
         		 alert("로그인 후 수강이 가능합니다.");
-        	 }
+        		 $("#loginBtn").click();
+        	 } 
          });
 
      </script>
@@ -490,16 +493,14 @@ LectureImg[] arr= new LectureImg[4];
                  console.log(scheduleNo);
              })
 
-             $("#apply").click(e => {
+             $("#apply-oneday").click(e => {
+            	 if("<%=loginMember!=null?loginMember.getEmail():""%>"!=""){
                  $.ajax({
                      url: "<%=request.getContextPath()%>/lecture/scheduleInfo.do",
                      type: "get",
                      dataType: "json",
                      data: { "scheduleNo": scheduleNo },
                      success: data => {
-                     <%if (loginMember != null && loginMember.getNickname().equals(tutor.getNickname())) { %>
-                             alert("해당 강좌의 튜터님은 수강신청이 불가능합니다.");
-                         <%} else { %>
                              $("input[name=lectureDate]").val(data["lectureDate"]);
                              $("input[name=lectureAddr]").val(data["lectureAddress"]);
                              const title = $("#apply-title").html("<%=le.getLectureTitle() %>");
@@ -509,13 +510,15 @@ LectureImg[] arr= new LectureImg[4];
                              const cost = $("#apply-cost").html(data["lecturePrice"]);
                              $("#applycount").find("span").html(data["lecturePersons"]);
                              $("#class_submit").show();
-                             console.log(data);
                              studentCount(data["scheduleNo"]);
-                     <%}%>
-                 }
-                 })
+                          }  
+                 	})
+            	 }else {
+            		 alert("로그인 후 수강이 가능합니다.");
+            		 $("#loginBtn").click();
+            	 }
              });
-             
+          
              function studentCount(sendData) {
             	 $.ajax({
             		url : "<%= request.getContextPath() %>/checkStudentCount",
@@ -644,7 +647,7 @@ LectureImg[] arr= new LectureImg[4];
                  
                  const goToRoom =()=>{
                 	 const url="<%=request.getContextPath()%>/lecture/vodroom.do?lectureNo=<%=le.getLectureNo()%>"; 
-                	 const style="width=400, height=210, left=500, top=200";
+                	 const style="width=1260, height=880, left=250, top=50";
          			open(url,"_blank",style);
                  }
 
@@ -674,7 +677,7 @@ LectureImg[] arr= new LectureImg[4];
 	                            	<div style="float: right;">
 	                                    <span><%=co.getEnrollDate() %></span><span id="report">
 	                                    <%if(loginMember!=null) { %>
-	                                    <a href="<%=request.getContextPath()%>/adminReport"> 신고</a></span>
+ 											<a href="javascript: reportReview();"> 신고</a></span>
 	                                    <%} %>
 	                                    <!-- 신고사유팝업 연결 -->
 	                                </div>
@@ -806,6 +809,12 @@ LectureImg[] arr= new LectureImg[4];
                      }
                      $("#review-count").html("(" + length + "/100)");
                  });
+                   
+                   const reportReview=()=>{
+                	   const url="<%=request.getContextPath()%>/adminReport";
+                	   const style="width=565, height=400, left=250, top=50";
+            			open(url,"_blank",style);
+                   }
                 </script>								
                 </div> card-body
             </div> card

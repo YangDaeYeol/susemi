@@ -21,8 +21,8 @@
 	List<VodLecture> list= (List)request.getAttribute("vodList");
 %>
 <section>
-<div class="container">
-    <div id="mainInfo" class=row> 
+<div class="container1">
+    <div id="mainInfo" class="row" > 
                 <span id="vod-title"><%=le.getLectureTitle() %></span>
         <div id="left" class="col-9"> <!--숫자로 조정-->
             <div>
