@@ -1,7 +1,6 @@
-package com.jiping.member.controller;
+package com.jiping.lecture.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.lecture.model.vo.Lecture;
-import com.jiping.member.model.service.MemberService;
-import com.jiping.member.model.vo.Member;
+import org.json.simple.JSONObject;
+
+import com.jiping.lecture.model.sevice.LectureService;
 
 /**
- * Servlet implementation class MyclassEndServlet
+ * Servlet implementation class LectureStudentCount
  */
-@WebServlet(name="endClassUser", urlPatterns={"/member/myclassEnd.do"})
-public class MyclassEndServlet extends HttpServlet {
+@WebServlet("/checkStudentCount")
+public class LectureStudentCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyclassEndServlet() {
+    public LectureStudentCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +31,12 @@ public class MyclassEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email=request.getParameter("email");
-		Member m=new MemberService().selectMember(email);
-		
-		List<Lecture> list=new MemberService().endLectureList(email);
-		int count=new MemberService().endLectureCount(email);
-		System.out.println("서블릿에서 리스트 : "+ list);
-		request.setAttribute("count", count);
-		request.setAttribute("lectureList", list);
-		request.setAttribute("loginMember", m);
-		request.getRequestDispatcher("/views/member/myClassEndUser.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
+		int result = new LectureService().checkStudentCount(scheduleNo);
+		JSONObject jo = new JSONObject();
+		jo.put("count", result);
+		response.getWriter().print(jo);
 	}
 
 	/**

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.jiping.tutor.model.vo.*" %>
+
+
 <%
 	Tutor t = (Tutor)request.getAttribute("tutor"); 
 	List<Certificate> list = (List)request.getAttribute("certificate");
@@ -87,8 +89,8 @@
 
 													<div class="image-upload">
 														<label for="file-input">
-														<% if(!loginMember.getProfileImg().equals("userimg.png")) {%>
-														 <img src="<%= request.getContextPath() %>/upload/<%= loginMember.getProfileImg() %>" id="imgTest"
+														<% if(!(loginMember.getProfileImg().equals("userimg.png"))) {%>
+														<img src="<%= request.getContextPath() %>/upload/<%= loginMember.getProfileImg() %>" id="imgTest"
 															alt="2021-12-17-18-59-18" width="100px" height="100px" style="border-radius:50%;">
 														<% }else { %>
 														<img src="https://i.ibb.co/j4n8j8L/2021-12-17-18-59-18.png" id="imgTest"
@@ -98,7 +100,7 @@
 															accept="image/png, image/gif, image/jpeg, image/jpg">
 													</div>
 													<div id="resultTutorImg" style="margin-bottom: 30px;"></div>
-													<div>튜터의 한마디</div>
+													<div class="tutorInputClass">튜터의 한마디</div>
 													<div id="tutorComment">
 														<textarea name="tutorComment" cols="58" rows="5"
 														id="tutorIntroduction"
@@ -107,7 +109,7 @@
 													</div>
 
 													<div id="snsInfo">
-														<div>
+														<div class="tutorInputClass">
 															소셜미디어 <span class="sugg">(권장사항)</span>
 														</div>
 														<div id="insta">
@@ -134,12 +136,12 @@
 													</div>
 													
 
-														<div>
-															자격증 및 경력 <span class="sugg">(권장사항, 최대 5개)</span>
+														<div class="tutorInputClass">
+															자격증 및 경력 <span class="sugg">(필수사항, 최대 5개)</span>
 														</div>
 														<div id="toGetCarrerInformation">
 															<div class="image-career" id="image-career1">
-																<input type="text" name="text-career1"
+																<input type="text" name="text-career1" id="inputCareerText1"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox" value="<%= cerArray[0]!=null?cerArray[0].getCertificateText():"" %>"> <label
 																	class='fileCareerFileInputLabel' for="file-career1">
@@ -154,7 +156,7 @@
 															</div>
 
 															<div class="image-career" id="image-career2">
-																<input type="text" name="text-career2"
+																<input type="text" name="text-career2" id="inputCareerText2"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox" value="<%= cerArray[1]!=null?cerArray[1].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career2">
@@ -169,7 +171,7 @@
 															</div>
 															<div class="image-career" id="image-career3"
 																style="display: none;">
-																<input type="text" name="text-career3"
+																<input type="text" name="text-career3" id="inputCareerText3"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox" value="<%= cerArray[2]!=null?cerArray[2].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career3">
@@ -184,7 +186,7 @@
 															</div>
 															<div class="image-career" id="image-career4"
 																style="display: none;">
-																<input type="text" name="text-career4"
+																<input type="text" name="text-career4" id="inputCareerText4"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox" value="<%= cerArray[3]!=null?cerArray[3].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career4">
@@ -199,7 +201,7 @@
 															</div>
 															<div class="image-career" id="image-career5"
 																style="display: none;">
-																<input type="text" name="text-career5"
+																<input type="text" name="text-career5" id="inputCareerText5"
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox" value="<%= cerArray[4]!=null?cerArray[4].getCertificateText():"" %>"> <label
 																	class="fileCareerFileInputLabel" for="file-career5">
@@ -222,7 +224,8 @@
 															style="margin-bottom: 20px; font-size: 12px;"></div>
 
 														<!-- kj 소개 본문 내용 끝 -->
-														<button class="pageBtn" onclick="stepper1.next()">다음</button>
+														<button class="pageBtn" id="checkIf" onclick="stepper1.next()">다음</button>
+													
 													</div>
 												</div>
 											</div>
@@ -421,7 +424,7 @@
 															<!-- 회차에 따라서 펼쳐지는 날짜와 시간들 시작  -->
 															<div id="selectMultipleDates0" style="display: block;">
 																<div style="padding-top: 20px; margin-bottom: 10px;">
-																	<span>1회 날짜 : </span><input type="date"
+																	<span>1회 날짜 : </span><input type="date" id="testDate"
 																		name="classDate0" style="border-radius: 7px;">
 																</div>
 																<div
@@ -438,13 +441,38 @@
 																<div
 																	style="border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px; width: 38%;"
 																	class="classIntBox" id="inputBoxOfOneDayTimes">
-																	<input type="text" class="classIntInputBox"
+																	<input type="number" class="classIntInputBox"
 																		name="onedayClassPrice" id="classTxtBox1"><span
 																		class="won">원</span>
 																</div>
 
 															</div>
 														</div>
+														
+														<script>
+														(function() {
+															for(var i=0; i<5; i++){
+																  var inputDate=$("#selectMultipleDates0").val();
+																  var year = today.getFullYear();
+																  var month = new String(today.getMonth()+1);
+																  var day = new String(today.getDate());
+																  
+																  if (month.length==1) {
+																	  month="0"+month;
+																  }
+																  if (day.length==1) {
+																	  day="0"+day;
+																  }
+																  var t = year+"-"+month+"-"+day;
+																  if(inputData<t) {
+																	  alert("오늘보다 작은 날 입력 불가");
+																	  $()
+																  }
+																  
+															}
+														})
+														
+														</script>
 														<!-- 가격받기 끝 -->
 														<div class="classLocationTitle">클래스 위치</div>
 														<div
@@ -524,19 +552,10 @@
 										<div
 											style="display: inline-block; border: 1px solid black; border-radius: 10px; height: 34px; padding-top: 5px;"
 											class="classIntBox" id="inputBoxOfTimes">
-											<input type="text" class="classIntInputBox"
-												name="multipleDayClassPrice" id="classTxtBox2" onchange="checkString(e);"><span
+											<input type="number" class="classIntInputBox"
+												name="multipleDayClassPrice" id="classTxtBox2"><span
 												class="won">원</span>
-												<script>
-												const checkString=(e)=>{
-													let inputBox = document.getElementById("classTxtBox2");
-													let eng = /[a-zA-Z]/;
-													let etc = /[~!@#$%^&*()_+|<>?:{}]/;
-													let kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-													alert("???");
-
-												}
-												</script>
+												
 										</div>
 									</div>
 								</div>
@@ -624,7 +643,7 @@
 										<div class="pricePerClass1" style="border-bottom: 10px;">클래스
 											가격</div>
 										<div id="pricePerClass2" class="classIntBox">
-											<input type="text" class="classIntInputBox"
+											<input type="number" class="classIntInputBox"
 												name="vodTotalClassPrice" id="classPri"><span
 												class="won">원</span>
 										</div>
@@ -809,6 +828,24 @@
             vod.style.display = "block";
         });
         
+        $( "#checkIf" ).mouseenter(function() {
+			let careerInputBox1 = $("#inputCareerText1").val();
+			let careerInputBox2 = $("#inputCareerText2").val();
+			let careerInputBox3 = $("#inputCareerText3").val();
+			let careerInputBox4 = $("#inputCareerText4").val();
+			let careerInputBox5 = $("#inputCareerText5").val();
+			let careerInputBox = careerInputBox1 + careerInputBox2 + careerInputBox3
+			+ careerInputBox4 + careerInputBox5
+			if (careerInputBox=="") {
+				Swal.fire({
+                    icon: 'error',
+                    title: '자격증 및 경력을 입력해주세요',
+                });
+				$("#inputCareerText1").focus();
+				return false;
+			}
+			
+			});
         
         const limit500 = (e, countLimitinfoId) => {
             
@@ -1309,9 +1346,13 @@
     	       cache: false,           
     	       timeout: 600000,       
     	       success:data=>{
-    	    		console.log(data);   
-    	    	  /*  alert(data>0?"등록성공":"등록실패"); */
-    	    	   <%-- window.location.href = "<%=request.getContextPath()%>"; --%>
+    	    		if (data>0) {
+    	    			Swal.fire('클래스 등록 승인결과는 마이페이지에서 확인 가능합니다.');
+    	    		} else {
+    	    			alert('fail');
+    	    		}
+    	    	 
+    	    	   window.location.href = "<%=request.getContextPath()%>";
     	       },error:e=>{
     	    	   console.log(e);
     	    	   console.log(e.responseText);

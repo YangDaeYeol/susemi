@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>정보수정(유저)</title>
-    <link rel="stylesheet" type="text/css" href="css/styleGr.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/styleGr.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="css/styleKM.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/styleKM.css"/>
     
 </head>
 <body>  
@@ -29,41 +29,90 @@
                    <div class="location-container">						
 					<div class="locationdiv">
 						<div id="nsdiSearchForm" class="form_data pb-1">
-							<select id="sido_code1" class="form-select" style="width:200px;">
+							<select id="sido_code1" name="sido_code1" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
-							<select id="sigoon_code1" class="form-select" style="width:200px;">
+							<select id="sigoon_code1" name="sigoon_code1" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
 						</div>
 						<div id="nsdiSearchForm2" class="form_data pb-1 pt-1" >
-							<select id="sido_code2" class="form-select" style="width:200px;">
+							<select id="sido_code2" name="sido_code2" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
-							<select id="sigoon_code2" class="form-select" style="width:200px;">
+							<select id="sigoon_code2" name="sigoon_code2" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
 						</div>
 						<div id="nsdiSearchForm3" class="form_data pb-1">
-							<select id="sido_code3" class="form-select" style="width:200px;">
+							<select id="sido_code3" name="sido_code3" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
-							<select id="sigoon_code3" class="form-select" style="width:200px;">
+							<select id="sigoon_code3" name="sigoon_code3" class="form-select" style="width:200px;">
 								<option>선택</option>
 							</select>
 						</div>
 					</div>
-					
-				</div>					
+				</div>
+				<input type="hidden" id="largeLocation1" name="largeLocation1" value="">
+				<input type="hidden" id="smallLocation1" name="smallLocation1" value="">
+				<input type="hidden" id="largeLocation2" name="largeLocation2" value="x">
+				<input type="hidden" id="smallLocation2" name="smallLocation2" value="x">
+				<input type="hidden" id="largeLocation3" name="largeLocation3" value="x">
+				<input type="hidden" id="smallLocation3" name="smallLocation3" value="x">
+								
                 <button style="background-color: #94d5de; color:white; border: none; width: 120px; height: 30px; border-radius: 3px;"
-                        on>
-                    관심지역 수정
-                </button>                              
+                		onclick="locationSendUpdatePage();"> 관심지역 수정
+                </button>
+                <button style="background-color: #94d5de; color:white; border: none; width: 80px; height: 30px; border-radius: 3px;"
+                		onclick="window.close();">닫기
+                </button>                             
                 </div>
             </div>                     
         </div>           
     </div>
 </section>
+<script>
+						let sido_code1;
+						let sigoon_code1;
+						let sido_code2;
+						let sigoon_code2;
+						let sido_code3;
+						let sigoon_code3;
+						
+							$(()=>{
+							 	$("#sido_code1").change(function(){
+									sido_code1=$("select[name=sido_code1] option:selected").text();//대구광역시 선택 선택 --> text값 가져오기
+							 	});
+							 	$("#sigoon_code1").change(function(){
+							 		sigoon_code1=$("select[name=sigoon_code1] option:selected").text();
+							 	});
+							 	$("#sido_code2").change(function(){
+							 		sido_code2=$("select[name=sido_code2] option:selected").text();
+							 	});
+							 	$("#sigoon_code2").change(function(){
+							 		sigoon_code2=$("select[name=sigoon_code2] option:selected").text();
+							 	});
+							 	$("#sido_code3").change(function(){
+							 		sido_code3=$("select[name=sido_code3] option:selected").text();
+								});
+							 	$("#sigoon_code3").change(function(){
+							 		sigoon_code3=$("select[name=sigoon_code3] option:selected").text();
+							 	});
+							});
+							
+							const locationSendUpdatePage=()=>{
+								opener.userUpdateFrm.newLLocation0.value=sido_code1;
+								opener.userUpdateFrm.newSLocation0.value=sigoon_code1;
+								opener.userUpdateFrm.newLLocation1.value=sido_code2;
+								opener.userUpdateFrm.newSLocation1.value=sigoon_code2;
+								opener.userUpdateFrm.newLLocation2.value=sido_code3;
+								opener.userUpdateFrm.newSLocation2.value=sigoon_code3;
+								close();
+							}
+								
+					
+				</script>
 </body>
 </html>
 <style>

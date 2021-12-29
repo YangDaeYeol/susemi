@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,7 +67,7 @@ public class EnrollLectureServlet extends HttpServlet {
 //					튜터 이미지받아서 처리하는부분 시작
 		String path = request.getServletContext().getRealPath("/upload/tutor/");
 		// String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
-		int maxSize = 1024 * 1024 * 10;
+		int maxSize = 1024 * 1024 * 100;
 		String encode = "UTF-8";
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("loginMember");
@@ -92,63 +94,63 @@ public class EnrollLectureServlet extends HttpServlet {
 				.build();
 
 		lecture.put("tutor", t);
-
-		String[] certificateText = new String[5];
+		
+		List<String> certificateText = new ArrayList<>();
+		List<String> certificateImage = new ArrayList<>();
+		
 		int TextNum = 1;
-		;
-		for (int i = 0; i < certificateText.length; i++) {
+		for (int i = 0; i < 5; i++) {
 			if ((mr.getParameter("text-career" + TextNum)) != null) {
 				// text-career가 null이 아닐 경우에만 배열에 값 넣기
-				certificateText[i] = mr.getParameter("text-career" + TextNum);
+				certificateText.add(mr.getParameter("text-career" + TextNum));
 				TextNum++;
 			}
-
 		}
-//					String 배열에서 String 으로 변경
-		StringBuilder builder1 = new StringBuilder();
-		for (String s : certificateText) {
-			builder1.append(s + ",");
-		}
-		String certificateTxt = builder1.toString();
-
-		// null있을경우 삭제
-		if (certificateTxt.contains("null")) {
-			certificateTxt.replaceAll("null", "");
-		}
-
-		// 맨 마지막의 , 삭제
-		certificateTxt = certificateTxt.substring(0, certificateTxt.length() - 1);
-
-		String[] certificateImage = new String[5];
+		
 		int FileNum = 1;
-		for (int i = 0; i < certificateImage.length; i++) {
+		for (int i = 0; i < 5; i++) {
 			if ((mr.getFilesystemName("file-career" + FileNum)) != null) {
 				// text-career가 null이 아닐 경우에만 배열에 값 넣기
-				certificateImage[i] = mr.getFilesystemName("file-career" + FileNum);
+				certificateImage.add(mr.getFilesystemName("file-career" + FileNum));
 				FileNum++;
 			}
 		}
+		
+		lecture.put("certificateText", certificateText);
+		lecture.put("certificateImage", certificateImage);
+		
+		
 //					String 배열에서 String 으로 변경
-		StringBuilder builder2 = new StringBuilder();
-		for (String s : certificateImage) {
-			builder2.append(s + ",");
-		}
-		String certificateImg = builder2.toString();
+//		StringBuilder builder1 = new StringBuilder();
+//		for (String s : certificateText) {
+//			builder1.append(s + ",");
+//		}
+//		String certificateTxt = builder1.toString();
+//
+//		// null있을경우 삭제
+//		if (certificateTxt.contains("null")) {
+//			certificateTxt.replaceAll("null", "");
+//		}
+//
+//		// 맨 마지막의 , 삭제
+//		certificateTxt = certificateTxt.substring(0, certificateTxt.length() - 1);
 
-		// null있을경우 삭제
-		if (certificateImg.contains("null")) {
-			certificateImg.replaceAll("null", "");
-		}
+		
+//					String 배열에서 String 으로 변경
+//		StringBuilder builder2 = new StringBuilder();
+//		for (String s : certificateImage) {
+//			builder2.append(s + ",");
+//		}
+//		String certificateImg = builder2.toString();
+//
+//		// null있을경우 삭제
+//		if (certificateImg.contains("null")) {
+//			certificateImg.replaceAll("null", "");
+//		}
 
 		// 맨 마지막의 , 삭제
-		certificateImg = certificateImg.substring(0, certificateImg.length() - 1);
+//		certificateImg = certificateImg.substring(0, certificateImg.length() - 1);
 
-		Certificate c = null;
-		for (int i = 0; i < certificateImage.length; i++) {
-			c = Certificate.builder().certificateText(certificateTxt).certificateImg(certificateImg).build();
-		}
-
-		lecture.put("certificate", c);
 		String classType = mr.getParameter("classType");
 
 		String oneday = null;

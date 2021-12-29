@@ -32,8 +32,9 @@
                                 <td><%=apprList.get(i).getLectureTitle()%></td>
                                 <td><%=apprList.get(i).getNickName()%></td>
                                 <td>
-                                    <button onclick="location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo=<%=apprList.get(i).getLectureNo()%>')">클래스 승인</button>
-                                    <button>클래스 거부</button>
+                                    <%-- <button onclick="location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo=<%=apprList.get(i).getLectureNo()%>')">클래스 승인</button> --%>                                    
+                                    <button class="apprbtn" value="<%=apprList.get(i).getLectureNo()%>">클래스 승인</button>
+                                    <button class="refubtn">클래스 거부</button>
                                 </td>
                               </tr>
                               <%} %>
@@ -43,8 +44,20 @@
                     </div>    
             </div>
         </section>
+<script>
+	
+	$(".apprbtn").click(e=>{
+		/* console.log($(e.target).parent().parent()[0]);
+		console.log($(e.target).val()); */
+		let lectureNo=$(e.target).val();
+		if(confirm('클래스를 정말 승인하시겠습니까?')){
+			location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo='+lectureNo);
+		}   
+	});
 
-<%@ include file="/views/common/footer.jsp"%>
+
+</script>
+<%@ include file="/views/common/footer.jsp"%>z
 <!-- <script>
         // 마이클래스 서브메뉴!!
         $("#sub-menu").hide();

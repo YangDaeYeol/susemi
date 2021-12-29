@@ -23,7 +23,6 @@
                               <li>· 마이클래스</li>
                               <ul id="sub-menu">
                                   <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
-                                  <li><a href="<%=request.getContextPath()%>/member/myclassHeart.do?email=<%=m.getEmail()%>">- 찜한 클래스</a></li>
                                   <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
                               </ul>
                           </nav>
@@ -45,7 +44,7 @@
                     <div class="classAll">
                         <div class="flex" id="ing-class">
                             <h5>수강중인 클래스 - 오프라인</h5>
-                            <p class="relative">총 <%=count %>개의 클래스</p> 
+                            <p class="relative" style="left:540px">총 <%=count %>개의 클래스</p> 
                         </div>
                         <div id="ing-class-list">
                         <%if(!list.isEmpty()){ %>    
