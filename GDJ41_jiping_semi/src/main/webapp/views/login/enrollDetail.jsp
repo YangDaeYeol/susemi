@@ -27,7 +27,7 @@
 			</div>
 			<div class="category-container">
 				<span class="loginContent fs_14">관심분야 선택</span>
-				<div class="categorydiv">
+				<div class="categorydiv" style="text-align:left">
 					<select name="largeCategory" class="form-select" id="largeCategory">
 						<option value="0" selected="selected">대분류</option>
 						<option value="1">취미/공예</option>
@@ -162,15 +162,35 @@
  	for(let i=1; i<4; i++) {
 		$("#sido_code" + i).change(e=> {
 			let largeLocation = $(e.target).find("option:selected").text();
-			console.log(largeLocation);
 			$("#largeLocation" + i).val(largeLocation);
 		});
 		$("#sigoon_code" + i).change(e=> {
 			let smallLocation = $(e.target).find("option:selected").text();
-			console.log(smallLocation);
 			$("#smallLocation" + i).val(smallLocation);
 		});	
 	}
+ 	$(".categorydiv>select[name=largeCategory]").change(e=> {
+ 		let valCa = $(e.target).val();
+ 		$("#largeCategory1").val(valCa);
+ 	});
+ 	$(".categorydiv>select[name=smallCategory]").change(e=> {
+ 		let valCa = $(e.target).val();
+ 		$("#smallCategory1").val(valCa);
+ 	});
+ 	/* for(let i=1; i<3; i++) {
+ 		$(".categorydiv" + i +">select[name=largeCategory]").change(e=> {
+ 	 		let valCa = $(e.target).val();
+ 	 		console.log(valCa)
+ 	 		$("#largeCategory" + (i+1)).val(valCa);
+ 	 		console.log($("#largeCategory" + (i+1)).val());
+ 	 	});
+ 		$(".categorydiv" + i + ">select[name=smallCategory]").change(e=> {
+ 	 		let valCa = $(e.target).val();
+ 	 		console.log(valCa)
+ 	 		$("#smallCategory" + (i+1)).val(valCa);
+ 	 		console.log($("#smallCategory" + (i+1)).val());
+ 	 	});
+ 	} */
 </script>
 <script>
 	//버튼 on/off 스크립트
@@ -199,6 +219,20 @@
         if(addDiv.children()[1]!=null){
            addDiv.children()[1].className="categorydiv2";
         }
+        for(let i=1; i<3; i++) {
+     		$(".categorydiv" + i +">select[name=largeCategory]").change(e=> {
+     	 		let valCa = $(e.target).val();
+     	 		console.log(valCa)
+     	 		$("#largeCategory" + (i+1)).val(valCa);
+     	 		console.log($("#largeCategory" + (i+1)).val());
+     	 	});
+     		$(".categorydiv" + i + ">select[name=smallCategory]").change(e=> {
+     	 		let valCa = $(e.target).val();
+     	 		console.log(valCa)
+     	 		$("#smallCategory" + (i+1)).val(valCa);
+     	 		console.log($("#smallCategory" + (i+1)).val());
+     	 	});
+     	}
      })
      //카테고리 대분류 소분류 가동 스크립트
      function update_selected(e) {
