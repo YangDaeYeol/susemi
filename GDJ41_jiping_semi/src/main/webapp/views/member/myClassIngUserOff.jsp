@@ -18,7 +18,7 @@
                     <div class="" id="my-menu" >
                         <ul id="menu-list">
                           <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
-                          <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
+                          <li><a href="<%=request.getContextPath()%>/member/passwordCheck.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                           <nav class="nav-sub">
                               <li>· 마이클래스</li>
                               <ul id="sub-menu">

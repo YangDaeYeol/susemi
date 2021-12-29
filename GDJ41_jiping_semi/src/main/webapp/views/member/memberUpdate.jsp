@@ -23,7 +23,7 @@
 			<div class="" id="my-menu" >
 				<ul id="menu-list">
 					<li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
-                    <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
+                    <li><a href="<%=request.getContextPath()%>/member/passwordCheck.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                     <nav class="nav-sub">
 						<li>· 마이클래스</li>
 							<ul id="sub-menu">
@@ -73,18 +73,10 @@
                         <div class="info-content inlineblock">
                         	<input type="text"  readonly name="" value="<%=m.getMemberName() %>" class="placeholder-center" size="25">
                         </div>
+                         <div class="inlineblock">
+                                <p class="guide">※ 이름은 변경이 불가능합니다.</p>
+                         </div>
                     </div>					                   
-                    <div class="menu-margin margin-left" id="tutor-beforePw">
-                        <div class="info-title inlineblock">
-                            <span class="margin-right menu-list-name">현재 비밀번호</span>
-                        </div>
-                        <div class="info-content inlineblock">
-                            <input type="password" id="oriPw" name="oriPw"  class="placeholder-center " size="25" required>
-                        </div>
-                        <div class="inlineblock">
-                            <p class="guide">※ 현재 비밀번호를 꼭 입력한 뒤 정보수정이 가능합니다.</p>
-                        </div>
-                    </div>
                     <div class="menu-margin margin-left" id="tutor-afterPw">
                         <div class="info-title inlineblock">
                             <span class="margin-right menu-list-name">새로운 비밀번호</span>

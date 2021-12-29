@@ -38,14 +38,13 @@ public class UpdateMemberEndServlet extends HttpServlet {
 		System.out.println("email : "+email);
 		
 		Member oriM=new MemberService().selectMember(email);
-		String pw="";
 		
-		if(newPwCheck!=null) {
-			pw=newPwCheck;
-		}else {
-			pw=oriM.getPassword();
-		}		
-		System.out.println("pw :"+ pw);
+		/*
+		 * String pw="";
+		 * 
+		 * if(newPwCheck!=null) { pw=newPwCheck; }else { pw=oriM.getPassword(); }
+		 * System.out.println("pw :"+ pw);
+		 */
 		
 		String newPhone=request.getParameter("newPhone");		
 		String newNick=request.getParameter("newNick");
@@ -72,7 +71,7 @@ public class UpdateMemberEndServlet extends HttpServlet {
 
 		Member m=Member.builder()
 //				.profileImg(profileImg)
-				.password(pw)
+				/* .password(pw) */
 				.phone(newPhone)
 				.nickname(newNick)
 				.marketing(marketing.charAt(0))
@@ -88,7 +87,7 @@ public class UpdateMemberEndServlet extends HttpServlet {
 			request.setAttribute("loginMember", m);
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out=response.getWriter();
-			out.println("<script>alert('회원 정보수정에 실패하였습니다. 다시 시도하세요.'); location.href='"
+			out.println("<script>alert('시스템 오류로 회원 정보수정에 실패하였습니다.관리자에게 문의하세요'); location.href='"
 					+request.getContextPath()+"/member/updateMember.do?email="+email+"';</script>");
 			out.close();
 			

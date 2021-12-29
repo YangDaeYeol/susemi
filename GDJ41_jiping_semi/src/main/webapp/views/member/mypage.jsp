@@ -3,7 +3,6 @@
     <%@ include file="/views/common/header.jsp"%>     
 <%
 	Member m=(Member)request.getAttribute("loginMember");
-	System.out.println(m);
 	
 		/* 관심분야 */	
 		String[] categories;
@@ -18,9 +17,6 @@
 			largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
 			smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
 			
-			System.out.println(largeCategories[i]);
-			System.out.println(smallCategories[i]);
-		
 		}
 
 	
@@ -37,8 +33,6 @@
 			largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
 			smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
 			
-			System.out.println(largeCategories2[i]);
-			System.out.println(smallCategories2[i]);
 		}
 
 %>
@@ -51,8 +45,8 @@
                   <div class="" id="my-menu" >
                       <ul id="menu-list">
                           <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
-                          <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
-                          <nav class="nav-sub">
+                          <%-- <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li> --%>
+                          <li><a href="<%=request.getContextPath()%>/member/passwordCheck.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
                               <li>· 마이클래스</li>
                               <ul id="sub-menu">
                                   <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
