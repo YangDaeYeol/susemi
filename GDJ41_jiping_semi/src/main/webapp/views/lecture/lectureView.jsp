@@ -677,7 +677,7 @@ LectureImg[] arr= new LectureImg[4];
 	                            	<div style="float: right;">
 	                                    <span><%=co.getEnrollDate() %></span><span id="report">
 	                                    <%if(loginMember!=null) { %>
- 											<a href="javascript: reportReview();"> 신고</a></span>
+ 											<a href="javascript: reportReview('<%=co.getCommentNo()%>','<%=co.getWriter()%>','<%=le.getLectureTitle()%>');"> 신고</a></span>
 	                                    <%} %>
 	                                    <!-- 신고사유팝업 연결 -->
 	                                </div>
@@ -714,7 +714,8 @@ LectureImg[] arr= new LectureImg[4];
 	                                	<div style="float: right;">
 	                                    <span><%=co.getEnrollDate() %></span><span id="report">
 	                                    <%if(loginMember!=null) { %>
-	                                    <a href="<%=request.getContextPath()%>/adminReport"> 신고</a></span>
+	                                    <a href="javascript: reportReview('<%=co.getCommentNo()%>','<%=co.getWriter()%>','<%=le.getLectureTitle()%>');"> 신고</a></span>
+	                                    <input type="hidden" class="enrollReport" value="<%=co.getCommentNo() %>">
 	                                    <%} %>
 	                                    <!-- 신고사유팝업 연결 -->
 	                                	</div>
@@ -810,8 +811,10 @@ LectureImg[] arr= new LectureImg[4];
                      $("#review-count").html("(" + length + "/100)");
                  });
                    
-                   const reportReview=()=>{
-                	   const url="<%=request.getContextPath()%>/adminReport";
+                   const reportReview=(commentNum,writer,title)=>{
+                	  /*  const num =$(e.target).next(".enrollReport").val();
+                	   console.log(num); */
+                	   const url="<%=request.getContextPath()%>/adminReport?commentNo="+commentNum+"&commentWriter="+writer+"&lectureTitle="+title;
                 	   const style="width=565, height=400, left=250, top=50";
             			open(url,"_blank",style);
                    }

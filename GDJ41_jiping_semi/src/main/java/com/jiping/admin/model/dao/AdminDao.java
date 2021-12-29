@@ -75,5 +75,26 @@ private Properties prop = new Properties();
 		}
 		return result;
 	}
+	
+	public int insertReport(Connection conn, Report r) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("insertReport");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getCommentNo());
+			pstmt.setString(2, r.getReportUser());
+			pstmt.setString(3, r.getReportType());
+			pstmt.setString(4, r.getReportContent());
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println("result:"+result);
+		return result;
+	}
 
 }
