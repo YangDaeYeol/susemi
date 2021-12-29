@@ -76,12 +76,36 @@
 	            <form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMemberEnd.do" method="post">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock" id="newImg"><img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>"></div>
+                        <div class="info-content inlineblock" id="newImg">
+                        	<img id="ttImg" src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>">
+                        	<input type="file" name="upFile" accept="upload/*" style="display:none">
+                        </div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
                             <input type="button" value="기본이미지" onclick="deleteImg();">
-                            <input type="file" name="profileImg" id="" value="파일 선택" class="" width="">
                         </div>
                     </div>
+                    <script>
+                    	$("#ttImg").click(e=>{
+                    		$("input[name=upFile]").click();
+                    	})
+                    	
+                    	$("input[name=upFile]").change(e=>{
+                    		if(e.target.files[0].type.includes("image")){
+                    			let reader=new FileReader();
+                    			reader.onload=(e)=>{
+                    				const img=$("<img>").attr({
+                    					src:e.target.result,
+                    					width:"200px",
+                    					height:"200px"
+                    				});
+                    				$("#ttImg").attr("src",e.target.result);
+                    					
+                    			}
+                    			reader.readAsDataURL(e.target.files[0]);
+                    		}
+                    	})
+                    	
+                    </script>
                     <div class="menu-margin margin-left" id="tutor-email" >
                             <div class="info-title inlineblock">
                                 <span class="margin-right menu-list-name">이메일</span>
