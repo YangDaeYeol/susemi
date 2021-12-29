@@ -418,7 +418,7 @@ public class LectureDao {
 			return result;
 			
 		}
-	public int enrollCertificateInformation (Connection conn, Certificate c, Member m) {
+	public int enrollCertificateInformation (Connection conn, String certificateText, String certificateImage, Member m) {
 			 
 			PreparedStatement pstmt=null;
 			int result = 0;
@@ -426,8 +426,8 @@ public class LectureDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, m.getNickname());
-				pstmt.setString(2, c.getCertificateText());
-				pstmt.setString(3, c.getCertificateImg());
+				pstmt.setString(2, certificateText);
+				pstmt.setString(3, certificateImage);
 				result=pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
