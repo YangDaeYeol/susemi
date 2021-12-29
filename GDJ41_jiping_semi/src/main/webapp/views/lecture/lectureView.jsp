@@ -479,14 +479,8 @@ LectureImg[] arr= new LectureImg[4];
      </script>
          <!-- ----------------------------------------------- 공통 스크립트 -->
          <script>
-         <% if(le.getLectureType().equals("원데이")) { %>
-         $("#class_checkTutor").hide();
-         <% } %>
              let scheduleNo=0;
              $("input[type=checkbox]").change(e => {
-            	 <% if(le.getLectureType().equals("원데이")) { %>
-                 $("#class_checkTutor").hide();
-                 <% } %>
                  scheduleNo = $(e.target).val();
                  $("#paymentScheduleNo").val(scheduleNo);
                  $("#class_checkTutor").show();
