@@ -879,7 +879,9 @@ public class LectureDao {
 		}finally {
 			close(rs);
 			close(pstmt);
-		}return result;
+		}
+		
+		return result;
 	}
 	
 	public List<Certificate> selectCertificate(Connection conn, String nickName) {
