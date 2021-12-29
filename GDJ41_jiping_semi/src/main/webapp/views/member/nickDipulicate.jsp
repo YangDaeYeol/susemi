@@ -43,10 +43,10 @@
 </html>
 <script>
 		const el=document.querySelector("#closeBtn").addEventListener("click",e=>{
-		const newNickname='<%=newNick %>';
-		console.log(newNickname);
-		opener.userUpdateFrm.newNick.value=newNickname;
-		opener.$("#newNick").focus();
-		close();
+			const newNickname='<%=newNick %>';
+			console.log(newNickname);
+			opener.userUpdateFrm.newNick.value=newNickname;
+			opener.$("#newNick").focus();
+			close();
 		});
 </script>
