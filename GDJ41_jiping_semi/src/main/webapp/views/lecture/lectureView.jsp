@@ -64,13 +64,13 @@ LectureImg[] arr= new LectureImg[4];
                                              class="d-block w-100" alt="...">
                                       <%} %>
                                      </div>
-                                     <div class="carousel-item active">
+                                     <div class="carousel-item ">
                                      <% if(arr[1]!=null) { %>
                                          <img src="<%=request.getContextPath()%>/upload/<%=arr[1].getLectureFileName()%>"
                                              class="d-block w-100" alt="...">
                                       <%} %>
                                      </div>
-                                     <div class="carousel-item active">
+                                     <div class="carousel-item ">
                                      <% if(arr[2]!=null) { %>
                                          <img src="<%=request.getContextPath()%>/upload/<%=arr[2].getLectureFileName()%>"
                                              class="d-block w-100" alt="...">
