@@ -58,16 +58,16 @@ public class AdminClassApprServlet extends HttpServlet {
 		String pageBar="";
 		//이전 버튼 만들기
 		if(pageNo==1) {
-			pageBar="<span>[이전]</span>";
+			pageBar="<span>&laquo;</span>";
 		}else {
 			pageBar="<a href='"+request.getContextPath()
-					+"/admin/adminClassAppr?cPage="+(pageNo-1)+"'>[이전]</a>";
+					+"/admin/adminClassAppr?cPage="+(pageNo-1)+"'>&laquo;</a>";
 		}
 		
 		//while(!(pageNo<=pageEnd&&pageNo<=totalPage)) {
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<span class='cpage'>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()
 						+"/admin/adminClassAppr?cPage="+pageNo+"'>"+pageNo+"</a>";
@@ -75,11 +75,11 @@ public class AdminClassApprServlet extends HttpServlet {
 			pageNo++;
 		}
 		if(pageNo>totalPage) {
-			pageBar+="<span>[다음]</span>";
+			pageBar+="<span>&raquo</span>";
 		
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-					+"/admin/adminClassAppr?cPage="+pageNo+"'>[다음]</a>";
+					+"/admin/adminClassAppr?cPage="+pageNo+"'>&raquo</a>";
 		}
 		
 		//생성된 페이지 버튼을 프론트로 전달
