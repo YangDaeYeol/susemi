@@ -14,7 +14,7 @@ import com.jiping.admin.model.vo.Report;
 /**
  * Servlet implementation class AdminCommentDetail
  */
-@WebServlet("/admin/adminCommentDetail")
+@WebServlet(name="adminCommentDetail", urlPatterns={"/admin/adminCommentDetail"})
 public class AdminCommentDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

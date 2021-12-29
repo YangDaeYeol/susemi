@@ -15,7 +15,7 @@ import com.jiping.lecture.model.vo.LectureComment;
 /**
  * Servlet implementation class AdminCommentServlet
  */
-@WebServlet("/admin/adminComment")
+@WebServlet(name="adminComment", urlPatterns={"/admin/adminComment"})
 public class AdminCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

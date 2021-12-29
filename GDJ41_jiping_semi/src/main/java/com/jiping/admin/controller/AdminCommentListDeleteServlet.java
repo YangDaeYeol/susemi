@@ -13,7 +13,7 @@ import com.jiping.lecture.model.sevice.LectureService;
 /**
  * Servlet implementation class AdminCommentListDeleteServlet
  */
-@WebServlet("/AdminCommentListDeleteServlet")
+@WebServlet(name="adminCommentListDelete", urlPatterns={"/admin/adminCommentListDelete"})
 public class AdminCommentListDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

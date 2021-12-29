@@ -16,7 +16,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class AdminNormalUserList
  */
-@WebServlet("/admin/adminNormalMemberList")
+@WebServlet(name="adminNormalMemberList", urlPatterns={"/admin/adminNormalMemberList"})
 public class AdminNormalMemberList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

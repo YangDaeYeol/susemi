@@ -16,7 +16,7 @@ import com.jiping.member.model.service.MemberService;
 /**
  * Servlet implementation class AdminClassDrop
  */
-@WebServlet("/admin/adminClassDrop")
+@WebServlet(name="adminClassDrop", urlPatterns={"/admin/adminClassDrop"})
 public class AdminClassDropServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

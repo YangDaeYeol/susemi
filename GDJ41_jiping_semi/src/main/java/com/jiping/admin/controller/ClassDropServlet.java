@@ -12,7 +12,7 @@ import com.jiping.lecture.model.sevice.LectureService;
 /**
  * Servlet implementation class ClassDropServlet
  */
-@WebServlet("/admin/classDrop")
+@WebServlet(name="classDrop", urlPatterns={"/admin/classDrop"})
 public class ClassDropServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

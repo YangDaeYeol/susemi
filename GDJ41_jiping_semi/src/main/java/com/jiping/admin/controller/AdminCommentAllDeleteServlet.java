@@ -16,7 +16,7 @@ import com.jiping.lecture.model.vo.LectureComment;
 /**
  * Servlet implementation class AdminCommentDelete
  */
-@WebServlet("/admin/adminCommentAllDelete")
+@WebServlet(name="adminCommentAllDelete", urlPatterns={"/admin/adminCommentAllDelete"})
 public class AdminCommentAllDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -15,7 +15,7 @@ import com.jiping.lecture.model.vo.Lecture;
 /**
  * Servlet implementation class AdminClassAppr
  */
-@WebServlet("/admin/adminClassAppr")
+@WebServlet(name="adminClassAppr", urlPatterns={"/admin/adminClassAppr"})
 public class AdminClassApprServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
