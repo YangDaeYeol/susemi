@@ -366,7 +366,8 @@ public class LectureDao {
 						.starRate(rs.getString("star_rate"))
 						.commentContent(rs.getString("comment_content"))
 						.enrollDate(rs.getDate("comment_enroll_date"))
-						.commentLevel(rs.getInt("comment_level")).build();
+						.commentLevel(rs.getInt("comment_level"))
+						.profileImg(rs.getString("profile_img")).build();
 				list.add(lc);
 			}
 		}catch(SQLException e) {

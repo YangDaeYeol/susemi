@@ -28,7 +28,7 @@ List<Payment> payList=(List)request.getAttribute("payList");
 boolean flag = false;
 
 
-	/* System.out.println("jsp:"+ list);  */
+	 System.out.println("jsp:"+ lcList); 
 %>
 
 <section>
@@ -444,7 +444,6 @@ boolean flag = false;
                 </div>
               </div>
             </div>
-     
      <%} %>
      </div> row
 <!-- -------------------------------------------------------------------------  vod 끝 -->
@@ -467,6 +466,9 @@ boolean flag = false;
              $("input[type=checkbox]").change(e => {
                  scheduleNo = $(e.target).val();
                  console.log(scheduleNo);
+                 
+                 
+                 
              })
 
              $("#apply").click(e => {
@@ -609,12 +611,12 @@ boolean flag = false;
              </script>
 
 
-<!-- ------------------------------------------------------------------------ 리뷰출력 시작 --->
+<!-- ------------------------------------------------------------------------------------------------------------- 리뷰출력 시작 --->
 
              <div id="review-list">
                  <h5 class="card-title ">수강생 리뷰</h5>
                  <div class="card">
-                 	<div class="card-body ">
+                 	<div class="card-body entireReview">
                  	<%if(lcList.isEmpty()) {%>
                  		<p>등록된 리뷰가 없습니다. 첫 수강생이 되어 첫 리뷰의 영광을 가져보세요 ^^</p>
                  		
@@ -727,6 +729,10 @@ boolean flag = false;
 				    <!-- 대댓글 끝 -->
                 	<script>
                    $(".btn-enrollReply").click(e => { //답글달기를 누르면 
+                	   const temp=$(".entireReview").find("form");
+                	   console.log(temp);
+                	   
+                	   
                     	const form = $(".enroll-reply>form").clone(); //새로 만든 폼태그를 보여줘, 여기서 버튼을 누르면 레벨2로 등록됨
                         form.find("input[name=level]").val("2"); //레벨 2로 
                         form.find("input[name=lecutreCommentRef]").val($(e.target).val()); //누른값의 밸류를 ref로 
