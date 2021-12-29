@@ -256,9 +256,11 @@ boolean flag = false;
                                  <input type="hidden" name="lecturePrice" value="<%=le.getPrice() %>">
                                  <input type="hidden" name="lectureDate" value="">
                                  <input type="hidden" name="lectureAddr" value="">
+                                 <input type="hidden" name="lectureNo" value="<%=le.getLectureNo() %>">
+                                 <input type="hidden" name="scheduleNo" id="paymentScheduleNo">
                                  <button type="submit" class="btn btn-primary btn-lg btn-basic"
                                      style="float: right;">결 제 하 기</button>
-                                 </form>
+                              </form>
                          </div>
                      </div>card
                  </div>submit
@@ -336,6 +338,8 @@ boolean flag = false;
                                              value="<%=tutor.getNickname() %>">
                                          <input type="hidden" name="lecturePrice"
                                              value="<%=vodList.get(0).getVodPrice() %>">
+                                         <input type="hidden" name="lectureNo" value="<%=le.getLectureNo() %>">
+                                         <input type="hidden" name="scheduleNo" value="0">
                                          <button type="submit" class="btn btn-primary btn-lg btn-basic"
                                              style="float: right;">결 제 하
                                              기</button>
@@ -363,6 +367,7 @@ boolean flag = false;
              let scheduleNo;
              $("input[type=checkbox]").change(e => {
                  scheduleNo = $(e.target).val();
+                 $("#paymentScheduleNo").val(scheduleNo);
                  console.log(scheduleNo);
              })
 

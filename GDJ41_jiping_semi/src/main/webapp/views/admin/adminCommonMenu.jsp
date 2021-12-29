@@ -15,10 +15,10 @@
                                 <li ><a href="">· 클래스관리</a></li>
                                 <ul id="sub-menu">
                                     <li><a href="<%=request.getContextPath()%>/admin/adminClassAppr">- 클래스 승인</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/views/admin/adminClassDrop.jsp">- 클래스 삭제</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/admin/adminClassDrop">- 클래스 삭제</a></li>
                                 </ul>
                             </nav>
                             <li><a href="<%=request.getContextPath()%>/admin/adminComment">· 댓글 관리</a></li>
                         </ul>                  
                     </div>
-                </div>   
+                </div>

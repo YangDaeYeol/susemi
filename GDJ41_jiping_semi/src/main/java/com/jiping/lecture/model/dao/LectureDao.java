@@ -47,7 +47,7 @@ public class LectureDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				le= Lecture.builder()
-						.lectureNo(rs.getInt("lecture_no")).nickName(rs.getString("nickname"))
+						.lectureNo(rs.getInt("lecture_no")).nickName(rs.getString("nickname")).price(rs.getInt("price"))
 						.lectureType(rs.getString("lecture_type")).lectureTitle(rs.getString("lecture_title")).build();
 			}
 		}catch(SQLException e) {
@@ -786,7 +786,7 @@ public class LectureDao {
 	public int commentDelete(Connection conn, int commentNo) {
 		PreparedStatement pstmt = null;
 		int result=0;
-		String sql=prop.getProperty("commentDelete");
+		String sql=prop.getProperty("deleteComment");
 		try {
 			
 			pstmt=conn.prepareStatement(sql);
@@ -901,6 +901,27 @@ public class LectureDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	public int paymentInfoEnroll(Connection conn, Payment pay) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql= prop.getProperty("paymentInfoEnroll");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, pay.getLectureNo());
+			pstmt.setString(2, pay.getEmail());
+			pstmt.setString(3, pay.getPaymentType());
+			pstmt.setInt(4, pay.getPaymentPrice());
+			pstmt.setString(5, pay.getMerchantNo());
+			pstmt.setString(6, pay.getScheduleNo()==0?null:String.valueOf(pay.getScheduleNo()));
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

@@ -27,7 +27,7 @@
 			</div>
 			<div class="category-container">
 				<span class="loginContent fs_14">관심분야 선택</span>
-				<div class="categorydiv">
+				<div class="categorydiv" style="text-align:left">
 					<select name="largeCategory" class="form-select" id="largeCategory">
 						<option value="0" selected="selected">대분류</option>
 						<option value="1">취미/공예</option>
@@ -59,6 +59,7 @@
 						<option value="제품디자인" class="sc4">제품디자인</option>
 						<option value="영상편집/제작" class="sc4">영상편집/제작</option>	
 					</select>
+					<input id="delete_btn" type="button" value="X" style="display:none; border: 0px; background-color: white; color: red"></input>
 				</div>
 				<div class="categoryAddDiv"></div>
 				<% if(m.getMemberGrade().equals("수강생")) { %>
@@ -178,38 +179,43 @@
 	});
 
 	//관심지역 버튼 누를떄 복사 되는 기능
-	$("#categoryinsert").click(e=>{
-		const div=$($(".categorydiv")[0]).clone(true);
-		//$(div).change()
-		const addDiv=$(e.target).prev();
-		//console.log(div.children()[2].style.display);
-		
-		if(addDiv.children().length<2){
-			addDiv.append(div);
-			div.children()[2].style.display="inline";
-		}else{
-			alert("3개까지만 작성이 가능합니다");
-		}
-	})
-	//카테고리 대분류 소분류 가동 스크립트
-
-	function update_selected(e) {
-		const smallCategory=$("#hiddenOption>select>option").clone();
-		//console.log(smallCategory);
-		//console.log($(e.target));//대분류
-		$(e.target).next().html(smallCategory[0]);
-		smallCategory.each((i,v)=>{
-			v.className.includes(e.target.value)&&$(e.target).next().append(v);
-		});
-	}
-	$(function() {
-		$("#largeCategory").change(update_selected);
-		$("#largeCategory").change();
-	});	
-
-	$("#delete_btn").click(e=>{
-		$(e.target).parent().detach();
-	})
+    $("#categoryinsert").click(e=>{
+       const div=$($(".categorydiv")[0]).clone(true);
+       //$(div).change()
+       const addDiv=$(e.target).prev();
+       //console.log(div.children()[2].style.display);
+       if(addDiv.children().length<2){
+          addDiv.append(div);
+          div.children()[2].style.display="inline";
+       }else{   
+          alert("3개까지만 작성이 가능합니다");
+       }
+       addDiv.children()[0].className="categorydiv1";
+       if(addDiv.children()[1]!=null){
+          addDiv.children()[1].className="categorydiv2";
+       }
+    })
+    //카테고리 대분류 소분류 가동 스크립트
+    function update_selected(e) {
+       const smallCategory=$("#hiddenOption>select>option").clone();
+       //console.log(smallCategory);
+       //console.log($(e.target));//대분류
+       $(e.target).next().html(smallCategory[0]);
+       smallCategory.each((i,v)=>{
+          v.className.includes(e.target.value)&&$(e.target).next().append(v);
+       });
+    }
+    $(function() {
+       $("#largeCategory").change(update_selected);
+       $("#largeCategory").change();
+    });   
+    //삭제 버튼 누를시 div 삭제되는 로직
+    $("#delete_btn").click(e=>{
+       $(e.target).parent().parent().children()[0].className="categorydiv1";
+       $(e.target).parent().parent().children()[1].className="categorydiv1";
+       $(e.target).parent().detach();
+       
+    })
 
 	//관심 지역 선택 스크립트
 	let locationNum = 1;
