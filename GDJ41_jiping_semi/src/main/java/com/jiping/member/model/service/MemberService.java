@@ -124,7 +124,7 @@ public class MemberService {
 	
 	public int endLectureCount(String email) {
 		Connection conn=getConnection();
-		int count=dao.lectureCount(conn, email);
+		int count=dao.endLectureCount(conn, email);
 		close(conn);
 		return count;
 	}

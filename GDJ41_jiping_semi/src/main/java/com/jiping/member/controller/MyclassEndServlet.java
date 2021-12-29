@@ -33,6 +33,7 @@ public class MyclassEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
+		System.out.println("불러온 값"+email);
 		Member m=new MemberService().selectMember(email);
 		
 		List<Lecture> list=new MemberService().endLectureList(email);
