@@ -1,4 +1,4 @@
-package com.jiping.lecture.controller;
+package com.jiping.main;
 
 import java.io.IOException;
 
@@ -13,16 +13,16 @@ import org.json.simple.JSONObject;
 import com.jiping.lecture.model.sevice.LectureService;
 
 /**
- * Servlet implementation class LectureStudentCount
+ * Servlet implementation class StarRateServlet
  */
-@WebServlet("/checkStudentCount")
-public class LectureStudentCount extends HttpServlet {
+@WebServlet("/starrate")
+public class StarRateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LectureStudentCount() {
+    public StarRateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +32,12 @@ public class LectureStudentCount extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
-		System.out.println(scheduleNo);
-		int result = new LectureService().checkStudentCount(scheduleNo);
+		int lectureNo = Integer.parseInt(request.getParameter("lectureNo"));
+		System.out.println(lectureNo);
+		double starrate = new LectureService().starrateAvg(lectureNo);
+		System.out.println(starrate);
 		JSONObject jo = new JSONObject();
-		System.out.println(result);
-		jo.put("count", result);
+		jo.put("star", starrate);
 		response.getWriter().print(jo);
 	}
 

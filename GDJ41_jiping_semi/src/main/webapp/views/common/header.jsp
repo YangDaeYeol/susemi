@@ -26,6 +26,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- 윤미꺼 js/css들 끝 -->
+    <style>
+    	.container {
+    		padding-right: 0;
+    		padding-left: 0;
+    	}
+    </style>
     
     <title>지핑</title>
 </head>
@@ -54,52 +60,54 @@
                 <div id="nav-container">
                     <div id="header-nav">
                         <ul>
-                            <li><a href="">취미/공예</a></li>
-                            <li><a href="">액티비티</a></li>
-                            <li><a href="">커리어</a></li>
-                            <li><a href="">디자인</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예">취미/공예</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=액티비티">액티비티</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어">커리어</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인">디자인</a></li>
                         </ul>
                     </div>
                     <div id="header-nav-sub1">
                         <ul>
-                            <li><a href="">사진</a></li>
-                            <li><a href="">취미미술</a></li>
-                            <li><a href="">디지털드로잉</a></li>
-                            <li><a href="">요리,베이킹</a></li>
-                            <li><a href="">커피</a></li>
-                            <li><a href="">보컬</a></li>
-                            <li><a href="">악기</a></li>
-                            <li><a href="">작곡</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=사진">사진</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=취미미술">취미미술</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=디지털드로잉">디지털드로잉</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=요리/베이킹">요리/베이킹</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=커피/차/술">커피/차/술</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=보컬">보컬</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=악기">악기</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=취미/공예&smallcategory=작곡/디제잉">작곡/디제잉</a></li>
                         </ul>
                     </div>
                     <div id="header-nav-sub2">
                         <ul>
-                            <li><a href="">방송댄스</a></li>
-                            <li><a href="">연기,무용</a></li>
-                            <li><a href="">스포츠,레저</a></li>
-                            <li><a href="">이색 액티비티</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=액티비티&smallcategory=방송댄스">방송댄스</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=액티비티&smallcategory=연기/무용">연기/무용</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=액티비티&smallcategory=스포츠/레저">스포츠/레저</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=액티비티&smallcategory=이색액티비티">이색액티비티</a></li>
                         </ul>
                     </div>
                     <div id="header-nav-sub3">
                         <ul>
-                            <li><a href="">업무역량</a></li>
-                            <li><a href="">마케팅</a></li>
-                            <li><a href="">엑셀</a></li>
-                            <li><a href="">파워포인트</a></li>
-                            <li><a href="">데이터분석</a></li>
-                            <li><a href="">앱개발</a></li>
-                            <li><a href="">컴퓨터공학</a></li>
-                            <li><a href="">자격증</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=업무역량">업무역량</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=마케팅">마케팅</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=취업">취업</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=엑셀">엑셀</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=파워포인트">파워포인트</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=스피치">스피치</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=데이터분석">데이터분석</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=앱개발">앱개발</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=컴퓨터공학">컴퓨터공학</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=커리어&smallcategory=자격증">자격증</a></li>
                         </ul>
                     </div>
                     <div id="header-nav-sub4">
                         <ul>
-                            <li><a href="">건축</a></li>
-                            <li><a href="">그래픽디자인</a></li>
-                            <li><a href="">UI/UX디자인</a></li>
-                            <li><a href="">제품디자인</a></li>
-                            <li><a href="">영상편집</a></li>
-                            <li><a href="">영상제작</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인&smallcategory=건축">건축</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인&smallcategory=그래픽디자인">그래픽디자인</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인&smallcategory=UI/UX디자인">UI/UX디자인</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인&smallcategory=제품디자인">제품디자인</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인&smallcategory=영상편집">영상편집</a></li>
+                            <li><a href="<%= request.getContextPath() %>/submenupage?largecategory=디자인&smallcategory=영상제작">영상제작</a></li>
                         </ul>
                     </div>
                 </div>

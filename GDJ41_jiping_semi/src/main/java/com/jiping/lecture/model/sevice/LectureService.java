@@ -324,12 +324,14 @@ public class LectureService {
 	}
 	
 //	------------------------------------------------------------
-	public int deleteComment(int num) {
+	public int deleteComment(int num,int lectureNo) {
 		Connection conn=getConnection();
 		int result= dao.deleteComment(conn,num);
 		if(result>0) { 
 			commit(conn);
-//			int result2 = dao.deleteCommentCount(conn);
+			int result2 = dao.deleteCommentCount(conn,lectureNo);
+			if(result2>0) commit(conn);
+			else rollback(conn);
 		}
 		else rollback(conn);
 		close(conn);
@@ -369,4 +371,24 @@ public class LectureService {
 		return result;
 	}
 	
+	public double starrateAvg(int lectureNo) {
+		Connection conn = getConnection();
+		double starAvg = dao.starrateAvg(conn,lectureNo);
+		close(conn);
+		return starAvg;
+	}
+	
+	public List<Lecture> categoryList(String category, int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.categoryList(conn, category, cPage, numPerPage);
+		close(conn);
+		return list;
+	}
+	
+	public int categoryListCount(String category) {
+		Connection conn = getConnection();
+		int result = dao.categoryListCount(conn, category);
+		close(conn);
+		return result;
+	}
 }

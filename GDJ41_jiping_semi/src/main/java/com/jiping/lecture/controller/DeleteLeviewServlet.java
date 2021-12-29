@@ -33,7 +33,7 @@ public class DeleteLeviewServlet extends HttpServlet {
 		int lectureNo=Integer.parseInt(request.getParameter("lectureNo"));
 		
 		System.out.println(commentNo);
-		int deresult= new LectureService().deleteComment(commentNo);
+		int deresult= new LectureService().deleteComment(commentNo,lectureNo);
 		
 		String msg="";
 		String loc="/lecture/lecture.do?lectureNo="+lectureNo;

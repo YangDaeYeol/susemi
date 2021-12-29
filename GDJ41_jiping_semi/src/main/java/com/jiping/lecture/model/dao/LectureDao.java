@@ -962,5 +962,89 @@ public class LectureDao {
 		return result;
 	}
 	
+	public int deleteCommentCount(Connection conn,int lectureNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("deleteCommentCount"));
+			pstmt.setInt(1, lectureNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public double starrateAvg(Connection conn, int lectureNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		double result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("starrateAvg"));
+			pstmt.setInt(1, lectureNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result = rs.getDouble("avg");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public List<Lecture> categoryList(Connection conn, String category, int cPage, int numPerPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("categoryList"));
+			pstmt.setString(1, "%" + category + "%");
+			pstmt.setInt(2, (cPage-1)*numPerPage+1);
+			pstmt.setInt(3, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l = Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.nickName(rs.getString("nickname"))
+						.lectureType(rs.getString("lecture_type"))
+						.lectureCategory(rs.getString("lecture_category"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.wishCount(rs.getInt("wish_count"))
+						.commentCount(rs.getInt("comment_count"))
+						.price(rs.getInt("price"))
+						.tutorImg(rs.getString("tutor_img"))
+						.thumbNail(rs.getString("thumbnail"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int categoryListCount(Connection conn,String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("categoryListCount"));
+			pstmt.setString(1, category);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result = rs.getInt("count");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 }
 		

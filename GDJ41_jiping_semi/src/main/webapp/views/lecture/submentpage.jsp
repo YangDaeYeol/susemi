@@ -1,23 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp" %>
 <%@ page import="com.jiping.lecture.model.vo.Lecture" %>
+<%@ include file="/views/common/header.jsp" %>
 <%
 	List<Lecture> list = (List)request.getAttribute("list"); 
-	String keyword = (String)request.getAttribute("keyword");
-	int totalData = (int)request.getAttribute("totalData");
 %>
 <style>
-	#searchCon {
+	#submenuCon {
 		margin-bottom: 30px;
 		margin-top: 30px;
 	}
-	#searchCon>div>h1 {
+	#submenuCon>div>h1 {
 		padding-top: 200px;
-	}
-	#searchText {
-		background-color: white;
-		color: black;
 	}
 	#class-list>div:first-child {
 		display:inline-block;
@@ -70,22 +64,18 @@
 	}
 </style>
 <section>
-	<div id="searchCon">
+	<div id="submenuCon">
 		<div id="class-list">
 			<% if(list.isEmpty()) { %>
 			<style>
-				#searchCon>div {
+				#submenuCon>div {
 					margin: 0 auto;
 					text-align: center;
 					height: 500px;
 				}
 			</style>
-			<h1>"<%= keyword %>" 검색 결과가 없습니다.</h1>
+			<h1>등록된 클레스가 없습니다.</h1>
 			<% }else { %>
-			<div>
-            	<h5>"<%= keyword %>" 검색 결과</h5>
-            	<h6>총 <%= totalData %>개</h6>
-            </div>
 			<div id="list-container1">
 				<%for(int i=0; i<list.size(); i++) { %>
 					<% if(i%4==0) { %>
