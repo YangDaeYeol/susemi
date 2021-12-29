@@ -133,7 +133,7 @@ LectureImg[] arr= new LectureImg[4];
                      </div>
                  </div>
              </div>
-         </div>col-7
+         </div>
          <!-- --------------------------------------------------------------------------오른쪽 -->
 
          <div id="right" class="col">
@@ -263,9 +263,9 @@ LectureImg[] arr= new LectureImg[4];
                                      <p>총 결제금액</p>
                                      <p id="apply-cost" style="float: right;">가격</p>
                                  </div>
-                             </div>apply-class
+                             </div>
 
-                         </div> apply
+                         </div> 
 
                          <div>
                              <form action="<%=request.getContextPath()%>/lecture/lecturePayment">
@@ -284,8 +284,8 @@ LectureImg[] arr= new LectureImg[4];
                                      style="float: right;">결 제 하 기</button>
                               </form>
                          </div>
-                     </div>card
-                 </div>submit
+                     </div>
+                 </div>
                  <%} %>
                  
                  
@@ -343,10 +343,10 @@ LectureImg[] arr= new LectureImg[4];
                                      <p>총 결제금액</p>
                                      <p id="apply-cost" style="float: right;"><%=le.getPrice() %></p>
                                  </div>
-                             </div>apply-class
+                             </div>
                             
 
-                         </div> apply
+                         </div> 
 
                          <div>
                              <form action="<%=request.getContextPath()%>/lecture/lecturePayment">
@@ -363,8 +363,8 @@ LectureImg[] arr= new LectureImg[4];
                                      style="float: right;">결 제 하 기</button>
                                  </form>
                          </div>
-                     </div>card
-                 </div>submit
+                     </div>
+                 </div>
             <%} %>
                      
 <!-- ----------------------------------------------------------------------------   vod일때 -->
@@ -464,7 +464,7 @@ LectureImg[] arr= new LectureImg[4];
               </div>
             </div>
      <%} %>
-     </div> row
+     </div> 
 <!-- -------------------------------------------------------------------------  vod 끝 -->
           <!-- ------------------- 수강신청 끝 -->
 
@@ -543,7 +543,7 @@ LectureImg[] arr= new LectureImg[4];
              });
 
          </script>
-     </div>row-1
+     </div>
      
      <!-- -------------------------------------------------------------------------  리뷰등록 시작 -->
      <div id="review" class="row-1">
@@ -702,7 +702,7 @@ LectureImg[] arr= new LectureImg[4];
 	                                 </p>
 								</div>
                              </div>
-                         </div> d-flex card-body
+                         </div> 
                          <div class="tutorReplyDiv" ></div>
                              <%}else if(co.getCommentLevel()==2) {%>
                             <!--  <div class="tutorReplyDiv"> 여기출력ㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ  -->
@@ -820,10 +820,10 @@ LectureImg[] arr= new LectureImg[4];
             			open(url,"_blank",style);
                    }
                 </script>								
-                </div> card-body
-            </div> card
-        </div> review-list
-    </div>container
+                </div> 
+            </div> 
+        </div> 
+    </div>
 </section>
 <script>
 <%-- 	report=(e)=> {
