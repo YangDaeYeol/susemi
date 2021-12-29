@@ -55,7 +55,8 @@ public class LectureServlet extends HttpServlet {
 		Member m= new LectureService().tutorImg(lectureNo);
 		List<Certificate> c= new LectureService().certificate(lectureNo);
 		
-		int count = new LectureService().countPayMember(lectureNo);
+//		int count = new LectureService().countPayMember(lectureNo);
+		
 		
 //		vod
 		List<VodLecture> vodList= new LectureService().vodList(lectureNo);
@@ -78,7 +79,7 @@ public class LectureServlet extends HttpServlet {
 		request.setAttribute("c", c);
 		request.setAttribute("lcList", lcList);
 		request.setAttribute("payList", payList);
-		request.setAttribute("count", count);
+//		request.setAttribute("count", count);
 		
 		
 		request.getRequestDispatcher("/views/lecture/lectureView.jsp").forward(request, response);			
