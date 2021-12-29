@@ -141,7 +141,7 @@
 														</div>
 														<div id="toGetCarrerInformation">
 															<div class="image-career" id="image-career1">
-																<input type="text" name="text-career1" id="inputCareerText1"
+																<input type="text" name="text-career1" id="inputCareerText1" required
 																	placeholder="입력 후 관련 증빙서류를 첨부파일로 업로드 해주세요. (png, gif, jpeg, jpg만 가능)"
 																	class="careerInputBox" value="<%= cerArray[0]!=null?cerArray[0].getCertificateText():"" %>"> <label
 																	class='fileCareerFileInputLabel' for="file-career1">
@@ -277,6 +277,7 @@
 													</div>
 												</div>
 											</div>
+											
 											<div id="test-l-3" role="tabpanel" class="bs-stepper-pane"
 												aria-labelledby="stepper1trigger3">
 												<div class="form-group">
@@ -288,7 +289,7 @@
 														<div id="classTitleText">
 															<input type="text"
 																placeholder="튜터님의 클래스를 잘 표현하는 제목을 지어주세요!"
-																id="setClassTitle1" name="lectureTitle"
+																id="setClassTitle1" name="lectureTitle" required
 																onkeyup="limit30(event, 'showMeTheLimitOfTitleLength1')">
 															<div id="showMeTheLimitOfTitleLength1">(0/30)</div>
 														</div>
@@ -307,7 +308,7 @@
 															<div id="uploadImageBtn">
 																<label for="toUploadClassImg" id="classImageUpload">
 																	이미지를 선택 <input type="file" name="classImageFiles"
-																	id="toUploadClassImg" multiple>
+																	id="toUploadClassImg" accept="image/png, image/gif, image/jpeg, image/jpg" multiple>
 
 																</label>
 															</div>
@@ -337,6 +338,7 @@
 													<button class="pageBtn" onclick="stepper1.next()">다음</button>
 												</div>
 											</div>
+											
 											<div id="test-l-4" role="tabpanel" class="bs-stepper-pane"
 												aria-labelledby="stepper1trigger4">
 												<div class="form-group">
@@ -346,7 +348,7 @@
 														<textarea cols="58" rows="5" id="classIntroduction1"
 															name="lectureIntroduce"
 															placeholder="ex) 클래스의 목적과 목표 / 다른 클래스와의 차별점"
-															style="margin-top: 5px; margin-left: 5px;"
+															style="margin-top: 5px; margin-left: 5px;" 
 															onkeyup="limit500(event, 'detailInfoLengthLimit1')"></textarea>
 														<div id="detailInfoLengthLimit1">(0/500)</div>
 													</div>
@@ -356,7 +358,7 @@
 													<div id="classComment2">
 														<textarea cols="58" rows="5" id="classIntroduction2"
 															name="recommend" placeholder="ex) 이런 사람들에게 추천합니다"
-															style="margin-top: 5px; margin-left: 5px;"
+															style="margin-top: 5px; margin-left: 5px;" 
 															onkeyup="limit500(event, 'detailInfoLengthLimit2')"></textarea>
 														<div id="detailInfoLengthLimit2">(0/500)</div>
 													</div>
@@ -366,7 +368,7 @@
 													<div id="classComment3">
 														<textarea cols="58" rows="5" id="classIntroduction3"
 															name="curriculum" placeholder="ex) 회차별 커리큘럼"
-															style="margin-top: 5px; margin-left: 5px;"
+															style="margin-top: 5px; margin-left: 5px;" 
 															onkeyup="limit500(event, 'detailInfoLengthLimit3')"></textarea>
 														<div id="detailInfoLengthLimit3">(0/500)</div>
 													</div>
@@ -376,7 +378,7 @@
 													<div id="classComment4">
 														<textarea cols="58" rows="5" id="classIntroduction4"
 															name="lectureNotice" placeholder="ex) 유의사항 / 준비물"
-															style="margin-top: 5px; margin-left: 5px;"
+															style="margin-top: 5px; margin-left: 5px;" 
 															onkeyup="limit500(event, 'detailInfoLengthLimit4')"></textarea>
 														<div id="detailInfoLengthLimit4">(0/500)</div>
 													</div>
@@ -448,31 +450,6 @@
 
 															</div>
 														</div>
-														
-														<script>
-														(function() {
-															for(var i=0; i<5; i++){
-																  var inputDate=$("#selectMultipleDates0").val();
-																  var year = today.getFullYear();
-																  var month = new String(today.getMonth()+1);
-																  var day = new String(today.getDate());
-																  
-																  if (month.length==1) {
-																	  month="0"+month;
-																  }
-																  if (day.length==1) {
-																	  day="0"+day;
-																  }
-																  var t = year+"-"+month+"-"+day;
-																  if(inputData<t) {
-																	  alert("오늘보다 작은 날 입력 불가");
-																	  $()
-																  }
-																  
-															}
-														})
-														
-														</script>
 														<!-- 가격받기 끝 -->
 														<div class="classLocationTitle">클래스 위치</div>
 														<div
@@ -1347,7 +1324,7 @@
     	       timeout: 600000,       
     	       success:data=>{
     	    		if (data>0) {
-    	    			Swal.fire('클래스 등록 승인결과는 마이페이지에서 확인 가능합니다.');
+    	    			alert('클래스 등록 승인결과는 마이페이지에서 확인 가능합니다.');
     	    		} else {
     	    			alert('fail');
     	    		}

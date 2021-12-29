@@ -155,7 +155,7 @@
 			</div>
 			<% } %>
 			<div id="pageBar">
-			<%= request.getAttribute("pageBar") %>
+			<%=request.getAttribute("pageBar") %>
 			</div>
 		</div>
 	</div>

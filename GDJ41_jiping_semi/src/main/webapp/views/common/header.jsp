@@ -18,6 +18,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styleGr.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styleKM.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/viewStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- 윤미꺼 js/css들 시작 -->
@@ -47,14 +48,68 @@
                     </div>
                     <div id="header-btn">
                     <%if(loginMember==null){ %>
-                        <button id="enrollMemberBtn"><span>회원가입</span></button>
-                        <button id="loginBtn" 
-                        	onclick="location.assign('<%=request.getContextPath()%>/member/loginPage.do');"><span>로그인</span></button>
+                        <button id="enrollMemberBtn">
+                        	<span>회원가입</span>
+                        </button>
+                        <button id="loginBtn" onclick="location.assign('<%=request.getContextPath()%>/member/loginPage.do');">
+                        	<span>로그인</span>
+                        </button>
                     <% } %>
-                        	<%if(loginMember!=null){ %>
-                    		<span onclick="location.assign('<%=request.getContextPath() %>/member/mypage.do?email=<%=loginMember.getEmail()%>');">마이페이지</span>
-                    		<span onclick="location.assign('<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>');">로그아웃</span>
-                    		<%} %>
+                   			<%if(loginMember!=null&&loginMember.getMemberGrade().equals("수강생")){ %>
+							<div class="btn-group">
+								<span style="margin: auto"><%=loginMember.getNickname()%>님 환영합니다!</span>
+								<button type="button" class="btn">
+									<img src="<%= request.getContextPath() %>/upload/<%=loginMember.getProfileImg()%>" width="50px" height="50px" style="border-radius:70%">
+								</button>
+								<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+									<span class="visually-hidden">Toggle Dropdown</span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/mypage.do?email=<%=loginMember.getEmail()%>">마이페이지</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/myclassIngOff.do?email=<%=loginMember.getEmail()%>">마이클래스</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>">로그아웃</a></li>
+								</ul>
+							</div>
+							<%}else if(loginMember!=null&&loginMember.getMemberGrade().equals("튜터")){ %>
+							<div class="btn-group">
+								<span style="margin: auto"><%=loginMember.getNickname()%>님 환영합니다!</span>
+								<button type="button" class="btn">
+									<img src="<%= request.getContextPath() %>/upload/<%=loginMember.getProfileImg()%>" width="50px" height="50px" style="border-radius:70%">
+								</button>
+								<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+									<span class="visually-hidden">Toggle Dropdown</span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/mypage.do?email=<%=loginMember.getEmail()%>">마이페이지</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/myclassIngOff.do?email=<%=loginMember.getEmail()%>">마이클래스</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>">로그아웃</a></li>
+								</ul>
+							</div>
+              				<%}else if(loginMember!=null&&loginMember.getMemberGrade().equals("관리자")){ %>
+                    		<%-- <button id="adminPageBtn" class="pageBtn" onclick="location.assign('<%=request.getContextPath() %>/admin/adminBasic.do?email=<%=loginMember.getEmail()%>');">
+                    			<span>관리자페이지</span>
+                    		</button>
+                    		<button id="adminLogoutBtn" class="logoutBtn" onclick="location.assign('<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>');">
+                    			<span>로그아웃</span>
+                    		</button> --%>
+                    		<div class="btn-group">
+								<span style="margin: auto">관리자님 환영합니다!</span>
+								<button type="button" class="btn">
+									<img src="<%= request.getContextPath() %>/upload/<%=loginMember.getProfileImg()%>" width="50px" height="50px" style="border-radius:70%">
+								</button>
+								<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+									<span class="visually-hidden">Toggle Dropdown</span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/mypage.do?email=<%=loginMember.getEmail()%>">마이페이지</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/admin/adminBasic.do?email=<%=loginMember.getEmail()%>">관리페이지</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath() %>/member/logout.do?email=<%=loginMember.getEmail()%>">로그아웃</a></li>
+								</ul>
+							</div>
+               				<%} %>
                     </div>
                 </div>
                 <div id="nav-container">

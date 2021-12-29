@@ -65,7 +65,7 @@ public class EnrollLectureServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 //					튜터 이미지받아서 처리하는부분 시작
-		String path = request.getServletContext().getRealPath("/upload/tutor/");
+		String path = request.getServletContext().getRealPath("/upload/");
 		// String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
 		int maxSize = 1024 * 1024 * 100;
 		String encode = "UTF-8";
@@ -119,37 +119,6 @@ public class EnrollLectureServlet extends HttpServlet {
 		lecture.put("certificateText", certificateText);
 		lecture.put("certificateImage", certificateImage);
 		
-		
-//					String 배열에서 String 으로 변경
-//		StringBuilder builder1 = new StringBuilder();
-//		for (String s : certificateText) {
-//			builder1.append(s + ",");
-//		}
-//		String certificateTxt = builder1.toString();
-//
-//		// null있을경우 삭제
-//		if (certificateTxt.contains("null")) {
-//			certificateTxt.replaceAll("null", "");
-//		}
-//
-//		// 맨 마지막의 , 삭제
-//		certificateTxt = certificateTxt.substring(0, certificateTxt.length() - 1);
-
-		
-//					String 배열에서 String 으로 변경
-//		StringBuilder builder2 = new StringBuilder();
-//		for (String s : certificateImage) {
-//			builder2.append(s + ",");
-//		}
-//		String certificateImg = builder2.toString();
-//
-//		// null있을경우 삭제
-//		if (certificateImg.contains("null")) {
-//			certificateImg.replaceAll("null", "");
-//		}
-
-		// 맨 마지막의 , 삭제
-//		certificateImg = certificateImg.substring(0, certificateImg.length() - 1);
 
 		String classType = mr.getParameter("classType");
 
