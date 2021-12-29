@@ -207,4 +207,12 @@ public class MemberService {
 		return t;
 	}
 
+	public int updateMember2(Member m) {
+		Connection conn=getConnection();
+		int result=dao.updateMember2(conn, m);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

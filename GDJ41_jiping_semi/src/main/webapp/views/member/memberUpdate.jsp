@@ -32,7 +32,7 @@
                             </ul>
                     </nav>
                     <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
-                        </ul>                  
+                </ul>                  
             </div>
 		</div>   
 		<form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMemberEnd.do" method="post">
@@ -48,13 +48,38 @@
 							<span class="margin-right menu-list-name">사진</span>
 						</div>
                         <div class="info-content inlineblock" id="newImg">
-                        	<img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>">
+                        	<img id="memberImg"  src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>">
+                        	<input type="file" name="upFile" accept="upload/*" style="display:none">
+                        	<input type="hidden" class="mImg" name="profileMemberImg" value="<%=m.getProfileImg()%>">
                         </div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
-                            <input type="button" value="기본이미지" onclick="deleteImg();">
-                            <input type="file" name="profileImg" id="" value="파일 선택" class="" width="">
+                            <input type="button" value="기본이미지" onclick="deleteImg();">                            
                         </div>
                     </div>
+                    <script>
+                    	$("#memberImg").click(e=>{
+                    		$("input[name=upFile]").click();	
+                    	})
+                    	
+                    	$("input[name=upFile]").change(e=>{
+                    		if(e.target.files[0].type.includes("image")){
+                    			let reader = new FileReader();
+                    			reader.onload=(e)=>{
+                    				const img=$("<img>").attr({
+                    					src:e.target.result,
+                    					width:"200px",
+                    					height:"200px"
+                    				})
+                    				$("#memberImg").attr("src",e.target.result);
+                    				$(".mImg").val(e.target.result);
+                    			}
+                    			reader.readAsDataURL(e.target.files[0]);
+                    		}
+                    	})
+                    	
+                    	
+                    </script>
+                    
                     <div class="menu-margin margin-left" id="tutor-email" >
                             <div class="info-title inlineblock">
                                 <span class="margin-right menu-list-name">이메일</span>
@@ -82,7 +107,7 @@
                             <span class="margin-right menu-list-name">새로운 비밀번호</span>
                         </div>
                         <div class="info-content inlineblock">
-                            <input type="password" id="newPw" name="newPw"  class="placeholder-center " size="25">
+                            <input type="password" id="newPwCheck" name="newPwCheck"  class="placeholder-center " size="25">
                         </div>
                         <div class="inlineblock">
                             <p class="guide">※ 영문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.</p>
@@ -93,7 +118,7 @@
                             <span class="margin-right menu-list-name">새로운 비밀번호 확인</span>
                         </div>
                         <div class="info-content inlineblock">
-                            <input type="password" id="newPwCheck" name="newPwCheck" class="placeholder-center " size="25">
+                            <input type="password" id="password_new" name="password_new" class="placeholder-center " size="25">
                         </div>                       
                         <span id="pwCheckMsg"></span>
                     </div>
@@ -106,7 +131,7 @@
                                 <input id="newNick" type="text" name="newNick" value="<%=m.getNickname() %>" class="placeholder-center " size="25">
                             </div>
                             <div class="inlineblock">
-                                <button id="nickDuplicateBtn" style="margin-left: 10px;">닉네임 중복 확인</button>
+                                <button type="button" id="nickDuplicateBtn" style="margin-left: 10px;">닉네임 중복 확인</button>
                             </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
@@ -130,7 +155,7 @@
 	                  			<div>
 		                       		<input type="text" readonly name="newLCategory<%=i%>" value="<%=categoryContent[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 		                       		<input type="text" readonly name="newSCategory<%=i%>" value="<%=categoryContent[1]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                  		<%if(i==2) %><button style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>    
+		                  		<%if(i==2) %><button type="button" style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>    
 	                 			</div>
 	                  		<%}
 	                  	if(count<2){
@@ -138,7 +163,7 @@
 	                  			<div>
 			                       <input type="text" readonly name="newLCategory<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                       <input type="text" readonly name="newSCategory<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                  	<%if(count==1) %><button style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>	   
+			                  	<%if(count==1) %><button type="button" style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>	   
 		                 		</div>
 	                  		<%	  }
 	                  		}
@@ -158,7 +183,7 @@
 		                  		<div>
 			                       <input type="text" readonly name="newLLocation<%=i%>" value="<%=locationContent[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                       <input type="text" readonly name="newSLocation<%=i%>" value="<%=locationContent[1]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 		<%if(i==2) %><button id="updateLocation">관심지역 수정하기</button>
+		                 		<%if(i==2) %><button type="button" id="updateLocation">관심지역 수정하기</button>
 		                 		</div>
 		                <%}
 		                if(count<2){
@@ -166,7 +191,7 @@
 		                 		<div>
 			                       <input type="text" readonly name="newLLocation<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
 			                       <input type="text" readonly name="newSLocation<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 		<%if(count==1) %><button style="position:inlineblock;" id="updateLocation">관심지역 수정하기</button>	   
+		                 		<%if(count==1) %><button type="button" style="position:inlineblock;" id="updateLocation">관심지역 수정하기</button>	   
 		                 		</div>
 		                  <%	  }
 		                    }
@@ -214,21 +239,28 @@
 </section>
 <!-- 비밀번호 스크립트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->                   
 <script>
-	$("#newPw").blur(e=>{
+
+	
+	
+	<%-- <%if($("#password_new").val()!=null){ %> --%>
+	
+	$("#newPwCheck").blur(e=>{
 		const str=/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{8,}$/;
-		let password=$("#newPw").val();
+		let password=$("#newPwCheck").val();
 		
 		if(!str.test(password)){                       				                       		
 			alert("영문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.");
-			$("#newPw").val('');
+			$("#newPwCheck").val('');
+			
 		}
 	});
-	$("#newPwCheck").blur(e=>{
-		if($("#newPw").val()==$("#newPwCheck").val()){
+	$("#password_new").blur(e=>{
+		if($("#newPwCheck").val()==$("#password_new").val()){
 			$("#pwCheckMsg").html("새로운 비밀번호 일치").css('color','green');
 		
 		}else{
 			$("#pwCheckMsg").html("새로운 비밀번호 불일치").css('color','red');
+			$("#password_new").val('');
 		}
 	});
 </script> 
@@ -365,7 +397,7 @@
                         <span class="margin-right menu-list-name">닉네임</span>
                     </div>
                     <div class="info-content inlineblock">
-                        <input id="newnickname" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
+                        <input id="newNick" type="text" name="newNick" placeholder="<%=m.getNickname() %>" class="placeholder-center " size="25">
                     </div>
                     <div class="inlineblock">
                         <button id="nicknameDuplicate" style="margin-left: 10px;">닉네임 중복확인</button>
@@ -421,7 +453,8 @@
  
  	/* 유저 기본이미지로 변경 */
 	const deleteImg=()=>{
-		$("#newImg").find("img").attr("src","<%=request.getContextPath()%>/upload/userimg.png");		
+		$("#newImg").find("img").attr("src","<%=request.getContextPath()%>/upload/userimg.png");
+		$(".mImg").val("userimg.png");
 	}
 	/* 튜터 기본이미지로 변경 */
 	const deleteTutorImg=()=>{
@@ -429,23 +462,41 @@
 	}
 	
 	/* 닉네임 중복확인 팝업창 - 유저 */
-   	$("#nickDuplicateBtn").click(e=>{
+  	/* var _left = Math.ceil(( window.screen.width - 500 )/2);
+  	var _top = Math.ceil(( window.screen.height - 150 )/2);
+	var w=window.open("about:blank","_blank","width=500, height=150, left="+_left+", top="+_top);
+	 */
+<%--    	$("#nickDuplicateBtn").click(e=>{
    		let newNick=$("#newNick").val();
+   		$.ajax({
+   			url:"<%=request.getContextPath()%>/member/nicknameDuplicate.do",
+   			data:{"newNickname":newNick},
+   			dataType:"html",
+   			success:data=>{
+   				w.location.href=data;
+   			}
+   		
+   		}) --%>
+   		
+   	
+   		<%-- let newNick=$("#newNick").val();
    		
    		var _left = Math.ceil(( window.screen.width - 500 )/2);
    	    var _top = Math.ceil(( window.screen.height - 150 )/2);
 
-   		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
-   	});
+   		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);       --%>            		
+   /* 	}); */
 	
-   	/* 닉네임 중복확인 팝업창 - 튜터 */
-   	$("#nickDuplicateBtn").click(e=>{
+	
+	
+   	/* 닉네임 중복확인 팝업창 - 유저 */
+    	$("#nickDuplicateBtn").click(e=>{
    		let newNick=$("#newNick").val();
    		
    		var _left = Math.ceil(( window.screen.width - 500 )/2);
    	    var _top = Math.ceil(( window.screen.height - 150 )/2);
-
-   		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNickname="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
+   	 
+   		open("<%=request.getContextPath()%>/member/nicknameDuplicate.do?newNick="+newNick,"_blank","width=500, height=150, left="+_left+", top="+_top);                  		
    	});
 	
 	/* 로케이션 팝업창 */

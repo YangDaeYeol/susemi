@@ -30,7 +30,7 @@ public class NicknameDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String newNick = request.getParameter("newNickname");
+		String newNick = request.getParameter("newNick");
 		System.out.println("newNick : " + newNick);		
 		Member m=new MemberService().nicknameDuplicateCheck(newNick);
 		System.out.println(m);

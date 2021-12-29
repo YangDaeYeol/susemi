@@ -15,7 +15,7 @@ import com.jiping.member.model.vo.Member;
 /**
  * Servlet implementation class UpdateMemberEndServlet
  */
-@WebServlet("/member/updateMemberEnd.do")
+@WebServlet(name="updateMemberEnd" ,urlPatterns="/member/updateMemberEnd.do")
 public class UpdateMemberEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,57 +31,71 @@ public class UpdateMemberEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* String profileImg=request.getParameter("profileImg"); */	
-		String newPwCheck=request.getParameter("newPwCheck");
-		String oriPw=request.getParameter("oriPw");
+		String profileImg=request.getParameter("profileMemberImg");
+		
+		System.out.println("이미지 파일 : "+profileImg);
+		
+		String newPassword=request.getParameter("password_new");
 		String email=request.getParameter("email");
-		System.out.println("email : "+email);
-		
-		Member oriM=new MemberService().selectMember(email);
-		
-		/*
-		 * String pw="";
-		 * 
-		 * if(newPwCheck!=null) { pw=newPwCheck; }else { pw=oriM.getPassword(); }
-		 * System.out.println("pw :"+ pw);
-		 */
-		
 		String newPhone=request.getParameter("newPhone");		
 		String newNick=request.getParameter("newNick");
-		System.out.println(newPhone);
-		System.out.println(newNick);
-//	 	멤버 카테고리, 멤버 지역 추가해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-		 
 		String marketing=request.getParameter("marketing");
-		System.out.println("marketing : "+marketing);
+
+		Member oriM=new MemberService().selectMember(email);
 		
+		request.setAttribute("loginMember", oriM);
+		request.setAttribute("email", email);
 		
+//		관심분야
+		String newLCategory0=request.getParameter("newLCategory0");
+		String newSCategory0=request.getParameter("newSCategory0");
+		String newLCategory1=request.getParameter("newLCategory1");
+		String newSCategory1=request.getParameter("newSCategory1");
+		String newLCategory2=request.getParameter("newLCategory2");
+		String newSCategory2=request.getParameter("newSCategory2");
 		
+		String category=newLCategory0+" "+newSCategory0+","+newLCategory1+" "+newSCategory1+","+newLCategory2+" "+newSCategory2;
+		System.out.println(category);
+		
+//		관심지역
 		String newLLocation0=request.getParameter("newLLocation0");
 		String newSLocation0=request.getParameter("newSLocation0");
-		
 		String newLLocation1=request.getParameter("newLLocation1").equals("미선택")?"":request.getParameter("newLLocation1");
 		String newSLocation1=request.getParameter("newSLocation1").equals("미선택")?"":request.getParameter("newSLocation1");
 		String newLLocation2=request.getParameter("newLLocation2").equals("미선택")?"":request.getParameter("newLLocation2");
 		String newSLocation2=request.getParameter("newSLocation2").equals("미선택")?"":request.getParameter("newSLocation2");
 			
-		String location=newLLocation0+" "+newSLocation0+","+newLLocation1+" "+newSLocation1+","+newLLocation2+" "+newSLocation2+",";
+		String location=newLLocation0+" "+newSLocation0+","+newLLocation1+" "+newSLocation1+","+newLLocation2+" "+newSLocation2;
 		System.out.println(location);
 		
 
 		Member m=Member.builder()
-//				.profileImg(profileImg)
-				/* .password(pw) */
+				.email(email)
+				.profileImg(profileImg)
+				.password(newPassword)
 				.phone(newPhone)
 				.nickname(newNick)
 				.marketing(marketing.charAt(0))
 				.memberLocation(location)
+				.memberCategory(category)
 				.build();
 		
-		int result=new MemberService().updateMember(m);
+		System.out.println(m);
+		int result;
+		if(newPassword.equals("z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP+DGNKHfuwvY7kxvUdBeoGlODJ6+SfaPg==")) {
+			result=new MemberService().updateMember2(m);
+		}else {
+			result=new MemberService().updateMember(m);
+		}
 		
-		if(result>0) {			
+		
+		if(result>0) {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.println("<script>alert('회원정보 수정이 완료되었습니다!');</script>");
 			request.getRequestDispatcher("/member/mypage.do?email="+email).forward(request, response);			
+			out.close();
 		}else {
 			m=new MemberService().selectMember(email);
 			request.setAttribute("loginMember", m);

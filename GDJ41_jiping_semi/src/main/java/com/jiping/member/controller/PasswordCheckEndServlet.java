@@ -44,6 +44,7 @@ public class PasswordCheckEndServlet extends HttpServlet {
 	         request.getRequestDispatcher("/views/member/memberUpdate.jsp").forward(request,response);
 		}else {
 	         PrintWriter out=response.getWriter();
+	         response.setContentType("text/html; charset=UTF-8");
 	         out.println("<script>alert('비밀번호가 일치하지 않습니다. 다시 입력하세요!'); location.href='"
 	               +request.getContextPath()+"/member/passwordCheck.do?email="+email+"';</script>");
 	         out.close();

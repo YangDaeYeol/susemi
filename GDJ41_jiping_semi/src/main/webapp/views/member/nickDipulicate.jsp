@@ -33,7 +33,7 @@
 		<span>[<%=newNick %></span>]는 이미 사용중인 닉네임입니다.
 		<br><br>
 		<form action="<%=request.getContextPath()%>/member/nicknameDuplicate.do" method="post">
-			<input type="text" name="newNickname" id="newNickname">
+			<input type="text" name="newNick" id="newNick">
 			<input type="submit" value="중복검사">
 		</form>
 		<%} %>
@@ -43,10 +43,10 @@
 </html>
 <script>
 		const el=document.querySelector("#closeBtn").addEventListener("click",e=>{
-			const newNickname='<%=newNick %>';
-			console.log(newNickname);
+			const newNickname="<%=newNick%>";
+			
 			opener.userUpdateFrm.newNick.value=newNickname;
 			opener.$("#newNick").focus();
-			close();
+			window.close();
 		});
 </script>
