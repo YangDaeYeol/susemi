@@ -34,12 +34,16 @@ public class UpdateMemberEndServlet extends HttpServlet {
 		/* String profileImg=request.getParameter("profileImg"); */	
 		String newPwCheck=request.getParameter("newPwCheck");
 		String oriPw=request.getParameter("oriPw");
+		String email=request.getParameter("email");
+		System.out.println("email : "+email);
 		
+		Member oriM=new MemberService().selectMember(email);
 		String pw="";
+		
 		if(newPwCheck!=null) {
 			pw=newPwCheck;
 		}else {
-			pw=oriPw;
+			pw=oriM.getPassword();
 		}		
 		System.out.println("pw :"+ pw);
 		
@@ -51,8 +55,7 @@ public class UpdateMemberEndServlet extends HttpServlet {
 		 
 		String marketing=request.getParameter("marketing");
 		System.out.println("marketing : "+marketing);
-		String email=request.getParameter("email");
-		System.out.println("email : "+email);
+		
 		
 		
 		String newLLocation0=request.getParameter("newLLocation0");
