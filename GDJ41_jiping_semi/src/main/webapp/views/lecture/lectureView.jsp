@@ -276,9 +276,11 @@ LectureImg[] arr= new LectureImg[4];
                                  <input type="hidden" name="lecturePrice" value="<%=le.getPrice() %>">
                                  <input type="hidden" name="lectureDate" value="">
                                  <input type="hidden" name="lectureAddr" value="">
+                                 <input type="hidden" name="lectureNo" value="<%=le.getLectureNo() %>">
+                                 <input type="hidden" name="scheduleNo" id="paymentScheduleNo">
                                  <button type="submit" class="btn btn-primary btn-lg btn-basic"
                                      style="float: right;">결 제 하 기</button>
-                                 </form>
+                              </form>
                          </div>
                      </div>card
                  </div>submit
@@ -428,6 +430,8 @@ LectureImg[] arr= new LectureImg[4];
                                              value="<%=tutor.getNickname() %>">
                                          <input type="hidden" name="lecturePrice"
                                              value="<%=vodList.get(0).getVodPrice() %>">
+                                         <input type="hidden" name="lectureNo" value="<%=le.getLectureNo() %>">
+                                         <input type="hidden" name="scheduleNo" value="0">
                                          <button type="submit" class="btn btn-primary btn-lg btn-basic"
                                              style="float: right;">결 제 하
                                              기</button>
@@ -478,6 +482,7 @@ LectureImg[] arr= new LectureImg[4];
              let scheduleNo=0;
              $("input[type=checkbox]").change(e => {
                  scheduleNo = $(e.target).val();
+                 $("#paymentScheduleNo").val(scheduleNo);
                  console.log(scheduleNo);
              })
 
@@ -499,12 +504,27 @@ LectureImg[] arr= new LectureImg[4];
                              const time = $("#apply-time").html(data["startDate"] + "-" + data["endDate"]);
                              const address = $("#apply-adr").html(data["lectureAddress"]);
                              const cost = $("#apply-cost").html(data["lecturePrice"]);
+                             $("#applycount").find("span").html(data["lecturePersons"]);
                              $("#class_submit").show();
+                             console.log(data);
+                             studentCount(data["scheduleNo"]);
                      <%}%>
                  }
                  })
              }
              });
+             
+             function studentCount(sendData) {
+            	 $.ajax({
+            		url : "<%= request.getContextPath() %>/checkStudentCount",
+            		data : {"scheduleNo":sendData},
+            		dataType : "json",
+            		success : data => {
+            			let text = $("#applycount").find("span").text();
+            			$("#applycount").find("span").html(data["count"] + "/" + text);
+            		}
+            	 });
+             }
 
              $("#totutor").keyup(e => {
                  let length = $(e.target).val().length;

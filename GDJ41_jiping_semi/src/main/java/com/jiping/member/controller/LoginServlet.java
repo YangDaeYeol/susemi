@@ -41,8 +41,15 @@ public class LoginServlet extends HttpServlet {
 		if(m!=null) {
 			HttpSession session=request.getSession();
 			session.setAttribute("loginMember", m);
-//			System.out.println(m);			
-			request.getRequestDispatcher("/").forward(request, response);
+//			System.out.println(m);
+			if(!m.getMemberGrade().equals("관리자")) {
+				System.out.println("일반로그인");
+				request.getRequestDispatcher("/").forward(request, response);
+			}else {
+				System.out.println("관리자 로그인");
+				request.getRequestDispatcher("/views/admin/adminBasic.jsp").forward(request, response);
+			}
+			
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out=response.getWriter();

@@ -1,4 +1,4 @@
-package com.jiping.admin.controller;
+package com.jiping.lecture.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jiping.admin.model.service.AdminService;
-import com.jiping.admin.model.vo.Report;
+import org.json.simple.JSONObject;
+
+import com.jiping.lecture.model.sevice.LectureService;
 
 /**
- * Servlet implementation class AdminCommentDetail
+ * Servlet implementation class LectureStudentCount
  */
-@WebServlet(name="adminCommentDetail", urlPatterns={"/admin/adminCommentDetail"})
-public class AdminCommentDetailServlet extends HttpServlet {
+@WebServlet("/checkStudentCount")
+public class LectureStudentCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCommentDetailServlet() {
+    public LectureStudentCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +32,11 @@ public class AdminCommentDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int commentNo = Integer.parseInt(request.getParameter("comment_no"));
-		System.out.println("commentNo : "+commentNo);
-		Report reportDetail = new AdminService().reprtDetail(commentNo);
-		System.out.println("reportDetail : "+reportDetail);
-		request.setAttribute("reportDetail",reportDetail);
-		request.getRequestDispatcher("/views/admin/commentDetail.jsp").forward(request, response);
-		
-		
+		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
+		int result = new LectureService().checkStudentCount(scheduleNo);
+		JSONObject jo = new JSONObject();
+		jo.put("count", result);
+		response.getWriter().print(jo);
 	}
 
 	/**

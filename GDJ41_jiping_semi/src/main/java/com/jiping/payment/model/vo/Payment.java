@@ -15,4 +15,6 @@ public class Payment {
 	private String email;
 	private String paymentType;
 	private int paymentPrice;
+	private String merchantNo;
+	private int scheduleNo;
 }

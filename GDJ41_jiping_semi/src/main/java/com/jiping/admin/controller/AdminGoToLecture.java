@@ -15,7 +15,7 @@ import com.jiping.lecture.model.vo.Lecture;
 /**
  * Servlet implementation class AdminGoToLecture
  */
-@WebServlet("/admin/lecture.do")
+@WebServlet(name="adminGoToLecture", urlPatterns={"/admin/adminGoToLecture"})
 public class AdminGoToLecture extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

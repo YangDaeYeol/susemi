@@ -36,7 +36,6 @@ public class LectureScheduleAjaxServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
-		System.out.println("scheduleNo :"+scheduleNo);
 		LectureSchedule sc= new LectureService().scheduleSelectList(scheduleNo);
 		
 		new Gson().toJson(sc,response.getWriter());

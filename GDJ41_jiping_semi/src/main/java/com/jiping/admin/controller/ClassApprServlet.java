@@ -14,7 +14,7 @@ import com.jiping.lecture.model.sevice.LectureService;
 /**
  * Servlet implementation class ClassApprServlet
  */
-@WebServlet("/admin/classAppr")
+@WebServlet(name="classAppr", urlPatterns={"/admin/classAppr"})
 public class ClassApprServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,13 +33,16 @@ public class ClassApprServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int lectureNo = Integer.parseInt(request.getParameter("lectureNo"));
 		System.out.println("강의 번호 : " + lectureNo);
+		
 		int result= new LectureService().apprLecture(lectureNo);
 		if(result!=0) {
 			System.out.println("성공");
 		}else {
 			System.out.println("실패");
 		}
+		 
 		request.getRequestDispatcher("/views/admin/adminBasic.jsp").forward(request, response);
+		
 	}
 
 	/**

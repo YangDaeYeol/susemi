@@ -37,7 +37,7 @@ public class MyclassEndServlet extends HttpServlet {
 		
 		List<Lecture> list=new MemberService().endLectureList(email);
 		int count=new MemberService().endLectureCount(email);
-		
+		System.out.println("서블릿에서 리스트 : "+ list);
 		request.setAttribute("count", count);
 		request.setAttribute("lectureList", list);
 		request.setAttribute("loginMember", m);

@@ -5,7 +5,6 @@
 <%@ page import="java.util.List,com.jiping.lecture.model.vo.Lecture" %>
 <%
 	List<Lecture> apprList = (List)request.getAttribute("apprList");
-	
 %> 
                 <div id="mypage-content" class="inlineblock">
                     <div class="flex">
@@ -32,19 +31,41 @@
                                 <td><%=apprList.get(i).getLectureTitle()%></td>
                                 <td><%=apprList.get(i).getNickName()%></td>
                                 <td>
-                                    <button onclick="location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo=<%=apprList.get(i).getLectureNo()%>')">클래스 승인</button>
-                                    <button>클래스 거부</button>
+                                    <%-- <button onclick="location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo=<%=apprList.get(i).getLectureNo()%>')">클래스 승인</button> --%>                                    
+                                    <button class="apprBtn" value="<%=apprList.get(i).getLectureNo()%>">클래스 승인</button>
+                                    <button class="refuBtn" value="<%=apprList.get(i).getLectureNo()%>">클래스 거부</button>
                                 </td>
                               </tr>
                               <%} %>
+                              <td colspan="4">
+								<div id="pageBar" class="d-block">
+									<%=request.getAttribute("pageBar") %>
+								</div>
+                              </td>
                             </tbody>
                           </table>
                         </div>  
                     </div>    
             </div>
         </section>
-
-<%@ include file="/views/common/footer.jsp"%>
+<script>
+	$(".apprBtn").click(e=>{
+		/* console.log($(e.target).parent().parent()[0]);
+		console.log($(e.target).val()); */
+		let lectureNo=$(e.target).val();
+		if(confirm('클래스를 정말 승인하시겠습니까?')){
+			location.assign('<%=request.getContextPath() %>/admin/classAppr?lectureNo='+lectureNo);
+		}   
+	});
+	$(".refuBtn").click(e=>{
+		let lectureNo=$(e.target).val();
+		if(confirm('클래스를 정말 승인을 거부하시겠습니까? 승인 거부 시 클래스가 삭제됩니다.')){
+			location.assign('<%=request.getContextPath() %>/admin/classDrop?lectureNo='+lectureNo);
+		}   
+	});
+	
+</script>
+<%@ include file="/views/common/footer.jsp"%>z
 <!-- <script>
         // 마이클래스 서브메뉴!!
         $("#sub-menu").hide();

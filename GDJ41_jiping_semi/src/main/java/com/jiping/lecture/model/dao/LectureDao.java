@@ -47,7 +47,7 @@ public class LectureDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				le= Lecture.builder()
-						.lectureNo(rs.getInt("lecture_no")).nickName(rs.getString("nickname"))
+						.lectureNo(rs.getInt("lecture_no")).nickName(rs.getString("nickname")).price(rs.getInt("price"))
 						.lectureType(rs.getString("lecture_type")).lectureTitle(rs.getString("lecture_title")).build();
 			}
 		}catch(SQLException e) {
@@ -501,13 +501,15 @@ public class LectureDao {
 		return result;
 	}
 	
-	public List<Lecture> apprLectureList(Connection conn) {
+	public List<Lecture> apprLectureList(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
 		List <Lecture> list= new ArrayList();
 		String sql= prop.getProperty("apprLectureList");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Lecture apprLecture= Lecture.builder()
@@ -789,7 +791,7 @@ public class LectureDao {
 	public int commentDelete(Connection conn, int commentNo) {
 		PreparedStatement pstmt = null;
 		int result=0;
-		String sql=prop.getProperty("commentDelete");
+		String sql=prop.getProperty("deleteComment");
 		try {
 			
 			pstmt=conn.prepareStatement(sql);
@@ -907,7 +909,45 @@ public class LectureDao {
 		}
 		return list;
 	}
+	public int paymentInfoEnroll(Connection conn, Payment pay) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql= prop.getProperty("paymentInfoEnroll");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, pay.getLectureNo());
+			pstmt.setString(2, pay.getEmail());
+			pstmt.setString(3, pay.getPaymentType());
+			pstmt.setInt(4, pay.getPaymentPrice());
+			pstmt.setString(5, pay.getMerchantNo());
+			pstmt.setString(6, pay.getScheduleNo()==0?null:String.valueOf(pay.getScheduleNo()));
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
+	public int checkStudentCount(Connection conn, int scheduleNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("checkStudentCount"));
+			pstmt.setInt(1, scheduleNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result = rs.getInt("count");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
 	public int countPayMember(Connection conn, int num) {
 		PreparedStatement pstmt = null;
 		int result=0;
@@ -925,6 +965,93 @@ public class LectureDao {
 		}
 		return result;
 	}
+	public List<Lecture> lectureAllList(Connection conn, int cPage, int numPerPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Lecture> list = new ArrayList<Lecture>();
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("lectureAllList"));
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Lecture l = Lecture.builder()
+						.lectureNo(rs.getInt("lecture_no"))
+						.nickName(rs.getString("nickname"))
+						.lectureType(rs.getString("lecture_type"))
+						.lectureCategory(rs.getString("lecture_category"))
+						.lectureTitle(rs.getString("lecture_title"))
+						.wishCount(rs.getInt("wish_count"))
+						.commentCount(rs.getInt("comment_count"))
+						.price(rs.getInt("price"))
+						.tutorImg(rs.getString("tutor_img"))
+						.thumbNail(rs.getString("thumbnail"))
+						.build();
+				list.add(l);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	public int selectLectureAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectLectureAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	public int dropLecture(Connection conn, int lectureNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("dropLecture");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, lectureNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int selectApprLectureAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		int result = 0;
+		String sql= prop.getProperty("selectApprLectureAllCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 }
 		

@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jiping.lecture.model.sevice.LectureService;
+import com.jiping.lecture.model.vo.Lecture;
 import com.jiping.member.model.service.MemberService;
-import com.jiping.member.model.vo.Member;
 
 /**
- * Servlet implementation class AdminTutorMemberList
+ * Servlet implementation class AdminClassDrop
  */
-@WebServlet(name="adminTutorList", urlPatterns={"/admin/adminTutorList"})
-public class AdminTutorList extends HttpServlet {
+@WebServlet(name="adminClassDrop", urlPatterns={"/admin/adminClassDrop"})
+public class AdminClassDropServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminTutorList() {
+    public AdminClassDropServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,8 +32,6 @@ public class AdminTutorList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		///////////////////
 		// =======================페이징 복붙======================
 		int cPage;
 		try {
@@ -43,10 +42,12 @@ public class AdminTutorList extends HttpServlet {
 		
 		int numPerPage=10;//페이지당 출력 데이터수
 		
-		List<Member> tutorList= new MemberService().tutorList(cPage,numPerPage);
+		List<Lecture> letuceAllList= new LectureService().lectureAllList(cPage,numPerPage);//작성하기
 		
 		//pageBar 작성하기
-		int totalData = new MemberService().selectTutorAllCount();
+		
+		int totalData = new LectureService().selectLectureAllCount();//작성하기
+		
 		//System.out.println("totalData : "+totalData);
 		//전체 페이지수
 		int totalPage = (int)Math.ceil((double)totalData/numPerPage);
@@ -63,7 +64,7 @@ public class AdminTutorList extends HttpServlet {
 			pageBar="<span>&laquo;</span>";
 		}else {
 			pageBar="<a href='"+request.getContextPath()
-					+"/admin/adminNormalMemberList?cPage="+(pageNo-1)+"'>&laquo;</a>";
+					+"/admin/adminClassDrop?cPage="+(pageNo-1)+"'>&laquo;</a>";
 		}
 		
 		//while(!(pageNo<=pageEnd&&pageNo<=totalPage)) {
@@ -72,7 +73,7 @@ public class AdminTutorList extends HttpServlet {
 				pageBar+="<span class='cpage'>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()
-						+"/admin/adminTutorList?cPage="+pageNo+"'>"+pageNo+"</a>";
+						+"/admin/adminClassDrop?cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -81,18 +82,18 @@ public class AdminTutorList extends HttpServlet {
 		
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-					+"/admin/adminTutorList?cPage="+pageNo+"'>&raquo</a>";
+					+"/admin/adminClassDrop?cPage="+pageNo+"'>&raquo</a>";
 		}
 		
 		//생성된 페이지 버튼을 프론트로 전달
 		request.setAttribute("pageBar", pageBar);
 		//System.out.println(pageBar);
 		
-		//////////////////////////////////////////////////////////
+		//////////////////////
+		request.setAttribute("letuceAllList",letuceAllList);
+		//System.out.println(normalMemberList);
+		request.getRequestDispatcher("/views/admin/adminClassDrop.jsp").forward(request, response);
 		
-		request.setAttribute("tutorList",tutorList);
-		System.out.println(tutorList);
-		request.getRequestDispatcher("/views/admin/adminTutorList.jsp").forward(request, response);
 	}
 
 	/**

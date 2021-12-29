@@ -3,67 +3,37 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	Member m=(Member)request.getAttribute("loginMember");
-	/* Member checkM=(Member)request.getAttribute("nickCheckMember");
-	System.out.println(m); */
 	
 	/* 관심분야 */	
 		String[] categories;
-		String[] largeCategories;
-		String[] smallCategories;
-		/* if(m.getMemberGrade().equals("수강생")){ */
 		categories=m.getMemberCategory().split(",");
-		largeCategories=new String[categories.length];
-		smallCategories=new String[categories.length];
-
-		for(int i=0; i<categories.length; i++){
-			largeCategories[i]=categories[i].substring(0,categories[i].indexOf(" "));
-			smallCategories[i]=categories[i].substring(categories[i].indexOf(" ")).trim();
-			
-			System.out.println(largeCategories[i]);
-			System.out.println(smallCategories[i]);
-		
-		}
 
 	
 		/* 관심지역 */
-		String[] categories2;
-		String[] largeCategories2;
-		String[] smallCategories2;
-		
-		categories2=m.getMemberLocation().split(",");
-		largeCategories2=new String[categories2.length];
-		smallCategories2=new String[categories2.length];
-		
-		for(int i=0; i<categories2.length; i++){
-			largeCategories2[i]=categories2[i].substring(0,categories2[i].indexOf(" "));
-			smallCategories2[i]=categories2[i].substring(categories2[i].indexOf(" ")).trim();
-			
-			System.out.println(largeCategories2[i]);
-			System.out.println(smallCategories2[i]);
-		}
-
+		String[] locations;
+		locations=m.getMemberLocation().split(",");		
 
 %>
 <%if(m.getMemberGrade().equals("수강생")){ %>
 
 <section id="updateSection">
-        <div id="mypage-container" class="flex">
-            <div class="inlineblock overflow" id="mypage-menu">          
-                    <h3>MY PAGE</h3>
-                    <div class="" id="my-menu" >
-                        <ul id="menu-list">
-                            <li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
-                            <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
-                            <nav class="nav-sub">
-                                <li >· 마이클래스</li>
-                                <ul id="sub-menu">
-                                    <li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/member/myclassHeart.do?email=<%=m.getEmail()%>">- 찜한 클래스</a></li>
-                                    <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
-                                </ul>
-                            </nav>
-                            <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
+	<div id="mypage-container" class="flex">
+		<div class="inlineblock overflow" id="mypage-menu">          
+			<h3>MY PAGE</h3>
+			<div class="" id="my-menu" >
+				<ul id="menu-list">
+					<li><a href="<%=request.getContextPath()%>/member/mypage.do?email=<%=m.getEmail()%>">· 나의정보</a></li>
+                    <li><a href="<%=request.getContextPath()%>/member/updateMember.do?email=<%=m.getEmail()%>">· 정보수정</a></li>
+                    <nav class="nav-sub">
+						<li>· 마이클래스</li>
+							<ul id="sub-menu">
+                            	<li><a href="<%=request.getContextPath()%>/member/myclassIngOff.do?email=<%=m.getEmail()%>">- 수강중인 클래스</a></li>
+                                <li><a href="<%=request.getContextPath()%>/member/myclassEnd.do?email=<%=m.getEmail()%>">- 수강완료 클래스</a></li>
+                            </ul>
+                    </nav>
+                    <li><a href="<%=request.getContextPath()%>/member/dropMember.do?email=<%=m.getEmail()%>">· 회원탈퇴</a></li>
                         </ul>                  
+<<<<<<< HEAD
                     </div>
             </div>   
             <div id="mypage-content" class="inlineblock">
@@ -76,12 +46,36 @@
 	            <form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMemberEnd.do" method="post">
                     <div class="menu-margin margin-left" id="tutor-img" >
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name">사진</span></div>
-                        <div class="info-content inlineblock" id="newImg"><img src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>"></div>
+                        <div class="info-content inlineblock" id="newImg">
+                        	<img id="ttImg" src="<%=request.getContextPath() %>/upload/<%=m.getProfileImg()%>">
+                        	<input type="file" name="upFile" accept="upload/*" style="display:none">
+                        </div>
                         <div class="inlineblock" style="margin-left: 10px;"  id="uploadBtn-user">
                             <input type="button" value="기본이미지" onclick="deleteImg();">
-                            <input type="file" name="profileImg" id="" value="파일 선택" class="" width="">
                         </div>
                     </div>
+                    <script>
+                    	$("#ttImg").click(e=>{
+                    		$("input[name=upFile]").click();
+                    	})
+                    	
+                    	$("input[name=upFile]").change(e=>{
+                    		if(e.target.files[0].type.includes("image")){
+                    			let reader=new FileReader();
+                    			reader.onload=(e)=>{
+                    				const img=$("<img>").attr({
+                    					src:e.target.result,
+                    					width:"200px",
+                    					height:"200px"
+                    				});
+                    				$("#ttImg").attr("src",e.target.result);
+                    					
+                    			}
+                    			reader.readAsDataURL(e.target.files[0]);
+                    		}
+                    	})
+                    	
+                    </script>
                     <div class="menu-margin margin-left" id="tutor-email" >
                             <div class="info-title inlineblock">
                                 <span class="margin-right menu-list-name">이메일</span>
@@ -94,8 +88,12 @@
                             </div>
                     </div>
                     <div class="menu-margin margin-left" id="tutor-name">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name">이름</span></div>
-                            <div class="info-content inlineblock"><input type="text"  readonly name="" value="<%=m.getMemberName() %>" class="placeholder-center" size="25"></div>
+						<div class="info-title inlineblock">
+                        	<span class="margin-right menu-list-name">이름</span>
+                        </div>
+                        <div class="info-content inlineblock">
+                        	<input type="text"  readonly name="" value="<%=m.getMemberName() %>" class="placeholder-center" size="25">
+                        </div>
                     </div>					                   
                     <div class="menu-margin margin-left" id="tutor-beforePw">
                         <div class="info-title inlineblock">
@@ -127,31 +125,8 @@
                             <input type="password" id="newPwCheck" name="newPwCheck" class="placeholder-center " size="25">
                         </div>                       
                         <span id="pwCheckMsg"></span>
-                        <script>
-                        	$("#newPw").blur(e=>{
-                        		const str=/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{8,}$/;
-                        		let password=$("#newPw").val();
-                        		
-                        		if(!str.test(password)){                       				                       		
-                        			alert("영문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.");
-                        			$("#newPw").val('');
-                        			/* $("#newPw").focus(); */
-                        			
-                        		}else{
-                        			
-                        		}
-                        	});
-                        	$("#newPwCheck").blur(e=>{
-                        		if($("#newPw").val()==$("#newPwCheck").val()){
-                        			$("#pwCheckMsg").html("새로운 비밀번호 일치").css('color','green');
-                        		
-                        		}else{
-                        			$("#pwCheckMsg").html("새로운 비밀번호 불일치").css('color','red');
-                        		
-                        		}
-                        	});
-                        </script>                                               
-                    </div> 
+                    </div>
+                                          
                     <div class="menu-margin margin-left" id="tutor-nick">
                             <div class="info-title inlineblock">
                                 <span class="margin-right menu-list-name">닉네임</span>
@@ -164,7 +139,9 @@
                             </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-phone">
-                            <div class="info-title inlineblock"><span class="margin-right menu-list-name">전화번호</span></div>
+                            <div class="info-title inlineblock">
+                            	<span class="margin-right menu-list-name">전화번호</span>
+                            </div>
                             <div class="info-content inlineblock">
                                 <input type="text" id="newPhone" name="newPhone" value="<%=m.getPhone() %>" class="placeholder-center" size="25">
                             </div>
@@ -174,43 +151,27 @@
                             <span class="margin-right menu-list-name">관심 분야</span>
                         </div>
                         <div class="info-content inlineblock">                           
-                             <%if(categories.length==3){%>
-	                  <%for(int i=0; i<3; i++) {%>
-	                  		<div>
-		                       <input type="text" readonly name="newLCategory"+<%=i%>" value="<%=largeCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                       <input type="text" readonly name="newSCategory"+<%=i%>" value="<%=smallCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                 	<%if(i==2){ %>	
-		                  		<button style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>    
-		                  		<%} %>              
-	                 		</div>
-	                  <%}%>	
-                  <%}else if(categories.length==2){%>
-                  		<%for(int i=0; i<2; i++){ %>
-                   			<div>
-		                        <input type="text" readonly name="newLCategory"+<%=i%>" value="<%=largeCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                        <input type="text" readonly name="newSCategory"+<%=i%>" value="<%=smallCategories[i]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 		</div>	                 		
-                       	<%} %>
-	                 		<div>
-		                        <input type="text" readonly name="newLCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                        <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 			<button id="updateCategory">관심분야 수정하기</button>
-	                 		</div>
-                  <%}else if(categories.length==1){ %>
-                  		<div>
-	                       <input type="text" readonly name="newLCategory0" value="<%=largeCategories[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSCategory0" value="<%=smallCategories[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 	</div>
-	                 	<div>
-	                       <input type="text" readonly name="newSCategory1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSCategory1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 	</div>
-	                 	<div>
-	                       <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSCategory2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 	   <button id="updateCategory">관심분야 수정하기</button>
-	                 	</div>
-                  <%} %>                                                                                                                     
+                        <%if(categories.length>0){
+                          	int count=0;%>
+	                    	<%for(int i=0; i<categories.length; i++) {
+	                  			String[] categoryContent=categories[i].split(" ");
+	                  			count=i;%>
+	                  			<div>
+		                       		<input type="text" readonly name="newLCategory<%=i%>" value="<%=categoryContent[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                       		<input type="text" readonly name="newSCategory<%=i%>" value="<%=categoryContent[1]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                  		<%if(i==2) %><button style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>    
+	                 			</div>
+	                  		<%}
+	                  	if(count<2){
+	                  		for(;count<2;count++){%>
+	                  			<div>
+			                       <input type="text" readonly name="newLCategory<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSCategory<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                  	<%if(count==1) %><button style="position:inlineblock;" id="updateCategory">관심분야 수정하기</button>	   
+		                 		</div>
+	                  		<%	  }
+	                  		}
+	                  	}%>	
                         </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-area">
@@ -218,46 +179,29 @@
                             <span class="margin-right menu-list-name">관심 지역</span>
                         </div>
                         <div class="info-content inlineblock">
-                            <%if(categories2.length==3){%>
-		                  <%for(int i=0; i<3; i++) {%>
+                        <%if(locations.length>0){
+							int count=0; %>                       	
+		                    <%for(int i=0; i<locations.length; i++) {
+		                    	String[] locationContent=locations[i].split(" ");
+		                    	count=i;%>
 		                  		<div>
-			                       <input type="text" readonly name="newLLocation+<%=i%>" value="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                       <input type="text" readonly name="newSLocation+<%=i%>" value="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newLLocation<%=i%>" value="<%=locationContent[0]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSLocation<%=i%>" value="<%=locationContent[1]%>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                 		<%if(i==2) %><button id="updateLocation">관심지역 수정하기</button>
 		                 		</div>
-					            <button id="updateLocation">관심지역 수정하기</button>
-		                  <%}%>
-	                  
-                  	  <%}else if(categories2.length==2){%>
-                  		  <%for(int i=0; i<2; i++){ %>
-	                   			<div>
-			                       <input type="text" readonly name="newLLocation+<%=i%>" value="<%=largeCategories2[i]!=null?largeCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-			                       <input type="text" readonly name="newSLocation+<%=i%>" value="<%=smallCategories2[i]!=null?smallCategories2[i]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 		</div>	                 		
-                       	<%} %>
-	                 		<div>
-		                       <input type="text" readonly name="newLLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                       <input type="text" readonly name="newSLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 		<button id="updateLocation">관심지역 수정하기</button>
-	                 		</div>
-	                 	
-	                 		
-                  	<%}else if(categories2.length==1){ %>
-                  		<div>
-	                       <input type="text" readonly name="newLLocation0" value="<%=largeCategories2[0]!=null?largeCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSLocation0" value="<%=smallCategories2[0]!=null?smallCategories2[0]:"" %>" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 	</div>
-	                 	<div>
-	                       <input type="text" readonly name="newLLocation1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSLocation1" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                 	</div>
-	                 	<div>
-	                       <input type="text" readonly name="newLLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-	                       <input type="text" readonly name="newSLocation2" placeholder="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
-		                 	<button id="updateLocation">관심지역 수정하기</button>
-	                 	</div>
-                  	<%} %>                             
+		                <%}
+		                if(count<2){
+		                	for(;count<2;count++){%>
+		                 		<div>
+			                       <input type="text" readonly name="newLLocation<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+			                       <input type="text" readonly name="newSLocation<%=count+1%>" value="미선택" class="placeholder-center mypage-category" size="20" style="margin-right:10px; margin-bottom:20px;">
+		                 		<%if(count==1) %><button style="position:inlineblock;" id="updateLocation">관심지역 수정하기</button>	   
+		                 		</div>
+		                  <%	  }
+		                    }
+                        }%>
                         </div>                        
-                </div>  
+                	</div>  
                     <div class="menu-margin margin-left" id="tutor-gender">
                         <div class="info-title inlineblock"><span class="margin-right menu-list-name ">성별</span></div>
                         <div class="info-content inlineblock">
@@ -271,52 +215,65 @@
                         </div>
                     </div> 
                     <div class="menu-margin margin-left" id="tutor-marketing" >
-                          <div class="info-title inlineblock">
-                          		<span class="margin-right menu-list-name">마케팅 정보수신</span>
-                          </div>
-                          <div class="info-content inlineblock"></div>
-                          <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
-                          <%if(m.getMarketing()=='Y'){ %>
-                              <input type="checkbox" name="toggle1" id="toggle1" value="on" checked>                              
-                              <label for="toggle1"></label>
-                          </div>
-                          <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
-                          <%}else{ %>
-                          	  <input type="checkbox" name="toggle1" id="toggle1" value="off" >
-                              <label for="toggle1"></label>
-	                       </div>
-	                       <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
-                          <%} %>
-                          <input type="hidden" id="marketing" name="marketing" value="<%=m.getMarketing() %>">
-                    </div>
-                     <script>
-                     	$("input[type=checkbox]").change(e=>{                    		
-                     		let marketing=$(e.target);
-                     		if(marketing.is(':checked')){
-                     			/* console.log("확인용Y") */
-                     			$("#marketing").val('Y');
-                     		}else{
-                     			/* console.log("확인용N") */
-                     			$("#marketing").val('N');
-                     		}                    		
-                     	})
-                     	
-                     
-                     </script>
-                </div>
-                
-                <div class="line"></div>
-                <div id="save-info">
-                    <button type="submit" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
-                </div>
-                </form>               
-            </div>
-        </div>
-    </section>
-    <script>
-    	
-    
-    </script>
+						<div class="info-title inlineblock">
+							<span class="margin-right menu-list-name">마케팅 정보수신</span>
+                        </div>
+                        <div class="info-content inlineblock"></div>
+                        <div class="toggle" id="marketingBtn" style="vertical-align: middle;">
+                        <%if(m.getMarketing()=='Y'){ %>
+                            <input type="checkbox" name="toggle1" id="toggle1" value="on" checked>                              
+                            <label for="toggle1"></label>
+                        </div>
+                        <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                        <%}else{ %>
+                          	<input type="checkbox" name="toggle1" id="toggle1" value="off" >
+                            <label for="toggle1"></label>
+                     </div>
+                     <div id="onOff" style="margin: 0px; width: 20px; display: inline-block; margin-left: 10px;"></div>
+                         <%} %>
+                     <input type="hidden" id="marketing" name="marketing" value="<%=m.getMarketing() %>">
+				</div>
+			</div>                    
+			<div class="line"></div>
+            <div id="save-info">
+				<button type="submit" id="saveBtn" style="margin-bottom:30px;">저장하기</button>
+			</div>
+		</form>               
+	</div>
+</section>
+<!-- 비밀번호 스크립트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->                   
+<script>
+	$("#newPw").blur(e=>{
+		const str=/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[a-z\d@$!%*#?&]{8,}$/;
+		let password=$("#newPw").val();
+		
+		if(!str.test(password)){                       				                       		
+			alert("영문자, 숫자, 특수기호를 포함하여 8글자 이상 입력하세요.");
+			$("#newPw").val('');
+		}
+	});
+	$("#newPwCheck").blur(e=>{
+		if($("#newPw").val()==$("#newPwCheck").val()){
+			$("#pwCheckMsg").html("새로운 비밀번호 일치").css('color','green');
+		
+		}else{
+			$("#pwCheckMsg").html("새로운 비밀번호 불일치").css('color','red');
+		}
+	});
+</script> 
+<!-- 비밀번호 스크립트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->      
+<script>
+//정보수정
+//////마케팅 값 가벼오는 방법!!!!!!!!!!!!!!!!!!!!!!!!
+	$("input[type=checkbox]").change(e=>{                    		
+		let marketing=$(e.target);
+		if(marketing.is(':checked')){
+			$("#marketing").val('Y');
+		}else{
+			$("#marketing").val('N');
+		}                    		
+	})
+</script>
 <!-- 튜터	정보수정페이지 -->
 <%}else{ %>
 <section id="sectionMargin">
@@ -345,7 +302,7 @@
             </div>
             <div class="line"></div>
             <div style="margin-left: 80px;">
-            	<form name="userUpdateFrm" id="userUpdateFrm" action="<%=request.getContextPath()%>/member/updateMemberEnd.do" method="post"></form>	
+            	<form name="userUpdateFrm" id="userUpdateFrm" action="" method="post"></form>	
             	<div class="menu-margin margin-left" id="tutor-img" >
                 	<div class="info-title inlineblock">
                 		<span class="margin-right menu-list-name">사진</span>
@@ -481,7 +438,7 @@
                 </div>
                 <div class="line"></div>
                 <div id="save-info">
-                    <button onclick="updateMember();" id="saveBtn">저장하기</button>
+                    <button id="saveBtn">저장하기</button>
                 </div>    
 			</div>
 		</div>
