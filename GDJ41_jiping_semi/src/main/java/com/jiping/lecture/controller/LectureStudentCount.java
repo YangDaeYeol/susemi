@@ -1,7 +1,6 @@
-package com.jiping.admin.controller;
+package com.jiping.lecture.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.jiping.lecture.model.sevice.LectureService;
 
 /**
- * Servlet implementation class ClassApprServlet
+ * Servlet implementation class LectureStudentCount
  */
-@WebServlet("/admin/classAppr")
-public class ClassApprServlet extends HttpServlet {
+@WebServlet("/checkStudentCount")
+public class LectureStudentCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassApprServlet() {
+    public LectureStudentCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +32,11 @@ public class ClassApprServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int lectureNo = Integer.parseInt(request.getParameter("lectureNo"));
-		System.out.println("강의 번호 : " + lectureNo);
-		
-		int result= new LectureService().apprLecture(lectureNo);
-		if(result!=0) {
-			System.out.println("성공");
-		}else {
-			System.out.println("실패");
-		}
-		 
-		request.getRequestDispatcher("/views/admin/adminBasic.jsp").forward(request, response);
-		
+		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
+		int result = new LectureService().checkStudentCount(scheduleNo);
+		JSONObject jo = new JSONObject();
+		jo.put("count", result);
+		response.getWriter().print(jo);
 	}
 
 	/**

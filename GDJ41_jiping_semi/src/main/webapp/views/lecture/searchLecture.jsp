@@ -42,6 +42,9 @@
 	#title {
 		height: 60px;
 	}
+	#pageBar {
+		margin: 0 auto;
+	}
 </style>
 <section>
 	<div id="searchCon">
@@ -128,8 +131,13 @@
 				<% } %>
 			</div>
 			<% } %>
+			<div id="pageBar">
+			<%= request.getAttribute("pageBar") %>
+			</div>
 		</div>
-		<%= request.getAttribute("pageBar") %>
 	</div>
+	<script>
+		$("#pageBar>span").css({"float":"none"});
+	</script>
 </section>
 <%@ include file="/views/common/footer.jsp" %>

@@ -36,6 +36,8 @@ public class LecturePaymentServlet extends HttpServlet {
 		String lecturePrice = request.getParameter("lecturePrice");
 		String lectureDate = request.getParameter("lectureDate");
 		String lectureAddr = request.getParameter("lectureAddr");
+		String lectureNo= request.getParameter("lectureNo");
+		String scheduleNo= request.getParameter("scheduleNo");
 		
 		System.out.println(thumbnail);
 		System.out.println(lectureType);
@@ -45,7 +47,8 @@ public class LecturePaymentServlet extends HttpServlet {
 		System.out.println(lecturePrice);
 		System.out.println(lectureDate);
 		System.out.println(lectureAddr);
-		
+		System.out.println(lectureNo);
+		System.out.println(scheduleNo);		
 		
 		request.setAttribute("thumbnail", thumbnail);
 		request.setAttribute("lectureType", lectureType);
@@ -55,6 +58,8 @@ public class LecturePaymentServlet extends HttpServlet {
 		request.setAttribute("lecturePrice", lecturePrice);
 		request.setAttribute("lectureDate", lectureDate);
 		request.setAttribute("lectureAddr", lectureAddr);
+		request.setAttribute("lectureNo", lectureNo);
+		request.setAttribute("scheduleNo", scheduleNo);
 		
 		request.getRequestDispatcher("/views/lecture/payment.jsp").forward(request, response);
 	

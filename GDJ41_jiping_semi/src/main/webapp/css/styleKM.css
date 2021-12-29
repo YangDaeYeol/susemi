@@ -122,11 +122,13 @@ main.form-signin input::placeholder{
 }
 
 .form-select{
-	width:45%;
+	width:40%;
 	display: inline;
 	margin-right: 5px;
 	color: #c4c4c4;
+	text-align: left;
 }
+
 .form-select option{
 	color: #c4c4c4;
 }

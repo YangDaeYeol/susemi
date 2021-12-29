@@ -12,6 +12,9 @@
 	String lecturePrice = (String)request.getParameter("lecturePrice");
 	String lectureDate = (String)request.getParameter("lectureDate");
 	String lectureAddr = (String)request.getParameter("lectureAddr");
+	int lectureNo = Integer.parseInt(request.getParameter("lectureNo"));
+	int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));	
+	
 %>
 <section style="margin: 100px auto; text-align: center">
 	<div id="firstMenu">
@@ -47,78 +50,45 @@
 	</main>
 
 	<div id="paymentType" style="padding: 100px;">
-		<button type="button" id="kakaoPay" class="btn btn_mint btn-lg" style="margin-right: 20px;">카카오페이</button>
-    	<button type="button" id="cardPay" class="btn btn_mint btn-lg">카드 결제</button>
+    	<button type="button" id="cardPay" class="btn btn_mint btn-lg">결제 하기</button>
   	</div>
 </section>
 <script>
-	//카카오페이
-	$("#kakaoPay").click(e=>{
-	        
-	      //가맹점 식별코드
-	      IMP.init('imp77938975');
-	      IMP.request_pay({
-	        pg : 'kakaopay',
-	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호 (임의의 값 설정하기)
-	    name : '<%=lectureTitle %>',
-	    <%-- amount : <%=lecturePrice %>, --%>
-	    amount : 100,	    
-	    buyer_email : '<%=loginMember.getEmail() %>',
-	    buyer_name : '<%=loginMember.getMemberName() %>',
-	    buyer_tel : '<%=loginMember.getPhone() %>'
-/* 	    buyer_addr : '',
-	    buyer_postcode : '' */
-	      }, function(rsp) {
-	          console.log(rsp);
-	        if ( rsp.success ) {
-	            var msg = '결제가 완료되었습니다.';
-	            msg += '고유ID : ' + rsp.imp_uid;
-	            msg += '상점 거래ID : ' + rsp.merchant_uid;
-	            msg += '결제 금액 : ' + rsp.paid_amount;
-	            msg += '카드 승인번호 : ' + rsp.apply_num;
-	        } else {
-	             var msg = '결제에 실패하였습니다.';
-	             msg += '에러내용 : ' + rsp.error_msg;
-	        }
-	        alert(msg);
-	      });
-	    
-	    });
 	
 	//카드결제
 	$("#cardPay").click(e=>{
-		
-	      //가맹점 식별코드
-	      IMP.init('imp77938975');
-	      IMP.request_pay({
+		let merchantNo = "order_no_"+(Math.floor(Math.random()*1000)+1)+"pay"+(Math.floor(Math.random()*1000)+1);
+      	//가맹점 식별코드
+      	IMP.init('imp77938975');
+     	IMP.request_pay({
 	        pg : 'nice',
-	    pay_method : 'card', //생략 가능
-	    merchant_uid: "order_no_0009", // 상점에서 관리하는 주문 번호 (임의의 값 설정하기)
-	    name : '<%=lectureTitle %>',
-	    <%-- amount : <%=lecturePrice %>, --%>
-	    amount : 100,
-	    buyer_email : '<%=loginMember.getEmail() %>',
-	    buyer_name : '<%=loginMember.getMemberName() %>',
-	    buyer_tel : '<%=loginMember.getPhone() %>'
-/* 	    buyer_tel : '010-0000-0000',
-	    buyer_addr : '',
-	    buyer_postcode : '' */
-	      }, function(rsp) {
-	          console.log(rsp);
-	        if ( rsp.success ) {
-	            var msg = '결제가 완료되었습니다.';
-	            // msg += '고유ID : ' + rsp.imp_uid;
-	            // msg += '상점 거래ID : ' + rsp.merchant_uid;
-	            // msg += '결제 금액 : ' + rsp.paid_amount;
-	            // msg += '카드 승인번호 : ' + rsp.apply_num;
-	        } else {
-	             var msg = '결제에 실패하였습니다.';
-	             msg += '에러내용 : ' + rsp.error_msg;
-	        }
+		    pay_method : 'card', //생략 가능
+		    merchant_uid: merchantNo, // 상점에서 관리하는 주문 번호 (임의의 값 설정하기)
+		    name : '<%=lectureTitle %>',
+		    amount : <%=lecturePrice %>,
+		    /* amount : 100, */
+		    buyer_email : '<%=loginMember.getEmail() %>',
+		    buyer_name : '<%=loginMember.getMemberName() %>',
+		    buyer_tel : '<%=loginMember.getPhone() %>'
+	/* 	    buyer_addr : '',
+		    buyer_postcode : '' */
+		}, function(rsp) {
+        	console.log("rsp : "+rsp);
+        	if ( rsp.success ) {
+		        var msg = '결제가 완료되었습니다.';
+		        // msg += '고유ID : ' + rsp.imp_uid;
+		        // msg += '상점 거래ID : ' + rsp.merchant_uid;
+		        // msg += '결제 금액 : ' + rsp.paid_amount;
+		        // msg += '카드 승인번호 : ' + rsp.apply_num;
+		        location.href="<%=request.getContextPath() %>/lecture/paymentEnd.do?lectureNo="+<%=lectureNo%>+"&email=<%=loginMember.getEmail() %>&paymentType=card&paymentPrice="+<%=lecturePrice %>+"&merchantNo="+merchantNo+"&scheduleNo="+<%=scheduleNo%>;	        
+			} else {
+            	var msg = '결제에 실패하였습니다.';
+            	msg += '에러내용 : ' + rsp.error_msg;
+            	//msg += '상점 거래ID : ' + rsp.merchant_uid;//값 확인용
+			}
 	        alert(msg);
-	      });
+		});
 	    
-	    });
+    });
 </script>
 <%@ include file="/views/common/footer.jsp" %>

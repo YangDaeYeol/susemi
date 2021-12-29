@@ -148,6 +148,7 @@
         border-radius: 10px;
         width: 100%;
         margin-bottom: 10px;
+        height: 34px;
     }
 
     #facebook {
@@ -155,6 +156,7 @@
         border-radius: 10px;
         width: 100%;
         margin-bottom: 10px;
+        height: 34px;
     }
 
     #blog {
@@ -162,12 +164,17 @@
         border-radius: 10px;
         width: 100%;
         margin-bottom: 40px;
+        height: 34px;
+    }
+    .tutorInputClass{
+    	margin-bottom: 20px;
     }
 
     .snsInputBox {
         border: 0px;
         border-radius: 10px;
         width: 90%;
+        margin-top:5px;
     }
 
     .socialImg {
@@ -192,6 +199,7 @@
         border-radius: 10px;
         margin-left: 10px;
         width: 88%;
+        margin-top:4px;
     }
 
     .image-career>#file-career {
@@ -204,6 +212,7 @@
         border-radius: 10px;
         width: 100%;
         margin-bottom: 10px;
+        height: 34px;
     }
 
     #addCareer {
@@ -413,28 +422,28 @@
     #setClassTitle1 {
         border: 0px;
         border-radius: 10px;
-        width: 370px;
+        width: 450px;
         margin-left: 3px;
     }
 
     #setClassTitle2 {
         border: 0px;
         border-radius: 10px;
-        width: 370px;
+        width: 450px;
         margin-left: 3px;
     }
 
     #setClassTitle3 {
         border: 0px;
         border-radius: 10px;
-        width: 370px;
+        width: 450px;
         margin-left: 3px;
     }
 
     #setClassTitle4 {
         border: 0px;
         border-radius: 10px;
-        width: 370px;
+        width: 450px;
         margin-left: 3px;
     }
 
@@ -444,6 +453,7 @@
     #classTitleText {
         border: 0px;
         display: flex;
+        height: 34px;
     }
 
     /* 클래스 제목및 커버 css 끝 */
@@ -596,6 +606,7 @@
         border: 1px solid black;
         border-radius: 10px;
         margin-bottom: 40px;
+        height: 34px;
     }
 
     .pricePerClass1 {
