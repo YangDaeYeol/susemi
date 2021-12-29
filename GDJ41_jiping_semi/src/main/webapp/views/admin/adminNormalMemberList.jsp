@@ -20,8 +20,8 @@
                                 <th scope="col">닉네임</th>
                                 <th scope="col">이메일</th>
                                 <th scope="col">전화번호</th>
+                                <th scope="col">수강생 정보</th>
                                 <th scope="col">수강 중인 클래스</th>
-                                <th scope="col">수강 완료 클래스</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -34,10 +34,10 @@
                                 <td><%=normalMemberList.get(i).getEmail()%></td>
                                 <td><%=normalMemberList.get(i).getPhone()%></td>
                                 <td>
-                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/myclassIngOff.do?email=<%=normalMemberList.get(i).getEmail()%>')">상세보기</button>
+                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/mypage.do?email=<%=normalMemberList.get(i).getEmail()%>')">정보보기</button>
                                 </td>
                                 <td>
-                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/myclassEnd.do?email=<%=normalMemberList.get(i).getEmail()%>')">상세보기</button>
+                                    <button onclick="location.assign('<%=request.getContextPath() %>/member/myclassIngOff.do?email=<%=normalMemberList.get(i).getEmail()%>')">상세보기</button>
                                 </td>
                               </tr>
                               <%} %>
