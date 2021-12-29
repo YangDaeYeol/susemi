@@ -383,11 +383,26 @@ boolean flag = false;
                              const time = $("#apply-time").html(data["startDate"] + "-" + data["endDate"]);
                              const address = $("#apply-adr").html(data["lectureAddress"]);
                              const cost = $("#apply-cost").html(data["lecturePrice"]);
+                             $("#applycount").find("span").html(data["lecturePersons"]);
                              $("#class_submit").show();
+                             console.log(data);
+                             studentCount(data["scheduleNo"]);
                      <%}%>
                  }
                  })
              });
+             
+             function studentCount(sendData) {
+            	 $.ajax({
+            		url : "<%= request.getContextPath() %>/checkStudentCount",
+            		data : {"scheduleNo":sendData},
+            		dataType : "json",
+            		success : data => {
+            			let text = $("#applycount").find("span").text();
+            			$("#applycount").find("span").html(data["count"] + "/" + text);
+            		}
+            	 });
+             }
 
              $("#totutor").keyup(e => {
                  let length = $(e.target).val().length;

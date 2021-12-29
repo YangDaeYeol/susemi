@@ -903,5 +903,22 @@ public class LectureDao {
 		return list;
 	}
 	
+	public int checkStudentCount(Connection conn, int scheduleNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("checkStudentCount"));
+			pstmt.setInt(1, scheduleNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result = rs.getInt("count");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 }
 		

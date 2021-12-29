@@ -1,7 +1,6 @@
 package com.jiping.lecture.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,21 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
 import com.jiping.lecture.model.sevice.LectureService;
-import com.jiping.lecture.model.vo.LectureSchedule;
 
 /**
- * Servlet implementation class LectureScheduleServlet
+ * Servlet implementation class LectureStudentCount
  */
-@WebServlet("/lecture/scheduleInfo.do")
-public class LectureScheduleAjaxServlet extends HttpServlet {
+@WebServlet("/checkStudentCount")
+public class LectureStudentCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LectureScheduleAjaxServlet() {
+    public LectureStudentCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +31,12 @@ public class LectureScheduleAjaxServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int scheduleNo=Integer.parseInt(request.getParameter("scheduleNo"));
-		LectureSchedule sc= new LectureService().scheduleSelectList(scheduleNo);
-		
-		new Gson().toJson(sc,response.getWriter());
-		
+		// TODO Auto-generated method stub
+		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
+		int result = new LectureService().checkStudentCount(scheduleNo);
+		JSONObject jo = new JSONObject();
+		jo.put("count", result);
+		response.getWriter().print(jo);
 	}
 
 	/**

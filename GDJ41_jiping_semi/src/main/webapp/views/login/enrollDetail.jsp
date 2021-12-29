@@ -59,6 +59,7 @@
 						<option value="제품디자인" class="sc4">제품디자인</option>
 						<option value="영상편집/제작" class="sc4">영상편집/제작</option>	
 					</select>
+					<input id="delete_btn" type="button" value="X" style="display:none; border: 0px; background-color: white; color: red"></input>
 				</div>
 				<div class="categoryAddDiv"></div>
 				<% if(m.getMemberGrade().equals("수강생")) { %>
@@ -69,26 +70,26 @@
 				<select>
 					<option value="0" selected="selected">소분류</option>
 					<!-- 취미/공예 -->
-					<option value="picture" class="sc1">사진/미술</option>
-					<option value="drawing" class="sc1">드로잉</option>
-					<option value="cooking" class="sc1">요리/베이킹</option>
-					<option value="music" class="sc1">음악</option>
-					<!-- 액티비티 -->
-					<option value="dance" class="sc2">댄스/무용</option>
-					<option value="act" class="sc2">연기</option>
-					<option value="sports" class="sc2">스포츠/레저</option>
-					<option value="exotic_sports" class="sc2">이색액티비티</option>
-					<!-- 커리어 -->
-					<option value="competency" class="sc3">업무역량</option>
-					<option value="marketing" class="sc3">마케팅</option>
-					<option value="programming" class="sc3">프로그래밍</option>
-					<option value="certificate" class="sc3">자격증/시험</option>
-					<option value="employment" class="sc3">취업/이직/진로</option>
-					<!-- 디자인 -->
-					<option value="architecturalD" class="sc4">건축</option>
-					<option value="graphicD" class="sc4">그래픽디자인</option>
-					<option value="productD" class="sc4">제품디자인</option>
-					<option value="videoD" class="sc4">영상편집/제작</option>
+					<option value="사진/미술" class="sc1">사진/미술</option>
+						<option value="드로잉" class="sc1">드로잉</option>
+						<option value="요리/베이킹" class="sc1">요리/베이킹</option>
+						<option value="음악" class="sc1">음악</option>
+						<!-- 액티비티 -->
+						<option value="댄스/무용" class="sc2">댄스/무용</option>
+						<option value="연기" class="sc2">연기</option>
+						<option value="스포츠/레저" class="sc2">스포츠/레저</option>
+						<option value="이색 액티비티" class="sc2">이색액티비티</option>
+						<!-- 커리어 -->
+						<option value="업무역량" class="sc3">업무역량</option>
+						<option value="마케팅" class="sc3">마케팅</option>
+						<option value="프로그래밍" class="sc3">프로그래밍</option>
+						<option value="자격증/시험" class="sc3">자격증/시험</option>
+						<option value="취업/이직/진로" class="sc3">취업/이직/진로</option>
+						<!-- 디자인 -->
+						<option value="건축" class="sc4">건축</option>
+						<option value="그래픽디자인" class="sc4">그래픽디자인</option>
+						<option value="제품디자인" class="sc4">제품디자인</option>
+						<option value="영상편집/제작" class="sc4">영상편집/제작</option>	
 				</select>
 			</div>	
 			<!-- 지역 -->
@@ -147,6 +148,12 @@
 			<input type="hidden" id="smallLocation2" name="smallLocation2" value="x">
 			<input type="hidden" id="largeLocation3" name="largeLocation3" value="x">
 			<input type="hidden" id="smallLocation3" name="smallLocation3" value="x">
+			<input type="hidden" id="largeCategory1" name="largeCategory1" value="">
+			<input type="hidden" id="smallCategory1" name="smallCategory1" value="">
+			<input type="hidden" id="largeCategory2" name="largeCategory2" value="">
+			<input type="hidden" id="smallCategory2" name="smallCategory2" value="">
+			<input type="hidden" id="largeCategory3" name="largeCategory3" value="">
+			<input type="hidden" id="smallCategory3" name="smallCategory3" value="">
 			<!-- 마케팅 끝 -->
 			<button class="w-100 btn btn-lg btn_mint mb-3" id="aaa">회원가입</button>
 		</form>
@@ -177,39 +184,43 @@
 		}
 	});
 
-	//관심지역 버튼 누를떄 복사 되는 기능
 	$("#categoryinsert").click(e=>{
-		const div=$($(".categorydiv")[0]).clone(true);
-		//$(div).change()
-		const addDiv=$(e.target).prev();
-		//console.log(div.children()[2].style.display);
-		
-		if(addDiv.children().length<2){
-			addDiv.append(div);
-			div.children()[2].style.display="inline";
-		}else{
-			alert("3개까지만 작성이 가능합니다");
-		}
-	})
-	//카테고리 대분류 소분류 가동 스크립트
-
-	function update_selected(e) {
-		const smallCategory=$("#hiddenOption>select>option").clone();
-		//console.log(smallCategory);
-		//console.log($(e.target));//대분류
-		$(e.target).next().html(smallCategory[0]);
-		smallCategory.each((i,v)=>{
-			v.className.includes(e.target.value)&&$(e.target).next().append(v);
-		});
-	}
-	$(function() {
-		$("#largeCategory").change(update_selected);
-		$("#largeCategory").change();
-	});	
-
-	$("#delete_btn").click(e=>{
-		$(e.target).parent().detach();
-	})
+        const div=$($(".categorydiv")[0]).clone(true);
+        //$(div).change()
+        const addDiv=$(e.target).prev();
+        //console.log(div.children()[2].style.display);
+        if(addDiv.children().length<2){
+           addDiv.append(div);
+           div.children()[2].style.display="inline";
+        }else{   
+           alert("3개까지만 작성이 가능합니다");
+        }
+        addDiv.children()[0].className="categorydiv1";
+        if(addDiv.children()[1]!=null){
+           addDiv.children()[1].className="categorydiv2";
+        }
+     })
+     //카테고리 대분류 소분류 가동 스크립트
+     function update_selected(e) {
+        const smallCategory=$("#hiddenOption>select>option").clone();
+        //console.log(smallCategory);
+        //console.log($(e.target));//대분류
+        $(e.target).next().html(smallCategory[0]);
+        smallCategory.each((i,v)=>{
+           v.className.includes(e.target.value)&&$(e.target).next().append(v);
+        });
+     }
+     $(function() {
+        $("#largeCategory").change(update_selected);
+        $("#largeCategory").change();
+     });   
+     //삭제 버튼 누를시 div 삭제되는 로직
+     $("#delete_btn").click(e=>{
+        $(e.target).parent().parent().children()[0].className="categorydiv1";
+        $(e.target).parent().parent().children()[1].className="categorydiv1";
+        $(e.target).parent().detach();
+        
+     })
 
 	//관심 지역 선택 스크립트
 	let locationNum = 1;

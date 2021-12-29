@@ -328,4 +328,10 @@ public class LectureService {
 		return list;
 	}
 	
+	public int checkStudentCount(int scheduleNo) {
+		Connection conn = getConnection();
+		int result = dao.checkStudentCount(conn, scheduleNo);
+		close(conn);
+		return result;
+	}
 }
