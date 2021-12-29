@@ -246,9 +246,9 @@ public class LectureService {
 		
 	}
 
-	public List<Lecture> apprLectureList() {
+	public List<Lecture> apprLectureList(int cPage, int numPerPage) {
 		Connection conn=getConnection();
-		List<Lecture> apprLectureList= dao.apprLectureList(conn);
+		List<Lecture> apprLectureList= dao.apprLectureList(conn,cPage,numPerPage);
 		close(conn);
 		return apprLectureList;
 	}
@@ -365,6 +365,36 @@ public class LectureService {
 			commit(conn);
 		}
 		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public List<Lecture> lectureAllList(int cPage, int numPerPage) {
+		Connection conn = getConnection();
+		List<Lecture> list = dao.lectureAllList(conn,cPage,numPerPage);
+		close(conn);
+		return list;
+	}
+
+	public int selectLectureAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectLectureAllCount(conn);
+		close(conn);
+		return result;
+	}
+
+	public int dropLecture(int lectureNo) {
+		Connection conn=getConnection();
+		int result=dao.dropLecture(conn, lectureNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectApprLectureAllCount() {
+		Connection conn=getConnection();
+		int result = dao.selectApprLectureAllCount(conn);
 		close(conn);
 		return result;
 	}
