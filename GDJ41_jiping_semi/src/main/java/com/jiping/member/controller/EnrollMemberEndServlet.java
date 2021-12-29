@@ -41,7 +41,13 @@ public class EnrollMemberEndServlet extends HttpServlet {
 				.nickname(request.getParameter("nickName"))
 				.marketing(request.getParameter("marketing").charAt(0))
 				.build();
-		int val = Integer.parseInt(request.getParameter("largeCategory"));
+		System.out.println(request.getParameter("largeCategory1"));
+		System.out.println(request.getParameter("largeCategory2"));
+		System.out.println(request.getParameter("largeCategory3"));
+		System.out.println(request.getParameter("smallCategory1"));
+		System.out.println(request.getParameter("smallCategory2"));
+		System.out.println(request.getParameter("smallCategory3"));
+		int val = Integer.parseInt(request.getParameter("largeCategory1"));
 		String category = "";
 		switch(val) {
 			case 1 : category = "취미/공예"; break;
@@ -49,26 +55,26 @@ public class EnrollMemberEndServlet extends HttpServlet {
 			case 3 : category = "커리어"; break;
 			case 4 : category = "디자인"; break;
 		}
-		category = category + " " + request.getParameter("smallCategory") + ",";
+		category = category + " " + request.getParameter("smallCategory1") + ",";
 			
-		if(request.getParameter("largeCategory1")!=null) {
-			int val2 = Integer.parseInt(request.getParameter("largeCategory1"));
+		if(request.getParameter("largeCategory2")!=null) {
+			int val2 = Integer.parseInt(request.getParameter("largeCategory2"));
 			switch(val2) {
 				case 1 : category = category + "취미/공예"; break;
 				case 2 : category = category + "액티비티"; break;
 				case 3 : category = category + "커리어"; break;
 				case 4 : category = category + "디자인"; break;
 			}
-			category = category + " " + request.getParameter("smallCategory1") + ",";
-			if(request.getParameter("largeCategory2")!=null) {
-			int val3 = Integer.parseInt(request.getParameter("largeCategory2"));
+			category = category + " " + request.getParameter("smallCategory2") + ",";
+			if(request.getParameter("largeCategory3")!=null) {
+			int val3 = Integer.parseInt(request.getParameter("largeCategory3"));
 				switch(val3) {
 					case 1 : category = category + "취미/공예"; break;
 					case 2 : category = category + "액티비티"; break;
 					case 3 : category = category + "커리어"; break;
 					case 4 : category = category + "디자인"; break;
 				}
-				category = category + " " + request.getParameter("smallCategory2") + ",";
+				category = category + " " + request.getParameter("smallCategory3") + ",";
 			}
 		}
 		String location = "";

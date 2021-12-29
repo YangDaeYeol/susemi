@@ -55,9 +55,9 @@ public class SearchResultServlet extends HttpServlet {
 		String pageBar = "";
 		if(totalData>12) {
 			if(pageNo==1) {
-				pageBar = "<span>[이전]</span>";
+				pageBar = "<span>&laquo;</span>";
 			}else {
-				pageBar = "<a href='"+ request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + (pageNo-1) + "'>[이전]</a>";	
+				pageBar = "<a href='"+ request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + (pageNo-1) + "'>&laquo;</a>";	
 			}
 			while(!(pageNo>pageEnd||pageNo>totalPage)) {
 				if(cPage==pageNo) {
@@ -68,9 +68,9 @@ public class SearchResultServlet extends HttpServlet {
 				pageNo++;
 			}
 			if(pageNo>totalPage) {
-				pageBar += "<span>[다음]</span>";
+				pageBar += "<span>&raquo;</span>";
 			}else {
-				pageBar += "<a href='" + request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + pageNo + "'>[다음]</a>";
+				pageBar += "<a href='" + request.getContextPath() + "/searchResult?searchKeyword=" + keyword + "&cPage=" + pageNo + "'>&raquo;</a>";
 			}
 		}
 		request.setAttribute("list", list);

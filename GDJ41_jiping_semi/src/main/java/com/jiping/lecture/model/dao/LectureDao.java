@@ -363,8 +363,11 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureComment lc= LectureComment.builder()
 						.commentNo(rs.getInt("comment_No")).lectureNo(rs.getInt("lecture_no")).writer(rs.getString("writer"))
-						.starRate(rs.getString("star_rate")).commentContent(rs.getString("comment_content")).enrollDate(rs.getDate("comment_enroll_date"))
-						.commentLevel(rs.getInt("comment_level")).profileImg(rs.getString("profile_img")).build();
+						.starRate(rs.getString("star_rate"))
+						.commentContent(rs.getString("comment_content"))
+						.enrollDate(rs.getDate("comment_enroll_date"))
+						.commentLevel(rs.getInt("comment_level"))
+						.profileImg(rs.getString("profile_img")).build();
 				list.add(lc);
 			}
 		}catch(SQLException e) {
@@ -418,7 +421,7 @@ public class LectureDao {
 			return result;
 			
 		}
-	public int enrollCertificateInformation (Connection conn, Certificate c, Member m) {
+	public int enrollCertificateInformation (Connection conn, String certificateText, String certificateImage, Member m) {
 			 
 			PreparedStatement pstmt=null;
 			int result = 0;
@@ -426,8 +429,8 @@ public class LectureDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, m.getNickname());
-				pstmt.setString(2, c.getCertificateText());
-				pstmt.setString(3, c.getCertificateImg());
+				pstmt.setString(2, certificateText);
+				pstmt.setString(3, certificateImage);
 				result=pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -918,7 +921,42 @@ public class LectureDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int checkStudentCount(Connection conn, int scheduleNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("checkStudentCount"));
+			pstmt.setInt(1, scheduleNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) result = rs.getInt("count");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int countPayMember(Connection conn, int num) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql=prop.getProperty("countPayMember");
+		try {
 			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		return result;

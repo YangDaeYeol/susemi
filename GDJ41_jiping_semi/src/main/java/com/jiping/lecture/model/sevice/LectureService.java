@@ -140,6 +140,10 @@ public class LectureService {
 
 //	-----------------------------------------------------------
 	
+	/**
+	 * @param lecture
+	 * @return
+	 */
 	public int enrollLecture(Map lecture) {
 		Connection conn = getConnection();
 		Member m = (Member)lecture.get("member");
@@ -148,8 +152,19 @@ public class LectureService {
 			Tutor t = (Tutor)lecture.get("tutor");
 			int result2 = dao.enrollTutorInformation(conn, t, m);
 			if (result2 > 0) {
-				Certificate c = (Certificate)lecture.get("certificate");
-				int result3 = dao.enrollCertificateInformation(conn, c, m);
+				
+				List<String> certificateText = (List<String>)lecture.get("certificateText");
+				List<String> certificateImage = (List<String>)lecture.get("certificateImage");
+				int result3 = 0;
+				for (int i = 0; i < certificateText.size(); i++) {
+					if (certificateText.get(i) == null || certificateText.get(i).equals("")) {
+						i++;
+					} else {
+						result3 = dao.enrollCertificateInformation(conn, certificateText.get(i), certificateImage.get(i), m);
+					}
+					
+				}
+				
 				if (result3 > 0) {
 					Lecture l = (Lecture)lecture.get("lecture");
 					int result4 = dao.enrollLectureInoformation(conn, l, m);
@@ -332,6 +347,23 @@ public class LectureService {
 		Connection conn=getConnection();
 		int result= dao.paymentInfoEnroll(conn, pay);
 		if(result>0) commit(conn);
+		close(conn);
+		return result;
+	}
+
+	public int checkStudentCount(int scheduleNo) {
+		Connection conn = getConnection();
+		int result = dao.checkStudentCount(conn, scheduleNo);
+		close(conn);
+		return result;
+	}
+	
+	public int countPayMember(int num) {
+		Connection conn=getConnection();
+		int result= dao.countPayMember(conn,num);
+		if(result>0) { 
+			commit(conn);
+		}
 		else rollback(conn);
 		close(conn);
 		return result;
